@@ -397,6 +397,7 @@ Date: 31/05/2026
 | **Rated Power** | 47 W |
 
 _Student-ID card verification inside the same frame with the physical device:_
+![alt text](student_card.JPG)
 
 Physical Device and Student ID Verification
 
