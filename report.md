@@ -397,6 +397,7 @@ Date: 31/05/2026
 | **Rated Power** | 47 W |
 
 _Student-ID card verification inside the same frame with the physical device:_
+![alt text](student_card.JPG)
 
 Physical Device and Student ID Verification
 
@@ -456,11 +457,11 @@ _Below is the complete 18-test-case matrix. TC-01, TC-02, TC-03, TC-04, and TC-1
 
 _As per regulations, all 5 executed test cases are recorded in short videos under 60 seconds with live student voice narration:_
 
-1. **Video 01 (TC-01 - Power On/Off via Body Button):** _(link to be added)_
-2. **Video 02 (TC-02 - Power On/Off via Remote Control):** _(link to be added)_
-3. **Video 03 (TC-03 - 3 Wind Speed Levels via Body Button):** _(link to be added)_
-4. **Video 04 (TC-04 - 3 Wind Speed Levels via Remote Control):** _(link to be added)_
-5. **Video 05 (TC-13 - Remote Control Without Battery):** _(link to be added)_
+1. **Video 01 (TC-01 - Power On/Off via Body Button):**  https://www.youtube.com/shorts/7IhienQUSJ4?si=Ahg_LURlINA9fmtw 
+2. **Video 02 (TC-02 - Power On/Off via Remote Control):** https://www.youtube.com/shorts/RZEpGLqoILg
+3. **Video 03 (TC-03 - 3 Wind Speed Levels via Body Button):** https://www.youtube.com/shorts/eGb5wyEDYsY
+4. **Video 04 (TC-04 - 3 Wind Speed Levels via Remote Control):** https://www.youtube.com/shorts/NLIxcbabZXg
+5. **Video 05 (TC-13 - Remote Control Without Battery):** https://www.youtube.com/shorts/SWz5ojlq6IE 
 
 ---
 
@@ -472,7 +473,8 @@ _As per regulations, all 5 executed test cases are recorded in short videos unde
 - **INCOMPLETE (Required edits):** 66.7%
 
 
-**Conclusion:** The AI tool excelled at foundational framework creation, significantly speeding up the initial drafting of both the mindmap and the 15 functional test cases. However, it consistently exhibited a 'Happy Path' tendency and 'Context Keyword Bias.' Specifically, the AI failed to differentiate between standard access-control vulnerabilities and actual LLM failure modes within the defect report. It also completely overlooked physical-digital concurrency issues during hardware testing, such as rapid interrupts and command collisions. Ultimately, AI should serve strictly as an initial bootstrapper, while rigorous human oversight remains mandatory to validate boundaries and physical environment constraints.
+Conclusion: The AI tool excelled at foundational framework creation, significantly speeding up the initial drafting of both the mindmap and the 15 functional test cases. However, it consistently exhibited a 'Happy Path' tendency and 'Context Keyword Bias.' Specifically, the AI failed to differentiate between standard access-control vulnerabilities and actual LLM failure modes within the defect report. It also completely overlooked physical-digital concurrency issues during hardware testing, such as rapid interrupts and command collisions. Ultimately, AI should serve strictly as an initial bootstrapper, while rigorous human oversight remains mandatory to validate boundaries and physical environment constraints.
+
 ---
 
 ## AI Critique
