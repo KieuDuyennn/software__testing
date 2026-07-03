@@ -1,41 +1,37 @@
-# Domain Test Design Heuristics
+# Domain Test Design Heuristics (Kaner & Bach Domain Testing Method)
 
 Reference for Phase 3 (Domain Test Design). Load only when executing this phase.
 
-## Selecting a Minimal Representative Set
+## The Test-Case Selection Rule
 
-Goal: cover every valid and invalid equivalence class from Phase 2 at least once,
-using as few test cases as possible.
+This is a hard rule from the domain testing method, not a suggestion — apply it
+exactly as stated:
 
-- **One valid test case per valid-class combination under the single-fault
-  assumption**: hold all fields at a valid representative value and vary one field's
-  class at a time. Start by covering all-valid (the "happy path"), then create one
-  test case per additional valid class that isn't already exercised.
-- **One test case per invalid class, in isolation**: an invalid-class test case sets
-  exactly one field to its invalid class while every other field holds a valid value.
-  This isolates the cause of failure — if two fields are invalid at once, you can't
-  tell which one the system reacted to.
-- **Do not create a test case for every combination of classes across fields** —
-  that's combinatorial and mostly redundant under the single-fault assumption. Only
-  combine multiple classes into one test case when:
-  - The FR explicitly defines an interaction/dependency between fields (carried over
-    from Phase 2's dependency notes), or
-  - Two classes are trivially compatible and combining them doesn't reduce fault
-    isolation (e.g. pairing an already-covered valid class on field A with the valid
-    class under test on field B — this is normal, not an exception).
+- **For VALID equivalence classes**: combine as many valid classes as possible into
+  as few test cases as possible, until every valid class has been covered at least
+  once. This relies on the multi-fault assumption — combining valid inputs together
+  in one test case is safe because the system is expected to handle each valid input
+  correctly and independently, so a single combined test case can validate multiple
+  valid classes at once.
+- **For INVALID equivalence classes**: each test case must cover exactly ONE invalid
+  class at a time — never combine two invalid conditions into a single test case.
+  This is single-fault isolation: if the test fails, you must be able to tell which
+  invalid condition caused the failure. If two invalid conditions were combined and
+  the test fails, you cannot attribute the failure to either one with confidence.
+  Continue until every invalid class has its own dedicated test case.
 
-## Prioritizing by Risk (when time is limited)
+## State the Distinction Explicitly in the Artifact
 
-If the FR or user indicates a time/resource constraint, prioritize in this order:
-1. Happy path (all-valid) test case(s) — proves the core feature works at all.
-2. Invalid classes on mandatory fields — most likely to be exercised by real users
-   and most likely to cause defects (e.g. missing required data).
-3. Invalid classes on optional/edge fields.
-4. Valid classes beyond the happy path (alternate valid inputs that don't change the
-   outcome logic).
+Every test case in the output artifact must be labeled as one of:
 
-Mark priority as High/Medium/Low in the test case table only if the user has asked
-for prioritization; otherwise omit the column rather than fabricating a priority.
+- **"Combined valid coverage"** — a test case that bundles multiple valid classes
+  together (per the valid-class rule above).
+- **"Isolated invalid probe"** — a test case that exercises exactly one invalid
+  class while every other input holds a valid value (per the invalid-class rule
+  above).
+
+Do not leave this unlabeled — a reader must be able to tell at a glance which rule
+produced each test case.
 
 ## Writing Preconditions, Steps, and Expected Results
 
@@ -55,5 +51,6 @@ for prioritization; otherwise omit the column rather than fabricating a priority
 ## Traceability
 
 Every test case (`TC-xx`) must reference the equivalence class(es) it covers
-(`EC-xx`) and, transitively, the atomic requirement (`REQ-xx`). Include an
-"Equivalence Class(es) Covered" column in the test case table.
+(`EC-xx`) and, transitively, the atomic requirement (`REQ-xx`). Include both an
+"Equivalence Class(es) Covered" column and a "Coverage Type" column
+(Combined valid coverage / Isolated invalid probe) in the test case table.
