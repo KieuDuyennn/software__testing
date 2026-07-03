@@ -1,0 +1,24 @@
+{
+  "project": "fr06_product_detail_view",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
