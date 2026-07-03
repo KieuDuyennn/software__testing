@@ -1,59 +1,84 @@
-# Equivalence Partitioning Heuristics
+# Equivalence Partitioning Heuristics (Kaner & Bach Domain Testing Method)
 
 Reference for Phase 2 (Equivalence Partitioning). Load only when executing this phase.
 
-## Splitting a Single Input Field
+## The 4 Views of Equivalence
 
-For every atomic requirement, identify each input field it constrains, then derive
-partitions so that every possible value of the field falls into exactly one partition.
+Two values belong in the same equivalence class only if they are equivalent under at
+least one of these four views. Use all four as reasoning tools whenever deciding
+whether to merge two candidate values into one class or split them apart:
 
-- **Numeric ranges** — if a field must be `min..max`, the classes are:
-  - Valid: `min..max`
-  - Invalid: `< min` (below range)
-  - Invalid: `> max` (above range)
-  - If the field has a data type constraint (e.g. integer only), add an invalid class
-    for non-numeric / wrong-type input.
+1. **Intuitive Similarity** — the two values are too similar to bother testing both
+   (e.g. quantity = 4 and quantity = 5 are intuitively similar interior values of a
+   "1 to 10" range).
+2. **Specified As Equivalent** — the specification or API documentation explicitly
+   states that the two values are handled the same way.
+3. **Equivalent Paths** — the two values would drive the program down the same code
+   path (same branches, same logic executed).
+4. **Risk-Based** — given a specific theory of a possible error, you would expect the
+   same result from both values (i.e. if you're not theorizing a fault that would
+   distinguish them, they're equivalent for testing purposes).
 
-- **String length** — if a field must be `minLen..maxLen` characters:
-  - Valid: length within `minLen..maxLen`
-  - Invalid: length `< minLen`
-  - Invalid: length `> maxLen`
-  - Invalid: empty string (unless empty is explicitly a valid case — don't assume)
+If none of the four views support treating two values as equivalent, do not merge
+them into the same class — split them.
 
-- **Enums / fixed value sets** — e.g. status ∈ {Pending, Shipped, Delivered}:
-  - Valid: one class per accepted member, OR one class for "any accepted member" if
-    the requirement treats them identically. Only split members into separate classes
-    if the requirement says they're handled differently.
-  - Invalid: any value outside the set (one class), plus case-sensitivity variants
-    only if the requirement specifies case sensitivity.
+## The Core Fault-Detection Principle
 
-- **Optional vs mandatory fields**:
-  - Mandatory field: "empty/absent" is an **invalid** class.
-  - Optional field: "empty/absent" is a **valid** class (the default-handling
-    behavior), and you still need valid/invalid classes for when a value IS supplied.
-  - Common mistake: treating an optional field's absence as untested, or as invalid
-    when the requirement says it's optional.
+An equivalence class is defined correctly if and only if this holds:
 
-- **Format constraints** (email, phone, date, etc.):
-  - Valid: conforms to the stated format.
-  - Invalid: violates the format (malformed structure — e.g. missing "@", wrong
-    number of digits). Only enumerate format-violation sub-classes the requirement
-    actually implies; don't invent format rules not stated (e.g. don't assume RFC 5322
-    email validation unless the FR specifies it).
+> If a test case in the class detects an error, every other test case in that class
+> should also detect it — and if one test case in the class does NOT detect an
+> error, none of the others should either.
 
-## Combining Partitions Across Multiple Inputs
+Use this as the test for "is my class boundary drawn correctly." If you can imagine
+a plausible fault that only some members of a proposed class would expose, the class
+is drawn too broadly and must be split.
 
-When a feature has multiple input fields, avoid combinatorial explosion:
+## Five Partitioning Guidelines by Input Condition Shape
 
-- **Single-fault assumption** (default, use unless the FR implies interacting
-  validations): test one invalid class at a time, with all other fields holding a
-  valid value. This is what Phase 3 (Domain Test Design) will build test cases from.
-- **Multi-fault / combination testing**: only required when the FR explicitly
-  describes interaction rules between fields (e.g. "field B is required only if field
-  A = X"). In that case, note the dependency explicitly in the equivalence class
-  description so Phase 3 can construct a combined test case.
-- Do not enumerate the full Cartesian product of all classes across all fields —
-  that is Domain Testing's job to minimize, not this phase's job to expand.
+Match the input condition's shape to the guideline below — do not apply a generic
+formula when a more specific one fits.
+
+**(a) RANGE condition** (e.g. "count from 1 to 999"):
+- Exactly 1 valid class: `1 <= x <= 999`
+- Exactly 2 invalid classes: `x < 1` and `x > 999`
+
+**(b) NUMBER-OF-VALUES condition** (e.g. "1 to 6 items allowed"):
+- Exactly 1 valid class: 1 to 6 items
+- Exactly 2 invalid classes: zero items, and more than 6 items
+
+**(c) SET OF DISCRETE VALUES, each handled differently** (e.g. order status:
+pending/confirmed/shipping/delivered/canceled):
+- One valid class PER value (because each is handled differently — do not merge them)
+- Exactly 1 invalid class: any value outside the set
+
+**(d) "MUST BE X" condition** (e.g. "email must contain @"):
+- Exactly 1 valid class: satisfies X
+- Exactly 1 invalid class: does not satisfy X
+
+**(e) Suspected non-uniform handling within a class**:
+If there is any reason to believe elements within one class are NOT handled
+identically by the actual implementation, split that class further. Verify this by
+reading the relevant source code or API spec — not just the requirement text.
+Always cross-check assumed equivalence against actual API/backend behavior when the
+implementation is available in this repository; do not assume the Functional
+Requirement's prose description matches the real implementation. If you find a
+discrepancy between the stated requirement and the actual code, do not silently
+resolve it in either direction — flag it explicitly (see SKILL.md Core Principles
+on grounding classes in actual implementation logic).
+
+## Choosing the Best Representative
+
+An equivalence class is only as good as its best representative value — the value
+selected to actually stand in for the whole class in a test case (this feeds Phase 3
+and Phase 4).
+
+- For **ordered domains** (numeric ranges, lengths, dates), the best representative
+  is usually a boundary value — but not always; if the risk theory points at an
+  interior value, use that instead.
+- For **unordered/enumerated domains**, pick the representative most likely to
+  expose the theorized error, which may not be a boundary at all (e.g. for an
+  enum, the representative might be the value with the most complex handling logic).
 
 ## Common Mistakes to Avoid
 
@@ -61,10 +86,10 @@ When a feature has multiple input fields, avoid combinatorial explosion:
   at once (e.g. defining `<=100` as valid and `>=100` as invalid — 100 is ambiguous).
   Always make the boundary explicit and exclusive.
 - **Missing the invalid partition for optional fields**: optional does not mean
-  "no invalid classes" — a supplied-but-malformed value is still invalid.
-  Only the "absent" state is valid-by-default.
+  "no invalid classes" — a supplied-but-malformed value is still invalid. Only the
+  "absent" state is valid-by-default.
 - **Forgetting the empty/null partition**: for every field, explicitly decide
   whether empty/null is valid or invalid, and state it — don't leave it implicit.
-- **Splitting an enum into per-member classes when the requirement treats them
-  uniformly** — this inflates the equivalence class count without adding coverage
-  value; only split when behavior actually differs per member.
+- **Merging discrete values that are actually handled differently** just because
+  they look similar in the requirement prose — this is exactly what guideline (e)
+  and the fault-detection principle above are meant to catch.
