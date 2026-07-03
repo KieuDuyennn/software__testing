@@ -1,63 +1,96 @@
-# Boundary Value Analysis Heuristics
+# Boundary Value Analysis Heuristics (Kaner & Bach Domain Testing Method)
 
 Reference for Phase 4 (Boundary Value Analysis). Load only when executing this phase.
+
+## Why Boundary Testing Works
+
+Boundary testing is not just the mechanical min-1/min/min+1 formula — it is targeted
+at three specific, distinct error types. Understanding which error type a boundary
+value can catch (and which it can't) determines whether testing at the boundary is
+actually necessary, and explains why boundary values are prioritized over arbitrary
+interior values.
+
+1. **"Program doesn't like numbers at all"** — a general defect that any single
+   value in the class will expose. The boundary is not special here; any interior
+   value would catch this equally well.
+2. **"Inequality mis-specified"** (e.g. code uses `<=` where the spec says `<`) —
+   this is ONLY detectable by testing exactly at the boundary value itself. A
+   near-boundary but non-boundary value will not expose an off-by-one inequality
+   error.
+3. **"Boundary value mistyped / transposition error"** (e.g. spec says 25 but code
+   checks 52, or some other off-by-a-larger-margin error) — detectable at the
+   boundary AND at some nearby non-boundary values, since the mistyped threshold is
+   far enough away that even a rough nearby probe may cross it.
+
+**State clearly in the artifact:** testing exactly at the boundary (e.g. value 25 in
+a "10 <= x < 25" rule) catches all three error types. Testing only a random
+non-boundary value (e.g. 53) may catch only the first type. This is precisely why
+boundary values — not arbitrary interior values — are the priority for this phase.
 
 ## Standard Boundary Technique
 
 For every equivalence class from Phase 2 that is bounded by a numeric or length
-limit (`min..max`), generate up to six boundary test cases:
+limit (`min..max`), generate up to six boundary test cases: `min - 1`, `min`,
+`min + 1`, `max - 1`, `max`, `max + 1`. If a bound is open-ended (no stated maximum
+or minimum), only generate boundaries for the side that has a stated limit — do not
+invent the other bound. Note its absence as an Open Question if it looks like a
+plausible requirement gap, but don't fabricate a test case for it.
 
-| Boundary | Description |
-|---|---|
-| min - 1 | Just below the lower bound (invalid) |
-| min | Lower bound itself (valid) |
-| min + 1 | Just above the lower bound (valid) |
-| max - 1 | Just below the upper bound (valid) |
-| max | Upper bound itself (valid) |
-| max + 1 | Just above the upper bound (invalid) |
+## Practical Boundary Types for This SUT
 
-If a bound is open-ended (e.g. "quantity must be at least 1, no stated maximum"),
-only generate boundaries for the side that has a stated limit — do not invent an
-upper bound. Note the absence of the other bound as an Open Question if it seems
-like a plausible gap in the requirement (e.g. no max cart quantity could be an
-oversight), but don't fabricate a test case for it.
-
-## Boundaries for Common Special Domains
-
-- **Date ranges**: treat the calendar day as the unit. Boundaries are
-  `startDate - 1 day`, `startDate`, `startDate + 1 day`, `endDate - 1 day`,
-  `endDate`, `endDate + 1 day`. Watch for stated inclusive/exclusive range wording
-  in the FR (e.g. "up to and including" vs "before").
-- **File sizes**: boundaries are in the unit the FR specifies (bytes/KB/MB) — don't
-  silently convert units. `maxSize - 1`, `maxSize`, `maxSize + 1`.
-- **Pagination / page counts**: boundaries are page 0 or 1 (whichever the FR defines
-  as the first page) and the last valid page number, plus one page past the last
-  valid page and (if 1-indexed) page 0 as an invalid/edge case.
-- **Rate-limit-like counters** (e.g. "max 5 login attempts"): boundaries are
-  `limit - 1` (still allowed), `limit` (last allowed attempt), `limit + 1` (should be
-  blocked).
+- **Numeric quantity / price boundaries**: apply the standard `min-1/min/min+1/
+  max-1/max/max+1` technique directly to quantity fields, price fields, discount
+  thresholds, etc.
+- **Date / expiry boundaries** (e.g. a coupon's expiration date): boundaries are
+  `expiryDate - 1 day` (still valid, before expiry), `expiryDate` (confirm from the
+  FR/spec whether the coupon is still valid ON the expiry date itself — this is
+  exactly the inequality-mis-specification risk from error type 2 above), and
+  `expiryDate + 1 day` (should be expired).
+- **Counter / attempt-threshold boundaries** (e.g. an account lockout counter): for
+  any counter-based business rule, explicitly verify the actual increment/threshold
+  comparison logic in the source code before asserting what the boundary value is.
+  Do not assume a threshold like "3 attempts" just because a UI message states it —
+  confirm against the real comparison in the backend/API code (e.g. whether the
+  check is `attempts >= 3` vs `attempts > 3`, which changes which attempt number is
+  actually the boundary). If source is unavailable, flag the assumed threshold as an
+  Open Question rather than asserting it as fact.
+- **String-length boundaries**: apply the standard technique to `minLen`/`maxLen` on
+  text fields (`minLen - 1`, `minLen`, `minLen + 1`, `maxLen - 1`, `maxLen`,
+  `maxLen + 1` characters).
 
 ## Business-Rule Cutoffs ("Just Inside" vs "Just Outside")
 
 For thresholds that trigger a business rule rather than a simple accept/reject
-(e.g. "orders over $100 get free shipping"), generate boundary cases on both sides
-of the cutoff to confirm which side gets the rule applied:
-
-- Just below the cutoff (rule does NOT apply)
-- Exactly at the cutoff (confirm whether the FR says "over" [exclusive] or "at
-  least"/"or more" [inclusive] — this determines whether the rule applies here)
-- Just above the cutoff (rule DOES apply)
-
-If the FR's wording is ambiguous about inclusive/exclusive (e.g. "over $100" is
-usually exclusive, but confirm rather than assume for ambiguous phrasing), flag it
-as an Open Question instead of guessing which side the boundary value falls on.
+(e.g. "orders over $100 get free shipping"), generate boundary cases on both sides of
+the cutoff to confirm which side gets the rule applied: just below the cutoff (rule
+does NOT apply), exactly at the cutoff (this is where inequality mis-specification —
+error type 2 — would surface: confirm whether the FR says "over" [exclusive] or "at
+least"/"or more" [inclusive]), and just above the cutoff (rule DOES apply). If the
+FR's wording is ambiguous about inclusive/exclusive, flag it as an Open Question
+instead of guessing which side the boundary value falls on.
 
 ## Boundaries on Enumerated / Discrete Values
 
-For an ordered enum (e.g. star rating 1–5, priority Low/Medium/High treated as
-ordered), boundaries are the first and last valid members plus the values
-immediately outside the valid set (if the underlying type allows out-of-set values,
-e.g. rating 0 or 6 for a 1–5 star scale). For unordered enums (e.g. category ∈
-{Electronics, Books, Clothing}), boundary analysis does not apply — equivalence
-partitioning from Phase 2 already provides full coverage; do not force boundary
-cases onto unordered sets.
+For an ordered enum (e.g. star rating 1–5), boundaries are the first and last valid
+members plus the values immediately outside the valid set (e.g. rating 0 or 6).
+For unordered enums (e.g. category ∈ {Electronics, Books, Clothing}), boundary
+analysis does not apply — equivalence partitioning from Phase 2 already provides
+full coverage; do not force boundary cases onto unordered sets.
+
+## Known Blind Spots of This Technique
+
+Domain testing and BVA are strong at finding high-probability errors with a small
+test set, but they have documented blind spots. State these explicitly in the Phase 4
+artifact (in a short "Technique Limitations" note) so the human reviewer knows what
+this test suite does NOT cover:
+
+- Errors that are not located at boundaries or in obvious special cases — an interior
+  value handled incorrectly for reasons unrelated to range checks will not be caught
+  by boundary-focused selection.
+- The actual domain is often unknowable — the real implementation may partition
+  inputs differently than the specification implies, so classes derived purely from
+  the spec can be wrong (this is why guideline (e) requires cross-checking source
+  code when available).
+- Over-reliance on best representatives: reusing the same boundary values for
+  regression testing over-tests those exact values and under-tests other values that
+  were nearly as good. Vary interior representatives across test runs when feasible.
