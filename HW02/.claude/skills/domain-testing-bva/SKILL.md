@@ -26,6 +26,12 @@ assistant — stay within test design scope only.
   (e.g. don't design boundary values while still doing requirement analysis).
 - If asked to revise an already-approved artifact, edit only the affected part,
   don't regenerate the whole document.
+- When a Functional Requirement describes a rule that is also implemented in this
+  repository's backend or API, ground equivalence classes and boundary values in the
+  actual implementation logic (read the relevant source file / API spec), not only in
+  the requirement's prose description. Flag any discrepancy between stated behavior
+  and actual behavior as an Open Question / potential bug rather than silently
+  trusting either source.
 
 ## Project Workspace Convention
 
@@ -51,7 +57,7 @@ Never infer workflow progress by checking which output files exist — always re
 |---|---|---|---|---|
 | 1. Requirement Analysis | Decompose the FR into atomic, independently-testable requirements; classify each statement as Functional Requirement / Observation / Assumption; group into feature areas; list Open Questions | input/Functional_Requirement.md | 01_Requirements_Breakdown.md | none needed |
 | 2. Equivalence Partitioning | For every atomic requirement's inputs, derive Valid and Invalid Equivalence Classes | 01_Requirements_Breakdown.md | 02_Equivalence_Partitioning.md | references/equivalence_partitioning_heuristics.md |
-| 3. Domain Test Design | Select one representative test case per equivalence class combination, optimizing for minimal redundant coverage while catching all classes | 02_Equivalence_Partitioning.md | 03_Domain_Test_Cases.md | references/domain_test_heuristics.md |
+| 3. Domain Test Design | Design test cases covering every equivalence class: bundle as many VALID classes as possible into as few test cases as possible; one dedicated test case per INVALID class (never combine two invalid conditions) | 02_Equivalence_Partitioning.md | 03_Domain_Test_Cases.md | references/domain_test_heuristics.md |
 | 4. Boundary Value Analysis | For every boundary-sensitive equivalence class, generate boundary test cases (min, min-1, min+1, max, max-1, max+1, and any documented special values) | 02_Equivalence_Partitioning.md + 03_Domain_Test_Cases.md | 04_Boundary_Value_Test_Cases.md | references/boundary_value_heuristics.md |
 
 **Rule:** only load the reference file for the CURRENT phase. Do not read reference
@@ -72,7 +78,8 @@ files belonging to other phases.
    explicitly approve (e.g. "approved", "looks good", "continue") or request revisions.
 10. On approval: run
     `python scripts/update_state.py <project_path> <phase_id> APPROVED`
-    then advance `current_phase` and repeat from step 1 for the next phase.
+    (the script advances `current_phase` and `workflow_status` automatically —
+    never edit state.json by hand), then repeat from step 1 for the next phase.
 11. On revision request: keep phase status unchanged, edit only the affected
     section of the current artifact, re-save, re-run self-check, present again,
     wait again.
