@@ -67,6 +67,43 @@ discrepancy between the stated requirement and the actual code, do not silently
 resolve it in either direction — flag it explicitly (see SKILL.md Core Principles
 on grounding classes in actual implementation logic).
 
+## Output Partitioning
+
+Equivalence analysis is not input-only. For every atomic requirement, also derive
+equivalence classes for the requirement's OUTPUTS — the distinct results the system
+can produce — using the same five guidelines above (a–e), applied to the output
+domain instead of the input domain. Do not skip this step even when the input-side
+classes look complete; an input-only analysis routinely misses expected system
+responses that no input class maps to directly.
+
+Typical output partitions to look for:
+- **Result/status classes**: distinct outcome states the operation can end in (e.g.
+  `Success`, `Rejected`, `Pending Review`) — one class per distinct value, per
+  guideline (c).
+- **System message classes**: distinct user-facing messages or error codes (e.g.
+  `"Insufficient Funds"`, `"Invalid Input"`, `"Account Locked"`) — each message that
+  is handled/displayed differently is its own class, even if multiple input
+  conditions could trigger it.
+- **Output value-range classes**: ranges the output value itself can fall into after
+  the operation (e.g. resulting account balance ranges: negative, zero, positive but
+  below a threshold, at or above a threshold) — partitioned per guideline (a).
+- **State-transition classes**: the before/after state pair produced by the
+  operation (e.g. `Active -> Suspended`, `Active -> Active` no-op) when the
+  requirement describes a state machine.
+
+**Trace outputs back to inputs.** For every output class identified, work backward
+and confirm that at least one input equivalence class (or combination of input
+classes) is capable of producing it. If an output class has no traceable input
+combination that reaches it, flag this explicitly as an Open Question — it usually
+means either an input class is missing from the Phase 2 input analysis, or the
+output is unreachable/dead behavior worth confirming with the user. This backward
+trace is what guarantees no expected system response is left untested going into
+Phase 3 and Phase 4.
+
+Record output classes in the same equivalence-class table as input classes, using
+the same `EC-xx` ID scheme, with a column/tag distinguishing `Input` vs `Output`
+classes so later phases can reference either.
+
 ## Choosing the Best Representative
 
 An equivalence class is only as good as its best representative value — the value
