@@ -56,7 +56,7 @@ Never infer workflow progress by checking which output files exist — always re
 | Phase | Objective | Input | Output artifact | Reference to load |
 |---|---|---|---|---|
 | 1. Requirement Analysis | Decompose the FR into atomic, independently-testable requirements; classify each statement as Functional Requirement / Observation / Assumption; group into feature areas; list Open Questions | input/Functional_Requirement.md | 01_Requirements_Breakdown.md | none needed |
-| 2. Equivalence Partitioning | For every atomic requirement's inputs, derive Valid and Invalid Equivalence Classes | 01_Requirements_Breakdown.md | 02_Equivalence_Partitioning.md | references/equivalence_partitioning_heuristics.md |
+| 2. Equivalence Partitioning | For every atomic requirement, derive Valid and Invalid Equivalence Classes for both INPUTS and OUTPUTS (e.g. resulting status/messages, output value ranges) | 01_Requirements_Breakdown.md | 02_Equivalence_Partitioning.md | references/equivalence_partitioning_heuristics.md |
 | 3. Domain Test Design | Design test cases covering every equivalence class: bundle as many VALID classes as possible into as few test cases as possible; one dedicated test case per INVALID class (never combine two invalid conditions) | 02_Equivalence_Partitioning.md | 03_Domain_Test_Cases.md | references/domain_test_heuristics.md |
 | 4. Boundary Value Analysis | For every boundary-sensitive equivalence class, generate boundary test cases (min, min-1, min+1, max, max-1, max+1, and any documented special values) | 02_Equivalence_Partitioning.md + 03_Domain_Test_Cases.md | 04_Boundary_Value_Test_Cases.md | references/boundary_value_heuristics.md |
 
