@@ -29,18 +29,40 @@ boundary values — not arbitrary interior values — are the priority for this 
 
 ## Standard Boundary Technique
 
-For every equivalence class from Phase 2 that is bounded by a numeric or length
-limit (`min..max`), generate up to six boundary test cases: `min - 1`, `min`,
-`min + 1`, `max - 1`, `max`, `max + 1`. If a bound is open-ended (no stated maximum
-or minimum), only generate boundaries for the side that has a stated limit — do not
-invent the other bound. Note its absence as an Open Question if it looks like a
-plausible requirement gap, but don't fabricate a test case for it.
+Boundary values are never computed by blindly subtracting/adding 1. Before
+calculating any boundary, you MUST first determine the **precision** (the smallest
+meaningful unit / step size) of the variable's data type. The step is what gets
+added or subtracted — not a hardcoded literal `1`. The general formula for every
+bounded equivalence class from Phase 2 (`min..max`) is:
+
+`min - step`, `min`, `min + step`, `max - step`, `max`, `max + step`
+
+Determine `step` from the variable's declared type/precision, not from habit:
+
+| Data type / precision | Step | Example (`min = 1000.10`) |
+|---|---|---|
+| Integer / whole-unit count | `1` | `999`, `1000`, `1001` |
+| Currency or float with 2 decimal places | `0.01` | `1000.09`, `1000.10`, `1000.11` |
+| Currency or float with N decimal places | `10^-N` | e.g. 3 decimals → step `0.001` |
+| Date | `1 day` (or the smallest stated unit — hour/minute if the FR is time-sensitive) | `expiryDate - 1 day`, `expiryDate`, `expiryDate + 1 day` |
+| String length | `1` character | `minLen - 1`, `minLen`, `minLen + 1` |
+
+Always state the determined `step` explicitly in the artifact next to each boundary
+class (e.g. "precision = 2 decimal places, step = 0.01") so the reasoning is
+auditable. Never assume integer step for a numeric field without first checking the
+FR/spec/source for its declared precision — a balance or price field is almost never
+integer-only. If a bound is open-ended (no stated maximum or minimum), only generate
+boundaries for the side that has a stated limit — do not invent the other bound.
+Note its absence as an Open Question if it looks like a plausible requirement gap,
+but don't fabricate a test case for it.
 
 ## Practical Boundary Types for This SUT
 
-- **Numeric quantity / price boundaries**: apply the standard `min-1/min/min+1/
-  max-1/max/max+1` technique directly to quantity fields, price fields, discount
-  thresholds, etc.
+- **Numeric quantity / price boundaries**: apply the standard `min-step/min/
+  min+step/max-step/max/max+step` technique to quantity fields, price fields,
+  discount thresholds, etc. — determine `step` from the field's precision first
+  (quantities are typically integer step `1`; prices/balances are typically step
+  `0.01` unless the FR states otherwise).
 - **Date / expiry boundaries** (e.g. a coupon's expiration date): boundaries are
   `expiryDate - 1 day` (still valid, before expiry), `expiryDate` (confirm from the
   FR/spec whether the coupon is still valid ON the expiry date itself — this is
