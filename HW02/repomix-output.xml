@@ -1,0 +1,1210 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.claude/skills/ai-audit-log/SKILL.md
+.claude/skills/domain-testing-bva/references/boundary_value_heuristics.md
+.claude/skills/domain-testing-bva/references/domain_test_heuristics.md
+.claude/skills/domain-testing-bva/references/equivalence_partitioning_heuristics.md
+.claude/skills/domain-testing-bva/references/self_check_criteria.md
+.claude/skills/domain-testing-bva/scripts/init_project.py
+.claude/skills/domain-testing-bva/scripts/update_state.py
+.claude/skills/domain-testing-bva/SKILL.md
+.gitignore
+package.json
+projects/fr01_account_registration/input/Functional_Requirement.md
+projects/fr01_account_registration/state.json
+projects/fr06_product_detail_view/input/Functional_Requirement.md
+projects/fr06_product_detail_view/state.json
+projects/fr11_order_history_view/input/Functional_Requirement.md
+projects/fr11_order_history_view/state.json
+projects/fr13_dashboard/input/Functional_Requirement.md
+projects/fr13_dashboard/state.json
+projects/fr14_category_management/input/Functional_Requirement.md
+projects/fr14_category_management/state.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".claude/skills/ai-audit-log/SKILL.md">
+---
+name: ai-audit-log
+description: Log an AI-assisted artifact for an academic AI-usage audit trail / disclosure requirement. Triggers whenever an AI-assisted artifact (test cases, script, document, analysis) has just been produced or approved and needs to be recorded for coursework AI-usage disclosure.
+allowed-tools: Read, Write, Edit
+---
+
+# AI Audit Log
+
+## Purpose
+
+Append a disclosure record to `prompt_logs.md` at the repository root whenever an
+AI-assisted artifact has just been produced or approved, so the coursework has a
+verifiable AI-usage audit trail.
+
+## Behavior
+
+On trigger, append one row to `prompt_logs.md` at the repository root with these
+columns:
+
+| Timestamp | AI tool name | Verbatim prompt | AI output summary | Verdict | Reasoning | Student fix (if any) |
+|---|---|---|---|---|---|---|
+
+- **Timestamp**: current date/time.
+- **AI tool name**: the assistant/tool actually used in this conversation.
+- **Verbatim prompt**: the user's actual prompt text that led to the artifact —
+  quote it exactly, do not paraphrase or reconstruct it from memory.
+- **AI output summary**: a factual, concise summary of what was actually produced
+  in this conversation — do not describe an idealized or intended output.
+- **Verdict**: one of `VALID` / `INVALID` / `INCOMPLETE`. If the user has not
+  stated a verdict, **ask them which applies** — never guess or default to `VALID`.
+- **Reasoning**: the stated basis for the verdict (from the user, or your own
+  factual observation of what happened — not speculation).
+- **Student fix (if any)**: describe any correction the student/user made to the
+  AI output. Write "None" if no fix was made — never leave the cell blank.
+
+If `prompt_logs.md` does not exist yet at the repository root, create it with a
+header row before appending the first entry.
+
+## Constraints
+
+- Never fabricate a prompt or output that wasn't actually part of this conversation.
+  Every logged row must correspond to something that genuinely happened in this
+  session.
+- Never invent a verdict on the user's behalf — ask if it's not already stated.
+- This skill only appends rows to `prompt_logs.md`. It does not modify or create
+  any other files.
+</file>
+
+<file path=".claude/skills/domain-testing-bva/references/boundary_value_heuristics.md">
+# Boundary Value Analysis Heuristics (Kaner & Bach Domain Testing Method)
+
+Reference for Phase 4 (Boundary Value Analysis). Load only when executing this phase.
+
+## Why Boundary Testing Works
+
+Boundary testing is not just the mechanical min-1/min/min+1 formula — it is targeted
+at three specific, distinct error types. Understanding which error type a boundary
+value can catch (and which it can't) determines whether testing at the boundary is
+actually necessary, and explains why boundary values are prioritized over arbitrary
+interior values.
+
+1. **"Program doesn't like numbers at all"** — a general defect that any single
+   value in the class will expose. The boundary is not special here; any interior
+   value would catch this equally well.
+2. **"Inequality mis-specified"** (e.g. code uses `<=` where the spec says `<`) —
+   this is ONLY detectable by testing exactly at the boundary value itself. A
+   near-boundary but non-boundary value will not expose an off-by-one inequality
+   error.
+3. **"Boundary value mistyped / transposition error"** (e.g. spec says 25 but code
+   checks 52, or some other off-by-a-larger-margin error) — detectable at the
+   boundary AND at some nearby non-boundary values, since the mistyped threshold is
+   far enough away that even a rough nearby probe may cross it.
+
+**State clearly in the artifact:** testing exactly at the boundary (e.g. value 25 in
+a "10 <= x < 25" rule) catches all three error types. Testing only a random
+non-boundary value (e.g. 53) may catch only the first type. This is precisely why
+boundary values — not arbitrary interior values — are the priority for this phase.
+
+## Standard Boundary Technique
+
+Boundary values are never computed by blindly subtracting/adding 1. Before
+calculating any boundary, you MUST first determine the **precision** (the smallest
+meaningful unit / step size) of the variable's data type. The step is what gets
+added or subtracted — not a hardcoded literal `1`. The general formula for every
+bounded equivalence class from Phase 2 (`min..max`) is:
+
+`min - step`, `min`, `min + step`, `max - step`, `max`, `max + step`
+
+Determine `step` from the variable's declared type/precision, not from habit:
+
+| Data type / precision | Step | Example (`min = 1000.10`) |
+|---|---|---|
+| Integer / whole-unit count | `1` | `999`, `1000`, `1001` |
+| Currency or float with 2 decimal places | `0.01` | `1000.09`, `1000.10`, `1000.11` |
+| Currency or float with N decimal places | `10^-N` | e.g. 3 decimals → step `0.001` |
+| Date | `1 day` (or the smallest stated unit — hour/minute if the FR is time-sensitive) | `expiryDate - 1 day`, `expiryDate`, `expiryDate + 1 day` |
+| String length | `1` character | `minLen - 1`, `minLen`, `minLen + 1` |
+
+Always state the determined `step` explicitly in the artifact next to each boundary
+class (e.g. "precision = 2 decimal places, step = 0.01") so the reasoning is
+auditable. Never assume integer step for a numeric field without first checking the
+FR/spec/source for its declared precision — a balance or price field is almost never
+integer-only. If a bound is open-ended (no stated maximum or minimum), only generate
+boundaries for the side that has a stated limit — do not invent the other bound.
+Note its absence as an Open Question if it looks like a plausible requirement gap,
+but don't fabricate a test case for it.
+
+## Practical Boundary Types for This SUT
+
+- **Numeric quantity / price boundaries**: apply the standard `min-step/min/
+  min+step/max-step/max/max+step` technique to quantity fields, price fields,
+  discount thresholds, etc. — determine `step` from the field's precision first
+  (quantities are typically integer step `1`; prices/balances are typically step
+  `0.01` unless the FR states otherwise).
+- **Date / expiry boundaries** (e.g. a coupon's expiration date): boundaries are
+  `expiryDate - 1 day` (still valid, before expiry), `expiryDate` (confirm from the
+  FR/spec whether the coupon is still valid ON the expiry date itself — this is
+  exactly the inequality-mis-specification risk from error type 2 above), and
+  `expiryDate + 1 day` (should be expired).
+- **Counter / attempt-threshold boundaries** (e.g. an account lockout counter): for
+  any counter-based business rule, explicitly verify the actual increment/threshold
+  comparison logic in the source code before asserting what the boundary value is.
+  Do not assume a threshold like "3 attempts" just because a UI message states it —
+  confirm against the real comparison in the backend/API code (e.g. whether the
+  check is `attempts >= 3` vs `attempts > 3`, which changes which attempt number is
+  actually the boundary). If source is unavailable, flag the assumed threshold as an
+  Open Question rather than asserting it as fact.
+- **String-length boundaries**: apply the standard technique to `minLen`/`maxLen` on
+  text fields (`minLen - 1`, `minLen`, `minLen + 1`, `maxLen - 1`, `maxLen`,
+  `maxLen + 1` characters).
+
+## Business-Rule Cutoffs ("Just Inside" vs "Just Outside")
+
+For thresholds that trigger a business rule rather than a simple accept/reject
+(e.g. "orders over $100 get free shipping"), generate boundary cases on both sides of
+the cutoff to confirm which side gets the rule applied: just below the cutoff (rule
+does NOT apply), exactly at the cutoff (this is where inequality mis-specification —
+error type 2 — would surface: confirm whether the FR says "over" [exclusive] or "at
+least"/"or more" [inclusive]), and just above the cutoff (rule DOES apply). If the
+FR's wording is ambiguous about inclusive/exclusive, flag it as an Open Question
+instead of guessing which side the boundary value falls on.
+
+## Boundaries on Enumerated / Discrete Values
+
+For an ordered enum (e.g. star rating 1–5), boundaries are the first and last valid
+members plus the values immediately outside the valid set (e.g. rating 0 or 6).
+For unordered enums (e.g. category ∈ {Electronics, Books, Clothing}), boundary
+analysis does not apply — equivalence partitioning from Phase 2 already provides
+full coverage; do not force boundary cases onto unordered sets.
+
+## Known Blind Spots of This Technique
+
+Domain testing and BVA are strong at finding high-probability errors with a small
+test set, but they have documented blind spots. State these explicitly in the Phase 4
+artifact (in a short "Technique Limitations" note) so the human reviewer knows what
+this test suite does NOT cover:
+
+- Errors that are not located at boundaries or in obvious special cases — an interior
+  value handled incorrectly for reasons unrelated to range checks will not be caught
+  by boundary-focused selection.
+- The actual domain is often unknowable — the real implementation may partition
+  inputs differently than the specification implies, so classes derived purely from
+  the spec can be wrong (this is why guideline (e) requires cross-checking source
+  code when available).
+- Over-reliance on best representatives: reusing the same boundary values for
+  regression testing over-tests those exact values and under-tests other values that
+  were nearly as good. Vary interior representatives across test runs when feasible.
+</file>
+
+<file path=".claude/skills/domain-testing-bva/references/domain_test_heuristics.md">
+# Domain Test Design Heuristics (Kaner & Bach Domain Testing Method)
+
+Reference for Phase 3 (Domain Test Design). Load only when executing this phase.
+
+## The Test-Case Selection Rule
+
+This is a hard rule from the domain testing method, not a suggestion — apply it
+exactly as stated:
+
+- **For VALID equivalence classes**: combine as many valid classes as possible into
+  as few test cases as possible, until every valid class has been covered at least
+  once. This relies on the multi-fault assumption — combining valid inputs together
+  in one test case is safe because the system is expected to handle each valid input
+  correctly and independently, so a single combined test case can validate multiple
+  valid classes at once.
+- **For INVALID equivalence classes**: each test case must cover exactly ONE invalid
+  class at a time — never combine two invalid conditions into a single test case.
+  This is single-fault isolation: if the test fails, you must be able to tell which
+  invalid condition caused the failure. If two invalid conditions were combined and
+  the test fails, you cannot attribute the failure to either one with confidence.
+  Continue until every invalid class has its own dedicated test case.
+
+## State the Distinction Explicitly in the Artifact
+
+Every test case in the output artifact must be labeled as one of:
+
+- **"Combined valid coverage"** — a test case that bundles multiple valid classes
+  together (per the valid-class rule above).
+- **"Isolated invalid probe"** — a test case that exercises exactly one invalid
+  class while every other input holds a valid value (per the invalid-class rule
+  above).
+
+Do not leave this unlabeled — a reader must be able to tell at a glance which rule
+produced each test case.
+
+## Writing Preconditions, Steps, and Expected Results
+
+- **Preconditions**: state only what must be true before the test starts (e.g. "user
+  is logged in", "cart is empty"). Derive from the FR or from Phase 1's atomic
+  requirements — never invent setup steps not implied by the requirement.
+- **Steps**: numbered, action-oriented, one user action per step (e.g. "Enter '15'
+  into the Quantity field", "Click Submit"). Steps must be concrete enough that a
+  human tester could execute them without additional interpretation.
+- **Expected Result**: state the observable outcome only — what the system should
+  show/do. If the FR doesn't specify the exact outcome for an invalid class (e.g. the
+  exact error message text), write the expected behavior at the level of detail the
+  FR supports (e.g. "system rejects the input and displays a validation error") and
+  flag the missing specificity as an Open Question rather than inventing exact
+  wording.
+
+## Traceability
+
+Every test case (`TC-xx`) must reference the equivalence class(es) it covers
+(`EC-xx`) and, transitively, the atomic requirement (`REQ-xx`). Include both an
+"Equivalence Class(es) Covered" column and a "Coverage Type" column
+(Combined valid coverage / Isolated invalid probe) in the test case table.
+</file>
+
+<file path=".claude/skills/domain-testing-bva/references/equivalence_partitioning_heuristics.md">
+# Equivalence Partitioning Heuristics (Kaner & Bach Domain Testing Method)
+
+Reference for Phase 2 (Equivalence Partitioning). Load only when executing this phase.
+
+## The 4 Views of Equivalence
+
+Two values belong in the same equivalence class only if they are equivalent under at
+least one of these four views. Use all four as reasoning tools whenever deciding
+whether to merge two candidate values into one class or split them apart:
+
+1. **Intuitive Similarity** — the two values are too similar to bother testing both
+   (e.g. quantity = 4 and quantity = 5 are intuitively similar interior values of a
+   "1 to 10" range).
+2. **Specified As Equivalent** — the specification or API documentation explicitly
+   states that the two values are handled the same way.
+3. **Equivalent Paths** — the two values would drive the program down the same code
+   path (same branches, same logic executed).
+4. **Risk-Based** — given a specific theory of a possible error, you would expect the
+   same result from both values (i.e. if you're not theorizing a fault that would
+   distinguish them, they're equivalent for testing purposes).
+
+If none of the four views support treating two values as equivalent, do not merge
+them into the same class — split them.
+
+## The Core Fault-Detection Principle
+
+An equivalence class is defined correctly if and only if this holds:
+
+> If a test case in the class detects an error, every other test case in that class
+> should also detect it — and if one test case in the class does NOT detect an
+> error, none of the others should either.
+
+Use this as the test for "is my class boundary drawn correctly." If you can imagine
+a plausible fault that only some members of a proposed class would expose, the class
+is drawn too broadly and must be split.
+
+## Five Partitioning Guidelines by Input Condition Shape
+
+Match the input condition's shape to the guideline below — do not apply a generic
+formula when a more specific one fits.
+
+**(a) RANGE condition** (e.g. "count from 1 to 999"):
+- Exactly 1 valid class: `1 <= x <= 999`
+- Exactly 2 invalid classes: `x < 1` and `x > 999`
+
+**(b) NUMBER-OF-VALUES condition** (e.g. "1 to 6 items allowed"):
+- Exactly 1 valid class: 1 to 6 items
+- Exactly 2 invalid classes: zero items, and more than 6 items
+
+**(c) SET OF DISCRETE VALUES, each handled differently** (e.g. order status:
+pending/confirmed/shipping/delivered/canceled):
+- One valid class PER value (because each is handled differently — do not merge them)
+- Exactly 1 invalid class: any value outside the set
+
+**(d) "MUST BE X" condition** (e.g. "email must contain @"):
+- Exactly 1 valid class: satisfies X
+- Exactly 1 invalid class: does not satisfy X
+
+**(e) Suspected non-uniform handling within a class**:
+If there is any reason to believe elements within one class are NOT handled
+identically by the actual implementation, split that class further. Verify this by
+reading the relevant source code or API spec — not just the requirement text.
+Always cross-check assumed equivalence against actual API/backend behavior when the
+implementation is available in this repository; do not assume the Functional
+Requirement's prose description matches the real implementation. If you find a
+discrepancy between the stated requirement and the actual code, do not silently
+resolve it in either direction — flag it explicitly (see SKILL.md Core Principles
+on grounding classes in actual implementation logic).
+
+## Output Partitioning
+
+Equivalence analysis is not input-only. For every atomic requirement, also derive
+equivalence classes for the requirement's OUTPUTS — the distinct results the system
+can produce — using the same five guidelines above (a–e), applied to the output
+domain instead of the input domain. Do not skip this step even when the input-side
+classes look complete; an input-only analysis routinely misses expected system
+responses that no input class maps to directly.
+
+Typical output partitions to look for:
+- **Result/status classes**: distinct outcome states the operation can end in (e.g.
+  `Success`, `Rejected`, `Pending Review`) — one class per distinct value, per
+  guideline (c).
+- **System message classes**: distinct user-facing messages or error codes (e.g.
+  `"Insufficient Funds"`, `"Invalid Input"`, `"Account Locked"`) — each message that
+  is handled/displayed differently is its own class, even if multiple input
+  conditions could trigger it.
+- **Output value-range classes**: ranges the output value itself can fall into after
+  the operation (e.g. resulting account balance ranges: negative, zero, positive but
+  below a threshold, at or above a threshold) — partitioned per guideline (a).
+- **State-transition classes**: the before/after state pair produced by the
+  operation (e.g. `Active -> Suspended`, `Active -> Active` no-op) when the
+  requirement describes a state machine.
+
+**Trace outputs back to inputs.** For every output class identified, work backward
+and confirm that at least one input equivalence class (or combination of input
+classes) is capable of producing it. If an output class has no traceable input
+combination that reaches it, flag this explicitly as an Open Question — it usually
+means either an input class is missing from the Phase 2 input analysis, or the
+output is unreachable/dead behavior worth confirming with the user. This backward
+trace is what guarantees no expected system response is left untested going into
+Phase 3 and Phase 4.
+
+Record output classes in the same equivalence-class table as input classes, using
+the same `EC-xx` ID scheme, with a column/tag distinguishing `Input` vs `Output`
+classes so later phases can reference either.
+
+## Choosing the Best Representative
+
+An equivalence class is only as good as its best representative value — the value
+selected to actually stand in for the whole class in a test case (this feeds Phase 3
+and Phase 4).
+
+- For **ordered domains** (numeric ranges, lengths, dates), the best representative
+  is usually a boundary value — but not always; if the risk theory points at an
+  interior value, use that instead.
+- For **unordered/enumerated domains**, pick the representative most likely to
+  expose the theorized error, which may not be a boundary at all (e.g. for an
+  enum, the representative might be the value with the most complex handling logic).
+
+## Common Mistakes to Avoid
+
+- **Overlapping partitions**: a value must not be classifiable into two partitions
+  at once (e.g. defining `<=100` as valid and `>=100` as invalid — 100 is ambiguous).
+  Always make the boundary explicit and exclusive.
+- **Missing the invalid partition for optional fields**: optional does not mean
+  "no invalid classes" — a supplied-but-malformed value is still invalid. Only the
+  "absent" state is valid-by-default.
+- **Forgetting the empty/null partition**: for every field, explicitly decide
+  whether empty/null is valid or invalid, and state it — don't leave it implicit.
+- **Merging discrete values that are actually handled differently** just because
+  they look similar in the requirement prose — this is exactly what guideline (e)
+  and the fault-detection principle above are meant to catch.
+</file>
+
+<file path=".claude/skills/domain-testing-bva/references/self_check_criteria.md">
+# Self-Check Criteria
+
+Run this checklist against every artifact before presenting it to the user. Record
+the result of each item in the artifact's "Self-Check" section as a checklist with
+Pass/Fail (or "N/A" with a reason) — do not just say "all checks passed" without
+listing them.
+
+- [ ] Every atomic requirement is traceable to the source Functional Requirement
+      (quote or reference the originating line/section).
+- [ ] No invented business rules or assumptions presented as fact — anything not
+      explicitly stated in the input artifact is either omitted or listed under
+      "Open Questions"/"Assumptions" with a clear flag.
+- [ ] Every equivalence class has at least one covering test case (Phase 3 onward).
+- [ ] IDs are unique and consistently formatted (`REQ-xx`, `EC-xx`, `TC-xx`,
+      `BVA-xx`, zero-padded, no gaps that suggest a deleted/skipped item without
+      explanation).
+- [ ] No table cell is empty without an explicit "None"/"N/A" — every cell has
+      content or an explicit marker, never a blank.
+- [ ] Terminology is consistent throughout (no synonyms for the same concept —
+      e.g. don't mix "field" and "parameter" for the same thing within one artifact).
+
+If any item fails, fix the artifact before presenting it — do not present a known
+failing self-check to the user and ask them to catch it.
+</file>
+
+<file path=".claude/skills/domain-testing-bva/scripts/init_project.py">
+#!/usr/bin/env python3
+"""Initialize a new domain-testing-bva project workspace.
+
+Usage:
+    python init_project.py <FeatureName>
+
+Creates projects/<FeatureName>/{input,output}/ and a seeded state.json.
+"""
+import json
+import os
+import sys
+
+PHASE_ARTIFACTS = [
+    ("PHASE_01", "output/01_Requirements_Breakdown.md"),
+    ("PHASE_02", "output/02_Equivalence_Partitioning.md"),
+    ("PHASE_03", "output/03_Domain_Test_Cases.md"),
+    ("PHASE_04", "output/04_Boundary_Value_Test_Cases.md"),
+]
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python init_project.py <FeatureName>", file=sys.stderr)
+        sys.exit(1)
+
+    feature_name = sys.argv[1]
+    if not feature_name.strip():
+        print("Error: <FeatureName> must not be empty.", file=sys.stderr)
+        sys.exit(1)
+
+    project_path = os.path.join("projects", feature_name)
+    input_dir = os.path.join(project_path, "input")
+    output_dir = os.path.join(project_path, "output")
+    state_path = os.path.join(project_path, "state.json")
+
+    if os.path.exists(state_path):
+        print(
+            f"Error: {state_path} already exists. Refusing to overwrite an "
+            "existing project. Delete it manually first if you intend to reset it.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    os.makedirs(input_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
+
+    state = {
+        "project": feature_name,
+        "workflow": "Domain Testing + BVA",
+        "current_phase": "PHASE_01",
+        "workflow_status": "READY",
+        "phases": {
+            phase_id: {"status": "NOT_STARTED", "artifact": artifact}
+            for phase_id, artifact in PHASE_ARTIFACTS
+        },
+    }
+
+    with open(state_path, "w", encoding="utf-8") as f:
+        json.dump(state, f, indent=2)
+        f.write("\n")
+
+    print(f"Initialized project '{feature_name}' at {project_path}")
+    print(f"  - {input_dir}")
+    print(f"  - {output_dir}")
+    print(f"  - {state_path}")
+
+
+if __name__ == "__main__":
+    main()
+</file>
+
+<file path=".claude/skills/domain-testing-bva/scripts/update_state.py">
+#!/usr/bin/env python3
+"""Update the workflow state for a domain-testing-bva project.
+
+Usage:
+    python update_state.py <project_path> <phase_id> <new_status>
+
+Validates phase_id and new_status, updates that phase's status, advances
+current_phase/workflow_status when appropriate, and writes state.json back
+with stable key ordering. Exits non-zero with a clear message on any invalid
+input rather than writing malformed or inconsistent state.
+"""
+import json
+import os
+import sys
+
+PHASE_ORDER = ["PHASE_01", "PHASE_02", "PHASE_03", "PHASE_04"]
+VALID_STATUSES = {"NOT_STARTED", "RUNNING", "WAITING_FOR_APPROVAL", "APPROVED"}
+
+# Fixed key order so every write produces a stably-ordered document.
+STATE_KEY_ORDER = ["project", "workflow", "current_phase", "workflow_status", "phases"]
+PHASE_KEY_ORDER = ["status", "artifact"]
+
+
+def fail(message):
+    print(f"Error: {message}", file=sys.stderr)
+    sys.exit(1)
+
+
+def ordered_state(state):
+    ordered = {k: state[k] for k in STATE_KEY_ORDER if k in state}
+    # Preserve any unexpected extra keys at the end rather than silently dropping them.
+    for k in state:
+        if k not in ordered:
+            ordered[k] = state[k]
+
+    ordered_phases = {}
+    for phase_id in PHASE_ORDER:
+        if phase_id not in ordered["phases"]:
+            continue
+        phase = ordered["phases"][phase_id]
+        ordered_phase = {k: phase[k] for k in PHASE_KEY_ORDER if k in phase}
+        for k in phase:
+            if k not in ordered_phase:
+                ordered_phase[k] = phase[k]
+        ordered_phases[phase_id] = ordered_phase
+    ordered["phases"] = ordered_phases
+    return ordered
+
+
+def main():
+    if len(sys.argv) != 4:
+        fail("Usage: python update_state.py <project_path> <phase_id> <new_status>")
+
+    project_path, phase_id, new_status = sys.argv[1], sys.argv[2], sys.argv[3]
+
+    if phase_id not in PHASE_ORDER:
+        fail(f"invalid phase_id '{phase_id}'. Must be one of: {', '.join(PHASE_ORDER)}")
+
+    if new_status not in VALID_STATUSES:
+        fail(
+            f"invalid new_status '{new_status}'. Must be one of: "
+            f"{', '.join(sorted(VALID_STATUSES))}"
+        )
+
+    state_path = os.path.join(project_path, "state.json")
+    if not os.path.isfile(state_path):
+        fail(f"state.json not found at '{state_path}'")
+
+    with open(state_path, "r", encoding="utf-8") as f:
+        try:
+            state = json.load(f)
+        except json.JSONDecodeError as e:
+            fail(f"state.json at '{state_path}' is not valid JSON: {e}")
+
+    for required_key in ("project", "workflow", "current_phase", "workflow_status", "phases"):
+        if required_key not in state:
+            fail(f"state.json is missing required key '{required_key}' — refusing to guess.")
+
+    for phase_id_check in PHASE_ORDER:
+        if phase_id_check not in state["phases"]:
+            fail(f"state.json is missing phase entry '{phase_id_check}' — refusing to guess.")
+        if "status" not in state["phases"][phase_id_check]:
+            fail(f"state.json phase '{phase_id_check}' is missing 'status' — refusing to guess.")
+        if state["phases"][phase_id_check]["status"] not in VALID_STATUSES:
+            fail(
+                f"state.json phase '{phase_id_check}' has invalid status "
+                f"'{state['phases'][phase_id_check]['status']}'"
+            )
+
+    if state["current_phase"] not in PHASE_ORDER:
+        fail(f"state.json current_phase '{state['current_phase']}' is not a valid phase id")
+
+    # Update the target phase's status.
+    state["phases"][phase_id]["status"] = new_status
+
+    # Advance workflow only when the phase being updated is the current phase
+    # and it has just been APPROVED.
+    if new_status == "APPROVED":
+        if phase_id != state["current_phase"]:
+            fail(
+                f"cannot approve '{phase_id}' while current_phase is "
+                f"'{state['current_phase']}'. Phases must be approved in order."
+            )
+        idx = PHASE_ORDER.index(phase_id)
+        if idx == len(PHASE_ORDER) - 1:
+            state["workflow_status"] = "COMPLETED"
+            # current_phase stays on PHASE_04; there is no next phase to advance to.
+        else:
+            state["current_phase"] = PHASE_ORDER[idx + 1]
+            state["workflow_status"] = "READY"
+    else:
+        if phase_id == state["current_phase"]:
+            state["workflow_status"] = new_status
+
+    with open(state_path, "w", encoding="utf-8") as f:
+        json.dump(ordered_state(state), f, indent=2)
+        f.write("\n")
+
+    print(
+        f"Updated {state_path}: {phase_id} -> {new_status} "
+        f"(current_phase={state['current_phase']}, workflow_status={state['workflow_status']})"
+    )
+
+
+if __name__ == "__main__":
+    main()
+</file>
+
+<file path=".claude/skills/domain-testing-bva/SKILL.md">
+---
+name: domain-testing-bva
+description: Design black-box test cases from a Functional Requirement using ISTQB test design techniques — equivalence partitioning (EC), domain testing, and boundary value analysis (BVA). Use when asked to generate test cases for a feature, derive equivalence classes, apply domain testing, perform boundary value analysis, or run an ISTQB-style test design workflow (e.g. "apply domain testing and BVA to the shopping cart feature", "generate test cases for the login form", "do equivalence partitioning on this requirement"). Not for generic coding, debugging, or implementation tasks.
+allowed-tools: Read, Write, Edit, Bash
+---
+
+# Domain Testing + Boundary Value Analysis
+
+## Role
+
+You are a meticulous QA test-design specialist. Your objective is to convert a
+Functional Requirement into a complete, traceable, minimally-redundant set of test
+cases using established ISTQB black-box techniques. You are not a generic coding
+assistant — stay within test design scope only.
+
+## Core Principles
+
+- Never invent business rules, validation rules, or constraints not stated in the
+  Functional Requirement. If something is ambiguous or missing, list it as an
+  "Open Question" instead of guessing.
+- Every artifact must be traceable back through the chain:
+  Functional Requirement → Atomic Requirement → Equivalence Class → Test Case.
+- Distinguish explicitly-specified behavior from behavior merely observed during
+  exploration — never turn an observation into a formal test case without flagging it.
+- Stay within the current phase's scope only; do not perform later phases early
+  (e.g. don't design boundary values while still doing requirement analysis).
+- If asked to revise an already-approved artifact, edit only the affected part,
+  don't regenerate the whole document.
+- When a Functional Requirement describes a rule that is also implemented in this
+  repository's backend or API, ground equivalence classes and boundary values in the
+  actual implementation logic (read the relevant source file / API spec), not only in
+  the requirement's prose description. Flag any discrepancy between stated behavior
+  and actual behavior as an Open Question / potential bug rather than silently
+  trusting either source.
+
+## Project Workspace Convention
+
+Each feature under test lives in: `projects/<FeatureName>/`
+
+```
+projects/<FeatureName>/
+├── input/Functional_Requirement.md   (provided by the user)
+├── output/
+│   ├── 01_Requirements_Breakdown.md
+│   ├── 02_Equivalence_Partitioning.md
+│   ├── 03_Domain_Test_Cases.md
+│   └── 04_Boundary_Value_Test_Cases.md
+└── state.json                        (authoritative workflow progress tracker)
+```
+
+Never infer workflow progress by checking which output files exist — always read
+`state.json` first to determine the current phase.
+
+## The 4-Phase Workflow
+
+| Phase | Objective | Input | Output artifact | Reference to load |
+|---|---|---|---|---|
+| 1. Requirement Analysis | Decompose the FR into atomic, independently-testable requirements; classify each statement as Functional Requirement / Observation / Assumption; group into feature areas; list Open Questions | input/Functional_Requirement.md | 01_Requirements_Breakdown.md | none needed |
+| 2. Equivalence Partitioning | For every atomic requirement, derive Valid and Invalid Equivalence Classes for both INPUTS and OUTPUTS (e.g. resulting status/messages, output value ranges) | 01_Requirements_Breakdown.md | 02_Equivalence_Partitioning.md | references/equivalence_partitioning_heuristics.md |
+| 3. Domain Test Design | Design test cases covering every equivalence class: bundle as many VALID classes as possible into as few test cases as possible; one dedicated test case per INVALID class (never combine two invalid conditions) | 02_Equivalence_Partitioning.md | 03_Domain_Test_Cases.md | references/domain_test_heuristics.md |
+| 4. Boundary Value Analysis | For every boundary-sensitive equivalence class, generate boundary test cases (min, min-1, min+1, max, max-1, max+1, and any documented special values) | 02_Equivalence_Partitioning.md + 03_Domain_Test_Cases.md | 04_Boundary_Value_Test_Cases.md | references/boundary_value_heuristics.md |
+
+**Rule:** only load the reference file for the CURRENT phase. Do not read reference
+files belonging to other phases.
+
+## Execution Loop (every phase)
+
+1. Read `state.json` to determine `current_phase` and its status.
+2. Read the required input artifact(s).
+3. Load the phase's reference file if one is listed.
+4. Execute the phase's task, producing the artifact per the Output Format rules below.
+5. Run a self-check against the checklist in `references/self_check_criteria.md`
+   before presenting the artifact.
+6. Save the artifact to the correct `output/` path.
+7. Run: `python scripts/update_state.py <project_path> <phase_id> WAITING_FOR_APPROVAL`
+8. Present the full artifact content to the user.
+9. **STOP.** Do not proceed to the next phase automatically — wait for the user to
+   explicitly approve (e.g. "approved", "looks good", "continue") or request revisions.
+10. On approval: run
+    `python scripts/update_state.py <project_path> <phase_id> APPROVED`
+    (the script advances `current_phase` and `workflow_status` automatically —
+    never edit state.json by hand), then repeat from step 1 for the next phase.
+11. On revision request: keep phase status unchanged, edit only the affected
+    section of the current artifact, re-save, re-run self-check, present again,
+    wait again.
+
+## Output Format Rules
+
+- Use Markdown tables for all structured data (requirements, equivalence classes,
+  test cases) — not bullet lists.
+- Every table row must carry a stable ID (`REQ-xx`, `EC-xx`, `TC-xx`, `BVA-xx`)
+  usable for cross-referencing in later phases.
+- Every artifact ends with a "Self-Check" section (checklist results) and an
+  "Awaiting User Review" section that explicitly asks for approval before continuing.
+- If a section has nothing to report, write "None identified" — never omit the
+  section or fabricate content to fill it.
+
+## Error Handling
+
+- If `state.json` is missing: initialize a new one via
+  `scripts/init_project.py <FeatureName>`, starting at Phase 1.
+- If a required input artifact is missing: stop, explain exactly what's missing,
+  ask the user to supply it.
+- If `state.json` looks corrupted/inconsistent: stop, describe the inconsistency,
+  ask the user how to proceed — never guess and silently repair it.
+</file>
+
+<file path=".gitignore">
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Repomix outputs
+repomix-output.md
+repomix.config.json
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+</file>
+
+<file path="package.json">
+{
+  "dependencies": {
+    "repomix": "^1.16.0"
+  }
+}
+</file>
+
+<file path="projects/fr01_account_registration/input/Functional_Requirement.md">
+# FR-01: Account Registration
+
+> Pool A — Authentication, Categories, and Products.
+> Source of truth: EShop System Requirements Specification (README.md, section 2, FR-01) — this document describes the *correct* business requirements. The real implementation may deviate; those deviations are the bugs to be found.
+
+## 1. Overview
+
+A new visitor can create an EShop account by providing personal details and a password. On successful registration, the account is created and the user is redirected to the Login page.
+
+## 2. API Reference (from api_specification.md)
+
+- **Endpoint:** `POST /api/register`
+- **Request body (JSON):**
+  ```json
+  {
+    "name": "Nguyen Van A",
+    "email": "test@domain.com",
+    "password": "Password123!"
+  }
+  ```
+- **Success response (200 OK):** `{ "message": "User registered successfully", "id": <number> }`
+
+## 3. Functional Requirements
+
+### 3.1 Required input fields
+- The user MUST provide all three of: **Full Name**, **Email**, **Password**.
+- A **Confirm Password** field MUST also be present in the registration form (UI-level).
+
+### 3.2 Email rules
+- Email MUST be in a valid format (`user@domain.com`).
+- Email MUST be unique across the system — a second registration with an already-registered email MUST be rejected.
+
+### 3.3 Password strength rules (strong password)
+The password MUST satisfy ALL of the following:
+- Minimum length of **8 characters**.
+- At least **1 uppercase** letter.
+- At least **1 lowercase** letter.
+- At least **1 digit**.
+- At least **1 special character** from the set: `@ $ ! % * ? &`.
+
+### 3.4 Confirm password
+- The **Confirm Password** field MUST match the **Password** field exactly.
+- If the two fields do not match, the system MUST reject the registration.
+
+### 3.5 Post-registration behavior
+- On successful registration, the user MUST be redirected to the **Login** page.
+
+## 4. Inputs Summary (for test design)
+
+| Field | Type | Constraint |
+| --- | --- | --- |
+| Full Name | string | Required; must not be empty |
+| Email | string | Required; valid format `user@domain.com`; unique in system |
+| Password | string | Required; min 8 chars; ≥1 upper, ≥1 lower, ≥1 digit, ≥1 special (`@ $ ! % * ? &`) |
+| Confirm Password | string | Required; must exactly equal Password |
+
+## 5. Expected Outputs
+
+- **Success:** account created, response `{ message: "User registered successfully", id }`, redirect to Login page.
+- **Failure (validation):** registration rejected with an appropriate error message (invalid email format, duplicate email, weak password, password mismatch, or missing required field).
+</file>
+
+<file path="projects/fr01_account_registration/state.json">
+{
+  "project": "fr01_account_registration",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
+</file>
+
+<file path="projects/fr06_product_detail_view/input/Functional_Requirement.md">
+# FR-06: Product Detail View
+
+> Pool A — Authentication, Categories, and Products.
+> Source of truth: EShop System Requirements Specification (README.md, section 3, FR-06).
+
+## 1. Overview
+
+When a user opens a single product, the system displays the full product detail, allows the user to choose a quantity, and provides an "Add to Cart" action with visual feedback.
+
+## 2. API Reference (from api_specification.md)
+
+- **Endpoint:** `GET /api/products/:id`
+- **Path parameter:** `id` — the product identifier.
+- **Success response (200 OK):** a product object, e.g.
+  ```json
+  {
+    "id": 1,
+    "name": "Product name",
+    "price": 100000,
+    "description": "Description",
+    "imageUrl": "http://...",
+    "category_id": 1
+  }
+  ```
+- Related "Add to Cart" endpoint: `POST /api/cart` with body `{ id, name, price, quantity }`.
+
+## 3. Functional Requirements
+
+### 3.1 Detail display
+The product detail page MUST display all of the following:
+- Large product **image**
+- Product **name**
+- **Price**
+- **Description**
+- **Category**
+
+### 3.2 Quantity input
+- There MUST be a **Quantity** input field.
+- Quantity MUST accept only **positive integers**.
+- The **minimum** accepted quantity is **1**.
+
+### 3.3 Add to Cart
+- There MUST be an **Add to Cart** button.
+- After clicking Add to Cart, the system MUST show visual feedback (a toast notification or an updated cart badge).
+
+## 4. Inputs Summary (for test design)
+
+| Field | Type | Constraint |
+| --- | --- | --- |
+| Product id (path param) | integer | Identifies which product to display; must refer to an existing product |
+| Quantity | integer | Positive integer; minimum 1 (no explicit maximum stated in the specification) |
+
+## 5. Expected Outputs
+
+- **Valid product id:** full product detail rendered (image, name, price, description, category).
+- **Add to cart with valid quantity:** item added to cart and visual feedback shown.
+- **Invalid quantity (0, negative, non-integer, empty):** input rejected / add-to-cart prevented (exact behavior not specified — flag as Open Question).
+- **Non-existent product id:** behavior not fully specified in the requirement — flag as Open Question.
+</file>
+
+<file path="projects/fr06_product_detail_view/state.json">
+{
+  "project": "fr06_product_detail_view",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
+</file>
+
+<file path="projects/fr11_order_history_view/input/Functional_Requirement.md">
+# FR-11: Order History View (User)
+
+> Pool B — Shopping Cart and Checkout.
+> Source of truth: EShop System Requirements Specification (README.md, section 5, FR-11).
+
+## 1. Overview
+
+A logged-in user can view the history of their own orders. Each order shows summary information, and the status is displayed in Vietnamese with color coding.
+
+## 2. API Reference (from api_specification.md)
+
+- **List own orders:** `GET /api/orders/my-orders`
+- **Get one order detail:** `GET /api/orders/:id`
+- **Authentication:** required — header `Authorization: Bearer <token>`.
+
+## 3. Functional Requirements
+
+### 3.1 Ownership restriction
+- A user MUST be able to view **only their own orders**.
+- A user MUST NOT be able to view another user's orders.
+
+### 3.2 Displayed fields
+Each order in the history MUST display:
+- **Order ID**
+- **Order date**
+- **Total amount**
+- **Current status**
+
+### 3.3 Status presentation
+- The order status MUST be translated into clear **Vietnamese**.
+- Statuses MUST be visually distinguished by **color**.
+- The five possible statuses (from FR-10 state machine) are: `pending`, `confirmed`, `shipping`, `delivered`, `canceled`.
+
+## 4. Inputs Summary (for test design)
+
+| Input | Type | Constraint |
+| --- | --- | --- |
+| Authenticated user (JWT token) | token | Required; identifies whose orders are returned |
+| Order id (for detail view, `GET /api/orders/:id`) | integer | Must belong to the requesting user |
+| Order status (value being displayed) | enum | One of: pending / confirmed / shipping / delivered / canceled |
+
+## 5. Expected Outputs
+
+- **Authenticated user, own orders:** list of that user's orders with id, date, total, status (status shown in Vietnamese + color).
+- **Request another user's order id:** MUST be denied / not returned (ownership rule).
+- **No token / invalid token:** request rejected (unauthorized).
+- **User with no orders:** an appropriate empty state.
+</file>
+
+<file path="projects/fr11_order_history_view/state.json">
+{
+  "project": "fr11_order_history_view",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
+</file>
+
+<file path="projects/fr13_dashboard/input/Functional_Requirement.md">
+# FR-13: Admin Dashboard
+
+> Pool C — Web Admin.
+> Source of truth: EShop System Requirements Specification (README.md, section 6, FR-13). Access is governed by FR-12 (admin-only).
+
+## 1. Overview
+
+The Admin Dashboard displays aggregate business metrics: total revenue and total number of orders.
+
+## 2. API Reference (from api_specification.md)
+
+- Admin order data source: `GET /api/admin/orders` (requires admin JWT).
+- Order status is updated via `PUT /api/admin/orders/:id/status` with body `{ "status": "confirmed" }` (allowed statuses: `pending`, `confirmed`, `shipping`, `delivered`, `canceled`).
+- **Authentication/authorization:** all `/api/admin/*` endpoints require a valid JWT with `role = 'admin'` (see FR-12).
+
+## 3. Functional Requirements
+
+### 3.1 Total revenue
+- The dashboard MUST display **total revenue**.
+- Total revenue MUST be computed as the **sum of `total_amount` of orders whose `status = 'delivered'`** — and ONLY those orders.
+- Orders in any other status (`pending`, `confirmed`, `shipping`, `canceled`) MUST NOT contribute to total revenue.
+
+### 3.2 Total number of orders
+- The dashboard MUST display the **total number of orders**.
+
+### 3.3 Access control (per FR-12)
+- The dashboard and its underlying admin APIs MUST be accessible only to accounts with `role = 'admin'`.
+- A valid JWT alone is not sufficient; the token MUST carry `role = 'admin'`.
+
+## 4. Inputs Summary (for test design)
+
+| Input | Type | Constraint |
+| --- | --- | --- |
+| Requesting account role (in JWT) | enum | Must be `admin` to access; `user`/absent → denied |
+| Order status (per order, drives revenue calculation) | enum | pending / confirmed / shipping / delivered / canceled — only `delivered` counts toward revenue |
+| `total_amount` per delivered order | number | Summed into total revenue |
+
+## 5. Expected Outputs
+
+- **Admin token:** dashboard shows total revenue (sum of `total_amount` where status = delivered) and total order count.
+- **Order status = delivered:** included in revenue sum.
+- **Order status ≠ delivered:** excluded from revenue sum, but may still count in "total number of orders".
+- **Non-admin token (`role = 'user'`):** access denied.
+- **No token / invalid token:** access denied.
+</file>
+
+<file path="projects/fr13_dashboard/state.json">
+{
+  "project": "fr13_dashboard",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
+</file>
+
+<file path="projects/fr14_category_management/input/Functional_Requirement.md">
+# FR-14: Category Management (CRUD)
+
+> Pool C — Web Admin.
+> Source of truth: EShop System Requirements Specification (README.md, section 6, FR-14). Access is governed by FR-12 (admin-only).
+
+## 1. Overview
+
+An admin can manage product categories: add a new category, view the list of categories, and delete a category. Category name is mandatory.
+
+## 2. API Reference (from api_specification.md)
+
+- **List categories:** `GET /api/categories`
+- **Create category:** `POST /api/categories` — body `{ "name": "Category name" }`
+- **Update category:** `PUT /api/categories/:id`
+- **Delete category:** `DELETE /api/categories/:id`
+- **Authentication/authorization:** category-mutating endpoints (`POST/PUT/DELETE /api/categories`) require a valid JWT with `role = 'admin'` (see FR-12).
+
+## 3. Functional Requirements
+
+### 3.1 Operations
+- The admin MUST be able to **Add**, **View (list)**, and **Delete** categories.
+  - Note: the README specifies Add / View / Delete. The API also exposes `PUT /api/categories/:id` (update); treat update as an available operation but flag any discrepancy between the README (which does not list "edit") and the API (which exposes it) as an Open Question.
+
+### 3.2 Category name validation
+- Category **name is required** and MUST NOT be empty.
+- A create/update request with an empty or whitespace-only name MUST be rejected.
+
+### 3.3 Access control (per FR-12)
+- Only accounts with `role = 'admin'` may create, update, or delete categories.
+- A valid JWT alone is not sufficient; the token MUST carry `role = 'admin'`.
+
+## 4. Inputs Summary (for test design)
+
+| Field / Input | Type | Constraint |
+| --- | --- | --- |
+| Category `name` (create/update) | string | Required; must not be empty or whitespace-only |
+| Category `id` (update/delete path param) | integer | Must refer to an existing category |
+| Requesting account role (in JWT) | enum | Must be `admin`; `user`/absent → denied |
+
+## 5. Expected Outputs
+
+- **Create with valid non-empty name (admin):** category created; appears in `GET /api/categories`.
+- **Create with empty / whitespace-only name:** rejected with a validation error.
+- **Delete existing category (admin):** category removed from the list.
+- **Delete non-existent category id:** appropriate error / no-op (behavior not fully specified — flag as Open Question).
+- **Non-admin or unauthenticated request to mutate:** access denied.
+</file>
+
+<file path="projects/fr14_category_management/state.json">
+{
+  "project": "fr14_category_management",
+  "workflow": "Domain Testing + BVA",
+  "current_phase": "PHASE_01",
+  "workflow_status": "READY",
+  "phases": {
+    "PHASE_01": {
+      "status": "NOT_STARTED",
+      "artifact": "output/01_Requirements_Breakdown.md"
+    },
+    "PHASE_02": {
+      "status": "NOT_STARTED",
+      "artifact": "output/02_Equivalence_Partitioning.md"
+    },
+    "PHASE_03": {
+      "status": "NOT_STARTED",
+      "artifact": "output/03_Domain_Test_Cases.md"
+    },
+    "PHASE_04": {
+      "status": "NOT_STARTED",
+      "artifact": "output/04_Boundary_Value_Test_Cases.md"
+    }
+  }
+}
+</file>
+
+</files>
