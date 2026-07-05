@@ -36,6 +36,10 @@ columns:
 If `prompt_logs.md` does not exist yet at the repository root, create it with a
 header row before appending the first entry.
 
+- For rows that record a routine interaction rather than an auditable artifact
+  (e.g. approvals, state updates, clarifying questions), set Verdict to
+  "N/A — interaction record" and Reasoning to a one-line factual note. Only
+  artifact rows require a real VALID/INVALID/INCOMPLETE verdict from the user.
 ## Constraints
 
 - Never fabricate a prompt or output that wasn't actually part of this conversation.
