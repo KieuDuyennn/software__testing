@@ -2,10 +2,10 @@
   "project": "fr01_account_registration",
   "workflow": "Domain Testing + BVA",
   "current_phase": "PHASE_01",
-  "workflow_status": "READY",
+  "workflow_status": "WAITING_FOR_APPROVAL",
   "phases": {
     "PHASE_01": {
-      "status": "NOT_STARTED",
+      "status": "WAITING_FOR_APPROVAL",
       "artifact": "output/01_Requirements_Breakdown.md"
     },
     "PHASE_02": {
