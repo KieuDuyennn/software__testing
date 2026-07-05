@@ -1,15 +1,15 @@
 {
   "project": "fr01_account_registration",
   "workflow": "Domain Testing + BVA",
-  "current_phase": "PHASE_01",
+  "current_phase": "PHASE_03",
   "workflow_status": "READY",
   "phases": {
     "PHASE_01": {
-      "status": "NOT_STARTED",
+      "status": "APPROVED",
       "artifact": "output/01_Requirements_Breakdown.md"
     },
     "PHASE_02": {
-      "status": "NOT_STARTED",
+      "status": "APPROVED",
       "artifact": "output/02_Equivalence_Partitioning.md"
     },
     "PHASE_03": {
