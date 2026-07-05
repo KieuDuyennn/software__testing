@@ -91,3 +91,109 @@ directly (no invented fact), and a new ASM-03 was added instead to capture the
 genuinely unstated part — that REQ-04's "required" clause may only be verifiable
 at the UI/form level, since the API request body has no `confirmPassword` field
 to omit for an API-level test.
+
+## 2026-07-05 — Phase 2 self-critique
+
+Re-reading `output/02_Equivalence_Partitioning.md` against the EP heuristics before
+approval. Findings only — nothing fixed yet.
+
+1. **Wrong partitioning guideline for password length (EC-18).** REQ-07 ("minimum 8
+   characters") is a RANGE / NUMBER-OF-VALUES condition — guideline (a)/(b) — but I
+   modeled it as a single "must-be-X"-style invalid class ("< 8 chars"). Guideline
+   (a) would frame it as one valid class (len ≥ 8) and an invalid class bounded on
+   the low side, which also makes the lower boundary explicit for Phase 4. As
+   written, EC-18's class is open-ended downward and blurs into the empty class.
+
+2. **Overlapping partitions — EC-16 ⊆ EC-18 (contradicts my own self-check).** An
+   empty password (EC-16, length 0) is also a member of "fewer than 8 characters"
+   (EC-18). The two partitions overlap, so a length-0 value is classifiable into two
+   classes at once — exactly the "overlapping partitions" mistake the heuristics warn
+   against. EC-18 should be bounded as `1 ≤ len ≤ 7` to be disjoint from the empty
+   class. My §5 self-check line "No overlapping partitions … at exactly 8" was
+   therefore overstated/wrong — it only checked the upper edge of the valid range,
+   not the empty-vs-short overlap at the low end.
+
+3. **Inconsistent empty-vs-absent handling across fields.** Full Name, Email, and
+   Password each split "empty string" from "absent field" into two classes
+   (EC-02/03, EC-06/07, EC-16/17), all flagged as possibly collapsing per OQ-12. But
+   Confirm Password (EC-26) merges "absent / empty" into a single class. The same
+   OQ-12 ambiguity is treated two different ways within one artifact — either all
+   four fields should split-pending-OQ-12 or all should merge, consistently.
+
+4. **Output side conflates "missing field" with "present-but-empty."** EC-29 is
+   labeled "Missing required field," yet I route present-but-empty-string inputs
+   (EC-02, EC-06, EC-16) into it. An empty-string value is not literally a *missing*
+   field; if the system distinguishes them (the input-side OQ-12 question), there may
+   be a distinct "empty/blank field" rejection output class separate from EC-29. The
+   OQ-12 ambiguity is captured on the input side but not mirrored on the output side.
+
+5. **EC-27 still merges two distinct output facts.** Success bundles the exact
+   message string and the numeric `id` into one class. This is the Phase-1-deferred
+   item 2, and I flagged it, but strictly it remains a merged output class — "`id` is
+   present and numeric" is a separable output assertion that currently has no class of
+   its own and could go untested in Phase 3.
+
+6. **Possibly missed output class: malformed / non-JSON request.** There is no class
+   for a structurally invalid request (invalid JSON, wrong content-type, non-object
+   body). It may be out of FR scope, but it isn't even noted as a deliberate
+   exclusion — worth a one-line decision rather than silent omission.
+
+7. **EC-25 (password mismatch) may hide sub-classes under guideline (e).** If the
+   implementation trims or normalizes before comparing Password to Confirm Password,
+   "wholly different" vs "differs only by trailing whitespace" vs "differs only by
+   case" would not be handled identically. Currently a single invalid class with no
+   flag; guideline (e) suggests at least noting the possible split (and it has no
+   backing implementation to confirm uniform handling).
+
+8. **EC-12 may be a second VALID class collapsed into "Ambiguous," not just an
+   ambiguous invalid.** Subdomain/plus-addressing emails, if accepted, would be a
+   distinct valid-format partition of Email (valid emails are not necessarily handled
+   uniformly — guideline (e)), not merely an unresolved accept/reject. Framing it only
+   as "Ambiguous → EC-27 or EC-30" understates that the *valid* side of Email may
+   itself need more than the single EC-05 class.
+
+9. **Minor / cosmetic.** Ambiguous-output ordering is written inconsistently
+   ("EC-30 or EC-27" for EC-11 vs "EC-27 or EC-30" for EC-12); harmless but
+   inconsistent. Also, the backward-trace table calls success coverage "Partial"
+   while §5 self-check does not carry that caveat forward — the two summaries are
+   slightly out of step.
+
+## 2026-07-05 — Disposition of Phase 2 self-critique
+
+Reviewed with the user. **Applied** to `output/02_Equivalence_Partitioning.md`:
+- Item 1 — EC-18 (password length) reclassified under **guideline (a) RANGE**
+  (measurable length), explicitly not (b) number-of-values; valid class kept
+  open-ended above (`len ≥ 8`, no invented max — OQ-03).
+- Item 2 — EC-18 rebounded to `1 ≤ len ≤ 7` so it no longer overlaps EC-16 (empty,
+  `len = 0`); §5 self-check corrected to state the prior "no overlapping partitions"
+  tick was wrong (only checked the upper edge) and what was fixed.
+- Item 3 — Confirm Password split into EC-26 (empty) and new **EC-34** (absent),
+  consistent with the other three fields, both flagged with OQ-12. EC-34 appended
+  after the output block with an explicit numbering note to avoid renumbering.
+- Item 4 — output EC-29 relabeled "Missing **or** empty required field" with an
+  explicit note that absent-vs-empty are merged on purpose pending OQ-12/OQ-02
+  (identical expected results today); EC-34 added to its trace.
+- Item 6 — malformed / non-JSON request added as a **deliberate exclusion** note in
+  §2 plus new **OQ-13**, rather than inventing an unspecified response class.
+
+**Deferred** (logged here, not applied — reasons below):
+- Item 5 — split EC-27 success into separate message-string and numeric-`id` output
+  classes. *Reason:* this is the same split already deferred from Phase 1 (gap_notes
+  item 2); keeping the deferral consistent. It is now honestly recorded as "Partial"
+  in both the §3 backward-trace and the §5 self-check, so it is visible rather than
+  hidden. Revisit alongside Phase 1 item 2.
+- Item 7 — split EC-25 (password mismatch) into guideline-(e) sub-classes
+  (wholly-different vs whitespace-only vs case-only difference). *Reason:* the split
+  hinges on whether the implementation trims/normalizes before comparing, and there
+  is **no backend in the repo** to confirm non-uniform handling; splitting now would
+  invent structure. Better resolved when an implementation or an answer to the
+  trimming question (relates to OQ-10) is available.
+- Item 8 — treat EC-12 (subdomain/plus-addressing email) as a possible second
+  *valid* Email class rather than only "Ambiguous." *Reason:* depends on OQ-11
+  (what counts as valid email format); until that resolves, its valid-vs-invalid
+  status is genuinely unknown, so promoting it to a valid class now would pre-judge
+  the open question. Re-evaluate when OQ-11 is answered.
+- Item 9 — cosmetic ambiguous-output ordering inconsistency ("EC-30 or EC-27" vs
+  "EC-27 or EC-30"). *Reason:* purely presentational, no effect on classes or
+  traceability; not worth a revision cycle now. (The §3-vs-§5 "Partial" mismatch part
+  of item 9 *was* fixed as part of item 5's honest recording.)
