@@ -132,3 +132,114 @@ not §3.3 (P1-G03) — this directly contradicts the artifact's Self-Check
 claim of exact quoting; and the resulting Open Questions are missing a
 no-token-vs-invalid-token response-parity question (P1-G06). P1-G04, P1-G05,
 and P1-G07 are lower-severity nitpicks. Final verdict is yours to decide.
+
+## 2026-07-06 — Phase 2 self-critique (per user checklist)
+
+Re-reading `output/02_Equivalence_Partitioning.md` before approval. Findings
+only — nothing fixed yet. Each finding tagged `[P2-Gxx]` with evidence and
+an honest severity call (real gap vs. nitpick). No backend source code
+exists anywhere in this repository (checked via grep across the repo and
+`repomix-output.xml`, which only contains this same coursework project's own
+files) — any risk theory cited below is a plausible implementation-pattern
+argument, not something verified against actual code, exactly the same
+epistemic footing as OQ-05's canceled-order risk flag in the artifact itself.
+
+### Specific check — EC-20 vs. EC-21 field-scope asymmetry
+
+**Answer: yes, this is a real, unrationalized inconsistency. EC-20 should be
+split.**
+
+- **[P2-G01] real gap, high severity.** EC-20 ("Dashboard's displayed state
+  when zero orders exist at all... covers whatever fields the dashboard
+  shows in this case — revenue and/or count") bundles two independently
+  verifiable behaviors — the revenue field's zero-display and the order
+  count field's zero-display — into one output class. EC-21, covering the
+  sibling empty-state precondition (EC-10), does NOT do this: it is scoped
+  to revenue only. This is an inconsistent atomicity decision, for four
+  reasons:
+  1. **REQ-04 (revenue) and REQ-07 (order count) are already separate,
+     independently-stated atomic requirements** in the APPROVED Phase 1
+     artifact — the exact same kind of "independently stated, so
+     independently testable" reasoning that justified keeping access
+     control's 3 denial conditions unmerged (§2.1's own rationale: "the FR
+     never claims the 3 denial paths produce identical output... collapsing
+     them here would hide that question rather than test it"). The same
+     logic applies to revenue vs. count: nothing in the FR claims they are
+     displayed/computed identically, so they shouldn't be silently bundled
+     either.
+  2. **EC-20's own REQ/OQ Ref cell cites both REQ-04 and REQ-07 together** —
+     the only output-class row in the entire artifact that spans two
+     different *display fields*. Contrast EC-21's REQ/OQ Ref, which cites
+     REQ-04 + REQ-05 — both about the *same* field (revenue). This is
+     internal evidence the row is doing double duty.
+  3. **A concrete, plausible risk theory supports the split**: `SUM()` over
+     an empty group commonly returns `NULL` in SQL, while `COUNT()` over the
+     same empty group correctly returns `0` — a well-known class of bug
+     that would make the zero-orders revenue display wrong (null/error)
+     while the count display stays correct, or vice versa. This is at least
+     as strong a risk signal as OQ-05's canceled-order flag, which was
+     sufficient by itself to split EC-06 from EC-07 under guideline (e). No
+     backend source exists here to confirm/refute it (see note above), so
+     the same conservative posture (split rather than merge) should apply.
+  4. **Unlike the EC-19/EC-10 asymmetry** (a count-under-EC-10 companion
+     class arguably could be missing too), that gap **is** explicitly
+     disclosed and deferred via the artifact's own new OQ-14. EC-20's
+     bundling carries no equivalent disclosure — it is presented as a
+     settled modeling choice ("OQ-03 asks about the dashboard holistically
+     without distinguishing fields") but that rationale conflates "the FR's
+     wording doesn't distinguish fields" with "the two fields are one
+     behavior," when Phase 1 already established they are two separate
+     requirements.
+  5. Self-Check bullet 6 states EC-09/EC-10 "each" have "its own output
+     twin (EC-20, EC-21)," which reads as claiming clean symmetry — it
+     never surfaces that one twin (EC-20) is field-combined while the other
+     (EC-21) is field-scoped. Not a false statement, but an incomplete one
+     that hid the asymmetry from view.
+
+  Not fixing now, per instruction — but if directed, the fix would split
+  EC-20 into a revenue-scoped twin and a count-scoped twin (mirroring
+  EC-21's shape), renumbering EC-21 onward.
+
+### General checks
+
+1. **Any other output class silently combining 2+ independently-verifiable
+   behaviors?** No other instance found. EC-11..EC-17 are each single,
+   field/condition-scoped behaviors. EC-18 and EC-19 each carry multiple
+   *open questions* about one single output value (format, precision,
+   trustworthiness) — that is not the same defect as combining two
+   different *displayed fields*, so they PASS. EC-20 (P2-G01 above) is the
+   only real instance.
+2. **Does EC-19 still correctly avoid guessing OQ-02's scope?** PASS. EC-19's
+   own row states "scope of which orders are counted unresolved — OQ-02"
+   directly, and its "Traces From: EC-08" reference is consistent with
+   EC-08's own explicit "subset undetermined" caveat (§2.3) — nothing in
+   EC-19's wording implies a specific scope (e.g. it never says "count of
+   all orders" or "count of delivered orders").
+3. **Any input/output class missing a counterpart beyond §4's disclosure?**
+   One candidate was checked: a count-specific output companion to EC-21
+   (i.e., "order count display under the EC-10 precondition"). This is
+   *not* a hidden gap — it is exactly what new OQ-14 already anticipates
+   and defers pending OQ-02's resolution. No other missing counterpart was
+   found beyond the EC-20 issue already covered under P2-G01.
+4. **Terminology/ID consistency.**
+   - EC IDs are sequential EC-01..EC-21 with no gaps — PASS.
+   - **[P2-G02] nitpick.** Input tables (§2.1–2.4) label their citation
+     column "REQ Ref", but several of those rows already cite Open
+     Questions too (EC-06 cites OQ-05; EC-08 cites OQ-02; EC-09 cites OQ-03;
+     EC-10 cites OQ-04) — the same mixed REQ+OQ content that Output tables
+     (§3.1–3.5) correctly label "REQ/OQ Ref". The §2 header should match
+     §3's for consistency; this is cosmetic, not a substantive defect.
+
+## Suggested Verdict (Phase 2)
+
+**INCOMPLETE.** One real, non-trivial gap: EC-20 bundles two independently
+testable display behaviors (revenue, order count) into a single output
+class, inconsistent with how this same artifact split access control and
+revenue-membership classes elsewhere, and inconsistent with Phase 1's own
+REQ-04/REQ-07 separation — a plausible SUM-vs-COUNT-on-empty-set fault
+theory means a bug could pass undetected in one field while a test against
+the combined class reports "some assertion failed" without isolating which
+(P2-G01). One low-severity nitpick: a column-header labeling inconsistency
+between §2 and §3 (P2-G02). Everything else checked (guideline application,
+OQ-02 scope neutrality, backward traceability, ID formatting) held up.
+Final verdict is yours to decide.
