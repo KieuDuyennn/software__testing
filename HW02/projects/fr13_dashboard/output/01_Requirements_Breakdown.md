@@ -8,10 +8,22 @@ governed by FR-12 (admin-only), referenced but not re-specified here.
 
 REQ-04 through REQ-07 (dashboard content: revenue and order count) describe
 what the dashboard shows *once access is granted*. They implicitly assume the
-actor already satisfies REQ-08 and REQ-09 (valid JWT carrying `role = 'admin'`).
-REQ-08 and REQ-09 themselves cover the access-control rule, including its
-failure conditions, as separate atomic requirements. This precondition is
-stated once here and is not restated in each content REQ row.
+actor already satisfies REQ-08, REQ-09, and REQ-10 (valid JWT, not one that's
+missing or invalid, carrying `role = 'admin'`). REQ-08, REQ-09, and REQ-10
+themselves cover the access-control rule, including its failure conditions, as
+separate atomic requirements. This precondition is stated once here and is not
+restated in each content REQ row.
+
+**Terminology note — "dashboard" surface scope (fixes P1-G01):** REQ-08,
+REQ-09, and REQ-10 below say access control applies to "dashboard data."
+Per OQ-01, no dedicated dashboard endpoint/route is confirmed to exist
+separately from the admin order API — the only surface confirmed today is
+`GET /api/admin/orders`. These three requirements should NOT be read as
+asserting two independently-behaving surfaces (a frontend dashboard route
+*and* a backend API) that are proven to enforce access identically. If a
+distinct frontend dashboard route is later found to exist, its access control
+must be verified against these same rules independently — compliance is not
+assumed to carry over from the API by extension.
 
 ## 1. Feature Areas
 
@@ -20,7 +32,7 @@ stated once here and is not restated in each content REQ row.
 | AREA-01 | API Contract | Endpoint paths and base URL referenced by FR-13 (admin order data source, status update, base URL) |
 | AREA-02 | Revenue Calculation | Total revenue display, its inclusion rule (delivered), and its exclusion rule (all other statuses) |
 | AREA-03 | Order Count Display | Total number of orders shown on the dashboard |
-| AREA-04 | Access Control | The JWT-required rule and the role-must-be-admin rule (per FR-12) |
+| AREA-04 | Access Control | The no-token-denied rule, the invalid-token-denied rule, and the role-must-be-admin rule (per FR-12) |
 | AREA-05 | Test Setup Data | Seed accounts and helper endpoints used to produce dashboard test state (not FR-13 behavior itself) |
 | AREA-06 | Documentation Discrepancies | Cross-source inconsistencies noticed while reading the input (password mismatch; total_amount trust) — flagged as Observations, not requirements |
 
@@ -35,13 +47,14 @@ stated once here and is not restated in each content REQ row.
 | REQ-05 | AREA-02 | Total revenue MUST be computed as the sum of `total_amount` of orders whose `status = 'delivered'`. | §3.1 "Total revenue MUST be computed as the **sum of `total_amount` of orders whose `status = 'delivered'`** — and ONLY those orders." | Functional Requirement |
 | REQ-06 | AREA-02 | Orders whose status is `pending`, `confirmed`, `shipping`, or `canceled` MUST NOT contribute to total revenue. | §3.1 "Orders in any other status (`pending`, `confirmed`, `shipping`, `canceled`) MUST NOT contribute to total revenue." | Functional Requirement |
 | REQ-07 | AREA-03 | The dashboard MUST display the total number of orders. Scope by status is not stated in the FR — not assumed here; see OQ-02. | §3.2 "The dashboard MUST display the **total number of orders**." | Functional Requirement |
-| REQ-08 | AREA-04 | The dashboard and its underlying admin APIs MUST require a valid JWT to access. | §3.3 "The dashboard and its underlying admin APIs MUST be accessible only to accounts with `role = 'admin'`" (JWT-presence clause, per FR-12) | Functional Requirement |
-| REQ-09 | AREA-04 | A valid JWT alone is NOT sufficient for access; the token MUST carry `role = 'admin'`. | §3.3 "A valid JWT alone is not sufficient; the token MUST carry `role = 'admin'`." | Functional Requirement |
-| REQ-10 | AREA-05 | Seeded admin account is `admin@eshop.com`, used as the admin actor for dashboard-access tests. | §6 "Seeded admin: `admin@eshop.com` — the admin actor..." | Observation |
-| REQ-11 | AREA-05 | Seeded normal user account is `test@eshop.com` / `Test1234!`, used as the non-admin actor for access-denied tests. | §6 "Seeded normal user: `test@eshop.com` / `Test1234!` — the non-admin actor for the access-denied tests." | Observation |
-| REQ-12 | AREA-05 | To exercise revenue, orders are created and moved through statuses via `PUT /api/admin/orders/:id/status` so that only `delivered` orders can be verified to sum into revenue. | §6 "To exercise revenue: create orders and move them through statuses via `PUT /api/admin/orders/:id/status`..." | Observation |
-| REQ-13 | AREA-06 | The seeded admin account's password is inconsistent between sources: README states `Admin123!`, setup_guide states `admin123` — both should be tried and the inconsistency recorded. | §6 "...README lists password `Admin123!`, setup_guide lists `admin123`; try both, record the inconsistency." | Observation |
-| REQ-14 | AREA-06 | `api_specification.md` §4.3 allows the client to supply `total_amount` at checkout, which contradicts README FR-08 (backend MUST recompute total_amount) — meaning the value summed into revenue (REQ-05) may rest on a client-controlled number rather than a backend-verified one. | §7 "`total_amount` trustworthiness — api_spec section 4.3 lets the client supply `total_amount` at checkout, contradicting README FR-08..." | Observation |
+| REQ-08 | AREA-04 | If no token is provided when accessing dashboard data, the request MUST be denied (dashboard = whatever surface serves this data; see Global Precondition terminology note — currently only confirmed to be the admin API, per OQ-01). | §3.3 "The dashboard and its underlying admin APIs MUST be accessible only to accounts with `role = 'admin'`" (JWT-presence clause, per FR-12) | Functional Requirement |
+| REQ-09 | AREA-04 | If an invalid/malformed token is provided when accessing dashboard data, the request MUST be denied (same surface-scope note as REQ-08). | §3.3 "The dashboard and its underlying admin APIs MUST be accessible only to accounts with `role = 'admin'`" (JWT-presence clause, per FR-12) | Functional Requirement |
+| REQ-10 | AREA-04 | A valid JWT alone is NOT sufficient for access to dashboard data (same surface-scope note as REQ-08); the token MUST carry `role = 'admin'`. | §3.3 "A valid JWT alone is not sufficient; the token MUST carry `role = 'admin'`." | Functional Requirement |
+| REQ-11 | AREA-05 | Seeded admin account is `admin@eshop.com`, used as the admin actor for dashboard-access tests. | §6 "Seeded admin: `admin@eshop.com` — the admin actor..." | Observation |
+| REQ-12 | AREA-05 | Seeded normal user account is `test@eshop.com` / `Test1234!`, used as the non-admin actor for access-denied tests. | §6 "Seeded normal user: `test@eshop.com` / `Test1234!` — the non-admin actor for the access-denied tests." | Observation |
+| REQ-13 | AREA-05 | To exercise revenue, orders are created and moved through statuses via `PUT /api/admin/orders/:id/status` so that only `delivered` orders can be verified to sum into revenue. | §6 "To exercise revenue: create orders and move them through statuses via `PUT /api/admin/orders/:id/status`..." | Observation |
+| REQ-14 | AREA-06 | The seeded admin account's password is inconsistent between sources: README states `Admin123!`, setup_guide states `admin123` — both should be tried and the inconsistency recorded. | §6 "...README lists password `Admin123!`, setup_guide lists `admin123`; try both, record the inconsistency." | Observation |
+| REQ-15 | AREA-06 | `api_specification.md` §4.3 allows the client to supply `total_amount` at checkout, which contradicts README FR-08 (backend MUST recompute total_amount) — meaning the value summed into revenue (REQ-05) may rest on a client-controlled number rather than a backend-verified one. | §7 "`total_amount` trustworthiness — api_spec section 4.3 lets the client supply `total_amount` at checkout, contradicting README FR-08..." | Observation |
 
 ## 3. Assumptions
 
@@ -61,9 +74,9 @@ additional gaps identified during decomposition, each with supporting evidence.
 | OQ-03 | What does the dashboard show when there are zero orders at all (0? blank? absent field?)? | Needed to define the empty-state equivalence class/expected output in Phase 2/3. | §7 bullet 3 |
 | OQ-04 | What does total revenue show when there are orders but zero `delivered` orders — `0`, or empty/undefined? | Needed to distinguish "no orders at all" from "orders exist but none delivered" as separate equivalence classes. | §7 bullet 4 |
 | OQ-05 | For a `canceled` order (which still has a `total_amount`): is exclusion from revenue (per REQ-06) confirmed in the running implementation, and does a canceled order count toward "total number of orders" (REQ-07)? | REQ-06 states canceled orders must not count toward revenue, but whether they count toward the order-count total is unresolved (ties to OQ-02) and worth an explicit check since a canceled order is the one case with a nonzero `total_amount` that must NOT appear in the revenue sum. | §7 bullet 5 |
-| OQ-06 | Given REQ-14 (client-supplied `total_amount` vs. README FR-08 backend recompute), is the revenue sum in REQ-05 actually built on a backend-verified `total_amount`, or can it be manipulated via a tampered checkout request? | Determines whether a tampered-`total_amount` scenario should be included as a test case beyond straightforward equivalence partitioning — a correctness/security concern flagged as an Observation (REQ-14), not yet a confirmed bug. | §7 bullet 6; REQ-14 |
+| OQ-06 | Given REQ-15 (client-supplied `total_amount` vs. README FR-08 backend recompute), is the revenue sum in REQ-05 actually built on a backend-verified `total_amount`, or can it be manipulated via a tampered checkout request? | Determines whether a tampered-`total_amount` scenario should be included as a test case beyond straightforward equivalence partitioning — a correctness/security concern flagged as an Observation (REQ-15), not yet a confirmed bug. | §7 bullet 6; REQ-15 |
 | OQ-07 | What currency, rounding, and number format is used for the displayed revenue? | Needed to define valid-output equivalence classes and precision expectations for the revenue field in Phase 2. | §7 bullet 7 |
-| OQ-08 | What is the denied-access response shape — HTTP 401 (no/invalid token) vs. 403 (valid token but `role = 'user'`)? §5 only says "access denied" without a status code. | Determines the expected HTTP status code to assert in the access-denial test cases (REQ-08, REQ-09). | §7 bullet 8 |
+| OQ-08 | What is the denied-access response shape — HTTP 401 (no/invalid token) vs. 403 (valid token but `role = 'user'`)? §5 only says "access denied" without a status code. | Determines the expected HTTP status code to assert in the access-denial test cases (REQ-08, REQ-09, REQ-10). | §7 bullet 8 |
 | OQ-09 | Is `total_amount` an integer (VND, no decimals) or a decimal value? | Affects whether BVA on the revenue sum in Phase 4 needs a boundary step of 1 or of 0.01. | §7 bullet 9 |
 | OQ-10 | What HTTP status code indicates a successful dashboard/orders fetch for an authorized admin? | Not stated anywhere in the input; needed for concrete expected-result assertions on the success path in Phase 3/4. | §2, §5 (success-path content is described but no status code is given) |
 | OQ-11 | What is the exact response body shape for the dashboard metrics (e.g., field names/casing such as `totalRevenue`/`total_revenue`, wrapped object vs. flat fields)? | Needed to write concrete expected-output assertions in Phase 3/4; without a sample body, only the underlying values (not the structure) can be verified. | §3.1, §3.2 (field content described, no sample JSON given) |
