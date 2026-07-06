@@ -2,7 +2,7 @@
   "project": "fr13_dashboard",
   "workflow": "Domain Testing + BVA",
   "current_phase": "PHASE_04",
-  "workflow_status": "READY",
+  "workflow_status": "COMPLETED",
   "phases": {
     "PHASE_01": {
       "status": "APPROVED",
@@ -17,7 +17,7 @@
       "artifact": "output/03_Domain_Test_Cases.md"
     },
     "PHASE_04": {
-      "status": "NOT_STARTED",
+      "status": "APPROVED",
       "artifact": "output/04_Boundary_Value_Test_Cases.md"
     }
   }
