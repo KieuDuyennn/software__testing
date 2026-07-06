@@ -272,3 +272,140 @@ zero-price as a boundary/business-rule question from large-price as a
 pure formatting question. P2-G03: EC-40's own row in §3.6 now carries
 "unconfirmed — see CF-01" inline, matching §4's traceability row instead
 of relying solely on the prose paragraph above the table.
+
+## 2026-07-07 — Phase 3 self-critique (per user checklist)
+
+Re-reading `output/03_Domain_Test_Cases.md` against its own cited sources
+and against Phase 1/2, not re-asserting Section 6 (Self-Check). Findings
+only — nothing fixed yet. Each finding tagged `[P3-Gxx]` with evidence and
+an honest severity call.
+
+### 1. TC-02 bundles 6 edge-but-valid subclasses — does this undercut single-fault isolation?
+
+- **[P3-G01] real gap, moderate-to-high.** TC-02 bundles broken image
+  (EC-09), very long name (EC-12), price = `0` (EC-15), very long
+  description (EC-19), dangling category (EC-22), and leading-zero
+  quantity (EC-02) into **one** fixture and one test case, with 6
+  separately-labeled expected-result assertions (a)–(f). As **coverage**,
+  this is technically fine — the "combined valid coverage" rule only
+  formally mandates single-fault isolation for *invalid* classes, and each
+  EC does get its own labeled assertion. But the rule's own stated
+  justification for combining valid classes is that "the system is
+  expected to handle each valid input correctly and independently" — and
+  I never actually checked whether these 6 conditions ARE independent of
+  each other. They are 6 *elevated-risk* conditions (each individually
+  flagged by a distinct risk theory — TD-06, TD-07 twice, OQ-11, OQ-15,
+  OQ-16), not 6 *ordinary* valid values, and they all live on the same
+  rendered screen simultaneously. A plausible fault theory says otherwise:
+  if the screen fails to render at all (e.g. a crash from an interaction
+  between a broken-image fallback and a long-text layout reflow — a real
+  category of UI bug), TC-02 as designed gives **no way to attribute the
+  failure to any one of the 6 conditions** — exactly the attribution
+  problem single-fault isolation exists to prevent, just not one the
+  guideline technically forces me to avoid here. Contrast with how a prior
+  project's Phase 3 (FR-13, `gap_notes.md` pattern) handled a similar
+  bundling decision: it explicitly stated when a combined test case could
+  *not* isolate a specific fault (TC-01's non-crediting note for
+  EC-16/EC-17) rather than silently assuming full attribution was
+  possible. TC-02 has no equivalent caveat. Evidence: §1 TC-02's row and
+  its 6-item Fixture B (§0 D-7) vs. the domain-test-heuristics.md
+  rationale for combined valid coverage ("the system is expected to
+  handle each valid input correctly and independently"). Not fixed here;
+  candidate directions (not applied): split Fixture B's 6 conditions
+  across 2–3 fixtures with fewer simultaneous edge conditions each, or add
+  an explicit caveat that a total-failure/crash result on TC-02 would
+  require a follow-up per-field isolated retest to attribute.
+
+### 2. D-2's "no authentication precondition is required" — stated fact, or inference from silence?
+
+- **[P3-G02] real gap, high severity — the most serious finding of this
+  pass.** D-2 states: "No authentication precondition is required to view
+  this screen — REQ-01/REQ-02 state no auth requirement for product
+  detail retrieval." Re-reading REQ-01 and REQ-02's actual text (Phase 1,
+  approved): REQ-01 — "Product detail is retrieved via `GET
+  /api/products/:id` (path param `id`)"; REQ-02 — "A successful (200 OK)
+  product detail response returns the object `{ id, name, price,
+  description, imageUrl, category_id }`." **Neither statement mentions
+  authentication at all, in either direction.** They are silent on the
+  question, not assertive that no auth is required. By contrast, REQ-03
+  (Add to Cart) *does* explicitly state an auth requirement
+  ("...requiring header `Authorization: Bearer <token>`") — showing the
+  Phase 1 artifact clearly does state auth requirements where the FR
+  actually specifies them, and does not do so for REQ-01/REQ-02 because
+  the FR never says either way for this endpoint. Treating that silence as
+  "no requirement" and presenting it as if REQ-01/REQ-02 assert it is
+  exactly the kind of invented-from-silence conclusion the project's own
+  integrity rule prohibits (never invent unstated behavior — flag as an
+  Open Question instead). This is not a cosmetic wording issue: if product
+  detail retrieval actually *does* require auth in the running app
+  (genuinely unknown either way), every test case in this artifact
+  (TC-01..TC-13) is designed with no login step in its precondition, and
+  all 13 could fail for a reason entirely unrelated to what each is
+  supposed to be testing, with no warning built into the artifact that
+  this is even a live possibility. Evidence: `01_Requirements_Breakdown.md`
+  REQ-01/REQ-02 exact text vs. `03_Domain_Test_Cases.md` §0 D-2's claim.
+  Not fixed here; candidate direction (not applied): reword D-2 to state
+  plainly that REQ-01/REQ-02 are silent on authentication (not that they
+  assert its absence), and raise a new Open Question — "does viewing the
+  product detail screen require the user to be logged in?" — rather than
+  assuming no login step is needed in every TC's precondition.
+
+### 3. OQ-17 (test-data feasibility) — new gap, or Phase 1's OQ-08 re-raised as if new?
+
+- Re-checked Phase 1's OQ-08 verbatim: "Test data: use seeded products
+  from `GET /api/products`; note one valid product id and one plausibly
+  non-existent id (e.g. `999999`) for the invalid case." OQ-08's scope is
+  specifically about **which product id** to use — the existence
+  dimension (valid vs. non-existent id), sourced from the already-seeded
+  catalog. OQ-17 asks something different: whether a mechanism exists to
+  **create/engineer atypical field-level states** within a product record
+  (a broken `imageUrl`, an empty description, a dangling `category_id`,
+  an excessively long name) — none of which the seeded catalog is stated
+  to contain, and none of which OQ-08 addresses (OQ-08 assumes picking
+  *among* seeded products, not modifying/constructing one). **Verdict:
+  OQ-17 is not a duplicate of OQ-08 — it is a genuinely distinct
+  concern.**
+- **[P3-G03] real gap, low-to-moderate — the distinction is real but was
+  never stated.** Even though OQ-17 is genuinely new, `03_Domain_Test_
+  Cases.md` never explains *why* it isn't just OQ-08 restated — a reader
+  who remembers OQ-08 covers "test data" could reasonably wonder whether
+  OQ-17 is redundant with it, exactly the same category of gap Phase 2's
+  P2-G02 already caught once (two similar-looking things treated
+  differently with no stated reason why). Evidence: §0's OQ-17 entry in
+  `03_Domain_Test_Cases.md` vs. Phase 1's OQ-08 text in
+  `01_Requirements_Breakdown.md` — no cross-reference or disambiguation
+  exists between them anywhere in the Phase 3 artifact.
+
+## Summary (Phase 3 pass)
+
+Three items logged: `[P3-G01]` real gap, moderate-to-high (TC-02's 6-way
+bundle of independent elevated-risk edge conditions is valid as coverage
+but would leave a total-failure result unattributable to any one field —
+the same attribution concern single-fault isolation exists to prevent,
+just not one the letter of the rule forces here), `[P3-G02]` real gap,
+high severity — the most serious of the three (D-2 presents an inference
+from REQ-01/REQ-02's silence on authentication as if it were a stated
+fact; all 13 TCs currently assume no login precondition with no flag that
+this is unconfirmed), `[P3-G03]` real gap, low-to-moderate (OQ-17 is
+genuinely distinct from Phase 1's OQ-08, verified by re-reading both
+verbatim, but the artifact never states why, risking the same
+unexplained-distinction pattern P2-G02 already caught once). No edits made
+to `03_Domain_Test_Cases.md` in this pass — awaiting the user's decision
+on which to fix.
+
+## 2026-07-07 — Fix pass (P3-G01, P3-G02, P3-G03)
+
+All three fixed. P3-G02 (priority): D-2 reworded to state plainly that
+REQ-01/REQ-02 are silent on authentication, not that they assert its
+absence; added new OQ-18 ("is login required to view product detail?")
+and a shared precondition caveat in D-2 covering all of TC-01–TC-13,
+stating the no-login assumption is unconfirmed. P3-G01: added an explicit
+attribution caveat after TC-02's row stating a whole-screen/compound
+failure could not be attributed to one of its 6 bundled conditions, and
+that isolating such a failure would need follow-up single-field probes —
+framed as an accepted trade-off, not a design flaw. P3-G03: added an
+explicit note distinguishing OQ-17 (can atypical field values be
+engineered at all) from Phase 1's OQ-08 (which product id to pick from
+the seeded catalog), plus a parallel note distinguishing new OQ-18 from
+OQ-05 (Add to Cart's login question, a different endpoint/action). No
+EC/TC IDs, scope, or classes changed.
