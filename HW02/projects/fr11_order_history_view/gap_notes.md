@@ -339,3 +339,173 @@ Reviewed with the user. Of the 3 findings, only Item 8 was applied.
   not hidden assumptions, so no change was made.
 
 No other sections of `02_Equivalence_Partitioning.md` were touched.
+
+## 2026-07-06 — Phase 3 self-critique (per user checklist)
+
+Re-reading `output/03_Domain_Test_Cases.md` against the task instructions and
+`02_Equivalence_Partitioning.md` before approval. Findings only — nothing
+fixed yet.
+
+### 1. Are EC-16..EC-21 treated only as expected results, never a separate
+   TC target?
+
+- PASS — TC-01..TC-08's "EC(s) Covered"/"EC Covered" columns list only
+  input-side classes (EC-01, EC-02/06, EC-03, EC-04, EC-05, EC-07, EC-08) or
+  the empty-state data precondition (EC-15). EC-16..EC-21 appear only inside
+  "Expected Result" cells as arrows (e.g. TC-01: "Success (→ EC-16)"; TC-03:
+  "→ EC-17"; TC-06: "→ EC-18"; TC-04: "→ EC-19"; TC-05: "→ EC-20"; TC-07: "→
+  EC-21"). No TC's own coverage column names EC-16..EC-21 as what it's
+  testing, and no TC exists whose only purpose is to re-assert one of those
+  six outcomes without a distinct input-side trigger — each of TC-01
+  through TC-07 drives a different input condition.
+
+### 2. Does the valid-coverage TC actually attempt multiple status values,
+   and is anything claimed "covered" without real evidence?
+
+- PASS (with a disclosed coverage limitation) — TC-01/TC-02 concretely seed
+  only 2 of the 5 status values: Order B is moved to `canceled` via the
+  documented `PUT /api/orders/:id/cancel` endpoint (§4: "EC-13 | `canceled` |
+  **Confidently covered**"), and Order A is left at checkout's default
+  (unconfirmed) status. Nothing is claimed as covered without evidence: §4
+  explicitly marks EC-09 (`pending`) "**Not deliberately covered** — may be
+  *incidentally* observed... cannot be asserted as guaranteed or deliberate,"
+  and EC-10/EC-11/EC-12 (confirmed/shipping/delivered) as "**Not covered —
+  setup dependency**" tied to new OQ-15. So only 2 of 5 status values are
+  actually attempted by TC-01/TC-02, and this limitation is disclosed
+  in-artifact (§4, §5, §8) rather than glossed over as full coverage.
+
+### 3. Is EC-14 explicitly marked untestable via normal input, not silently
+   dropped?
+
+- PASS — §4's EC-14 row states "**Not testable via normal input at all**...
+  There is no domain test case for it; at best it could be checked via a
+  static/regression check... Recorded here explicitly rather than silently
+  dropped." §5's matrix repeats this: "EC-14 | ... | *(none — not testable
+  via normal input)* | Static/regression check at best."
+
+### 4. Each invalid TC — exactly one fault? Any TC combining two invalid
+   conditions?
+
+- PASS — TC-03 (ownership violation only; token itself valid), TC-04 (token
+  absent only; request otherwise well-formed), TC-05 (token present but
+  invalid only; no other condition varied), TC-06 (id nonexistent only;
+  token valid, id well-formed), TC-07 (id format malformed only; token
+  valid) each carry a "Single-Fault Isolation Reasoning" cell stating
+  exactly which one condition is wrong and confirming the others are held
+  valid. No TC's precondition/request combines two invalid conditions (e.g.
+  no TC pairs "no token" with "nonexistent id," or "invalid token" with
+  "ownership violation").
+
+### 5. Are EC-06 (other user's real id) and EC-07 (nonexistent id) still
+   two separate TCs?
+
+- PASS — TC-03 covers EC-02/EC-06 (existing order owned by `admin@eshop.com`,
+  requested by `test@eshop.com`) and TC-06 covers EC-07 (id `999999`, not
+  owned by anyone). TC-06's Expected Result cell states explicitly: "**Kept
+  as a separate TC from TC-03 per task instruction — not merged, even though
+  both may turn out to return the same code**." Two distinct TC rows, two
+  distinct EC citations.
+
+### 6. Any TC that assumes an unresolved OQ's answer instead of citing the
+   OQ?
+
+- PASS — scanned every Expected Result cell (TC-01..TC-08) for an invented
+  status code, response body, or Vietnamese string: none found. TC-01/TC-02
+  reference OQ-08/OQ-05 (VN label/color) and OQ-09/OQ-10 (status
+  code/envelope) instead of stating a value; TC-03 references OQ-06 (403 vs.
+  404) instead of picking one; TC-04/TC-05 reference OQ-07 without presuming
+  whether their responses are identical; TC-06 references OQ-12 without
+  presuming identity with TC-03; TC-07 references OQ-13; TC-08 references
+  OQ-10/OQ-14. The label "Not found (→ EC-18)" on TC-06 reuses Phase 2's own
+  Outcome Type name for EC-18 verbatim (`02_Equivalence_Partitioning.md`
+  §2.3) — it is inherited terminology, not an invented HTTP status number.
+
+### 7. Does every TC state its data-setup precondition explicitly?
+
+- PASS — every TC's Precondition cell is populated, including the two
+  "nothing extra" cases which are stated as such rather than left blank:
+  TC-04 and TC-05 both read "No setup beyond a syntactically well-formed
+  request." TC-01/TC-02 spell out the two-order seed with specific setup
+  endpoints; TC-03 spells out the `admin@eshop.com` order seed; TC-06/TC-07
+  state "`test@eshop.com` logged in (valid token)"; TC-08 spells out the
+  zero-orders account requirement and cross-references the §0 Test
+  Environment Note.
+
+### 8. Every TC traces to an EC-xx from Phase 2 — list any that doesn't.
+
+- PASS, no TC is fully untraceable — every TC's own coverage column cites at
+  least one Phase 2 EC (TC-01: EC-01; TC-02: EC-01, EC-05; TC-03: EC-02/EC-06;
+  TC-04: EC-03; TC-05: EC-04; TC-06: EC-07; TC-07: EC-08; TC-08: EC-15).
+- **GAP (minor, internal-consistency)** — TC-01's and TC-02's own §1
+  "EC(s) Covered" cells list only **EC-01** (and **EC-05** for TC-02) — they
+  do **not** also list **EC-13** (`canceled`), even though §4's status table
+  and §5's coverage matrix both credit TC-01/TC-02 with confidently covering
+  EC-13 ("EC-13 | Output | Valid | TC-01, TC-02 | Confidently covered"). A
+  reader who only checks §1's table (without cross-referencing §4/§5) would
+  miss that these two TCs also exercise EC-13. Not a "doesn't trace at all"
+  failure — the trace exists, just split across sections rather than
+  consolidated in each TC's own row.
+
+### 9. NEW — Ownership isolation for `GET /api/orders/my-orders` (REQ-06):
+   does any TC seed an order under a different account and confirm it's
+   ABSENT from `test@eshop.com`'s `/my-orders` response?
+
+- **GAP** — no such check exists anywhere in the document. TC-01's REQ
+  column lists **REQ-06** ("A user MUST be able to view only their own
+  orders") among the requirements it covers, but TC-01's Precondition only
+  seeds orders under `test@eshop.com` (no order is ever seeded under
+  `admin@eshop.com` for TC-01), and its Expected Result only makes
+  **positive** assertions — that `test@eshop.com`'s own 2 orders are
+  returned with the right fields. It never asserts a **negative**: that
+  `admin@eshop.com`'s (or any other user's) orders are *excluded* from that
+  same response.
+  - TC-03 *does* seed an order under `admin@eshop.com` and does check an
+    ownership violation — but only against `GET /api/orders/:id` (the detail
+    endpoint), never against `GET /api/orders/my-orders` (the list
+    endpoint). It cannot substitute for a list-endpoint leak check.
+  - Concretely: a defect that made `GET /api/orders/my-orders` return **all**
+    users' orders (ignoring the ownership filter on the list endpoint
+    entirely) would currently pass every TC in this document undetected —
+    TC-01 doesn't check for extra/foreign orders in the response, and no
+    other TC calls the list endpoint at all under a cross-user setup.
+  - This can be closed either way: (a) **add an assertion to TC-01** —
+    additionally seed one order under `admin@eshop.com` before TC-01's
+    `GET /api/orders/my-orders` call, and assert the returned list contains
+    *only* `test@eshop.com`'s 2 orders (i.e., `admin@eshop.com`'s order is
+    absent) — this stays a "Combined valid coverage" case since it's still
+    exercising valid auth/ownership, just with a completed REQ-06 assertion;
+    or (b) **add a new dedicated TC** paralleling TC-03 but against the list
+    endpoint. Recorded as an open implementation choice, not resolved here.
+
+## Summary (Phase 3 self-critique)
+
+9 checks run: 7 clean PASS (items 1, 2, 3, 4, 5, 6, 7), 1 minor
+internal-consistency GAP (item 8: TC-01/TC-02's own EC(s)-Covered cells omit
+EC-13, which §4/§5 credit them with — the trace exists but is split across
+sections), and 1 substantive GAP (item 9: `GET /api/orders/my-orders`'s
+ownership filter — REQ-06 — is claimed as covered by TC-01 but never
+actually exercised with a negative/exclusion check; a full-leak defect on
+the list endpoint would go undetected by the current test suite). No edits
+made to `03_Domain_Test_Cases.md`.
+
+## 2026-07-06 — Disposition of Phase 3 self-critique
+
+Reviewed with the user. Both findings were applied.
+
+**APPLIED:**
+- Item 8 (EC-13 trace omitted from TC-01/TC-02's own coverage cells) —
+  TC-01's "EC(s) Covered" cell now reads "EC-01 (my-orders view), EC-13";
+  TC-02's now reads "EC-01 (detail view), EC-05, EC-13" — matching what §4
+  and §5 already credited both TCs with.
+- Item 9 (no REQ-06 negative/exclusion check for `GET /api/orders/my-orders`)
+  — TC-01 extended (not a new TC): its precondition now also seeds an order
+  under `admin@eshop.com` (reusing TC-03's account/setup), and its Expected
+  Result now asserts the returned list contains only `test@eshop.com`'s
+  orders — `admin@eshop.com`'s order must not appear. §5's EC-01 row updated
+  to note this genuine negative assertion. Applied by extending the existing
+  "Combined valid coverage" case rather than adding a dedicated TC, since it
+  reuses the same valid request and only adds an assertion — consistent with
+  bundling multiple checks into the fewest test cases (D-1).
+- Self-Check (§7) updated with two corrected bullets documenting both fixes.
+
+No other sections of `03_Domain_Test_Cases.md` were touched.
