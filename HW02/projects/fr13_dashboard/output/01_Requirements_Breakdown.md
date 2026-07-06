@@ -64,7 +64,7 @@ under Open Questions (Section 4) instead of being assumed.
 ## 4. Open Questions
 
 OQ-01 through OQ-09 are taken directly from §7 of the input ("Not Specified in
-the FR") — none of these are answered or guessed here. OQ-10 through OQ-12 are
+the FR") — none of these are answered or guessed here. OQ-10 through OQ-13 are
 additional gaps identified during decomposition, each with supporting evidence.
 
 | ID | Question | Why It Matters | Evidence |
@@ -81,16 +81,66 @@ additional gaps identified during decomposition, each with supporting evidence.
 | OQ-10 | What HTTP status code indicates a successful dashboard/orders fetch for an authorized admin? | Not stated anywhere in the input; needed for concrete expected-result assertions on the success path in Phase 3/4. | §2, §5 (success-path content is described but no status code is given) |
 | OQ-11 | What is the exact response body shape for the dashboard metrics (e.g., field names/casing such as `totalRevenue`/`total_revenue`, wrapped object vs. flat fields)? | Needed to write concrete expected-output assertions in Phase 3/4; without a sample body, only the underlying values (not the structure) can be verified. | §3.1, §3.2 (field content described, no sample JSON given) |
 | OQ-12 | If dashboard metrics are computed client-side from `GET /api/admin/orders` (per OQ-01), is that endpoint paginated or limited in any way? | An unstated pagination limit on the orders list would silently truncate the data set that revenue/count are computed from, producing an incorrect aggregate — a genuine correctness risk worth checking before trusting any expected value derived from that endpoint. | §2 (no pagination information given for `GET /api/admin/orders`) |
+| OQ-13 | For access denial due to missing/invalid credentials, does "no token" (REQ-08) produce the same denied-access response (status code/body) as "invalid/malformed token" (REQ-09), or a different one? | REQ-08 and REQ-09 are now split as separate atomic conditions (Phase 1 self-critique finding P1-G02); this asks whether their *outputs* also differ, not just whether both result in denial — analogous to FR-11's OQ-07. | New gap identified in Phase 1 self-critique (P1-G02/P1-G06); no §7 bullet covers this directly (§7 bullet 8, now OQ-08, covers role-based denial shape, not the no-token-vs-invalid-token distinction) |
 
 ## 5. Self-Check
 
-- [x] Every atomic requirement is traceable to the source Functional Requirement (each REQ row cites the exact section/quote).
-- [x] No invented business rules or assumptions presented as fact — nothing beyond the FR's text is stated as a REQ; all gaps are in Open Questions (OQ-01..OQ-12), and Section 3 (Assumptions) explicitly contains none.
-- [ ] Every equivalence class has at least one covering test case — N/A for Phase 1 (equivalence classes and test cases are produced in Phase 2/3).
-- [x] IDs are unique and consistently formatted (`REQ-01`..`REQ-14`, `OQ-01`..`OQ-12`, `AREA-01`..`AREA-06`), zero-padded, no unexplained gaps.
-- [x] No table cell is empty without an explicit marker — all cells populated (Assumptions section explicitly states "None identified" rather than being left blank).
-- [x] Terminology is consistent throughout (consistently uses "endpoint" for API routes, "order" for the resource, "status" for the enum field, "requirement" for REQ rows).
-- [x] Each REQ states one independently-testable rule — the revenue rule was split into REQ-04 (display), REQ-05 (inclusion), REQ-06 (exclusion) per special instruction, and access control was split into REQ-08 (JWT required) and REQ-09 (role must be admin) per special instruction, so a bug affecting only one of these sub-rules remains distinguishable at the requirement level.
+Re-run after the 2026-07-06 Phase 1 self-critique fixes (P1-G01, P1-G02,
+P1-G03, P1-G04, P1-G06 applied; P1-G05 addressed with a kept-as-is
+justification). Re-verified line by line, not just re-ticked.
+
+- [x] Every atomic requirement is traceable to the source Functional
+      Requirement, and **every REQ's Source Reference is now a direct
+      quote of the cited section** — re-checked individually: REQ-01/02/03
+      → §2; REQ-04/05/06 → §3.1; REQ-07 → §3.2; REQ-08/09 → §5 "No token /
+      invalid token: access denied." (split into its no-token and
+      invalid-token clauses); REQ-10 → §3.3 second bullet; REQ-11/12/13 →
+      §6; REQ-14 → §6; REQ-15 → §7. This fixes P1-G03: REQ-08 previously
+      cited §3.3 with an inferred "(JWT-presence clause, per FR-12)"
+      annotation that was not an actual quote — it now cites the real
+      supporting text in §5.
+- [x] No invented business rules or assumptions presented as fact — nothing
+      beyond the FR's text is stated as a REQ; all gaps are in Open
+      Questions (OQ-01..OQ-13), and Section 3 (Assumptions) explicitly
+      contains none. REQ-15's analytical bridge is now explicitly labeled
+      "Note (analysis...)" and separated from the quoted fact, so it can no
+      longer be misread as part of the quoted contradiction itself
+      (fixes P1-G04).
+- [ ] Every equivalence class has at least one covering test case — N/A for
+      Phase 1 (equivalence classes and test cases are produced in
+      Phase 2/3).
+- [x] IDs are unique and consistently formatted (`REQ-01`..`REQ-15`,
+      `OQ-01`..`OQ-13`, `AREA-01`..`AREA-06`), zero-padded. The REQ-08 split
+      added one ID, shifting former REQ-09..REQ-14 to REQ-10..REQ-15; every
+      cross-reference to a shifted REQ ID (Global Precondition §0, OQ-06,
+      OQ-08) was checked and updated — no stale REQ number remains.
+- [x] No table cell is empty without an explicit marker — all cells
+      populated (Assumptions section explicitly states "None identified").
+- [x] Terminology is consistent throughout (consistently uses "endpoint"
+      for API routes, "order" for the resource, "status" for the enum
+      field, "requirement" for REQ rows).
+- [x] Each REQ states one independently-testable rule. Revenue: REQ-04
+      (display) / REQ-05 (inclusion) / REQ-06 (exclusion). Access control
+      is now split three ways instead of two: REQ-08 (no token → denied) /
+      REQ-09 (invalid token → denied) / REQ-10 (role must be admin) — this
+      fixes P1-G02 (no-token and invalid-token were previously one merged
+      REQ-08, unlike the FR-11 REQ-16/REQ-17 precedent). **Caveat, honestly
+      disclosed rather than hidden:** REQ-08/09/10 still describe a single
+      "dashboard" access surface rather than two independently-tested
+      surfaces (frontend dashboard vs. admin API) — this is not fully
+      resolved, because OQ-01 has not confirmed a second surface exists to
+      split against. Per P1-G01's fix, the Global Precondition section (§0)
+      now states explicitly that "dashboard" here means "whatever surface
+      serves this data, currently only the admin API" so the requirement
+      does not silently assume two surfaces behave identically — but if a
+      distinct frontend route is later confirmed, REQ-08/09/10 will need a
+      further split at that time. This is a scoped, not a fabricated,
+      resolution.
+- [x] REQ-02 (three bundled facts: endpoint path, body shape, status enum)
+      was reviewed per P1-G05 and kept as one row, with an inline
+      justification added to its Statement cell (Observation-tier, not an
+      FR-13 testable rule, low risk) rather than split — an explicit
+      decision, not an oversight.
 
 ## 6. Awaiting User Review
 
