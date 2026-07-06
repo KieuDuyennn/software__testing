@@ -367,3 +367,114 @@ missing explicit Phase-4-impact callout on TC-08's deferral (P3-G02), and
 inconsistent candidate-code enumeration between TC-02/03 and TC-04 (P3-G04).
 Filename verification (specific check 2) and ID/REQ numbering consistency
 both passed cleanly. Final verdict is yours to decide.
+
+## 2026-07-06 — Phase 4 self-critique (per user checklist)
+
+Re-reading `output/04_Boundary_Value_Test_Cases.md` before approval.
+Findings only — nothing fixed yet. Each finding tagged `[P4-Gxx]` with
+evidence and an honest severity call.
+
+### Specific check 1 — is OQ-16 missing intentional or an error?
+
+**Answer: a plain numbering error, not a documented exclusion — no record
+anywhere of an OQ-16 having been considered and dropped.**
+
+- **[P4-G01] real gap, moderate severity.** Phase 3 ended at OQ-15. This
+  artifact's new-OQ table (§5) jumps straight to OQ-17, OQ-18, OQ-19 with no
+  OQ-16 anywhere and no explanation for the skip. There is no rationale in
+  the document (or in how the questions were derived) that would justify a
+  deliberate gap — it is a plain sequential numbering slip. Fix expectation
+  per the user: renumber to close the gap (OQ-17→OQ-16, OQ-18→OQ-17,
+  OQ-19→OQ-18) rather than retroactively inventing a placeholder OQ-16.
+  Evidence: §5 "New in Phase 4" table.
+
+### Specific check 2 — does domain (b)'s table silently assume one OQ-02 outcome?
+
+**Answer: yes, this is a real, inadequately-hedged ambiguity, not already
+covered elsewhere.**
+
+- **[P4-G02] real gap, moderate-to-high severity.** §0/§2 frame "count of
+  `delivered` orders" as feeding "the total order count too... if OQ-02
+  resolves toward a delivered-only scope" — but only address *that one*
+  resolution. Under the **other** plausible OQ-02 resolution (count = all
+  orders regardless of status), EC-10 (orders exist, zero `delivered`) does
+  **not** correspond to "total order count = 0" at all — under that scope,
+  total count would be however many non-delivered orders exist (nonzero,
+  since EC-10 requires at least one order of any status). Only EC-09 (zero
+  orders at all, TC-07) would give total-count = 0 under an all-statuses
+  scope. The document's own §2 table maps `min = 0` to EC-10/TC-08
+  unconditionally, without ever stating that this mapping is correct **only**
+  for "count of `delivered` orders" specifically (which is unambiguous
+  regardless of OQ-02) and is **not** a valid stand-in for "total order
+  count"'s own zero-boundary under every possible OQ-02 resolution. This
+  conflates two claims — "delivered-count = 0 ⇒ EC-10" (always true) and
+  "total-count = 0 ⇒ EC-10" (true only if OQ-02 resolves delivered-only) —
+  under one table row. **Not already hedged elsewhere**: the one Open
+  Question that speaks directly to this (OQ-14, from Phase 2/3, about
+  whether order count needs its own dedicated empty-state twin depending on
+  OQ-02) is never carried forward into this document at all — see P4-G05.
+  (BVA-06 itself is unaffected: with only `delivered` orders in that data
+  set and no decoys, delivered-count and total-count coincide at `3` under
+  either OQ-02 resolution, so the ambiguity doesn't corrupt that specific
+  test case — only the `min = 0` boundary claim in §2's table.)
+
+### General checks
+
+**3. Is BVA-06's choice of exactly 3 (vs. minimum-sufficient 2) justified?**
+
+- **[P4-G03] real gap, low-to-moderate severity.** Never justified anywhere
+  in the artifact. A legitimate rationale exists and was simply not written
+  down: N=2 could pass by coincidence against an implementation hard-bounded
+  to "process up to 2 rows" (an off-by-one loop-bound bug), which N=2 alone
+  cannot distinguish from correct N-row aggregation; N=3 is needed to rule
+  that out. As written, a reader cannot tell whether 3 was a deliberate
+  choice or an arbitrary one.
+
+**4. Any BVA case whose expected result is unfalsifiable/too vague to grade?**
+
+- **[P4-G04] real gap, moderate severity.** BVA-02's expected result reads:
+  "Displayed revenue reflects `0` from this order **without being
+  indistinguishable** from the *no-delivered-orders* empty state... new
+  OQ-19 flags whether the dashboard needs to (or even can) distinguish...
+  at all; not resolved here." This conflates a genuinely checkable
+  assertion (revenue displays `0` for this specific order) with an
+  explicitly unresolved question (distinguishability, OQ-19) in one
+  sentence that reads as if it asserts a requirement ("without being
+  indistinguishable") the same sentence then says is unresolved. As
+  written, it is unclear what a tester should actually grade pass/fail on.
+  Other BVA rows (01, 03, 04, 05, 06) state a clear, single checkable
+  expected value with any open dependency noted *separately*, not fused
+  into the same clause — BVA-02 is the one exception.
+
+**5. Terminology/ID consistency re-check.**
+
+- BVA IDs (BVA-01..BVA-06) are sequential, no gaps — PASS.
+- EC/REQ/TC cross-references throughout §1/§2 match Phase 1/2/3's final,
+  already-fixed numbering (e.g. EC-20/21/22 post-P2-G01-split, REQ-08/09/10
+  post-P1-G02-split) — PASS, no stale references found.
+- **[P4-G05] real gap, low-to-moderate severity.** §5's "carried forward"
+  Open Questions table lists only OQ-09, OQ-07, OQ-06, OQ-02, OQ-12 —
+  omitting **OQ-14** and **OQ-15** (both raised in Phase 2/3) even though
+  both are relevant to content this Phase 4 document actually discusses:
+  OQ-14 bears directly on the exact ambiguity in P4-G02 (order count's
+  empty-state twin depending on OQ-02); OQ-15 bears on whether TC-07's
+  "zero orders at all" precondition — referenced in §2's table as "TC-07's
+  stronger... edge" — is even achievable in a persistent test environment.
+  Neither OQ-14 nor OQ-15 appears anywhere else in the document either.
+
+## Suggested Verdict (Phase 4)
+
+**INCOMPLETE.** Five real gaps, all fixable without touching the core
+design: a plain OQ-16 numbering skip with no documented cause (P4-G01); a
+substantive, inadequately-hedged conflation between "count of `delivered`
+orders" and "total order count" at the `min = 0` boundary specifically,
+which only holds under one of two plausible OQ-02 resolutions (P4-G02); an
+unstated rationale for BVA-06's N=3 choice (P4-G03); a confusingly-worded,
+effectively ungradable expected result on BVA-02 (P4-G04); and two relevant
+carried-forward Open Questions (OQ-14, OQ-15) silently dropped from §5
+(P4-G05, which also weakens P4-G02 since OQ-14 would have been the natural
+place to hedge that exact ambiguity). The Self-Check section did not catch
+any of these — it verified BVA ID continuity but never checked OQ ID
+continuity, and ticked "no Open Question was resolved or guessed" without
+checking that all *relevant carried-forward* Open Questions were actually
+still present. Final verdict is yours to decide.
