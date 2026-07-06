@@ -1,7 +1,7 @@
 {
   "project": "fr06_product_detail_view",
   "workflow": "Domain Testing + BVA",
-  "current_phase": "PHASE_03",
+  "current_phase": "PHASE_04",
   "workflow_status": "READY",
   "phases": {
     "PHASE_01": {
@@ -13,7 +13,7 @@
       "artifact": "output/02_Equivalence_Partitioning.md"
     },
     "PHASE_03": {
-      "status": "NOT_STARTED",
+      "status": "APPROVED",
       "artifact": "output/03_Domain_Test_Cases.md"
     },
     "PHASE_04": {
