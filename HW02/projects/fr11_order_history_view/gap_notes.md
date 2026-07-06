@@ -509,3 +509,128 @@ Reviewed with the user. Both findings were applied.
 - Self-Check (§7) updated with two corrected bullets documenting both fixes.
 
 No other sections of `03_Domain_Test_Cases.md` were touched.
+
+## 2026-07-06 — Phase 4 self-critique (per user checklist)
+
+Re-reading `output/04_Boundary_Value_Test_Cases.md` against the task
+instructions and `02_Equivalence_Partitioning.md`/`03_Domain_Test_Cases.md`
+before approval. Findings only — nothing fixed yet.
+
+### 1. Is BVA applied ONLY to order id? Flag any boundary reasoning
+   smuggled in for status, auth, or empty-state.
+
+- PASS — all three generated test cases (BVA-01: `id = -1`, BVA-02:
+  `id = 0`, BVA-03: `id = 1`) sit under §1 "Order Id — Numeric/Ordered
+  Boundary" and target only the order-id path parameter. §0's scope table
+  marks Authorization state, Order id ownership routing, Order id format
+  validity, Status enum, Empty-state, Order date, and Total amount all
+  "**No**" for BVA Applicable, each with a stated reason (e.g. status enum:
+  "For unordered enums... boundary analysis does not apply"). §2/§3 discuss
+  *why* those dimensions are excluded but propose no boundary values for any
+  of them — no smuggled-in boundary reasoning found anywhere outside §1.
+
+### 2. Is the min/step reasoning stated explicitly BEFORE the boundary
+   values, not just asserted?
+
+- PASS — §1 opens with "**Precision and step (stated before computing, per
+  skill requirement):** Order id is declared type integer... precision = 1
+  (whole integer), step = 1," followed by the "Bound determination" 
+  discussion (raising OQ-16) and the two-hypothesis table, and only *then*
+  the BVA-01/BVA-02/BVA-03 table. The derivation precedes every value in
+  the document's reading order — no boundary value appears before its
+  precision/step justification.
+
+### 3. Does any BVA test case duplicate TC-06 or TC-07 from Phase 3?
+
+- PASS — BVA-01/02/03 use `-1`, `0`, `1` respectively; none is `999999`
+  (TC-06) or `"abc"` (TC-07). Each BVA row has its own "Distinction from
+  Phase 3" cell (e.g. BVA-01: "Distinct from TC-06 (`999999`, a large
+  arbitrary unused id — no sign involved) and TC-07 (`"abc"`, a non-integer
+  format violation — no numeric value involved at all)"), and a
+  "Non-duplication note" precedes the table making the same point once for
+  all three rows.
+
+### 4. Is `id = 0` handled explicitly — decided as valid, invalid, or an
+   open question, not silently assumed either way?
+
+- PASS — BVA-02's row states: "**Conditional, pending OQ-16 and OQ-17:** if
+  ids are 0-indexed and order `0` genuinely exists and belongs to
+  `test@eshop.com`, expect success... if it exists and belongs to someone
+  else, expect denial... if no order has id `0`... expect not-found... If a
+  distinct sign/range check treats `0` as out-of-range regardless of any
+  matching record, that is a different, undocumented rejection." This is
+  explicitly branched across all plausible outcomes and tied to two named
+  Open Questions (new OQ-16, new OQ-17) — not silently assumed valid or
+  invalid.
+
+### 5. Is there a "Technique Limitations" note explaining why BVA is thin
+   here?
+
+- PASS — §3 "Technique Limitations" contains 5 bullets, including the
+  FR-specific point (not present in FR-01's version) that "only one
+  genuinely ordered/numeric input dimension exists in this entire FR" and
+  that "order id is system-generated, not user-typed — a distinct blind
+  spot from FR-01's fields," explaining why BVA-01/02/03 carry conditional
+  rather than concrete expected results.
+
+### 6. Every BVA test case traces to EC-05..EC-08 (or a new OQ) from Phase
+   2 — list any that doesn't.
+
+- **GAP** — the BVA-01/02/03 table (§1) has **no dedicated "EC Covered" or
+  "REQ" column at all** — its header is "BVA ID | Boundary Point |
+  Precondition | Request | Expected Result | Distinction from Phase 3."
+  Compare this to Phase 3's TC tables, which all had explicit "EC(s)
+  Covered" and "REQ(s)" columns.
+  - Traceability to Phase 2's **input**-side classes (EC-05 owned, EC-06
+    other's, EC-07 nonexistent — the very classes these boundary ids would
+    route into) is **never named anywhere** in §1 — only the **output**-side
+    classes are mentioned, and only inside prose inside the Expected Result
+    cells (e.g. BVA-01: "falls through to 'not found' (→ EC-18)"; BVA-02:
+    "expect success (→ EC-16)... expect denial (→ EC-17)... expect
+    not-found (→ EC-18)").
+  - **Self-Check bullet 3 overclaims:** it states "§1's table cites REQ-08
+    (order id) throughout" — but the literal string "REQ-08" does not
+    appear anywhere in the BVA-01/02/03 table rows (Precondition, Request,
+    and Expected Result cells for all three rows were checked; none
+    contains "REQ-08" or any other REQ-xx citation).
+  - All three rows **do** trace to the new Open Questions (OQ-16, OQ-17)
+    explicitly, and to EC-16/17/18 narratively — so nothing is *completely*
+    untraceable — but the specific claim in Self-Check bullet 3 about
+    REQ-08 citation is not accurate as written, and there is no EC column
+    tying each row back to EC-05/06/07 (the input-side Phase 2 classes the
+    task's check 6 specifically names).
+
+### 7. No invented status code, response body, or boundary ceiling not
+   supported by the FR?
+
+- PASS — every Expected Result cell in BVA-01/02/03 is stated conditionally
+  ("Conditional, pending OQ-..."); no HTTP status code or response body is
+  asserted as fact anywhere. The "Maximum — not generated" paragraph in §1
+  explicitly declines to invent a ceiling: "Inventing a specific large
+  number as a 'maximum-representable-integer' boundary would fabricate a
+  ceiling not evidenced anywhere — excluded per the skill's explicit
+  instruction not to invent the unstated side of an open-ended bound."
+
+## Summary (Phase 4 self-critique)
+
+7 checks run: 6 clean PASS (items 1, 2, 3, 4, 5, 7), 1 GAP (item 6: the
+BVA-01/02/03 table has no dedicated EC/REQ traceability column — Phase 2's
+input-side classes EC-05/06/07 are never explicitly named anywhere in §1,
+and Self-Check bullet 3's claim that "§1's table cites REQ-08... throughout"
+does not match the actual table content, which contains no REQ-xx citation
+at all). No edits made to `04_Boundary_Value_Test_Cases.md`.
+
+## 2026-07-06 — Disposition of Phase 4 self-critique
+
+Reviewed with the user. Item 6 was applied.
+
+**APPLIED:**
+- Item 6 (missing EC/REQ column, plus a Self-Check overclaim) — added an
+  explicit "EC / REQ" column to the BVA-01/02/03 table (§1), between
+  "Boundary Point" and "Precondition," naming EC-05/EC-06/EC-07 (the input
+  classes each boundary id routes into, pending real DB state) and REQ-08
+  for all three rows. Corrected Self-Check bullet 3 to accurately describe
+  the new column rather than repeat the prior overclaim that the table
+  "cites REQ-08... throughout" before that citation actually existed.
+
+No other sections of `04_Boundary_Value_Test_Cases.md` were touched.
