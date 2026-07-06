@@ -137,3 +137,138 @@ cross-reference), `[P1-G04]` nitpick (TD table hedges more consistently
 than the CF table, worth aligning). No edits made to
 `01_Requirements_Breakdown.md` in this pass — awaiting the user's decision
 on which to fix.
+
+## 2026-07-06 — Phase 2 self-critique (per user checklist)
+
+Re-reading `output/02_Equivalence_Partitioning.md` against its own cited
+sources, not re-asserting Section 6 (Self-Check). Findings only — nothing
+fixed yet. Each finding tagged `[P2-Gxx]` with evidence and an honest
+severity call.
+
+### 1. EC-03 (qty=0) vs EC-04 (negative) — real distinct fault theories, or over-split?
+
+- **[P2-G01] real gap, moderate — right outcome, weaker-than-claimed
+  justification.** The artifact justifies keeping EC-03 (zero) and EC-04
+  (negative) as separate classes by citing TD-01: "TD-01 treats 'a minus
+  sign' as its own distinct mobile-input concern, not identical to 'below
+  minimum.'" Re-reading TD-01's actual text (§6 of the input FR): it asks
+  "does the quantity field bring up a number pad? Can the user still
+  paste letters, a decimal point, a minus sign, or leading zeros?" — this
+  is a question about **input capability** (can this character even reach
+  the field via keyboard/paste), not about whether the **validation logic**
+  treats the resulting value differently once entered. Citing TD-01 as the
+  justification therefore doesn't actually establish what guideline (e)
+  and the Core Fault-Detection Principle require: a plausible fault theory
+  under which some test cases in a merged class would detect an error and
+  others wouldn't. A stronger, correct justification does exist but was
+  not the one written down: a naive falsy-check implementation
+  (`if (!quantity) reject`) would correctly reject `0` (falsy in JS) but
+  fail to reject `-5` (truthy) — a real, well-known class of validation
+  bug that would NOT be caught by testing only one of {0, -5}. The same
+  reasoning applies to EC-05 (decimal) vs. EC-06 (non-numeric): the
+  artifact cites TD-01 again, but the stronger justification is a
+  `parseInt`-truncation risk (`parseInt("1.5", 10)` returns `1`, a
+  seemingly-valid number, while `parseInt("abc", 10)` returns `NaN` — a
+  naive `isNaN(parsed)` check would catch "abc" but not "1.5"). **Net
+  verdict: the 4-way split itself is still defensible — I would not
+  recommend merging these classes — but the artifact's stated rationale
+  conflates "can this be typed on this platform's keyboard" with "would a
+  plausible validation bug distinguish these values," and only the latter
+  is what the guideline actually requires.** Evidence: §2.1 EC-03/EC-04/
+  EC-05/EC-06 rows and the paragraph below the table, vs. TD-01's actual
+  wording in `input/Functional_Requirement.md` §6.
+
+### 2. Are any of OQ-09–OQ-16 actually answerable from REQ-05–REQ-09's text, or over-raised as "new"?
+
+- Re-checked REQ-05 ("MUST display... image"), REQ-06 ("...name"), REQ-07
+  ("...price"), REQ-08 ("...description"), REQ-09 ("...category") verbatim
+  against OQ-09 (image empty/null), OQ-10 (name empty/null), OQ-12 (price
+  empty/null), OQ-13 (description empty/null), OQ-14 (category_id
+  empty/null), OQ-15 (dangling category ref). **None of these five REQ
+  statements say anything about fallback/empty-underlying-value behavior**
+  — each is a bare "MUST display X" with no stated exception. So none of
+  OQ-09/10/12/13/14/15 are secretly answerable from REQ-05–REQ-09's text;
+  no over-raised new question found on this specific check.
+- **[P2-G02] real gap, moderate — found instead an internal inconsistency
+  in how "new vs. folded into an existing OQ" was decided.** EC-35 (a
+  very large price) was explicitly folded into the *existing* OQ-06
+  ("a specific instance of OQ-06, not a new question"), but EC-34 (price
+  = `0`) was given a brand-new OQ-11, with the artifact's own reasoning
+  being "distinct from OQ-06 (which concerns format generally, not the
+  zero case specifically)." Both EC-34 and EC-35 are, on their face,
+  specific input values feeding the *same* unresolved "what does the
+  price look like on screen" question (OQ-06). The artifact draws a line
+  between them (arguing zero is a "special-case/business-logic" question,
+  e.g. could show "Free" instead of a formatted number, while large-value
+  is "purely formatting") but never states this distinction explicitly
+  where a reader would need it (at EC-34/EC-35 themselves) — it only shows
+  up as an asymmetric outcome. A reader comparing the two side by side
+  would reasonably ask why one got a new OQ number and the other didn't.
+  This doesn't mean OQ-11 is wrong to exist (the "Free" label possibility
+  is a genuine, distinct concern from formatting), but the artifact should
+  have named that distinction explicitly rather than leaving it to be
+  inferred from the difference in treatment. Evidence: §3.4 EC-34 vs.
+  EC-35 rows and §5's OQ-11 vs. OQ-06 cross-reference wording.
+- Also note, outside the scope of this check but relevant context: OQ-16
+  (leading-zero normalization) was derived from REQ-10 (Quantity), not
+  from REQ-05–REQ-09 — the user's check 2 was scoped to REQ-05-09's text,
+  so OQ-16 wasn't re-verified against that specific scope here. Sanity-
+  checked anyway against REQ-10/REQ-11's own text ("There MUST be a
+  Quantity input field"; "MUST accept only positive integers") — neither
+  says anything about display/storage normalization, so OQ-16 also does
+  not appear to be secretly answerable from its own source REQs.
+
+### 3. EC-40 (category output) — does "spec-mandated" read as decided rather than open?
+
+- **[P2-G03] real gap, moderate — repeats a milder version of Phase 1's
+  P1-G03 pattern.** §3.6's table row reads: "Category value renders on
+  screen (spec-mandated per REQ-09 — see caveat above)." The word
+  "spec-mandated" is a confident-sounding label, and the actual hedge (the
+  CF-01 unreachability concern) lives in the prose paragraph *above* the
+  table, not inline in the row itself — a reader who scans the table
+  without re-reading the preceding paragraph could reasonably read this as
+  "this is what happens," not "this is what the spec says should happen,
+  and a separate unconfirmed code observation suggests it might not."
+  This is the same class of issue P1-G03 already caught and partially
+  fixed in Phase 1 (CF-01/CF-02 stating code-side facts without an inline
+  qualifier, relying on the section header) — it resurfaces here in a
+  different spot (an Output EC row leaning on a prose caveat instead of a
+  section header) despite having been identified as a pattern to avoid.
+  Compounding evidence: the **Backward Traceability table's** EC-40 row
+  (§4) *is* hedged correctly inline — "None structurally — but see CF-01:
+  this output may be unreachable in the current implementation
+  (unconfirmed)" — so the document is internally inconsistent about
+  where/whether to repeat the hedge, exactly mirroring Phase 1's P1-G04
+  finding (TD table hedged consistently; CF table didn't). Evidence: §3.6
+  EC-40 row text vs. §3.6's own prose caveat immediately above it vs. §4's
+  EC-40 row (correctly hedged).
+
+## Summary (Phase 2 pass)
+
+Three items logged: `[P2-G01]` real gap, moderate (EC-03/04/05/06 split
+outcome is defensible, but the stated TD-01-based justification conflates
+keyboard-input-capability with validation-logic risk; a stronger
+falsy-check/parseInt-truncation justification exists but wasn't written
+down), `[P2-G02]` real gap, moderate (OQ-11 vs. OQ-06/EC-35 asymmetry:
+zero-price was split into a new OQ while large-price was folded into the
+existing one, without the artifact ever stating why zero is categorically
+different), `[P2-G03]` real gap, moderate (EC-40's "spec-mandated" label
+risks reading as settled since its hedge lives in prose above the table,
+not inline — the same pattern Phase 1's P1-G03 already caught elsewhere,
+and inconsistent with §4's own correctly-hedged EC-40 row). No over-raised
+"new OQ" was found on direct re-check against REQ-05–REQ-09's text (check
+2's original question). No edits made to `02_Equivalence_Partitioning.md`
+in this pass — awaiting the user's decision on which to fix.
+
+## 2026-07-07 — Fix pass (P2-G01, P2-G02, P2-G03)
+
+All three fixed via wording only, no classes added/removed/merged. P2-G01:
+§2.1's EC-04/EC-06 rows and the paragraph below the table now lead with
+the actual validation-logic risk (naive `!quantity` falsy-check misses
+`-5`; naive `isNaN(parseInt(x))` misses `"1.5"`), with TD-01 kept only as
+secondary supporting context. P2-G02: added an explicit "why EC-34 gets a
+new question while EC-35 doesn't" note under §3.4's table, distinguishing
+zero-price as a boundary/business-rule question from large-price as a
+pure formatting question. P2-G03: EC-40's own row in §3.6 now carries
+"unconfirmed — see CF-01" inline, matching §4's traceability row instead
+of relying solely on the prose paragraph above the table.
