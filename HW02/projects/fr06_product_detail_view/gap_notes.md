@@ -409,3 +409,149 @@ engineered at all) from Phase 1's OQ-08 (which product id to pick from
 the seeded catalog), plus a parallel note distinguishing new OQ-18 from
 OQ-05 (Add to Cart's login question, a different endpoint/action). No
 EC/TC IDs, scope, or classes changed.
+
+## 2026-07-07 — Phase 4 self-critique (per user checklist)
+
+Re-reading `output/04_Boundary_Value_Test_Cases.md` against Phase 1-3 and
+against how a prior project in this repo (FR-13) handled an analogous
+situation, not re-asserting Section 5 (Self-Check). Findings only —
+nothing fixed yet. Each finding tagged `[P4-Gxx]` with evidence and an
+honest severity call.
+
+### 1. BVA-01 restates TC-04 with zero new execution — count-inflation risk?
+
+- **[P4-G01] real gap, moderate.** The artifact's prose is not hiding the
+  fact: BVA-01's row explicitly says "This is exactly TC-04, restated here
+  as the boundary point it also happens to be — not a new test," §2's
+  traceability table has a "Covers (new vs. restates)" column that
+  correctly says "Restates TC-04 exactly," and §6's closing summary
+  correctly parses out "1 (`0`) exactly restates... 2 (`1`, `2`) are
+  genuinely new." So nothing is factually wrong or concealed. But the
+  artifact **never computes or states the actual project-wide distinct-
+  execution total** anywhere (13 Phase-3 TCs + 2 genuinely new Phase-4
+  cases = 15 distinct executions across the whole suite, not 16, and not
+  "13 + 3"). Giving BVA-01 a first-class sequential ID (`BVA-01`) in the
+  exact same table format and ID scheme as the two genuinely-new cases
+  (`BVA-02`, `BVA-03`) creates a structural signal — "3 sequential IDs" —
+  that competes with the prose explaining otherwise. A reader who skims
+  ID counts (a common shortcut, and exactly the failure mode the user's
+  question describes: "someone skimming just the Phase 4 summary, not
+  the detailed table") could reasonably come away thinking Phase 4 added
+  3 new test cases, or that the project now has 16 total, when the
+  correct figures are 2 new / 15 total. Evidence: §1 BVA-01's row prose
+  (correct) vs. the absence, anywhere in the document, of an explicit
+  "net new test cases added by Phase 4: 2 (BVA-01 = TC-04, not new)" or
+  "project-wide total: 15" summary statement that would pre-empt the
+  miscount regardless of how carefully (or not) the reader reads. Not
+  fixed here; candidate direction (not applied): add a one-line, highly
+  visible statement of the net-new and running-total counts, likely in
+  §6 or as its own line at the top of §2.
+
+### 2. Price excluded from BVA — silently, or should an implicit floor (like FR-13's precedent) have been raised as a new OQ?
+
+- **[P4-G02] real gap, moderate-to-high — the most significant finding of
+  this pass.** §0 excluded Price from BVA on the reasoning "FR-06 states
+  no minimum or maximum price anywhere... with no stated threshold on
+  either side, generating a boundary here would fabricate a limit the FR
+  never states." Re-checking this against how **this same repository's
+  own prior project (FR-13) handled an directly analogous monetary
+  field**: FR-13's `total_amount` also had no explicit stated minimum
+  anywhere in that FR's text, yet FR-13's Phase 4 did NOT exclude it —
+  it derived an **implicit floor of `0`** from "monetary-domain semantics
+  (an order amount is not normally negative)," explicitly labeled that
+  derivation as implicit/uncertain (not a literal FR quote), **generated
+  actual boundary test cases at and around that implicit floor** (a
+  negative value, zero, and just-above-zero), and raised a **new Open
+  Question** (that project's OQ-16) asking whether a negative value is
+  even reachable in practice — rather than silently declining to test the
+  field at all. FR-06's Price field never received this same treatment.
+  Checking whether "no stated threshold" was actually the whole story:
+  Phase 1/2/3 established EC-14 (normal positive price), EC-15 (price =
+  `0`, valid), EC-16 (very large price, valid) — **no equivalence class
+  for a negative price exists anywhere in Phases 1–3**, and this Phase 4
+  pass did not flag that absence either. The "read-only display field"
+  distinction I considered while re-examining this (Price is set by a
+  different FR — product creation/admin CRUD — not validated by FR-06
+  itself) does not actually distinguish it from FR-13's `total_amount`,
+  which is likewise set by a *different* FR (checkout) and merely
+  displayed/aggregated by FR-13 — the same structural relationship.
+  **Verdict: this exclusion is inconsistent with this project's own
+  established precedent for handling an unstated-but-plausible monetary
+  floor, and was not adequately justified as a deliberate divergence.**
+  Evidence: `04_Boundary_Value_Test_Cases.md` §0's Price row vs.
+  `fr13_dashboard/output/04_Boundary_Value_Test_Cases.md` §1's identical
+  reasoning pattern for `total_amount`; `02_Equivalence_Partitioning.md`
+  §2.2.3 (EC-14/15/16, no negative-price class). Not fixed here; candidate
+  direction (not applied): either derive the same implicit `0` floor for
+  Price (with the same explicit "not a literal FR quote" labeling) and
+  generate boundary cases at/around it, or at minimum raise a new Open
+  Question asking whether a negative price is a reachable, testable state
+  for this display screen and what should happen if so.
+
+### 3. Does P1-G02 (no device verification anywhere) still apply here, or has the caveat been lost?
+
+- **Not lost — re-verified, and this is stronger in Phase 4 than in Phase
+  3.** §3 (Technique Limitations) states: "REQ-16/REQ-17/CF-01/CF-02
+  already flag exactly this risk for Quantity and Category respectively,
+  and remain unconfirmed on-device throughout this entire phase." This is
+  a real, standalone restatement of the underlying P1-G02 concern, and
+  Phase 4 is actually the *first* phase in this project to give it a
+  dedicated section (Phase 3 only carried the "record which is observed"
+  language contextually inside TC-04–TC-08's rows, without a standalone
+  acknowledgment section — Phase 4's Technique Limitations section is a
+  heuristics-mandated structure Phase 3 never had). So the caveat has not
+  faded out over the course of the project — if anything, Phase 4
+  surfaces it more explicitly than Phase 3 did.
+- **[P4-G03] real gap, low-to-moderate — a smaller, distinct issue found
+  instead.** §3's restatement is generic/abstract ("Quantity and
+  Category," not "BVA-01 specifically") rather than explicitly tied to
+  BVA-01 by ID. A reader has to infer the connection (BVA-01 uses CF-02 →
+  CF-02 is one of the flagged-as-unconfirmed items → therefore BVA-01
+  inherits this limitation) rather than having it spelled out the way
+  BVA-01's own row already spells out the CF-02 dual-prediction directly.
+  A stronger version would state, at or near BVA-01 itself: "BVA-01's
+  dual-prediction rests entirely on CF-02, which itself rests entirely on
+  a static code read (Phase 1, REQ-16/REQ-17) — no test case in this
+  project, including BVA-01, has actually been executed on a device yet;
+  BVA-01's real execution would be among the first opportunities to
+  confirm or contradict CF-02 directly." Also worth stating as a
+  **correct, non-gap observation**: BVA-02 and BVA-03 do *not* need this
+  caveat at all (they assert only what REQ-11/REQ-12's own spec text
+  states, with no code-observation basis), and the artifact does not
+  mistakenly over-apply the caveat to them either — a correct restraint,
+  not an oversight.
+
+## Summary (Phase 4 pass)
+
+Two real gaps and one non-finding logged. `[P4-G01]` real gap, moderate
+(BVA-01's restatement of TC-04 is stated accurately in prose, but no
+project-wide "net new: 2, running total: 15" figure is ever stated, and
+giving BVA-01 a first-class sequential ID alongside the two genuinely-new
+cases creates a structural skim-risk of overcounting to 3 new / 16
+total). `[P4-G02]` real gap, moderate-to-high, the most significant of
+this pass (Price was excluded from BVA as having "no stated threshold,"
+but this project's own prior FR-13 precedent handled an analogous
+monetary field by deriving an implicit `0` floor, generating real
+boundary cases, and raising a new Open Question about reachability —
+Price got none of that, and no negative-price equivalence class exists
+anywhere in Phases 1–3 either). `[P4-G03]` real gap, low-to-moderate (the
+underlying P1-G02 concern is genuinely restated in §3, not lost — but the
+restatement is generic rather than tied to BVA-01 by ID). No edits made
+to `04_Boundary_Value_Test_Cases.md` in this pass — awaiting the user's
+decision on which to fix.
+
+## 2026-07-07 — Fix pass (P4-G01, P4-G02, P4-G03)
+
+All three fixed. P4-G02 (priority): reversed Price's exclusion, deriving
+an implicit `0` floor from monetary-domain semantics (explicitly labeled
+as an inference, not an FR quote) matching FR-13's own precedent; added
+new §2 "Domain: Price" with one new boundary case (BVA-04, price = `-1`)
+and new OQ-19 on reachability; disclosed in §4 that no negative-price
+equivalence class exists in the already-approved `02_Equivalence_
+Partitioning.md`, without retroactively editing that artifact. P4-G01:
+added an explicit project-wide count statement in §3 ("13 + 3 = 16, not
+17") pre-empting the BVA-01 overcounting risk. P4-G03: added a sentence to
+BVA-01's own row tying its dual-prediction explicitly to CF-02/no-device-
+execution-yet, and explicit "no caveat needed" notes to BVA-02/BVA-03.
+Quantity's BVA-01/02/03 test content and the Image/Name/Description/
+Category exclusions were not changed.
