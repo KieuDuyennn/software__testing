@@ -1,11 +1,11 @@
 {
   "project": "fr11_order_history_view",
   "workflow": "Domain Testing + BVA",
-  "current_phase": "PHASE_01",
+  "current_phase": "PHASE_02",
   "workflow_status": "READY",
   "phases": {
     "PHASE_01": {
-      "status": "NOT_STARTED",
+      "status": "APPROVED",
       "artifact": "output/01_Requirements_Breakdown.md"
     },
     "PHASE_02": {
