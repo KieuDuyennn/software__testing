@@ -243,3 +243,127 @@ the combined class reports "some assertion failed" without isolating which
 between §2 and §3 (P2-G02). Everything else checked (guideline application,
 OQ-02 scope neutrality, backward traceability, ID formatting) held up.
 Final verdict is yours to decide.
+
+## 2026-07-06 — Phase 3 self-critique (per user checklist)
+
+Re-reading `output/03_Domain_Test_Cases.md` before approval. Findings only —
+nothing fixed yet. Each finding tagged `[P3-Gxx]` with evidence and an
+honest severity call (real gap vs. nitpick).
+
+### Specific check 1 — TC-01's precondition includes canceled orders; is it
+correct that §5 doesn't credit TC-01 for EC-16/EC-17?
+
+**Answer: the crediting decision itself is correct, but it is currently
+undocumented — that's a real gap, not a false inconsistency to dismiss.**
+
+- **[P3-G01] real gap, moderate severity.** TC-01's precondition sets up
+  one order of *every* status, including `canceled` — and TC-01's own
+  Expected Result (b) explicitly says the revenue value "excludes the
+  other statuses' amounts," which literally covers the same ground as
+  EC-16 (canceled excluded) and EC-17 (pending/confirmed/shipping
+  excluded). Yet §5 credits only TC-05 for EC-16 and only TC-06 for EC-17.
+  The reason this crediting *is* correct: TC-01's non-delivered orders each
+  have only "a nonzero `total_amount`" (not individually distinguishable,
+  known values) and all four non-delivered statuses coexist in the same
+  request. If TC-01's revenue comes out wrong, there is no way to
+  attribute the failure to *which* of the four non-delivered statuses
+  leaked into the sum — that is exactly why TC-05/TC-06 exist as separate,
+  cleanly single-fault-isolated probes (each with a constant reference
+  delivered order and a *known* decoy amount). So TC-01's exclusion
+  "coverage" is real but **not isolating** — it is closer to a redundant
+  sanity check than evidence about a specific excluded status. **The
+  document nowhere states this reasoning.** A reader comparing TC-01's
+  expected-result text against §5's matrix would reasonably conclude the
+  artifact is internally inconsistent, when the actual issue is a missing
+  rationale note, not a wrong crediting decision. Evidence: TC-01 row (§1)
+  vs. EC-16/EC-17 rows (§5).
+
+### Specific check 2 — filename verification
+
+**Verified, not just asserted: `Glob` on both
+`projects/fr01_account_registration/output/*` and
+`projects/fr11_order_history_view/output/*` confirms both use exactly
+`03_Domain_Test_Cases.md`.** The artifact's opening note claim is accurate —
+no gap.
+
+### Specific check 3 — does TC-08 skipping an order-count assertion create a
+Phase 4 coverage risk?
+
+**Mostly correctly justified — not resolving OQ-14/OQ-02 by guessing is the
+right call, and the deferral is already flagged at the TC level (TC-08's
+row explicitly says a count assertion "may" be needed once OQ-02 resolves,
+cross-referenced to OQ-14).** This is not fabricated or silently dropped.
+
+- **[P3-G02] nitpick, low severity.** The deferral note lives only in
+  TC-08's own row; there is no explicit "Phase 4 impact" callout tying it
+  to boundary-value planning specifically. If OQ-02 later resolves toward
+  a restricted (e.g. delivered-only) count scope, Phase 4 would need to
+  come back and add a boundary case for "order count under EC-10" that
+  doesn't exist yet anywhere. Low severity because the underlying gap is
+  already disclosed, just not flagged as a forward Phase-4 dependency in
+  so many words.
+
+### General checks
+
+**4. Any EC covered by a TC but with an assertion too vague to be
+checkable?**
+
+- **[P3-G03] real gap, moderate-to-high severity.** TC-01(c)'s expected
+  result for EC-19 (order count) reads: "reflects however many orders
+  match the (currently unresolved) counting scope... record the actual
+  value observed rather than assuming a specific scope." This provides
+  **no pass/fail criterion at all** — it is an instruction to observe, not
+  a testable assertion. Contrast TC-07(a)/(b) and TC-08, which at least
+  enumerate the plausible candidate values (`0`/blank/absent-field;
+  `0`/empty-undefined) so a tester can check against *something*. TC-01's
+  own data setup (1 delivered + 1 each of pending/confirmed/shipping/
+  canceled = 5 orders total) makes the two scope-based candidate counts
+  directly computable (5 if all-statuses scope; 1 if delivered-only
+  scope) — the artifact had the information needed to write a genuinely
+  checkable conditional assertion (matching the FR-01 precedent of
+  explicit "if X then Y; if Z then W" conditional expected results for
+  ambiguous classes) and didn't use it. Evidence: TC-01 row (§1), Expected
+  Result (c).
+- **[P3-G04] nitpick, low severity.** Related but smaller: TC-02/TC-03's
+  status-code assertions ("exact status code/body per OQ-08/OQ-13, to be
+  confirmed") don't enumerate candidate codes the way TC-04 does ("401 vs.
+  403"), even though OQ-08's own Phase 1 wording already names 401
+  (no/invalid token) vs. 403 (valid, non-admin) as the two candidates.
+  Inconsistent thoroughness between sibling TCs, not a correctness defect.
+
+**5. Terminology/ID consistency re-check.**
+
+- TC IDs (TC-01..TC-08) and EC IDs (EC-01..EC-22 as referenced) are
+  sequential and match Phase 1/2's final, already-fixed numbering (e.g.
+  TC-07/TC-08 correctly reference the post-P2-G01-fix EC-20/EC-21/EC-22,
+  not the old pre-split numbering) — PASS.
+- REQ ID references (REQ-01, REQ-03..REQ-10, REQ-13, REQ-14) all match
+  Phase 1's final, already-fixed numbering (e.g. the REQ-08/09/10 3-way
+  access-control split) — PASS.
+- **[P3-G05] real gap, moderate severity.** OQ-12 ("is `GET
+  /api/admin/orders` paginated or limited in any way?") is never
+  referenced anywhere in this Phase 3 artifact, despite being directly
+  relevant to every TC that aggregates across multiple orders — especially
+  TC-01 (5 orders in one data set) and, per new OQ-15's concern about a
+  persistent shared test environment, potentially any TC if the system
+  accumulates many historical orders over time. If the endpoint silently
+  paginates/truncates, TC-01/TC-05/TC-06's expected results could be wrong
+  in a live run with no indication why. §6's "carried forward" list also
+  omits OQ-12 entirely (and, more trivially, omits OQ-01 from its explicit
+  enumeration even though OQ-01 *is* referenced in D-2 — a much smaller,
+  cosmetic version of the same "carried-forward list doesn't match what's
+  actually referenced" issue).
+
+## Suggested Verdict (Phase 3)
+
+**INCOMPLETE.** Three real gaps: TC-01's exclusion-adjacent assertion
+overlaps EC-16/EC-17 without the document explaining why it isn't credited
+for them, which is defensible reasoning left unstated (P3-G01); TC-01(c)'s
+order-count expected result has no checkable pass/fail criterion at all,
+unlike its sibling TCs which at least enumerate candidate values (P3-G03);
+and OQ-12 (pagination risk) is never referenced despite being directly
+relevant to every multi-order TC (P3-G05). Two low-severity nitpicks: a
+missing explicit Phase-4-impact callout on TC-08's deferral (P3-G02), and
+inconsistent candidate-code enumeration between TC-02/03 and TC-04 (P3-G04).
+Filename verification (specific check 2) and ID/REQ numbering consistency
+both passed cleanly. Final verdict is yours to decide.
