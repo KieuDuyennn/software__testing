@@ -335,3 +335,125 @@ dual-assertion** (the expected result now requires both a password-required and 
 confirm-required signal, with divergence routed to new OQ-14) — not forcing a false
 isolation that was never structurally achievable. Propagated to TC-10's row, §5
 (EC-16/EC-26 entries), §7 self-check, and §8 counts.
+
+## 2026-07-06 — Phase 4 self-critique
+
+Re-reading `output/04_Boundary_Value_Test_Cases.md` against the six questions posed.
+Findings only — nothing fixed yet.
+
+**Q1 — Did BVA get applied to a field that isn't actually an ordered numeric domain?**
+
+1. **Inconsistent scope reasoning between Full Name and Password composition counts.**
+   §0 excludes Password's "≥1 uppercase/lowercase/digit" rules from BVA on the
+   grounds that "Phase 2 modeled these as discrete must-be-X presence/absence
+   classes (guideline d), not as ordered `min..max` ranges." But Phase 2 modeled
+   Full Name's "must not be empty" the **exact same way** — EC-01/EC-02 in
+   `02_Equivalence_Partitioning.md` are framed as "Present, non-empty" vs. "Empty
+   string value," guideline-(d) style, not as an explicit numeric range either. Yet
+   §2 of this artifact treats Full Name as boundary-sensitive (`minLen = 1`) while
+   §0 treats the structurally identical password-composition case as out of scope.
+   Both are really "count of qualifying characters ≥ threshold" (all characters, for
+   Full Name; characters of a given class, for Password). Either both deserved BVA
+   treatment or neither did — the artifact currently applies the technique
+   asymmetrically to two classes Phase 2 modeled identically.
+
+2. **A related, more significant omission: the Password length boundary set is
+   incomplete.** Phase 2 (after its own self-critique) established **three** distinct
+   Password-length classes, not two: EC-16 (empty, length 0, → output EC-29
+   "missing/empty field"), EC-18 (too short, length 1–7, → output EC-32 "weak
+   password"), and EC-15 (valid, length ≥ 8). That means there are **two** class
+   boundaries on Password length, not one: 0|1 (EC-16/EC-18) and 7|8 (EC-18/EC-15).
+   This artifact only analyzes the second (§1, BVA-01..03) and never mentions the
+   first at all. The 0|1 boundary is not a throwaway case, either — it is exactly
+   the same overlap-prone boundary that Phase 2's own self-critique fixed (EC-16 vs.
+   EC-18 used to overlap at length 0), and the two classes route to **different
+   output classes** (EC-29 vs. EC-32), so confirming the system tells them apart at
+   exactly this transition has real fault-detection value that was skipped.
+
+**Q2 — Did I fabricate any boundary value the FR doesn't support (especially a
+max-side bound)? No fabrication found.**
+3. Checked §1 and §2: both explicitly state "Not generated — open-ended upper
+   bound, OQ-03" and no numeric max value appears anywhere in the artifact. This
+   check passes.
+
+**Q3 — Is the step value correct for each field's data type?**
+4. String length → step = 1 character is correct per the skill's precision table,
+   and both fields use it correctly. Minor observation, not a defect: all
+   representative strings used are plain ASCII, so "1 character" is unambiguous;
+   the artifact doesn't note that "character" itself would need a more careful
+   definition if multi-byte/Unicode input were ever used (relates to existing OQ-05,
+   not a new gap, just an unstated connection).
+
+**Q4 — Is the Full Name implicit minimum derivation defensible, or invented?**
+5. The `minLen = 1` derivation from "must not be empty" is logically sound on its
+   own, but see finding 1 — it wasn't applied under the same rule Phase 2 actually
+   used to classify the requirement, so "defensible in isolation" and "consistently
+   applied" are two different questions, and only the first is actually true here.
+6. **The derivation also silently assumes "empty" means exactly zero characters**,
+   with no connection drawn to the still-open whitespace-only question (OQ-04/OQ-10,
+   EC-04 "Ambiguous"). If the real validation trims whitespace before checking
+   emptiness, a whitespace-only string could behave like the empty class regardless
+   of its raw character count, which would mean the *true* boundary isn't cleanly
+   at length 0 vs. 1 the way this artifact assumes. The artifact doesn't mention
+   this connection or flag it as a caveat on the derivation.
+
+**Q5 — Did any boundary point duplicate a Phase 3 TC without cross-referencing it?**
+7. Checked BVA-01..05 against all Phase 3 TC input values (Password/Full Name
+   values in TC-01a/b, TC-02, TC-10, TC-12, TC-18): no accidental duplicates found.
+   The one genuine overlap (Full Name length 0) was correctly cross-referenced to
+   TC-02 rather than duplicated. This check passes — **except** that finding 2 above
+   means an *additional* boundary (Password length 0, already exercised by
+   TC-10/TC-11) exists that should also have been cross-referenced here and wasn't,
+   because that boundary was never identified as in-scope in the first place.
+
+**Q6 — Confirm Password value in each BVA case — does the D-4 fix hold?**
+8. Checked BVA-01/02/03: Confirm Password is set equal to the Password value under
+   test in every row (`Pa1!abc`/`Pa1!abc`, `Pa1!abcd`/`Pa1!abcd`,
+   `Pa1!abcde`/`Pa1!abcde`). The D-4 fix holds cleanly — no violation found.
+
+**Additional finding (not one of the six questions, found while checking Q1/Q6):**
+9. **BVA-01's "error-type-2" illustration is logically self-contradictory.** Its
+   note says the boundary "exposes an implementation using `<= 7` as the invalid
+   cutoff instead of `< 8`" — but for integer lengths, `length <= 7` and
+   `length < 8` denote the *identical* set of values. Contrasting them as if they
+   were two different possible specifications doesn't illustrate a real
+   inequality-mis-specification bug; a correct example would contrast `< 8`
+   (correct) against something actually different, e.g. `<= 8` (would wrongly
+   reject exactly 8 too) or `< 7` (would wrongly accept exactly 7). BVA-02's
+   parallel note ("`>= 8` vs `> 8`/`<= 8`") does not have this problem — only
+   BVA-01's phrasing does.
+
+## 2026-07-06 — Disposition of Phase 4 self-critique
+
+Reviewed with the user. **Applied** to `output/04_Boundary_Value_Test_Cases.md`:
+- Finding 2 (the important one) — added new §1b, "EC-18 Ceiling Boundary" renamed
+  §1a for the original 7/8/9 set. §1b covers the previously-missed EC-16/EC-18 floor:
+  `min − step = 0` (empty, cross-referenced to Phase 3 TC-10, not duplicated),
+  `min = 1` (new **BVA-06**, the critical value — must route to EC-32 not EC-29),
+  `min + step = 2` (new **BVA-07**). While implementing, found and flagged an
+  additional wrinkle not in the original finding: at length 1–2 the password cannot
+  satisfy all composition rules (needs ≥4 chars), so BVA-06/07 necessarily entangle
+  the length fault with extra composition faults. Documented as an explicit
+  isolation caveat on both rows and in a new §4 Technique Limitations bullet, rather
+  than silently presented as clean single-fault probes like BVA-01/02/03.
+- Finding 1 — §0's Password-composition-count row and §2 (Full Name) both now state
+  the distinction explicitly: Full Name's "must not be empty" is a length threshold
+  once unpacked (0 vs. ≥1 characters, nothing else asserted), while "at least 1
+  uppercase" is a content claim already fully tested by Phase 3's presence/absence
+  probe (TC-13) — treating "1 vs. 2 occurrences" as a boundary would invent a
+  numeric-count reading the FR doesn't support. Full Name's BVA cases were kept, not
+  removed, per the user's instruction.
+- Finding 9 — BVA-01's illustration corrected: no longer contrasts `<= 7` vs. `< 8`
+  (identical for integers); now correctly pairs BVA-01 (7, rejected) with BVA-02 (8,
+  accepted) to expose a `<= 8` (wrongly rejects 8) or `< 7` (wrongly accepts 7)
+  mis-specification.
+- Finding 6 — §2 now has an explicit paragraph linking the `minLen = 1` derivation to
+  OQ-04/OQ-10: if the system trims whitespace before checking emptiness, the real
+  boundary may not sit at 0 vs. 1 the way BVA-04/BVA-05 assume. Also added as a row
+  in §5's Open Questions table.
+
+§6 self-check re-run honestly: two lines rewritten to state what was wrong and what
+changed (the incomplete Password boundary set, the BVA-01 illustration), and one new
+line left **unticked** — "every boundary test case isolates exactly one invalid
+condition" — Partial, because BVA-06/BVA-07 cannot achieve that by construction, not
+because of a fixable oversight.
