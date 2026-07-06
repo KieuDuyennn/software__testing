@@ -1,11 +1,11 @@
 {
   "project": "fr13_dashboard",
   "workflow": "Domain Testing + BVA",
-  "current_phase": "PHASE_01",
-  "workflow_status": "WAITING_FOR_APPROVAL",
+  "current_phase": "PHASE_02",
+  "workflow_status": "READY",
   "phases": {
     "PHASE_01": {
-      "status": "WAITING_FOR_APPROVAL",
+      "status": "APPROVED",
       "artifact": "output/01_Requirements_Breakdown.md"
     },
     "PHASE_02": {
