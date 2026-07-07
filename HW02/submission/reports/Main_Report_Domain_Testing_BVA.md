@@ -20,9 +20,7 @@
 ## 1. What I tested and how (overview)
 
 I picked four features, one from each of the four pools, and ran each of them through
-the same testing workflow. FR-06 is listed under Pool A in the spec catalog, but here
-it is tested through the Expo mobile app, so it serves as this submission's Pool D
-(Mobile App) feature:
+the same testing workflow:
 
 | Feature | Pool | Folder |
 |---|---|---|
@@ -250,7 +248,7 @@ verdict and reasoning columns.
 | 2 | FR-01, phase 3 | A single-fault violation: pinning the confirm-password value to a constant made six password tests secretly carry a second fault (a mismatch). | It reasoned row by row and never re-checked the shared data rule against each row's "one fault only" claim. |
 | 3 | FR-01, phase 4 | It missed the 0 versus 1 edge between "missing field" and "weak password," and only tested the 8-character edge. | It anchored on the number the spec quoted (8) and did not look for edges that sit between two classes. |
 | 4 | FR-11, phase 3 | It named the ownership rule in the traceability but never actually tested it, so a data-leak bug that returns every user's orders would have passed. | It treated "mentioned in the trace" as "covered." A missing negative test is invisible unless you ask "what bug would slip through here?" |
-| 5 | FR-06, phase 3 | It stated as fact that the feature needs no login, when the spec is simply silent on it. That unmarked assumption sat under all 13 tests. | It filled the gap with the most likely reading instead of raising a question. Models tend to flatten "the spec says nothing" into "the spec says no." |
+| 5 | FR-06, phase 3 | It stated as fact that the feature needs no login, when the spec is simply silent on it. That unmarked assumption sat under all 13 tests. | It filled the gap with the most likely guess instead of raising a question, treating "the spec says nothing" as "the spec says no." |
 | 6 | FR-06, phase 4 | It dropped price from BVA as "no stated threshold," which contradicts my own FR-13 work on a similar money field. | It worked one feature at a time and did not check its own earlier decision for consistency. |
 | 7 | FR-13, phase 1 | A citation error (it quoted the wrong spec section) plus access-control conditions bundled into one non-atomic requirement. | Long-context quoting drifted, and it merged related conditions for a tidier sentence. |
 | 8 | Cross-cutting | The self-check sections repeatedly over-claimed, for example "every N/A has a stated reason" when six cells were blank. | The self-check is written by the same process it is checking, so it shares the same blind spots. Only an outside review catches this. |
