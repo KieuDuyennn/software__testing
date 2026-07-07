@@ -1,14 +1,14 @@
-# Test Case Checklist & Execution Results — HW02 (EShop)
+# Test Case Checklist & Execution Results - HW02 (EShop)
 
 - **Student ID:** 23127184
 - **SUT:** EShop (`github.com/ttbhanh/eshop-sut`), executed 2026-07-07.
-- **Testing level (per TA guidance, Hồ Tuấn Thanh, 01/07/2026):** functional testing takes its result from the **UI Frontend**. Where a feature has a UI, the UI-observed result is the primary result; the backend-API observation is kept as supporting evidence. Where a feature has **no UI** (see FR-11 note), only the API result exists — flagged explicitly.
+- **Testing level (per TA guidance, Hồ Tuấn Thanh, 01/07/2026):** functional testing takes its result from the **UI Frontend**. Where a feature has a UI, the UI-observed result is the primary result; the backend-API observation is kept as supporting evidence. Where a feature has **no UI** (see FR-11 note), only the API result exists - flagged explicitly.
 - **Status legend:**
-  - ✅ **Khớp** — observed behavior matches the designed Expected result.
-  - ❌ **Lệch** — observed behavior differs from the designed Expected result.
-  - ⚠️ **Có điều kiện** — the designed Expected result depends on an unresolved Open Question; the observed value is recorded but not scored here.
-  - ⛔ **Không chạy được** — the case cannot be executed on the current build (reason stated).
-- **Important:** "Lệch (❌)" means *observed ≠ designed expected*. It does **not** by itself mean "bug" — deciding which divergences are genuine defects, and writing the bug reports, is the student's task (course policy). This checklist only records what was observed.
+  - ✅ **Khớp** - observed behavior matches the designed Expected result.
+  - ❌ **Lệch** - observed behavior differs from the designed Expected result.
+  - ⚠️ **Có điều kiện** - the designed Expected result depends on an unresolved Open Question; the observed value is recorded but not scored here.
+  - ⛔ **Không chạy được** - the case cannot be executed on the current build (reason stated).
+- **Important:** "Lệch (❌)" means *observed ≠ designed expected*. It does **not** by itself mean "bug" - deciding which divergences are genuine defects, and writing the bug reports, is the student's task (course policy). This checklist only records what was observed.
 
 ---
 
@@ -20,13 +20,13 @@
 | FR-06 Product Detail | Yes (web `/product/:id`) | 17 | 17 | 3 | 1 | 13 | 0 |
 | FR-11 Order History | **No UI in frontend-web** | 11 | 11 | 6 | 1 | 4 | 0 |
 | FR-13 Admin Dashboard | Yes (admin app) | 14 | 14 | 6 | 8 | 0 | 0 |
-| **Total** | — | **73** | **73** | **26** | **20** | **25** | **2** |
+| **Total** | - | **73** | **73** | **26** | **20** | **25** | **2** |
 
 > Counts of ✅/❌/⚠️ reflect the primary testing layer (UI where available). They are a factual tally of match/divergence against the *designed* expected result, not a bug count.
 
 ---
 
-## FR-01 — Account Registration  (primary layer: UI register form)
+## FR-01 - Account Registration  (primary layer: UI register form)
 
 The register UI validates the password client-side with the regex in `Register.jsx`
 (`/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\s)[A-Za-z\d\s]{8,}$/`). Name/email have only the
@@ -35,7 +35,7 @@ HTML `required` attribute; the API performs no validation.
 | ☐ | TC | Test condition | Designed Expected | UI result (primary) | Backend API result (evidence) | Status |
 |---|---|---|---|---|---|---|
 | ☑ | TC-01a | Valid strong pw `Password123!`, submit form | accepted → redirect to Login | **Blocked**: "Mật khẩu quá yếu" shown, no submit | (would be 200 if it reached API) | ❌ |
-| ☑ | TC-01b | Valid registration via API | HTTP 200 `{message,id}` | — | HTTP 200 created | ✅ |
+| ☑ | TC-01b | Valid registration via API | HTTP 200 `{message,id}` | - | HTTP 200 created | ✅ |
 | ☑ | TC-02 | Name empty | rejected, missing field | HTML `required` blocks empty submit | HTTP 200 created (no validation) | ⚠️ |
 | ☑ | TC-03 | Name field omitted (API-shape) | rejected, missing field | n/a (form always sends name) | HTTP 200 created | ❌ |
 | ☑ | TC-04 | Email empty | rejected, missing field | HTML `required` blocks | HTTP 200 created | ⚠️ |
@@ -68,21 +68,21 @@ HTML `required` attribute; the API performs no validation.
 
 **Ảnh minh chứng:**
 
-TC-01a — mật khẩu đúng chuẩn `Password123!` bị từ chối ("Mật khẩu quá yếu"):
+TC-01a - mật khẩu đúng chuẩn `Password123!` bị từ chối ("Mật khẩu quá yếu"):
 
 ![FR-01 TC-01a](screenshots/fr01_TC01a_valid_pw_rejected.png)
 
-BVA-02 — mật khẩu hợp lệ 8 ký tự `Pa1!abcd` cũng bị từ chối:
+BVA-02 - mật khẩu hợp lệ 8 ký tự `Pa1!abcd` cũng bị từ chối:
 
 ![FR-01 BVA-02](screenshots/fr01_BVA02_valid_pw8_rejected.png)
 
-Chiều ngược lại — mật khẩu yếu `Test 1234` (không có ký tự đặc biệt, có khoảng trắng; vi phạm FR) lại được **chấp nhận**, form chuyển sang trang Đăng nhập:
+Chiều ngược lại - mật khẩu yếu `Test 1234` (không có ký tự đặc biệt, có khoảng trắng; vi phạm FR) lại được **chấp nhận**, form chuyển sang trang Đăng nhập:
 
 ![FR-01 weak pw accepted](screenshots/fr01_weak_pw_with_space_accepted.png)
 
 ---
 
-## FR-06 — Product Detail View  (primary layer: web `/product/:id`)
+## FR-06 - Product Detail View  (primary layer: web `/product/:id`)
 
 | ☐ | TC | Test condition | Designed Expected | Observed result | Status |
 |---|---|---|---|---|---|
@@ -120,7 +120,7 @@ TC-12 mô tả rỗng:
 
 ![FR-06 TC-12 empty description](screenshots/fr06_TC12_empty_description.png)
 
-TC-13 danh mục null (không hiển thị danh mục — xác nhận CF-01):
+TC-13 danh mục null (không hiển thị danh mục - xác nhận CF-01):
 
 ![FR-06 TC-13 null category](screenshots/fr06_TC13_null_category.png)
 
@@ -128,11 +128,11 @@ TC-02 fixture biên (tên 200 ký tự, giá 0, ảnh hỏng):
 
 ![FR-06 TC-02 edge fixture](screenshots/fr06_TC02_edge_fixture.png)
 
-TC-11 giá null, id lẻ (không crash) — màn hình hiện "0 ₫" cho giá null:
+TC-11 giá null, id lẻ (không crash) - màn hình hiện "0 ₫" cho giá null:
 
 ![FR-06 TC-11 null price odd id](screenshots/fr06_TC11_null_price_oddid.png)
 
-TC-11 giá null, id chẵn — **GET làm crash backend**, trang kẹt ở "Đang tải...":
+TC-11 giá null, id chẵn - **GET làm crash backend**, trang kẹt ở "Đang tải...":
 
 ![FR-06 TC-11 null price even id crash](screenshots/fr06_TC11_null_price_evenid_crash.png)
 
@@ -146,12 +146,12 @@ Sản phẩm không tồn tại `/product/9999` (API trả 200+`{}`):
 
 ---
 
-## FR-11 — Order History View  (⚠ no dedicated UI in frontend-web)
+## FR-11 - Order History View  (⚠ no dedicated UI in frontend-web)
 
 **Note (ties to the classmate Q&A):** `frontend-web` has no order-history page (its pages are
 Home, Login, Register, ForgotPassword, Profile, ProductDetail, Cart, Checkout), and the
 order flow stores locally without an order-history screen. FR-11 is therefore exercised at
-the **API layer only** — there is no UI result to take. This gap is itself worth reporting.
+the **API layer only** - there is no UI result to take. This gap is itself worth reporting.
 
 | ☐ | TC | Test condition | Designed Expected | API result | Status |
 |---|---|---|---|---|---|
@@ -169,11 +169,11 @@ the **API layer only** — there is no UI result to take. This gap is itself wor
 
 **Ảnh minh chứng (TC-03 / no-auth):**
 
-![FR-11 — GET /api/orders/1 in a browser with no login returns the order JSON](screenshots/fr11_order_by_id_no_auth.png)
+![FR-11 - GET /api/orders/1 in a browser with no login returns the order JSON](screenshots/fr11_order_by_id_no_auth.png)
 
 ---
 
-## FR-13 — Admin Dashboard  (primary layer: admin app dashboard)
+## FR-13 - Admin Dashboard  (primary layer: admin app dashboard)
 
 Dashboard revenue is computed client-side in `frontend-admin/src/App.jsx` (L217-218:
 `if (o.status === "delivered") return sum + o.total_amount * 2;`).
@@ -209,16 +209,16 @@ Bảng đơn hàng đối chiếu (delivered = 100.000, canceled = 50.000):
 
 ## Các case không có ảnh chụp và lý do (minh bạch)
 
-Không phải case nào cũng chụp được màn hình — một số chỉ tồn tại ở tầng API hoặc bị chặn ở tầng khác. Ghi rõ để không bịa ảnh:
+Không phải case nào cũng chụp được màn hình - một số chỉ tồn tại ở tầng API hoặc bị chặn ở tầng khác. Ghi rõ để không bịa ảnh:
 
 | Nhóm case | Vì sao không có screenshot UI |
 |---|---|
-| FR-01 TC-03/05/11 (thiếu field trong body) | "Bỏ field khỏi JSON" là khái niệm ở tầng API — form UI luôn gửi đủ field, không tái hiện được trên UI. Bằng chứng ở `test_execution_raw*.txt`. |
-| FR-01 TC-02/04 (name/email rỗng) | Bị thuộc tính HTML `required` chặn ngay, không submit được — không có màn hình lỗi riêng của app. |
+| FR-01 TC-03/05/11 (thiếu field trong body) | "Bỏ field khỏi JSON" là khái niệm ở tầng API - form UI luôn gửi đủ field, không tái hiện được trên UI. Bằng chứng ở `test_execution_raw*.txt`. |
+| FR-01 TC-02/04 (name/email rỗng) | Bị thuộc tính HTML `required` chặn ngay, không submit được - không có màn hình lỗi riêng của app. |
 | FR-01 TC-06/07/08/09 (email sai/trùng) | UI không kiểm email; submit sẽ đăng ký thành công rồi chuyển trang Đăng nhập (giống ảnh weak-pw-accepted). Bằng chứng rõ nhất ở tầng API. |
 | FR-01 TC-17/23 (Confirm Password) | Không có field Confirm Password trong UI để chụp (chính là quan sát). |
-| FR-11 toàn bộ | `frontend-web` không có trang lịch sử đơn hàng — không có UI. Chỉ có ảnh API `fr11_order_by_id_no_auth.png`. |
-| FR-13 TC-04 (token user vào admin API) | App admin chặn non-admin ở tầng client; lỗi (API vẫn cho vào) chỉ thấy ở tầng API — bằng chứng ở `test_execution_raw.txt`. |
+| FR-11 toàn bộ | `frontend-web` không có trang lịch sử đơn hàng - không có UI. Chỉ có ảnh API `fr11_order_by_id_no_auth.png`. |
+| FR-13 TC-04 (token user vào admin API) | App admin chặn non-admin ở tầng client; lỗi (API vẫn cho vào) chỉ thấy ở tầng API - bằng chứng ở `test_execution_raw.txt`. |
 | Các dòng ✅ Khớp | Đúng như thiết kế, không cần chụp (theo yêu cầu chỉ chụp trừ case OK). |
 
 ## How to read this for the bug report (student's task)
