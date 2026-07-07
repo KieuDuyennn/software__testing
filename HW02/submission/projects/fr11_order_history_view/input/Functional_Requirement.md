@@ -1,6 +1,6 @@
 # FR-11: Order History View (User)
 
-> Pool B — Shopping Cart and Checkout (per HW02 group assignment).
+> Pool B - Shopping Cart and Checkout (per HW02 group assignment).
 > Source of truth: EShop System Requirements Specification (README.md, Section 5, FR-11),
 > cross-checked against api_specification.md.
 
@@ -13,14 +13,14 @@ information, and the status is displayed in Vietnamese with color coding.
 
 - **List own orders:** `GET /api/orders/my-orders`
 - **Get one order detail:** `GET /api/orders/:id`
-- **Authentication:** required — header `Authorization: Bearer <token>`
+- **Authentication:** required - header `Authorization: Bearer <token>`
   (api_specification.md section 4: Cart & Orders APIs require the token).
 - **Base URL:** `http://localhost:3000`
 
 **Related endpoints (not part of FR-11, but useful to set up test state):**
-- `PUT /api/orders/:id/cancel` — moves an order to `canceled`; use it to produce a
+- `PUT /api/orders/:id/cancel` - moves an order to `canceled`; use it to produce a
   `canceled` order so FR-11's status display (Vietnamese + color) can be tested.
-- `POST /api/checkout` — creates an order (needed to have any history to view).
+- `POST /api/checkout` - creates an order (needed to have any history to view).
 
 ## 3. Functional Requirements
 
@@ -59,8 +59,8 @@ Each order in the history MUST display:
 
 ## 6. Test Data (from README / setup_guide defaults)
 
-- Seeded normal user: `test@eshop.com` / `Test1234!` — the "own orders" actor.
-- Seeded admin: `admin@eshop.com` — a *different* account for creating an order under a
+- Seeded normal user: `test@eshop.com` / `Test1234!` - the "own orders" actor.
+- Seeded admin: `admin@eshop.com` - a *different* account for creating an order under a
   second identity (ownership / cross-user tests). Note: README lists the password as
   `Admin123!` while setup_guide.md lists `admin123`; try both, and record the
   inconsistency as an observation.
@@ -68,23 +68,23 @@ Each order in the history MUST display:
   (`POST /api/checkout`), and (optionally) cancel (`PUT /api/orders/:id/cancel`) to get
   orders in different statuses.
 
-## 7. Not Specified in the FR (record as Open Questions in Phase 1 — do NOT assume)
+## 7. Not Specified in the FR (record as Open Questions in Phase 1 - do NOT assume)
 
 The README/FR do not state the following; each must be raised as an Open Question and
 must not be silently assumed during test design:
 
 - **Order date format** (locale, timezone, date vs datetime).
-- **Total amount** — whether it is shown before or after any applied coupon discount.
+- **Total amount** - whether it is shown before or after any applied coupon discount.
   Extra caution: api_specification.md section 4.3 shows `POST /api/checkout` accepting a
   client-supplied `total_amount`, which contradicts README FR-08 ("backend must
-  recompute; do not trust client total_amount") — so the stored/displayed total may be
+  recompute; do not trust client total_amount") - so the stored/displayed total may be
   unreliable. Worth checking during execution.
 - **List sort order** (e.g. newest-first) and deterministic tie-breaking.
 - **Pagination / result limit** when a user has many orders.
 - **Exact color** mapping per status (README only says "distinguished by color").
-- **Denied response for another user's order** — whether `GET /api/orders/:id` on an
+- **Denied response for another user's order** - whether `GET /api/orders/:id` on an
   order owned by someone else returns 403 (Forbidden) or 404 (Not Found, to hide
   existence). Section 5 only says "denied / not returned".
-- **Unauthorized response shape** — status code/body for missing vs malformed token.
-- **Vietnamese label text** — the exact Vietnamese string for each of the five statuses
+- **Unauthorized response shape** - status code/body for missing vs malformed token.
+- **Vietnamese label text** - the exact Vietnamese string for each of the five statuses
   is not given in the FR.
