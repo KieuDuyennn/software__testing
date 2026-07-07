@@ -1,7 +1,7 @@
 # FR-01: Account Registration
 
-> Pool A — Authentication, Categories, and Products.
-> Source of truth: EShop System Requirements Specification (README.md, section 2, FR-01) — this document describes the *correct* business requirements. The real implementation may deviate; those deviations are the bugs to be found.
+> Pool A - Authentication, Categories, and Products.
+> Source of truth: EShop System Requirements Specification (README.md, section 2, FR-01) - this document describes the *correct* business requirements. The real implementation may deviate; those deviations are the bugs to be found.
 
 ## 1. Overview
 
@@ -28,7 +28,7 @@ A new visitor can create an EShop account by providing personal details and a pa
 
 ### 3.2 Email rules
 - Email MUST be in a valid format (`user@domain.com`).
-- Email MUST be unique across the system — a second registration with an already-registered email MUST be rejected.
+- Email MUST be unique across the system - a second registration with an already-registered email MUST be rejected.
 
 ### 3.3 Password strength rules (strong password)
 The password MUST satisfy ALL of the following:
