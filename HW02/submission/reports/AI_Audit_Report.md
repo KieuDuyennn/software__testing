@@ -1,7 +1,7 @@
-# AI Audit Report — HW02 Domain Testing on EShop
+# AI Audit Report - HW02 Domain Testing on EShop
 
 - **Student ID:** 23127184
-- **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS)
+- **Course:** CS423/CSC13003 - Software Testing (FIT@HCMUS)
 - **Assignment:** HW02-AI
 
 ## Declaration
@@ -24,7 +24,7 @@ Logging was automated with a dedicated Agent Skill (`ai-audit-log`, included und
 `../skills/`): after every interaction, one row is appended to the log with the
 timestamp, tool name, **verbatim prompt**, factual output summary, my verdict, the
 reasoning, and the student fix (if any). Routine interactions (approvals, state
-updates, file reads, commits) carry the verdict `N/A — interaction record`;
+updates, file reads, commits) carry the verdict `N/A - interaction record`;
 phase artifacts carry only the verdict I stated explicitly at approval time.
 
 ## Full interaction log
@@ -42,6 +42,6 @@ Summary of phase-artifact verdicts:
 | FR-11 Order history view | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved |
 | FR-13 Dashboard | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved | INCOMPLETE → fixed → approved |
 
-(No first draft was approved as-is; every phase went through at least one
+No first draft was approved as-is; every phase went through at least one
 self-critique + user-directed-fix cycle. Details per row in `prompt_logs.md` and
-per finding in each feature's `gap_notes.md`.)
+per finding in each feature's `gap_notes.md`.
