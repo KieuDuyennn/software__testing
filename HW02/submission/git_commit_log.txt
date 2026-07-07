@@ -1,21 +1,35 @@
-commit 256837faaec56d39e08d7a7e3ecb3a92b19bee99
+commit a5e0439beec84efd0f295a26ab04f3186cd262d6
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
-Date:   Tue Jul 7 10:30:52 2026 +0700
+Date:   Tue Jul 7 10:38:36 2026 +0700
 
-    docs(hw02): log de-AI tone pass interaction
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): update logs
 
  HW02/prompt_logs.md | 1 +
  1 file changed, 1 insertion(+)
 
-commit d2e91c3e0795a4be5fa041671f30ee48ed19b0d3
+commit e9f472eef84bacb65b1ea1b40069fef355209757
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:38:36 2026 +0700
+
+    chore(hw02): update git commit log
+
+ HW02/submission/git_commit_log.txt | 826 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 826 insertions(+)
+
+commit 496b6d845ba8c18a28ee5e562878d37fd86088b3
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:52 2026 +0700
+
+    docs(hw02): update logs
+
+ HW02/prompt_logs.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a166585626b07d34c2c9923a0c1a08f76f37049e
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:30:31 2026 +0700
 
-    style(hw02): drop em dashes and AI-tell phrasing from reports
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    style(hw02): fix formatting and wording in reports
 
  HW02/submission/reports/AI_Audit_Report.md    | 10 ++--
  HW02/submission/reports/TC_Checklist.md       | 52 ++++++++--------
@@ -23,13 +37,11 @@ Date:   Tue Jul 7 10:30:31 2026 +0700
  HW02/submission/reports/test_execution_log.md | 86 +++++++++++++--------------
  4 files changed, 77 insertions(+), 77 deletions(-)
 
-commit 66c0adf8666fbf38e0966ad7764b37d448e1806f
+commit fbe81f903ed04989647208c99d32f7df948a903b
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:30:31 2026 +0700
 
-    style(fr13): drop em dashes and AI-tell phrasing from artifacts
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    style(fr13): fix formatting and wording in artifacts
 
  .../projects/fr13_dashboard/gap_notes.md           | 172 +++++++++---------
  .../fr13_dashboard/input/Functional_Requirement.md |  32 ++--
@@ -39,13 +51,11 @@ Date:   Tue Jul 7 10:30:31 2026 +0700
  .../output/04_Boundary_Value_Test_Cases.md         | 192 ++++++++++-----------
  6 files changed, 373 insertions(+), 375 deletions(-)
 
-commit 1206ec97a2cd496b7d84f2ba02d4361c1e37548d
+commit f7f951e0fed376c4a25cffd8160691d980d0cd1b
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:30:30 2026 +0700
 
-    style(fr11): drop em dashes and AI-tell phrasing from artifacts
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    style(fr11): fix formatting and wording in artifacts
 
  .../projects/fr11_order_history_view/gap_notes.md  | 304 ++++++++++-----------
  .../input/Functional_Requirement.md                |  24 +-
@@ -55,13 +65,11 @@ Date:   Tue Jul 7 10:30:30 2026 +0700
  .../output/04_Boundary_Value_Test_Cases.md         | 130 ++++-----
  6 files changed, 365 insertions(+), 365 deletions(-)
 
-commit 8fe86dea8f2ed6e8be0d7ace89681da97a3affca
+commit 893fc71f4a8c2b5a1363774cf7d96bca8ef93a11
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:30:30 2026 +0700
 
-    style(fr06): drop em dashes and AI-tell phrasing from artifacts
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    style(fr06): fix formatting and wording in artifacts
 
  .../projects/fr06_product_detail_view/gap_notes.md | 236 ++++++++++-----------
  .../input/Functional_Requirement.md                |  64 +++---
@@ -71,13 +79,11 @@ Date:   Tue Jul 7 10:30:30 2026 +0700
  .../output/04_Boundary_Value_Test_Cases.md         | 151 +++++++------
  6 files changed, 494 insertions(+), 497 deletions(-)
 
-commit 50a7e2344bd2af1b8706cd98a4ea2c67fddb342e
+commit f1d497a4242835f193b64b34876459cc91441a7c
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:30:30 2026 +0700
 
-    style(fr01): drop em dashes and AI-tell phrasing from artifacts
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    style(fr01): fix formatting and wording in artifacts
 
  .../fr01_account_registration/gap_notes.md         | 188 ++++++++++-----------
  .../input/Functional_Requirement.md                |   6 +-
@@ -87,739 +93,605 @@ Date:   Tue Jul 7 10:30:30 2026 +0700
  .../output/04_Boundary_Value_Test_Cases.md         | 164 +++++++++---------
  6 files changed, 314 insertions(+), 314 deletions(-)
 
-commit 3288be9ea3d658cffa9441e675a8512946692541
+commit a6d7222c92a801f9cf3235782c6c78b777f54d64
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:16:58 2026 +0700
 
-    docs(hw02): FR-06 pool D stated plainly; trim an AI-sounding line
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): fix FR-06 pool label and wording
 
  HW02/submission/reports/Main_Report_Domain_Testing_BVA.md | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
-commit 66ee2822a5d854e94229a13a50e246edd18bc283
+commit b56cb47007e102340497773fc92490ef5043eb16
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:10:17 2026 +0700
 
-    docs(hw02): log commit-and-push interaction
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): update logs
 
  HW02/prompt_logs.md | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit 7244f04380e5b0999f5ba771d65f147f37c885ae
+commit c868a039fef0fed4b57064fc5475de855a17551a
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:37 2026 +0700
 
-    docs(hw02): update AI audit log (prompt_logs.md)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): update logs
 
  HW02/prompt_logs.md | 1 +
  1 file changed, 1 insertion(+)
 
-commit d56f45b67ca75be056e0399f324a2380027ec77c
+commit 6ee4f0d533e54e6361abcedb22b0c31dfce70c3f
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:17 2026 +0700
 
     feat(skills): domain-testing-bva script update_state.py
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../domain-testing-bva/scripts/update_state.py     | 126 +++++++++++++++++++++
  1 file changed, 126 insertions(+)
 
-commit 9b8ed6e6d2f410fce9d9513b2b9744bd4c0ee66f
+commit 4f6b97149522a7e7329d7305fb3c22490b255469
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:17 2026 +0700
 
     feat(skills): domain-testing-bva script init_project.py
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../domain-testing-bva/scripts/init_project.py     | 69 ++++++++++++++++++++++
  1 file changed, 69 insertions(+)
 
-commit 5e71d58169c30e512a4d8535ed95b8f7b7ae682e
+commit d6aaeecbb5b29bd2f7ecebd8c0d2ca35cdd05da1
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:17 2026 +0700
 
     docs(skills): domain-testing-bva reference self_check_criteria
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../references/self_check_criteria.md              | 23 ++++++++++++++++++++++
  1 file changed, 23 insertions(+)
 
-commit 1993a8d777bc10b7f155fc3e9e642a9f4adea0dd
+commit 64f5b0dea3019ca20b9c24601fe0cc1f0fd8d7b1
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:17 2026 +0700
 
     docs(skills): domain-testing-bva reference equivalence_partitioning_heuristics
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../equivalence_partitioning_heuristics.md         | 132 +++++++++++++++++++++
  1 file changed, 132 insertions(+)
 
-commit dce4b147fdb89691917f0d4be2e480c7c6b053d8
+commit c34077bb73a699b25552ad011aab523a3e0f9cd6
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:16 2026 +0700
 
     docs(skills): domain-testing-bva reference domain_test_heuristics
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../references/domain_test_heuristics.md           | 56 ++++++++++++++++++++++
  1 file changed, 56 insertions(+)
 
-commit a048f7e173ad0eb02cf9b1a26051594d0dd558cb
+commit ab2c7d040f5890a9b7b9d85ebc47885216d0d2d6
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:16 2026 +0700
 
     docs(skills): domain-testing-bva reference boundary_value_heuristics
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../references/boundary_value_heuristics.md        | 118 +++++++++++++++++++++
  1 file changed, 118 insertions(+)
 
-commit 789f634f4574aa44f73ef1562c798f18039a24e8
+commit 130038836fd35ad8d0a23105029a650d9c56e736
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:16 2026 +0700
 
     feat(skills): domain-testing-bva skill
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/skills/domain-testing-bva/SKILL.md | 105 +++++++++++++++++++++
  1 file changed, 105 insertions(+)
 
-commit 766b5400d61f04abc523d2a5e728affd01c05cf4
+commit 0cfebf9e49cfba8ce350cd54ca04b9f56805bbe9
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:16 2026 +0700
 
-    feat(skills): ai-audit-log skill
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    feat(skills): audit-log skill
 
  HW02/submission/skills/ai-audit-log/SKILL.md | 50 ++++++++++++++++++++++++++++
  1 file changed, 50 insertions(+)
 
-commit cc0d0e2af5fd378c5feb37984af207f8031154cf
+commit 04cdffd34e76f38d8f7c5627ab1f947d1aafa1cb
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:15 2026 +0700
 
     docs(skills): project rules (CLAUDE.md)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/skills/CLAUDE.md | 64 ++++++++++++++++++++++++++++++++++++++++
  1 file changed, 64 insertions(+)
 
-commit 495b89589ce15696b9c9317125223742d3b2b9d7
+commit e6d22e44a7d102ad92a37b2fb6fe5feee08183b5
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:15 2026 +0700
 
     docs(hw02): raw test execution transcript (both passes)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/test_execution_raw.txt | 403 +++++++++++++++++++++++++
  1 file changed, 403 insertions(+)
 
-commit 7aacea74c4f0ca7f171262869a1e25b9fbfa4a1c
+commit 2cd74eec569ef4548a9aa0f28a544c43601c496f
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:15 2026 +0700
 
     docs(hw02): test execution log (readable summary)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/test_execution_log.md | 164 ++++++++++++++++++++++++++
  1 file changed, 164 insertions(+)
 
-commit ad0fd1682a13e2c49b2e8ee643e9431fb3440723
+commit b900d41294b272059509279ff0aeccc30d307e3e
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:14 2026 +0700
 
     docs(hw02): screenshot fr13_orders_table_context
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr13_orders_table_context.png   | Bin 0 -> 26237 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 0a7eae8bec84d828a29f3e71b9187149000236c7
+commit 36fe8935f72249547879e1735a818bfd3d16a167
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:14 2026 +0700
 
     docs(hw02): screenshot fr13_TC05_dashboard_revenue_doubled
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../screenshots/fr13_TC05_dashboard_revenue_doubled.png | Bin 0 -> 21816 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit f13ec8747e10c4fce77dceb2f3c8a2b8b4848f21
+commit 80da49b8b8e7b5d8778e3c35a8c501425e0facba
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:14 2026 +0700
 
     docs(hw02): screenshot fr11_order_by_id_no_auth
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr11_order_by_id_no_auth.png     | Bin 0 -> 9348 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit b06ab99993e6b8629bbdad926fcd35c476daacde
+commit 9465394c57846ccc7ad20901bd293aafd6e2c1d4
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:14 2026 +0700
 
     docs(hw02): screenshot fr06_product_2_even_id
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_product_2_even_id.png      | Bin 0 -> 30940 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit fb2ad64f4ebd2bb664efc4753b239e2edf1887ba
+commit 6fe689114fd8bfd7ebc9a89f8fb92b95076caaee
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:13 2026 +0700
 
     docs(hw02): screenshot fr06_nonexistent_product
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_nonexistent_product.png    | Bin 0 -> 13894 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit ab718b90bbeee5be8cfa77080a42b3ec254e8252
+commit 4812392bc1db500ab1b68932b8012e5e4e4da8d7
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:13 2026 +0700
 
     docs(hw02): screenshot fr06_TC13_null_category
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC13_null_category.png     | Bin 0 -> 28981 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 7a21c7079e20dbd0aa52faab18b90fe71e4df943
+commit c9c96045508fe3ba1af88721eaa55fb53b55c7ac
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:13 2026 +0700
 
     docs(hw02): screenshot fr06_TC12_empty_description
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC12_empty_description.png | Bin 0 -> 27585 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 34979f94b616814a3350073f9d1334980d7475b7
+commit 9ba1c0f5e2bc7b673edf5c0509ffb5f2f4bc23e9
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:13 2026 +0700
 
     docs(hw02): screenshot fr06_TC11_null_price_oddid
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC11_null_price_oddid.png  | Bin 0 -> 24579 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit d7d5e2bc588bcc45efe5c5fdbabfd61f9607f6e3
+commit 947a194eee68ad8356c18cfa642277333578acd8
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:12 2026 +0700
 
     docs(hw02): screenshot fr06_TC11_null_price_evenid_crash
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../screenshots/fr06_TC11_null_price_evenid_crash.png   | Bin 0 -> 11990 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 95d1f0096137929b1e5a2b3ab2566d0e478d6125
+commit 55c641940aa996699889e135e40cacb61bdda7c8
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:12 2026 +0700
 
     docs(hw02): screenshot fr06_TC10_empty_name
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC10_empty_name.png        | Bin 0 -> 24584 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 9ebcd6dd2c5573f545b22ce8023a2ea5e6071593
+commit f0788975aef0bf4b3357e6192141c9b6c97cac4f
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:12 2026 +0700
 
     docs(hw02): screenshot fr06_TC09_empty_image
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC09_empty_image.png       | Bin 0 -> 22243 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit b418e1458fd33a706e2063efe116348d1cc8e501
+commit 6b09fcae94318bb026944a475b0254513abcd168
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:12 2026 +0700
 
     docs(hw02): screenshot fr06_TC05_quantity_negative
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC05_quantity_negative.png | Bin 0 -> 27232 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 17a821b85c1b6647ef0685e7813e2421c6e84c76
+commit a6edfe600c34467ac845b27c1997e91c72449b5c
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:11 2026 +0700
 
     docs(hw02): screenshot fr06_TC02_edge_fixture
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/screenshots/fr06_TC02_edge_fixture.png      | Bin 0 -> 33117 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit f7fd431303b9fd122406934203e61d9cbf2d635c
+commit 7380f91702722beec53c3190a94199b9f9fa2a2a
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:11 2026 +0700
 
     docs(hw02): screenshot fr01_weak_pw_with_space_accepted
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../screenshots/fr01_weak_pw_with_space_accepted.png    | Bin 0 -> 19148 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit c4ea4953f9b9bb8c55401039d8bd654b15042d71
+commit 077ef2460dd9bbba868623f0e571db6474190341
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:11 2026 +0700
 
     docs(hw02): screenshot fr01_TC01a_valid_pw_rejected
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../screenshots/fr01_TC01a_valid_pw_rejected.png        | Bin 0 -> 30278 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit a7b8c2b79b76440be0339bcdefed88ace6fd9a70
+commit 555421fe057ec899cc09d2ad5e7ff15d780d568e
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:11 2026 +0700
 
     docs(hw02): screenshot fr01_BVA02_valid_pw8_rejected
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../screenshots/fr01_BVA02_valid_pw8_rejected.png       | Bin 0 -> 30287 bytes
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-commit 59bd3d3f86190c37e8fbf885650831230902a99c
+commit 2a58f2fd0b56629b8de633ee2a9ac8b6df08c980
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:10 2026 +0700
 
     docs(hw02): screenshots index
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/screenshots/INDEX.md | 29 ++++++++++++++++++++++++++++
  1 file changed, 29 insertions(+)
 
-commit e12fa7e33f9441fe2ca661abf8e40ef64273f321
+commit 2aa7a97559c81f444b36f26c2154238200ec66c9
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:10 2026 +0700
 
     docs(hw02): prompt logs (audit appendix)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/prompt_logs.md | 58 ++++++++++++++++++++++++++++++++++
  1 file changed, 58 insertions(+)
 
-commit 0b2e34dbf5aa2bb408f8b0c85124f534ca5d270d
+commit b7fc4bfc208da988a899c507ab1a45ccb00b8774
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:10 2026 +0700
 
     docs(hw02): test-case checklist
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/TC_Checklist.md | 230 ++++++++++++++++++++++++++++++++
  1 file changed, 230 insertions(+)
 
-commit 13acceb1118383412c6e15d4948bcd60cb4e34ce
+commit a6758a7ddd3ff7f64d20497dabaa63eaf0a9d9df
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:09 2026 +0700
 
     docs(hw02): main report (domain testing + BVA)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../reports/Main_Report_Domain_Testing_BVA.md      | 312 +++++++++++++++++++++
  1 file changed, 312 insertions(+)
 
-commit 6e99cf019a016944fc46e3b3623fddd9447b8cd3
+commit f688ba15c3fc5e99d47dbbf1b6d1d194fa014c3b
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:09 2026 +0700
 
     docs(hw02): bug report
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/reports/Bug_Report.md | 249 ++++++++++++++++++++++++++++++++++
  1 file changed, 249 insertions(+)
 
-commit 9495b9f966689963c3edabceae2e6d532dbc0348
+commit b34b04e14953357b169533b08cf9fd37e0bc46f7
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:09 2026 +0700
 
-    docs(hw02): AI critique
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): critique
 
  HW02/submission/reports/AI_Critique.md | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-commit 0d468d6bb3fe62a0ad61a2ae19028d30d9908efd
+commit daf7b90f7ee16e98b24b5db188b54afc915637c2
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:09 2026 +0700
 
-    docs(hw02): AI audit report
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    docs(hw02): audit report
 
  HW02/submission/reports/AI_Audit_Report.md | 47 ++++++++++++++++++++++++++++++
  1 file changed, 47 insertions(+)
 
-commit dba9c8053ce09b43086be414d4e2a108b5144674
+commit cd497f2b6eac258835c9e5cebcd8d09885d0c75c
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:08 2026 +0700
 
     chore(fr13): workflow state
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/projects/fr13_dashboard/state.json | 24 ++++++++++++++++++++++
  1 file changed, 24 insertions(+)
 
-commit d510426453f666f28e1a98107c9fe8826960d283
+commit 52d6d34b7c217a13e2d2b5115f48ed0f52eabc60
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:08 2026 +0700
 
     test(fr13): phase 4 boundary value analysis
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/04_Boundary_Value_Test_Cases.md         | 315 +++++++++++++++++++++
  1 file changed, 315 insertions(+)
 
-commit 16e90e2fff2809a8da1ba94f12d89fda8a970baa
+commit fbab6c76129102702fe603f320225134040ae387
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:08 2026 +0700
 
     test(fr13): phase 3 domain test cases
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../fr13_dashboard/output/03_Domain_Test_Cases.md  | 311 +++++++++++++++++++++
  1 file changed, 311 insertions(+)
 
-commit b9a2f744ec8163597417b178006eeabdb0707e33
+commit cc3d9f94a1bfae179df6ac162c1142a4a00166bb
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:08 2026 +0700
 
     test(fr13): phase 2 equivalence partitioning
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/02_Equivalence_Partitioning.md          | 260 +++++++++++++++++++++
  1 file changed, 260 insertions(+)
 
-commit e824ab503b9062b09d6b51919216df9277560233
+commit 52b447889426971ceced034a6f561f80a406e764
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:07 2026 +0700
 
     test(fr13): phase 1 requirements breakdown
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/01_Requirements_Breakdown.md            | 150 +++++++++++++++++++++
  1 file changed, 150 insertions(+)
 
-commit 2a9c877c67360e9da7621272d32a553f29daf311
+commit 9e6ac79a0d72de8732d8c0c1abc4d75fb89924b8
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:07 2026 +0700
 
     docs(fr13): input functional requirement
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../fr13_dashboard/input/Functional_Requirement.md | 92 ++++++++++++++++++++++
  1 file changed, 92 insertions(+)
 
-commit 95bd12db6fd23fe9636760c54d3e4b38c3cf51d1
+commit 5a1afc2e33843652abb0a374c512b3be82f61976
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:07 2026 +0700
 
     docs(fr13): gap notes (self-critique trail)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr13_dashboard/gap_notes.md           | 480 +++++++++++++++++++++
  1 file changed, 480 insertions(+)
 
-commit 21cb749de69e32b78e21b34962dbaab403f821a0
+commit 2b5b19ab0dc6d3e2f0ffea6f8ae7493925686af2
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:07 2026 +0700
 
     chore(fr11): workflow state
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr11_order_history_view/state.json    | 24 ++++++++++++++++++++++
  1 file changed, 24 insertions(+)
 
-commit 6327043842649a137f87d7713ad9fb4503cc1a23
+commit 2ca802ebdc65d613dae2897c4be85285f5af2598
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:06 2026 +0700
 
     test(fr11): phase 4 boundary value analysis
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/04_Boundary_Value_Test_Cases.md         | 236 +++++++++++++++++++++
  1 file changed, 236 insertions(+)
 
-commit c3e110947b788d6ffd3d788498a2c95ba9d89347
+commit e83593536cdb75743e212e2b9c732f7e2f9894bb
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:06 2026 +0700
 
     test(fr11): phase 3 domain test cases
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/03_Domain_Test_Cases.md                 | 232 +++++++++++++++++++++
  1 file changed, 232 insertions(+)
 
-commit f8cb0a3d0dc5d2bba5c069e35f58ea1ac5cc2dff
+commit db3685a1ee615206a619b48bb1425aac3da3063e
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:06 2026 +0700
 
     test(fr11): phase 2 equivalence partitioning
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
  1 file changed, 179 insertions(+)
 
-commit 1ff9caad7bcb06dae13399f41157d9ff22c76029
+commit d628a8ea98cd7b4e6619851d8b62d9044af8a2a2
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:06 2026 +0700
 
     test(fr11): phase 1 requirements breakdown
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/01_Requirements_Breakdown.md            | 96 ++++++++++++++++++++++
  1 file changed, 96 insertions(+)
 
-commit 7c772e4bae4d76bdd6dd77dfb8519daea8ebb2de
+commit 2e71651f00bc742d5d4866efb2083dffb1204967
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:05 2026 +0700
 
     docs(fr11): input functional requirement
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../input/Functional_Requirement.md                | 90 ++++++++++++++++++++++
  1 file changed, 90 insertions(+)
 
-commit c73e43b149e94e05a64ee206d18824068f39b53c
+commit 3d85f2f7536ee62a465f18f268ba3a4aabc03be5
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:05 2026 +0700
 
     docs(fr11): gap notes (self-critique trail)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr11_order_history_view/gap_notes.md  | 636 +++++++++++++++++++++
  1 file changed, 636 insertions(+)
 
-commit 05c3fb0d8bd7992c58e1eb1e08dae20946a29166
+commit 5608868034d0c51cdd25cb78d5ce3cdead4ea486
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:05 2026 +0700
 
     chore(fr06): workflow state
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr06_product_detail_view/state.json   | 24 ++++++++++++++++++++++
  1 file changed, 24 insertions(+)
 
-commit 7a0a7d00b3e69d36289a7e788cf759f6d4b50b63
+commit d2c6c7e28cc29611407ef77c9ba6f92dc0ea1970
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:04 2026 +0700
 
     test(fr06): phase 4 boundary value analysis
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/04_Boundary_Value_Test_Cases.md         | 309 +++++++++++++++++++++
  1 file changed, 309 insertions(+)
 
-commit 9b5613b698127beba867a753b06ebf1c2082b54d
+commit f35fb58794cef353acfd65b3b400d0d8afec5eab
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:04 2026 +0700
 
     test(fr06): phase 3 domain test cases
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/03_Domain_Test_Cases.md                 | 332 +++++++++++++++++++++
  1 file changed, 332 insertions(+)
 
-commit 4266fb204b87e6d5cb0be10f9b48e8b08f91d3e9
+commit 751bd86a040a9245c217b45e25e9c08109f34054
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:04 2026 +0700
 
     test(fr06): phase 2 equivalence partitioning
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/02_Equivalence_Partitioning.md          | 373 +++++++++++++++++++++
  1 file changed, 373 insertions(+)
 
-commit 8a5eb11165cc8637e597d39c8f4cc6221f17dc47
+commit 8648d02d272aafb07babcb2bbf74fb70ceea9d01
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:04 2026 +0700
 
     test(fr06): phase 1 requirements breakdown
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/01_Requirements_Breakdown.md            | 208 +++++++++++++++++++++
  1 file changed, 208 insertions(+)
 
-commit 5140efdd6541b20bc4534fb748230d9e8b71836f
+commit 1655e27f07f49dab89052a6564630d11a60864b1
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:03 2026 +0700
 
     docs(fr06): input functional requirement
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../input/Functional_Requirement.md                | 173 +++++++++++++++++++++
  1 file changed, 173 insertions(+)
 
-commit 361103c21803b8de87a721f22cee5e8485ddaf9a
+commit b104b4db5933733d25e607838083874618caa936
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:03 2026 +0700
 
     docs(fr06): gap notes (self-critique trail)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr06_product_detail_view/gap_notes.md | 557 +++++++++++++++++++++
  1 file changed, 557 insertions(+)
 
-commit 6563d490837446449926b7c1194f674ce1870a2d
+commit 1351580693e036511cf9b54968a14147be2dc0ed
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:03 2026 +0700
 
     chore(fr01): workflow state
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../projects/fr01_account_registration/state.json  | 24 ++++++++++++++++++++++
  1 file changed, 24 insertions(+)
 
-commit 0524ac63b452650bc0b37699a7fe8b54c5dbd0da
+commit 697f76a3db0143dd821e1378b33eca7b2442fba9
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:03 2026 +0700
 
     test(fr01): phase 4 boundary value analysis
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/04_Boundary_Value_Test_Cases.md         | 308 +++++++++++++++++++++
  1 file changed, 308 insertions(+)
 
-commit 68bcf6c1628bc0ac7bee7434147de2edf65340f6
+commit 6988a724bc3329280d3a6da94df427362b036421
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:02 2026 +0700
 
     test(fr01): phase 3 domain test cases
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/03_Domain_Test_Cases.md                 | 277 +++++++++++++++++++++
  1 file changed, 277 insertions(+)
 
-commit 5d336ccee038382cc4fd7193e61fec945d6ed5a4
+commit ef40985cdaa36a286ef9b5a79b622434e0e0ac90
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:02 2026 +0700
 
     test(fr01): phase 2 equivalence partitioning
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
  1 file changed, 179 insertions(+)
 
-commit f3fe3c7a27f0200f6451ad52d5dc8d08247f659c
+commit 432e0494e5cdb8b76a6e5eaaf8988b3ffc4234a4
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:02 2026 +0700
 
     test(fr01): phase 1 requirements breakdown
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../output/01_Requirements_Breakdown.md            | 80 ++++++++++++++++++++++
  1 file changed, 80 insertions(+)
 
-commit e642a229c4da114433f903465075c409053c9acc
+commit fd4b23f159b004e65703606642081c34c9b59523
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:02 2026 +0700
 
     docs(fr01): input functional requirement
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../input/Functional_Requirement.md                | 60 ++++++++++++++++++++++
  1 file changed, 60 insertions(+)
 
-commit 9d8cb286e4604e878f836152a1826967dae6a9c6
+commit a1e08ef648ea481be1e32abdfb7a6cf778b60ac7
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:01 2026 +0700
 
     docs(fr01): gap notes (self-critique trail)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  .../fr01_account_registration/gap_notes.md         | 459 +++++++++++++++++++++
  1 file changed, 459 insertions(+)
 
-commit 8ba15612317c87c92bf8af9816a447dc27893b5f
+commit be8b38b773cc5f6d0523ef4b31071739fc6c4ddd
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:01 2026 +0700
 
     chore(hw02): git commit log
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/git_commit_log.txt | 780 +++++++++++++++++++++++++++++++++++++
  1 file changed, 780 insertions(+)
 
-commit 8e092d5398b3161fe1483e691870695fd2d74a56
+commit e8f647f5c0a3e9a5a8719511a7f60701131f7cd6
 Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
 Date:   Tue Jul 7 10:09:01 2026 +0700
 
     docs(hw02): submission README (self-assessment + test summary)
-    
-    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
  HW02/submission/README.md | 64 +++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 64 insertions(+)
