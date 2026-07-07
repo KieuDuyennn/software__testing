@@ -1,7 +1,7 @@
-# Screenshot index — captured behavior on the live EShop SUT (2026-07-07)
+# Screenshot index - captured behavior on the live EShop SUT (2026-07-07)
 
 Factual screenshots of the SUT's actual behavior, captured with a headless browser against
-the running apps (web `:5173`, admin `:5174`, backend `:3000`). Visual raw evidence only —
+the running apps (web `:5173`, admin `:5174`, backend `:3000`). Visual raw evidence only -
 which behavior is a *bug*, and all bug wording, is the student's to decide. Only non-`OK`
 (non-Khớp) cases with a meaningful UI state are captured; cases with no UI (or no distinct
 screen) are listed with their reason in `../TC_Checklist.md`.
@@ -14,7 +14,7 @@ screen) are listed with their reason in `../TC_Checklist.md`.
 | `fr06_TC10_empty_name.png` | FR-06 TC-10 | Product with empty name. |
 | `fr06_TC09_empty_image.png` | FR-06 TC-09 | Product with empty imageUrl (broken image area). |
 | `fr06_TC12_empty_description.png` | FR-06 TC-12 | Product with empty description. |
-| `fr06_TC13_null_category.png` | FR-06 TC-13 | Product with null category (no category rendered — CF-01). |
+| `fr06_TC13_null_category.png` | FR-06 TC-13 | Product with null category (no category rendered - CF-01). |
 | `fr06_TC02_edge_fixture.png` | FR-06 TC-02 | Edge product: 200-char name, price 0, broken image. |
 | `fr06_TC11_null_price_oddid.png` | FR-06 TC-11 | Null price, odd id (no crash): screen shows "0 ₫" for a null price. |
 | `fr06_TC11_null_price_evenid_crash.png` | FR-06 TC-11 | Null price, even id: GET crashes backend, page stuck on "Đang tải…". |
