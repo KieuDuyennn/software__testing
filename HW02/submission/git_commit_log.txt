@@ -1,0 +1,1478 @@
+commit a5e0439beec84efd0f295a26ab04f3186cd262d6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:38:36 2026 +0700
+
+    docs(hw02): update logs
+
+ HW02/prompt_logs.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit e9f472eef84bacb65b1ea1b40069fef355209757
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:38:36 2026 +0700
+
+    chore(hw02): update git commit log
+
+ HW02/submission/git_commit_log.txt | 826 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 826 insertions(+)
+
+commit 496b6d845ba8c18a28ee5e562878d37fd86088b3
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:52 2026 +0700
+
+    docs(hw02): update logs
+
+ HW02/prompt_logs.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a166585626b07d34c2c9923a0c1a08f76f37049e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:31 2026 +0700
+
+    style(hw02): fix formatting and wording in reports
+
+ HW02/submission/reports/AI_Audit_Report.md    | 10 ++--
+ HW02/submission/reports/TC_Checklist.md       | 52 ++++++++--------
+ HW02/submission/reports/screenshots/INDEX.md  |  6 +-
+ HW02/submission/reports/test_execution_log.md | 86 +++++++++++++--------------
+ 4 files changed, 77 insertions(+), 77 deletions(-)
+
+commit fbe81f903ed04989647208c99d32f7df948a903b
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:31 2026 +0700
+
+    style(fr13): fix formatting and wording in artifacts
+
+ .../projects/fr13_dashboard/gap_notes.md           | 172 +++++++++---------
+ .../fr13_dashboard/input/Functional_Requirement.md |  32 ++--
+ .../output/01_Requirements_Breakdown.md            |  65 ++++---
+ .../output/02_Equivalence_Partitioning.md          | 129 +++++++-------
+ .../fr13_dashboard/output/03_Domain_Test_Cases.md  | 158 ++++++++---------
+ .../output/04_Boundary_Value_Test_Cases.md         | 192 ++++++++++-----------
+ 6 files changed, 373 insertions(+), 375 deletions(-)
+
+commit f7f951e0fed376c4a25cffd8160691d980d0cd1b
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:30 2026 +0700
+
+    style(fr11): fix formatting and wording in artifacts
+
+ .../projects/fr11_order_history_view/gap_notes.md  | 304 ++++++++++-----------
+ .../input/Functional_Requirement.md                |  24 +-
+ .../output/01_Requirements_Breakdown.md            |  34 +--
+ .../output/02_Equivalence_Partitioning.md          | 110 ++++----
+ .../output/03_Domain_Test_Cases.md                 | 128 ++++-----
+ .../output/04_Boundary_Value_Test_Cases.md         | 130 ++++-----
+ 6 files changed, 365 insertions(+), 365 deletions(-)
+
+commit 893fc71f4a8c2b5a1363774cf7d96bca8ef93a11
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:30 2026 +0700
+
+    style(fr06): fix formatting and wording in artifacts
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 236 ++++++++++-----------
+ .../input/Functional_Requirement.md                |  64 +++---
+ .../output/01_Requirements_Breakdown.md            | 100 ++++-----
+ .../output/02_Equivalence_Partitioning.md          | 210 +++++++++---------
+ .../output/03_Domain_Test_Cases.md                 | 230 ++++++++++----------
+ .../output/04_Boundary_Value_Test_Cases.md         | 151 +++++++------
+ 6 files changed, 494 insertions(+), 497 deletions(-)
+
+commit f1d497a4242835f193b64b34876459cc91441a7c
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:30:30 2026 +0700
+
+    style(fr01): fix formatting and wording in artifacts
+
+ .../fr01_account_registration/gap_notes.md         | 188 ++++++++++-----------
+ .../input/Functional_Requirement.md                |   6 +-
+ .../output/01_Requirements_Breakdown.md            |  32 ++--
+ .../output/02_Equivalence_Partitioning.md          | 110 ++++++------
+ .../output/03_Domain_Test_Cases.md                 | 128 +++++++-------
+ .../output/04_Boundary_Value_Test_Cases.md         | 164 +++++++++---------
+ 6 files changed, 314 insertions(+), 314 deletions(-)
+
+commit a6d7222c92a801f9cf3235782c6c78b777f54d64
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:16:58 2026 +0700
+
+    docs(hw02): fix FR-06 pool label and wording
+
+ HW02/submission/reports/Main_Report_Domain_Testing_BVA.md | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit b56cb47007e102340497773fc92490ef5043eb16
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:10:17 2026 +0700
+
+    docs(hw02): update logs
+
+ HW02/prompt_logs.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c868a039fef0fed4b57064fc5475de855a17551a
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:37 2026 +0700
+
+    docs(hw02): update logs
+
+ HW02/prompt_logs.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6ee4f0d533e54e6361abcedb22b0c31dfce70c3f
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:17 2026 +0700
+
+    feat(skills): domain-testing-bva script update_state.py
+
+ .../domain-testing-bva/scripts/update_state.py     | 126 +++++++++++++++++++++
+ 1 file changed, 126 insertions(+)
+
+commit 4f6b97149522a7e7329d7305fb3c22490b255469
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:17 2026 +0700
+
+    feat(skills): domain-testing-bva script init_project.py
+
+ .../domain-testing-bva/scripts/init_project.py     | 69 ++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+
+commit d6aaeecbb5b29bd2f7ecebd8c0d2ca35cdd05da1
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:17 2026 +0700
+
+    docs(skills): domain-testing-bva reference self_check_criteria
+
+ .../references/self_check_criteria.md              | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+commit 64f5b0dea3019ca20b9c24601fe0cc1f0fd8d7b1
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:17 2026 +0700
+
+    docs(skills): domain-testing-bva reference equivalence_partitioning_heuristics
+
+ .../equivalence_partitioning_heuristics.md         | 132 +++++++++++++++++++++
+ 1 file changed, 132 insertions(+)
+
+commit c34077bb73a699b25552ad011aab523a3e0f9cd6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:16 2026 +0700
+
+    docs(skills): domain-testing-bva reference domain_test_heuristics
+
+ .../references/domain_test_heuristics.md           | 56 ++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+
+commit ab2c7d040f5890a9b7b9d85ebc47885216d0d2d6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:16 2026 +0700
+
+    docs(skills): domain-testing-bva reference boundary_value_heuristics
+
+ .../references/boundary_value_heuristics.md        | 118 +++++++++++++++++++++
+ 1 file changed, 118 insertions(+)
+
+commit 130038836fd35ad8d0a23105029a650d9c56e736
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:16 2026 +0700
+
+    feat(skills): domain-testing-bva skill
+
+ HW02/submission/skills/domain-testing-bva/SKILL.md | 105 +++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+
+commit 0cfebf9e49cfba8ce350cd54ca04b9f56805bbe9
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:16 2026 +0700
+
+    feat(skills): audit-log skill
+
+ HW02/submission/skills/ai-audit-log/SKILL.md | 50 ++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+commit 04cdffd34e76f38d8f7c5627ab1f947d1aafa1cb
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:15 2026 +0700
+
+    docs(skills): project rules (CLAUDE.md)
+
+ HW02/submission/skills/CLAUDE.md | 64 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+commit e6d22e44a7d102ad92a37b2fb6fe5feee08183b5
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:15 2026 +0700
+
+    docs(hw02): raw test execution transcript (both passes)
+
+ HW02/submission/reports/test_execution_raw.txt | 403 +++++++++++++++++++++++++
+ 1 file changed, 403 insertions(+)
+
+commit 2cd74eec569ef4548a9aa0f28a544c43601c496f
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:15 2026 +0700
+
+    docs(hw02): test execution log (readable summary)
+
+ HW02/submission/reports/test_execution_log.md | 164 ++++++++++++++++++++++++++
+ 1 file changed, 164 insertions(+)
+
+commit b900d41294b272059509279ff0aeccc30d307e3e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:14 2026 +0700
+
+    docs(hw02): screenshot fr13_orders_table_context
+
+ .../reports/screenshots/fr13_orders_table_context.png   | Bin 0 -> 26237 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 36fe8935f72249547879e1735a818bfd3d16a167
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:14 2026 +0700
+
+    docs(hw02): screenshot fr13_TC05_dashboard_revenue_doubled
+
+ .../screenshots/fr13_TC05_dashboard_revenue_doubled.png | Bin 0 -> 21816 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 80da49b8b8e7b5d8778e3c35a8c501425e0facba
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:14 2026 +0700
+
+    docs(hw02): screenshot fr11_order_by_id_no_auth
+
+ .../reports/screenshots/fr11_order_by_id_no_auth.png     | Bin 0 -> 9348 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9465394c57846ccc7ad20901bd293aafd6e2c1d4
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:14 2026 +0700
+
+    docs(hw02): screenshot fr06_product_2_even_id
+
+ .../reports/screenshots/fr06_product_2_even_id.png      | Bin 0 -> 30940 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6fe689114fd8bfd7ebc9a89f8fb92b95076caaee
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:13 2026 +0700
+
+    docs(hw02): screenshot fr06_nonexistent_product
+
+ .../reports/screenshots/fr06_nonexistent_product.png    | Bin 0 -> 13894 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 4812392bc1db500ab1b68932b8012e5e4e4da8d7
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:13 2026 +0700
+
+    docs(hw02): screenshot fr06_TC13_null_category
+
+ .../reports/screenshots/fr06_TC13_null_category.png     | Bin 0 -> 28981 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c9c96045508fe3ba1af88721eaa55fb53b55c7ac
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:13 2026 +0700
+
+    docs(hw02): screenshot fr06_TC12_empty_description
+
+ .../reports/screenshots/fr06_TC12_empty_description.png | Bin 0 -> 27585 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9ba1c0f5e2bc7b673edf5c0509ffb5f2f4bc23e9
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:13 2026 +0700
+
+    docs(hw02): screenshot fr06_TC11_null_price_oddid
+
+ .../reports/screenshots/fr06_TC11_null_price_oddid.png  | Bin 0 -> 24579 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 947a194eee68ad8356c18cfa642277333578acd8
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:12 2026 +0700
+
+    docs(hw02): screenshot fr06_TC11_null_price_evenid_crash
+
+ .../screenshots/fr06_TC11_null_price_evenid_crash.png   | Bin 0 -> 11990 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 55c641940aa996699889e135e40cacb61bdda7c8
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:12 2026 +0700
+
+    docs(hw02): screenshot fr06_TC10_empty_name
+
+ .../reports/screenshots/fr06_TC10_empty_name.png        | Bin 0 -> 24584 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f0788975aef0bf4b3357e6192141c9b6c97cac4f
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:12 2026 +0700
+
+    docs(hw02): screenshot fr06_TC09_empty_image
+
+ .../reports/screenshots/fr06_TC09_empty_image.png       | Bin 0 -> 22243 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6b09fcae94318bb026944a475b0254513abcd168
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:12 2026 +0700
+
+    docs(hw02): screenshot fr06_TC05_quantity_negative
+
+ .../reports/screenshots/fr06_TC05_quantity_negative.png | Bin 0 -> 27232 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a6edfe600c34467ac845b27c1997e91c72449b5c
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:11 2026 +0700
+
+    docs(hw02): screenshot fr06_TC02_edge_fixture
+
+ .../reports/screenshots/fr06_TC02_edge_fixture.png      | Bin 0 -> 33117 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 7380f91702722beec53c3190a94199b9f9fa2a2a
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:11 2026 +0700
+
+    docs(hw02): screenshot fr01_weak_pw_with_space_accepted
+
+ .../screenshots/fr01_weak_pw_with_space_accepted.png    | Bin 0 -> 19148 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 077ef2460dd9bbba868623f0e571db6474190341
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:11 2026 +0700
+
+    docs(hw02): screenshot fr01_TC01a_valid_pw_rejected
+
+ .../screenshots/fr01_TC01a_valid_pw_rejected.png        | Bin 0 -> 30278 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 555421fe057ec899cc09d2ad5e7ff15d780d568e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:11 2026 +0700
+
+    docs(hw02): screenshot fr01_BVA02_valid_pw8_rejected
+
+ .../screenshots/fr01_BVA02_valid_pw8_rejected.png       | Bin 0 -> 30287 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 2a58f2fd0b56629b8de633ee2a9ac8b6df08c980
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:10 2026 +0700
+
+    docs(hw02): screenshots index
+
+ HW02/submission/reports/screenshots/INDEX.md | 29 ++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+commit 2aa7a97559c81f444b36f26c2154238200ec66c9
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:10 2026 +0700
+
+    docs(hw02): prompt logs (audit appendix)
+
+ HW02/submission/reports/prompt_logs.md | 58 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
+
+commit b7fc4bfc208da988a899c507ab1a45ccb00b8774
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:10 2026 +0700
+
+    docs(hw02): test-case checklist
+
+ HW02/submission/reports/TC_Checklist.md | 230 ++++++++++++++++++++++++++++++++
+ 1 file changed, 230 insertions(+)
+
+commit a6758a7ddd3ff7f64d20497dabaa63eaf0a9d9df
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:09 2026 +0700
+
+    docs(hw02): main report (domain testing + BVA)
+
+ .../reports/Main_Report_Domain_Testing_BVA.md      | 312 +++++++++++++++++++++
+ 1 file changed, 312 insertions(+)
+
+commit f688ba15c3fc5e99d47dbbf1b6d1d194fa014c3b
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:09 2026 +0700
+
+    docs(hw02): bug report
+
+ HW02/submission/reports/Bug_Report.md | 249 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 249 insertions(+)
+
+commit b34b04e14953357b169533b08cf9fd37e0bc46f7
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:09 2026 +0700
+
+    docs(hw02): critique
+
+ HW02/submission/reports/AI_Critique.md | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit daf7b90f7ee16e98b24b5db188b54afc915637c2
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:09 2026 +0700
+
+    docs(hw02): audit report
+
+ HW02/submission/reports/AI_Audit_Report.md | 47 ++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+commit cd497f2b6eac258835c9e5cebcd8d09885d0c75c
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:08 2026 +0700
+
+    chore(fr13): workflow state
+
+ HW02/submission/projects/fr13_dashboard/state.json | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit 52d6d34b7c217a13e2d2b5115f48ed0f52eabc60
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:08 2026 +0700
+
+    test(fr13): phase 4 boundary value analysis
+
+ .../output/04_Boundary_Value_Test_Cases.md         | 315 +++++++++++++++++++++
+ 1 file changed, 315 insertions(+)
+
+commit fbab6c76129102702fe603f320225134040ae387
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:08 2026 +0700
+
+    test(fr13): phase 3 domain test cases
+
+ .../fr13_dashboard/output/03_Domain_Test_Cases.md  | 311 +++++++++++++++++++++
+ 1 file changed, 311 insertions(+)
+
+commit cc3d9f94a1bfae179df6ac162c1142a4a00166bb
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:08 2026 +0700
+
+    test(fr13): phase 2 equivalence partitioning
+
+ .../output/02_Equivalence_Partitioning.md          | 260 +++++++++++++++++++++
+ 1 file changed, 260 insertions(+)
+
+commit 52b447889426971ceced034a6f561f80a406e764
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:07 2026 +0700
+
+    test(fr13): phase 1 requirements breakdown
+
+ .../output/01_Requirements_Breakdown.md            | 150 +++++++++++++++++++++
+ 1 file changed, 150 insertions(+)
+
+commit 9e6ac79a0d72de8732d8c0c1abc4d75fb89924b8
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:07 2026 +0700
+
+    docs(fr13): input functional requirement
+
+ .../fr13_dashboard/input/Functional_Requirement.md | 92 ++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+commit 5a1afc2e33843652abb0a374c512b3be82f61976
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:07 2026 +0700
+
+    docs(fr13): gap notes (self-critique trail)
+
+ .../projects/fr13_dashboard/gap_notes.md           | 480 +++++++++++++++++++++
+ 1 file changed, 480 insertions(+)
+
+commit 2b5b19ab0dc6d3e2f0ffea6f8ae7493925686af2
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:07 2026 +0700
+
+    chore(fr11): workflow state
+
+ .../projects/fr11_order_history_view/state.json    | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit 2ca802ebdc65d613dae2897c4be85285f5af2598
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:06 2026 +0700
+
+    test(fr11): phase 4 boundary value analysis
+
+ .../output/04_Boundary_Value_Test_Cases.md         | 236 +++++++++++++++++++++
+ 1 file changed, 236 insertions(+)
+
+commit e83593536cdb75743e212e2b9c732f7e2f9894bb
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:06 2026 +0700
+
+    test(fr11): phase 3 domain test cases
+
+ .../output/03_Domain_Test_Cases.md                 | 232 +++++++++++++++++++++
+ 1 file changed, 232 insertions(+)
+
+commit db3685a1ee615206a619b48bb1425aac3da3063e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:06 2026 +0700
+
+    test(fr11): phase 2 equivalence partitioning
+
+ .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
+
+commit d628a8ea98cd7b4e6619851d8b62d9044af8a2a2
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:06 2026 +0700
+
+    test(fr11): phase 1 requirements breakdown
+
+ .../output/01_Requirements_Breakdown.md            | 96 ++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
+
+commit 2e71651f00bc742d5d4866efb2083dffb1204967
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:05 2026 +0700
+
+    docs(fr11): input functional requirement
+
+ .../input/Functional_Requirement.md                | 90 ++++++++++++++++++++++
+ 1 file changed, 90 insertions(+)
+
+commit 3d85f2f7536ee62a465f18f268ba3a4aabc03be5
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:05 2026 +0700
+
+    docs(fr11): gap notes (self-critique trail)
+
+ .../projects/fr11_order_history_view/gap_notes.md  | 636 +++++++++++++++++++++
+ 1 file changed, 636 insertions(+)
+
+commit 5608868034d0c51cdd25cb78d5ce3cdead4ea486
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:05 2026 +0700
+
+    chore(fr06): workflow state
+
+ .../projects/fr06_product_detail_view/state.json   | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit d2c6c7e28cc29611407ef77c9ba6f92dc0ea1970
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:04 2026 +0700
+
+    test(fr06): phase 4 boundary value analysis
+
+ .../output/04_Boundary_Value_Test_Cases.md         | 309 +++++++++++++++++++++
+ 1 file changed, 309 insertions(+)
+
+commit f35fb58794cef353acfd65b3b400d0d8afec5eab
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:04 2026 +0700
+
+    test(fr06): phase 3 domain test cases
+
+ .../output/03_Domain_Test_Cases.md                 | 332 +++++++++++++++++++++
+ 1 file changed, 332 insertions(+)
+
+commit 751bd86a040a9245c217b45e25e9c08109f34054
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:04 2026 +0700
+
+    test(fr06): phase 2 equivalence partitioning
+
+ .../output/02_Equivalence_Partitioning.md          | 373 +++++++++++++++++++++
+ 1 file changed, 373 insertions(+)
+
+commit 8648d02d272aafb07babcb2bbf74fb70ceea9d01
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:04 2026 +0700
+
+    test(fr06): phase 1 requirements breakdown
+
+ .../output/01_Requirements_Breakdown.md            | 208 +++++++++++++++++++++
+ 1 file changed, 208 insertions(+)
+
+commit 1655e27f07f49dab89052a6564630d11a60864b1
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:03 2026 +0700
+
+    docs(fr06): input functional requirement
+
+ .../input/Functional_Requirement.md                | 173 +++++++++++++++++++++
+ 1 file changed, 173 insertions(+)
+
+commit b104b4db5933733d25e607838083874618caa936
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:03 2026 +0700
+
+    docs(fr06): gap notes (self-critique trail)
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 557 +++++++++++++++++++++
+ 1 file changed, 557 insertions(+)
+
+commit 1351580693e036511cf9b54968a14147be2dc0ed
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:03 2026 +0700
+
+    chore(fr01): workflow state
+
+ .../projects/fr01_account_registration/state.json  | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit 697f76a3db0143dd821e1378b33eca7b2442fba9
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:03 2026 +0700
+
+    test(fr01): phase 4 boundary value analysis
+
+ .../output/04_Boundary_Value_Test_Cases.md         | 308 +++++++++++++++++++++
+ 1 file changed, 308 insertions(+)
+
+commit 6988a724bc3329280d3a6da94df427362b036421
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:02 2026 +0700
+
+    test(fr01): phase 3 domain test cases
+
+ .../output/03_Domain_Test_Cases.md                 | 277 +++++++++++++++++++++
+ 1 file changed, 277 insertions(+)
+
+commit ef40985cdaa36a286ef9b5a79b622434e0e0ac90
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:02 2026 +0700
+
+    test(fr01): phase 2 equivalence partitioning
+
+ .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
+
+commit 432e0494e5cdb8b76a6e5eaaf8988b3ffc4234a4
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:02 2026 +0700
+
+    test(fr01): phase 1 requirements breakdown
+
+ .../output/01_Requirements_Breakdown.md            | 80 ++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
+
+commit fd4b23f159b004e65703606642081c34c9b59523
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:02 2026 +0700
+
+    docs(fr01): input functional requirement
+
+ .../input/Functional_Requirement.md                | 60 ++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
+
+commit a1e08ef648ea481be1e32abdfb7a6cf778b60ac7
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:01 2026 +0700
+
+    docs(fr01): gap notes (self-critique trail)
+
+ .../fr01_account_registration/gap_notes.md         | 459 +++++++++++++++++++++
+ 1 file changed, 459 insertions(+)
+
+commit be8b38b773cc5f6d0523ef4b31071739fc6c4ddd
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:01 2026 +0700
+
+    chore(hw02): git commit log
+
+ HW02/submission/git_commit_log.txt | 780 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 780 insertions(+)
+
+commit e8f647f5c0a3e9a5a8719511a7f60701131f7cd6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 10:09:01 2026 +0700
+
+    docs(hw02): submission README (self-assessment + test summary)
+
+ HW02/submission/README.md | 64 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+commit 46492c9169ed8be58b58172abacd2664d6df690a
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jul 7 00:13:08 2026 +0700
+
+    test(fr06): phase 4 boundary value analysis
+    
+    Phase 4 (Boundary Value Analysis) for FR-06 Product Detail View (mobile),
+    approved with verdict INCOMPLETE after a self-critique + fix cycle
+    (P4-G01/P4-G02/P4-G03 fixed — Price's BVA exclusion reversed to match
+    FR-13 precedent, adding BVA-04 and OQ-19). This completes FR-06's 4-phase
+    Domain Testing + BVA workflow.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 146 ++++++++++
+ .../output/04_Boundary_Value_Test_Cases.md         | 309 +++++++++++++++++++++
+ HW02/projects/fr06_product_detail_view/state.json  |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 461 insertions(+), 2 deletions(-)
+
+commit 18487b54bd263cffb063835b2f74a4498db21e33
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 23:56:41 2026 +0700
+
+    test(fr06): phase 3 domain test design
+    
+    Phase 3 (Domain Test Design) for FR-06 Product Detail View (mobile),
+    approved with verdict INCOMPLETE after a self-critique + fix cycle
+    (P3-G01/P3-G02/P3-G03 fixed via caveats and wording; no EC/TC/scope
+    changes).
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 137 +++++++++
+ .../output/03_Domain_Test_Cases.md                 | 332 +++++++++++++++++++++
+ HW02/projects/fr06_product_detail_view/state.json  |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 475 insertions(+), 2 deletions(-)
+
+commit 3b85876d85b5f95687e245b6f50855d3aa784d34
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 23:41:47 2026 +0700
+
+    test(fr06): phase 2 equivalence partitioning
+    
+    Phase 2 (Equivalence Partitioning) for FR-06 Product Detail View (mobile),
+    scoped to Quantity (REQ-10-12) and Detail Display (REQ-05-09), approved
+    with verdict INCOMPLETE after a self-critique + fix cycle (P2-G01/P2-G02/
+    P2-G03 fixed via wording edits; no classes or IDs changed).
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 135 ++++++++
+ .../output/02_Equivalence_Partitioning.md          | 373 +++++++++++++++++++++
+ HW02/projects/fr06_product_detail_view/state.json  |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 514 insertions(+), 2 deletions(-)
+
+commit 0b75afe1705737b8b3ca9f81071fac9c36f2b5c6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 23:25:05 2026 +0700
+
+    test(fr06): phase 1 requirements breakdown
+    
+    Phase 1 (Requirement Analysis) for FR-06 Product Detail View (mobile),
+    approved with verdict INCOMPLETE after a self-critique + fix cycle
+    (P1-G01/P1-G03/P1-G04 fixed via classification/wording edits; P1-G02
+    deliberately left open pending device verification).
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../projects/fr06_product_detail_view/gap_notes.md | 139 ++++++++++++++
+ .../input/Functional_Requirement.md                | 183 ++++++++++++++----
+ .../output/01_Requirements_Breakdown.md            | 208 +++++++++++++++++++++
+ HW02/projects/fr06_product_detail_view/state.json  |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 5 files changed, 502 insertions(+), 36 deletions(-)
+
+commit 2a9db48e521aff968dc97f30441fab239fae0957
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 22:49:02 2026 +0700
+
+    test(fr13): phase 4 boundary value analysis
+    
+    Boundary Value Analysis for FR-13 Admin Dashboard: 6 boundary test
+    cases (BVA-01..BVA-06) across the two boundary-sensitive domains
+    identified in this FR — total_amount per order (precision unresolved
+    per OQ-09, both integer and decimal hypotheses carried in parallel)
+    and count of delivered orders (testing SUM aggregation over multiple
+    rows for the first time in this project, a genuine coverage gap Phase
+    3 never exercised).
+    
+    Self-critique (gap_notes.md) found 5 real gaps: a plain OQ-16
+    numbering skip; a conflation between "count of delivered orders" and
+    "total order count" at the min=0 boundary, valid only under one of
+    two plausible OQ-02 resolutions; an unstated rationale for BVA-06's
+    N=3 choice; a confusingly-fused, effectively ungradable expected
+    result on BVA-02; and two relevant carried-forward Open Questions
+    dropped from the carry-forward list. All five fixed and re-verified
+    via grep before this approval.
+    
+    This completes the four-phase Domain Testing + BVA workflow for
+    FR-13: Admin Dashboard.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/gap_notes.md          | 111 ++++++++
+ .../output/04_Boundary_Value_Test_Cases.md         | 315 +++++++++++++++++++++
+ HW02/projects/fr13_dashboard/state.json            |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 432 insertions(+), 2 deletions(-)
+
+commit 0fed2c0182869940cf55f60fe661d3e1359b7c6d
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 21:52:40 2026 +0700
+
+    test(fr13): phase 3 domain test design
+    
+    Domain Test Cases for FR-13 Admin Dashboard: 1 combined-valid case
+    (TC-01, the main access + revenue-inclusion + full-data-set path), 5
+    isolated invalid probes (TC-02..TC-06 — 3 for access control, 2 for
+    revenue exclusion), and 2 combined-valid edge-case cases (TC-07/TC-08
+    for the two empty-state preconditions), with full EC-01..EC-22
+    coverage and one new Open Question (OQ-15, test-environment
+    resettability).
+    
+    Self-critique (gap_notes.md) found 3 real gaps: TC-01's exclusion-
+    adjacent assertion overlapped EC-16/EC-17 without documenting why §5
+    doesn't credit it there; TC-01(c)'s order-count expected result had
+    no checkable pass/fail criterion; OQ-12 (pagination risk) was never
+    referenced despite being relevant to every multi-order TC. All three
+    fixed and re-verified via grep before this approval.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/gap_notes.md          | 124 ++++++++
+ .../fr13_dashboard/output/03_Domain_Test_Cases.md  | 311 +++++++++++++++++++++
+ HW02/projects/fr13_dashboard/state.json            |   4 +-
+ HW02/prompt_logs.md                                |   5 +
+ 4 files changed, 442 insertions(+), 2 deletions(-)
+
+commit 34538fac6fde828bcb7db3dc8aa4bd98aeb81c13
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 21:22:21 2026 +0700
+
+    test(fr13): phase 2 equivalence partitioning
+    
+    Equivalence Partitioning for FR-13 Admin Dashboard: 10 input classes
+    (EC-01..EC-10) and 12 output classes (EC-11..EC-22) across access
+    control, revenue membership, order count, and empty-state, all 5
+    Kaner guidelines applied explicitly, full backward traceability, and
+    one new Open Question (OQ-14).
+    
+    Self-critique (gap_notes.md) found EC-20 wrongly combined two
+    independently-testable output behaviors (revenue vs. order-count
+    display under the same zero-orders-at-all precondition) and a
+    "REQ Ref"/"REQ/OQ Ref" header inconsistency between §2 and §3; both
+    fixed before this approval (EC-20 split into EC-20/EC-21 by field,
+    downstream EC-22 renumbering, headers unified).
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/gap_notes.md          | 111 +++++++++
+ .../output/02_Equivalence_Partitioning.md          | 260 +++++++++++++++++++++
+ HW02/projects/fr13_dashboard/state.json            |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 377 insertions(+), 2 deletions(-)
+
+commit 22b5c6841f145a5f8fff8ed3cb2754f9afc89534
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:30:14 2026 +0700
+
+    test(fr13): phase 1 approve — verdict INCOMPLETE + audit log
+    
+    User verdict: INCOMPLETE. 4 real gaps found in self-critique and
+    fixed (P1-G01 access-surface scope note, P1-G02 no-token/invalid-
+    token split, P1-G03 wrong citation corrected, P1-G06 new OQ-13), 2
+    nitpicks addressed (P1-G04 quote/analysis separation, P1-G05
+    kept-as-is justification). Citation error (G03) directly contradicted
+    the artifact's own Self-Check claim before the fix; access-control
+    atomicity (G02) now matches the FR-11 precedent.
+    
+    Appends the "fixes applied" and "verdict + approval" audit-log rows
+    (the fix-applied row covers P1-G01..G06 collectively, as it was
+    authored as a single entry after all fixes were complete and cannot
+    be honestly split across the preceding per-gap commits without
+    fabricating log entries that didn't happen).
+    
+    Advances state.json: PHASE_01 -> APPROVED, current_phase -> PHASE_02,
+    workflow_status -> READY. Phase 2 (Equivalence Partitioning) not
+    started yet.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/state.json | 6 +++---
+ HW02/prompt_logs.md                     | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+commit 445d173af4cadc9c8eb6027e1734cbd0ee6c035a
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:29:42 2026 +0700
+
+    test(fr13): phase 1 add OQ-13 no-token vs invalid-token (P1-G06)
+    
+    Add OQ-13: for access denial, does "no token" (REQ-08) produce the
+    same denied-access response as "invalid/malformed token" (REQ-09), or
+    a different one? This closes the gap left by splitting REQ-08 into
+    two atomic conditions (P1-G02) without ever asking whether their
+    outputs also differ — analogous to FR-11's OQ-07.
+    
+    Also rewrites Self-Check (§5) honestly, re-verifying every REQ's
+    Source Reference is now a direct quote, confirming all renumbered
+    cross-references were updated, and explicitly disclosing the
+    remaining caveat that REQ-08/09/10 describe one confirmed access
+    surface rather than two independently-tested ones, since OQ-01 is
+    still unresolved.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../output/01_Requirements_Breakdown.md            | 66 +++++++++++++++++++---
+ 1 file changed, 58 insertions(+), 8 deletions(-)
+
+commit 93b1ab8a652fa51d8efbd192b82fe3b26a598308
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:28:42 2026 +0700
+
+    test(fr13): phase 1 fix REQ-15 quote/analysis separation + REQ-02 note (P1-G04, P1-G05)
+    
+    REQ-15 (client-supplied total_amount vs. README FR-08 backend
+    recompute) previously fused the literal FR §7 quote with an added
+    analytical bridge ("meaning revenue may rest on a client-controlled
+    number") in one sentence. Separate them: the Statement now keeps only
+    the direct quote-backed fact, with the reasoning moved into a clearly
+    labeled "Note (analysis...)" sentence (P1-G04).
+    
+    REQ-02 (order status update endpoint) bundles 3 facts — endpoint
+    path, request body shape, and the status enum — in one Observation
+    row. Reviewed per P1-G05 and kept as-is, with an inline one-line
+    justification added (Observation-tier, not an FR-13 testable rule,
+    low risk), rather than splitting.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/output/01_Requirements_Breakdown.md | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit ee9cce01a3d5adbca0b9921448e1d3b5a26a9c1d
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:28:19 2026 +0700
+
+    test(fr13): phase 1 fix citation error REQ-08/09 (P1-G03)
+    
+    REQ-08 and REQ-09's Source Reference previously cited §3.3 with an
+    inferred "(JWT-presence clause, per FR-12)" annotation that was not
+    an actual quote of that section (§3.3 only talks about role=admin).
+    Replace with the real supporting quote: §5 "No token / invalid token:
+    access denied." (split into its no-token and invalid-token clauses),
+    so the artifact's Self-Check claim of exact quoting is actually true.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/output/01_Requirements_Breakdown.md | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 4f45529439f1791fc8d86719a4c5aeb0c8fc6893
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:28:03 2026 +0700
+
+    test(fr13): phase 1 fix access-control atomicity (P1-G01, P1-G02)
+    
+    Split REQ-08 (JWT-required) into REQ-08 (no token -> denied) and
+    REQ-09 (invalid/malformed token -> denied), matching the FR-11
+    REQ-16/REQ-17 precedent (P1-G02); renumbers old REQ-09..REQ-14 to
+    REQ-10..REQ-15 and updates downstream REQ references in the Global
+    Precondition and Open Questions.
+    
+    Adds a "dashboard" surface-scope terminology note to the Global
+    Precondition (P1-G01): REQ-08/09/10 refer to whatever surface serves
+    dashboard data, currently only the confirmed admin API per OQ-01 —
+    not two independently-proven surfaces.
+    
+    Citation correction (P1-G03) and Self-Check rewrite are deferred to
+    later commits.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../output/01_Requirements_Breakdown.md            | 41 ++++++++++++++--------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
+
+commit e46f8f377805670300ed9b9af1ee11cfceb4e130
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:26:56 2026 +0700
+
+    test(fr13): phase 1 self-critique gap notes
+    
+    Self-critique of 01_Requirements_Breakdown.md against the user's
+    7-item checklist: 4 real gaps found (P1-G01 dashboard/API surface
+    conflation, P1-G02 no-token/invalid-token conflation, P1-G03 wrong
+    citation on REQ-08, P1-G06 missing no-token-vs-invalid-token OQ) and
+    3 nitpicks (P1-G04, P1-G05, P1-G07). No fixes applied yet, per rule
+    that self-critique only lists gaps for the user to disposition.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr13_dashboard/gap_notes.md | 134 ++++++++++++++++++++++++++++++
+ HW02/prompt_logs.md                       |   1 +
+ 2 files changed, 135 insertions(+)
+
+commit 0dea2bd610c873a8e0a680d07146f6572129199f
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 18:26:39 2026 +0700
+
+    test(fr13): phase 1 requirement analysis — draft artifact
+    
+    Draft Requirements Breakdown for FR-13 Admin Dashboard: 6 feature
+    areas, 14 atomic REQs (revenue split into display/inclusion/exclusion,
+    access control split into JWT-required/role-admin), Assumptions
+    explicitly none, 12 Open Questions (9 from FR §7, 3 from decomposition).
+    Phase set to WAITING_FOR_APPROVAL pending review.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../output/01_Requirements_Breakdown.md            | 87 ++++++++++++++++++++++
+ HW02/projects/fr13_dashboard/state.json            |  4 +-
+ HW02/prompt_logs.md                                |  1 +
+ 3 files changed, 90 insertions(+), 2 deletions(-)
+
+commit c3b2d3aafb02c534aea58c6051b02a73b894962c
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 17:54:48 2026 +0700
+
+    update(FR13): Functional_Requirements.md
+
+ .../fr13_dashboard/input/Functional_Requirement.md | 76 ++++++++++++++++++----
+ 1 file changed, 62 insertions(+), 14 deletions(-)
+
+commit 3871310adff8f6a9f5fba88078b9a599d0fe5fe8
+Merge: 5a6657d ca82332
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 17:45:28 2026 +0700
+
+    Merge pull request #4 from KieuDuyennn/duyen
+    
+    Duyen
+
+commit ca82332cd90a382ccdd8f10c1591c1f180691ca4
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 17:43:10 2026 +0700
+
+    test(fr11): phase 4 boundary value analysis
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr11_order_history_view/gap_notes.md | 125 +++++++++++
+ .../output/04_Boundary_Value_Test_Cases.md         | 236 +++++++++++++++++++++
+ HW02/projects/fr11_order_history_view/state.json   |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 367 insertions(+), 2 deletions(-)
+
+commit 595bfc5796461943c1e6147fbdc21deff09e1648
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 17:27:45 2026 +0700
+
+    test(fr11): phase 3 domain test design
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr11_order_history_view/gap_notes.md | 170 +++++++++++++++
+ .../output/03_Domain_Test_Cases.md                 | 232 +++++++++++++++++++++
+ HW02/projects/fr11_order_history_view/state.json   |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 408 insertions(+), 2 deletions(-)
+
+commit 0fc7801ec67baa038a7a71b894083ef884d93592
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 17:04:01 2026 +0700
+
+    test(fr11): phase 2 equivalence partitioning
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr11_order_history_view/gap_notes.md | 156 ++++++++++++++++++
+ .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
+ HW02/projects/fr11_order_history_view/state.json   |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 341 insertions(+), 2 deletions(-)
+
+commit d2a1b3d5357ae1e0da8d765c98e608b197cf1fc4
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 16:40:37 2026 +0700
+
+    test(fr11): phase 1 requirement analysis
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ HW02/projects/fr11_order_history_view/gap_notes.md | 185 +++++++++++++++++++++
+ .../output/01_Requirements_Breakdown.md            |  96 +++++++++++
+ HW02/projects/fr11_order_history_view/state.json   |   4 +-
+ HW02/prompt_logs.md                                |   4 +
+ 4 files changed, 287 insertions(+), 2 deletions(-)
+
+commit 09570ce6139bf08d2ee8aeeeff31acff793b0234
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 13:56:04 2026 +0700
+
+    update(fr11): Functional_Requirment.md
+
+ .../input/Functional_Requirement.md                | 61 ++++++++++++++++++----
+ 1 file changed, 52 insertions(+), 9 deletions(-)
+
+commit e8001992245fba07d8d31a21114a6b52e5349991
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 13:21:12 2026 +0700
+
+    test(fr01): phase 4 boundary value analysis
+    
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+ .../fr01_account_registration/gap_notes.md         | 122 ++++++++
+ .../output/04_Boundary_Value_Test_Cases.md         | 308 +++++++++++++++++++++
+ HW02/projects/fr01_account_registration/state.json |   4 +-
+ HW02/prompt_logs.md                                |   1 +
+ 4 files changed, 433 insertions(+), 2 deletions(-)
+
+commit ec123a3e9f0ec748ba246d9ae441f1e264ba6ce2
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 10:29:11 2026 +0700
+
+    test(fr01): phase 3 domain test cases
+    
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+ .../fr01_account_registration/gap_notes.md         | 138 ++++++++++
+ .../output/03_Domain_Test_Cases.md                 | 277 +++++++++++++++++++++
+ HW02/projects/fr01_account_registration/state.json |   4 +-
+ HW02/prompt_logs.md                                |   1 +
+ 4 files changed, 418 insertions(+), 2 deletions(-)
+
+commit 5a6657dd61613bdb31d546048584c728302d3338
+Merge: 59f8ec9 63d3234
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Mon Jul 6 00:17:11 2026 +0700
+
+    Merge pull request #3 from KieuDuyennn/duyen
+    
+    Duyen
+
+commit 63d3234e099dbcd53e8cb6d7ffa3008d15a96092
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sun Jul 5 23:57:57 2026 +0700
+
+    test(fr01): phase 2 equivalence partitioning
+    
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+
+ .../fr01_account_registration/gap_notes.md         | 106 ++++++++++++
+ .../output/02_Equivalence_Partitioning.md          | 179 +++++++++++++++++++++
+ HW02/projects/fr01_account_registration/state.json |   4 +-
+ HW02/prompt_logs.md                                |   1 +
+ 4 files changed, 288 insertions(+), 2 deletions(-)
+
+commit 27580474315b5c93f465d47e948cbe75506df644
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sun Jul 5 23:31:26 2026 +0700
+
+    test(fr01): phase 1 requirement analysis
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+ .../fr01_account_registration/gap_notes.md         | 93 ++++++++++++++++++++++
+ .../output/01_Requirements_Breakdown.md            | 16 +++-
+ HW02/projects/fr01_account_registration/state.json |  6 +-
+ HW02/prompt_logs.md                                |  5 ++
+ 4 files changed, 113 insertions(+), 7 deletions(-)
+
+commit 4269e056ee45425a5c1261c8538f9e999befc1a9
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sun Jul 5 22:56:25 2026 +0700
+
+    skills: add CLAUDE.md file
+
+ HW02/.claude/skills/ai-audit-log/SKILL.md          |    4 +
+ HW02/CLAUDE.md                                     |   64 ++
+ .../output/01_Requirements_Breakdown.md            |   72 ++
+ HW02/projects/fr01_account_registration/state.json |    4 +-
+ HW02/repomix-output.xml                            | 1210 ++++++++++++++++++++
+ 5 files changed, 1352 insertions(+), 2 deletions(-)
+
+commit 59f8ec9109e2c6bd1f1b7308cec05b1358d42cff
+Merge: 7d9a153 6db8776
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sat Jul 4 09:22:40 2026 +0700
+
+    Merge pull request #2 from KieuDuyennn/duyen
+    
+    Duyen
+
+commit 6db8776888b3066bd57555655529513edeb640bb
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sat Jul 4 09:20:55 2026 +0700
+
+    skills(update) update file SKILL.md
+
+ HW02/.claude/skills/domain-testing-bva/SKILL.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0d909781b4e85d8a411e83475a18a96bc83fc51f
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sat Jul 4 09:19:39 2026 +0700
+
+    skill(update): equivalance_partitioning_heuristics.md
+
+ .../equivalence_partitioning_heuristics.md         | 37 ++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+commit 86bb5cd173e73e1c99f20cc7a8fafb72c4263073
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Sat Jul 4 09:18:50 2026 +0700
+
+    skills(update): boundary_value_heuristics.md
+
+ .../references/boundary_value_heuristics.md        | 40 +++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 9 deletions(-)
+
+commit fd1cfe4e24a76cc289a5728d3bd9b88ada009d8d
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 20:49:15 2026 +0700
+
+    feat: add state.json
+
+ HW02/projects/fr01_account_registration/state.json | 24 ++++++++++++++++++++++
+ ...nal_Requirment.md => Functional_Requirement.md} |  0
+ HW02/projects/fr06_product_detail_view/state.json  | 24 ++++++++++++++++++++++
+ ...nal_Requirment.md => Functional_Requirement.md} |  0
+ HW02/projects/fr11_order_history_view/state.json   | 24 ++++++++++++++++++++++
+ ...nal_Requirment.md => Functional_Requirement.md} |  0
+ HW02/projects/fr13_dashboard/state.json            | 24 ++++++++++++++++++++++
+ ...nal_Requirment.md => Functional_Requirement.md} |  0
+ HW02/projects/fr14_category_management/state.json  | 24 ++++++++++++++++++++++
+ 9 files changed, 120 insertions(+)
+
+commit 9cc99bfc667910df0fb0920c23120752b85dfcc3
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 20:25:50 2026 +0700
+
+    docs(FRs): add functional requirments  01, 06, 11, 13, 14
+
+ HW02/.gitignore                                    |   27 +
+ HW02/package-lock.json                             | 2051 ++++++++++++++++++++
+ HW02/package.json                                  |    5 +
+ .../input/Functional_Requirement.md                |   60 +
+ .../input/Functional_Requirment.md                 |   58 +
+ .../input/Functional_Requirment.md                 |   47 +
+ .../fr13_dashboard/input/Functional_Requirment.md  |   44 +
+ .../input/Functional_Requirment.md                 |   46 +
+ 8 files changed, 2338 insertions(+)
+
+commit 55724e15babf672d053229aa10dbacc87aa5cf8e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 15:27:11 2026 +0700
+
+    docs(skill): adopt Kaner/Bach 4-views framework for equivalence partitioning
+
+ .../equivalence_partitioning_heuristics.md         | 141 ++++++++++++---------
+ 1 file changed, 83 insertions(+), 58 deletions(-)
+
+commit 622c16f652ab7beeb2a4acd4bd6b2e1f56fe56de
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 15:26:34 2026 +0700
+
+    docs(skill): add error-type rationale and known blind spots to BVA reference
+
+ .../references/boundary_value_heuristics.md        | 131 +++++++++++++--------
+ 1 file changed, 82 insertions(+), 49 deletions(-)
+
+commit bb1dbfa057df5a9f52b8c9e8cbb70fca65de30d6
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 15:25:33 2026 +0700
+
+    docs(skill): rewrite domain test rule as combine-valid vs isolate-invalid
+
+ .../references/domain_test_heuristics.md           | 71 +++++++++++-----------
+ 1 file changed, 34 insertions(+), 37 deletions(-)
+
+commit ae0a6998891725f5ca9fac7f746d31ae33e071d0
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 15:24:36 2026 +0700
+
+    docs(skill): require grounding test design in source code, clarify state-update flow
+
+ HW02/.claude/skills/domain-testing-bva/SKILL.md | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+commit 110330a391070c8863c7e1419fb5b5b089c39868
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Fri Jul 3 13:05:11 2026 +0700
+
+    feat(agent): add custom Claude skills for domain testing and audit logging
+
+ HW02/.claude/skills/ai-audit-log/SKILL.md          |  46 ++++++++
+ HW02/.claude/skills/domain-testing-bva/SKILL.md    |  98 ++++++++++++++++
+ .../references/boundary_value_heuristics.md        |  63 +++++++++++
+ .../references/domain_test_heuristics.md           |  59 ++++++++++
+ .../equivalence_partitioning_heuristics.md         |  70 ++++++++++++
+ .../references/self_check_criteria.md              |  23 ++++
+ .../domain-testing-bva/scripts/init_project.py     |  69 +++++++++++
+ .../domain-testing-bva/scripts/update_state.py     | 126 +++++++++++++++++++++
+ 8 files changed, 554 insertions(+)
+
+commit 7d9a153b46ec6046bed0944f971bae689ed8815b
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Thu Jul 2 14:41:08 2026 +0700
+
+    refactor(hw01): refactor structure
+
+ 23127184_checklist.xlsx => HW01/23127184_checklist.xlsx     | Bin
+ {ai_templates => HW01/ai_templates}/AI-02_audit_report.md   |   0
+ {ai_templates => HW01/ai_templates}/AI-02_audit_report.pdf  | Bin
+ .../ai_templates}/AI-03_disclosure_form.md                  |   0
+ .../ai_templates}/AI-03_disclosure_form.pdf                 | Bin
+ .../ai_templates}/AI-05_privacy_checklist.md                |   0
+ .../ai_templates}/AI-05_privacy_checklist.pdf               | Bin
+ {artifacts => HW01/artifacts}/artifact01.md                 |   0
+ {artifacts => HW01/artifacts}/artifact01_fix.md             |   0
+ {artifacts => HW01/artifacts}/artifact02.md                 |   0
+ {artifacts => HW01/artifacts}/artifact03.md                 |   0
+ {artifacts => HW01/artifacts}/mindmap.png                   | Bin
+ {artifacts => HW01/artifacts}/mindmap_fixed.png             | Bin
+ prompt_logs.md => HW01/prompt_logs.md                       |   0
+ report.md => HW01/report.md                                 |   0
+ student_card.JPG => HW01/student_card.JPG                   | Bin
+ 16 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 5091c52dcb6d1ef7e9c40df03961ea7447cfadb3
+Merge: 6b05b48 997ec4a
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 11:05:26 2026 +0700
+
+    Merge pull request #1 from KieuDuyennn/duyen
+    
+    Duyen
+
+commit 997ec4a56b45268a6cbbf206ebfeff4065ff6acd
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 11:01:38 2026 +0700
+
+    format report
+
+ report.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 434a1311416b1a1f8d253c0bd888c0c2dc559620
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 11:00:08 2026 +0700
+
+    add video demo link
+
+ report.md | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit 1492cb42fee62b1ef1583d6a589f49058fe85273
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:41:15 2026 +0700
+
+    add prompt_logs.md
+
+ prompt_logs.md | 325 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 325 insertions(+)
+
+commit 79858ca5e54ca841370a485d07fd55b778301f42
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:40:19 2026 +0700
+
+    add student card into rp
+
+ report.md        |   1 +
+ student_card.JPG | Bin 0 -> 2893254 bytes
+ 2 files changed, 1 insertion(+)
+
+commit 09027b0850fa1283cbc9ec39aa3b389f6763a651
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:38:22 2026 +0700
+
+    add mindmap_fixed.png
+
+ artifacts/mindmap_fixed.png | Bin 0 -> 180875 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 36f9c43bbd6011017519ca5dcdb1c9392ba18926
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:37:58 2026 +0700
+
+    add mindmap.png
+
+ artifacts/mindmap.png | Bin 0 -> 182926 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 049fe6103ff0da67b9331b25536363bd4a991a1e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:36:25 2026 +0700
+
+    add artifact03.md
+
+ artifacts/artifact03.md | 82 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
+commit 0e052b2859007f6e0bd12d4cc1802be9db2597d5
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:35:41 2026 +0700
+
+    add artifact02.md
+
+ artifacts/artifact02.md | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+commit 3161ffe430d0013bd457d4bc0aaf41bafcc80e99
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:35:06 2026 +0700
+
+    add artifact01_fixed/.md
+
+ artifacts/artifact01_fix.md | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 578a49081f0545022ac2a8d521e78fdb97dd6632
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:34:27 2026 +0700
+
+    add artifact01.md
+
+ artifacts/artifact01.md | 194 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 194 insertions(+)
+
+commit 5053b42973b0fc36702a149f92fdabdee81957ad
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:32:42 2026 +0700
+
+    add checklist for requirment 3
+
+ 23127184_checklist.xlsx | Bin 0 -> 69468 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 51c2b764eddd5e71de3d2a685258448a012c168e
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:31:39 2026 +0700
+
+    add AI-05_privacy_Checklist
+
+ ai_templates/AI-05_privacy_checklist.md  |  64 +++++++++++++++++++++++++++++++
+ ai_templates/AI-05_privacy_checklist.pdf | Bin 0 -> 175438 bytes
+ 2 files changed, 64 insertions(+)
+
+commit 164b3c5fe39caa9feeb616677f5ad21bbfb6ba68
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:30:54 2026 +0700
+
+    add AI-03_disclosure_form
+
+ ai_templates/AI-03_disclosure_form.md  | 106 +++++++++++++++++++++++++++++++++
+ ai_templates/AI-03_disclosure_form.pdf | Bin 0 -> 191577 bytes
+ 2 files changed, 106 insertions(+)
+
+commit 6d7794fc6010c40f362dd2f65a640981e47ed072
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:28:36 2026 +0700
+
+    AI-02_audit-report
+
+ ai_templates/AI-02_audit_report.md  |  89 ++++++++++++++++++++++++++++++++++++
+ ai_templates/AI-02_audit_report.pdf | Bin 0 -> 216245 bytes
+ 2 files changed, 89 insertions(+)
+
+commit 6b05b4817c408d749838d8d33048210443b50f78
+Author: Lê Phạm Kiều Duyên <140928209+KieuDuyennn@users.noreply.github.com>
+Date:   Tue Jun 2 10:26:27 2026 +0700
+
+    add report.md
+
+ report.md | 511 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 511 insertions(+)
