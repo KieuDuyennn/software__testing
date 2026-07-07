@@ -1,0 +1,403 @@
+
+========== FR-01 ==========
+
+[TC-01b] (API POST /api/register)
+  Input:    {name:"Nguyen Van A", email:"new.user.1783360581371@domain.com", password:"Password123!"}
+  Expected: HTTP 200, {message:"User registered successfully", id:<number>}
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":3}
+
+[TC-01a] (Client regex (Register.jsx))
+  Input:    Password="Password123!" (spec-valid strong pw)
+  Expected: Client accepts (regex passes) → POST proceeds → redirect to /login
+  ACTUAL:   Client accepts = false (regex.test) → BLOCKED with 'Mật khẩu quá yếu' before any POST
+
+[TC-02] (API (backend validation))
+  Input:    name="" (blank), others valid
+  Expected: Rejected with missing/empty-field validation error (EC-29)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":4}
+
+[TC-03] (API (backend validation))
+  Input:    name key omitted from body
+  Expected: Rejected with missing-field validation error (EC-29)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":5}
+
+[TC-04] (API (backend validation))
+  Input:    email="" (blank)
+  Expected: Rejected missing/empty-field error (EC-29)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":6}
+
+[TC-05] (API (backend validation))
+  Input:    email key omitted
+  Expected: Rejected missing-field error (EC-29)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":7}
+
+[TC-06] (API (backend validation))
+  Input:    email="userdomain.com" (invalid format)
+  Expected: Rejected invalid-email-format error (EC-30)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":8}
+
+[TC-07] (API (backend validation))
+  Input:    email="user@" (invalid format)
+  Expected: Rejected invalid-email-format error (EC-30)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":9}
+
+[TC-08] (API (backend validation))
+  Input:    email="@domain.com" (invalid format)
+  Expected: Rejected invalid-email-format error (EC-30)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":10}
+
+[TC-09] (API (backend validation))
+  Input:    register "dup.1783360581518@domain.com" a second time (already registered)
+  Expected: Rejected duplicate-email error (EC-31)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":12}
+
+[TC-12] (Client regex + API)
+  Input:    Password="Pass1!" (6 chars, too short)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":13}
+
+[TC-13] (Client regex + API)
+  Input:    Password="password123!" (no uppercase)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":14}
+
+[TC-14] (Client regex + API)
+  Input:    Password="PASSWORD123!" (no lowercase)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":15}
+
+[TC-15] (Client regex + API)
+  Input:    Password="Password!" (no digit)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":16}
+
+[TC-16] (Client regex + API)
+  Input:    Password="Password123" (no special char from set)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":17}
+
+[TC-22] (Client regex + API)
+  Input:    Password="Password123#" ('#' outside set @$!%*?&)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":18}
+
+[BVA-01] (Client regex + API)
+  Input:    Password="Pa1!abc" (7 chars (min-1))
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":19}
+
+[BVA-02] (Client regex + API)
+  Input:    Password="Pa1!abcd" (8 chars (min) — should be VALID)
+  Expected: Client accepts, backend 200 (valid strong pw)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":20}
+
+[BVA-03] (Client regex + API)
+  Input:    Password="Pa1!abcde" (9 chars (min+1) — should be VALID)
+  Expected: Client accepts, backend 200 (valid strong pw)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":21}
+
+[BVA-06] (Client regex + API)
+  Input:    Password="P" (1 char)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":22}
+
+[BVA-07] (Client regex + API)
+  Input:    Password="Pa" (2 chars)
+  Expected: Rejected weak-password error (EC-32)
+  ACTUAL:   Client regex accepts=false; backend: HTTP 200, {"message":"User registered successfully","id":23}
+
+[BVA-04] (API (backend))
+  Input:    name="A" (1-char), valid pw
+  Expected: Registration succeeds (name not empty)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":24}
+
+[BVA-05] (API (backend))
+  Input:    name="An" (2-char), valid pw
+  Expected: Registration succeeds (name not empty)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":25}
+
+========== FR-06 ==========
+
+[TC-01] (API GET /api/products/1)
+  Input:    existing product id=1
+  Expected: Product returned with all fields; price numeric
+  ACTUAL:   HTTP 200, price=30000000 (typeof number), name="iPhone 15 Pro Max"
+
+[TC-01(price-type)] (API GET /api/products/2)
+  Input:    existing product id=2 (even id)
+  Expected: price numeric, consistent with id=1
+  ACTUAL:   HTTP 200, price="28000000" (typeof string)
+
+[TC-01(nonexistent)] (API GET /api/products/9999)
+  Input:    product id=9999 (does not exist)
+  Expected: Not-found response (e.g. HTTP 404)
+  ACTUAL:   HTTP 200, body={}
+
+[TC-04/BVA-01] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="0" (quantity 0 (min-1, invalid))
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("0") = 0 → addToCart receives 0; no client validation/rejection present
+
+[BVA-02] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="1" (quantity 1 (min, valid))
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("1") = 1 → addToCart receives 1; no client validation/rejection present
+
+[BVA-03] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="2" (quantity 2 (min+1, valid))
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("2") = 2 → addToCart receives 2; no client validation/rejection present
+
+[TC-05] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="-5" (negative quantity)
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("-5") = -5 → addToCart receives -5; no client validation/rejection present
+
+[TC-06] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="1.5" (decimal quantity)
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("1.5") = 1 → addToCart receives 1; no client validation/rejection present
+
+[TC-07] (Client (ProductDetail.jsx parseInt))
+  Input:    Quantity field="abc" (non-numeric quantity)
+  Expected: Spec: invalid quantity rejected (CF-02 Prediction A) / code: may default to 1 (Prediction B)
+  ACTUAL:   parseInt("abc") = NaN → addToCart receives NaN; no client validation/rejection present
+
+[BVA-04] (API GET (seeded price=-1))
+  Input:    product with price=-1 (id=6)
+  Expected: Screen renders price without crash/NaN; record behavior (OQ-19)
+  ACTUAL:   HTTP 200, price="-1" (typeof string); client would render Number("-1").toLocaleString()="-1"
+
+========== FR-11 ==========
+
+[TC-01] (API GET /api/orders/my-orders (test user))
+  Input:    valid test@eshop token; test owns #1,#2; admin owns #3
+  Expected: Returns ONLY test's orders; admin order #3 MUST NOT appear (REQ-06)
+  ACTUAL:   HTTP 200, returned ids=[2,1]; admin #3 present=false
+
+[TC-02] (API GET /api/orders/:id (own))
+  Input:    test token, id=#2 (own, canceled)
+  Expected: Order returned with status=canceled
+  ACTUAL:   HTTP 200, status="canceled", user_id=2
+
+[TC-03] (API GET /api/orders/:id (other user's order))
+  Input:    test token, id=#3 (owned by admin)
+  Expected: Request DENIED / order not returned (403 or 404) — ownership enforced (EC-17)
+  ACTUAL:   HTTP 200, {"id":3,"user_id":1,"total_amount":999000,"status":"pending","shipping_address":"addr","created_at":"2026-07-06 17:56:21"}
+
+[TC-04] (API GET /api/orders/my-orders (no token))
+  Input:    Authorization header absent
+  Expected: Rejected as unauthorized (401)
+  ACTUAL:   HTTP 401, {"error":"Unauthorized"}
+
+[TC-05] (API GET /api/orders/my-orders (invalid token))
+  Input:    Authorization: Bearer garbage.bad.token
+  Expected: Rejected as unauthorized (401/403)
+  ACTUAL:   HTTP 403, {"error":"Forbidden"}
+
+[TC-06] (API GET /api/orders/999999 (nonexistent))
+  Input:    test token, id=999999 (no such order)
+  Expected: Not found (404) (EC-18)
+  ACTUAL:   HTTP 404, {"error":"Order not found"}
+
+[TC-07] (API GET /api/orders/abc (malformed id))
+  Input:    test token, id="abc" (non-integer)
+  Expected: Malformed-id error (EC-21)
+  ACTUAL:   HTTP 404, {"error":"Order not found"}
+
+[TC-08] (API GET /api/orders/my-orders (zero-order user))
+  Input:    fresh account with no orders
+  Expected: Appropriate empty state (e.g. [])
+  ACTUAL:   HTTP 200, []
+
+[BVA-01] (API GET /api/orders/-1 (boundary id))
+  Input:    test token, id=-1
+  Expected: Conditional per OQ-16/17: success / denial / not-found depending on DB + sign check
+  ACTUAL:   HTTP 404, {"error":"Order not found"}
+
+[BVA-02] (API GET /api/orders/0 (boundary id))
+  Input:    test token, id=0
+  Expected: Conditional per OQ-16/17: success / denial / not-found depending on DB + sign check
+  ACTUAL:   HTTP 404, {"error":"Order not found"}
+
+[BVA-03] (API GET /api/orders/1 (boundary id))
+  Input:    test token, id=1
+  Expected: Conditional per OQ-16/17: success / denial / not-found depending on DB + sign check
+  ACTUAL:   HTTP 200, {"id":1,"user_id":2,"total_amount":100000,"status":"pending","shipping_address":"addr","created_at":"2026-07-06 17:56:21"}
+
+========== FR-13 ==========
+
+[TC-01] (API GET /api/admin/orders (admin))
+  Input:    valid admin token
+  Expected: Success — orders returned (EC-14)
+  ACTUAL:   HTTP 200, count=3
+
+[TC-02] (API GET /api/admin/orders (no token))
+  Input:    no Authorization header
+  Expected: Denied (401) (EC-11)
+  ACTUAL:   HTTP 401, {"error":"Unauthorized"}
+
+[TC-03] (API GET /api/admin/orders (malformed token))
+  Input:    Bearer malformed.jwt.here
+  Expected: Denied (401/403) (EC-12)
+  ACTUAL:   HTTP 403, {"error":"Forbidden"}
+
+[TC-04] (API GET /api/admin/orders (non-admin valid token))
+  Input:    valid token for test@eshop (role=user)
+  Expected: Request DENIED (403) — admin-only endpoint (EC-13)
+  ACTUAL:   HTTP 200, returned 3 orders (access GRANTED)
+
+[TC-05] (Client revenue calc (App.jsx L217-218))
+  Input:    data set includes 1 delivered(total=100) + 1 canceled(total=50)
+  Expected: Displayed revenue = 100 (only delivered, canceled 50 excluded)
+  ACTUAL:   Client formula (delivered*2): 200; correct sum: 100; delivered-status set OK=true
+
+[TC-06] (Client revenue calc (App.jsx L217-218))
+  Input:    revenue must exclude pending/confirmed/shipping
+  Expected: Displayed revenue = sum of delivered only
+  ACTUAL:   Same formula doubles delivered totals; see TC-05 numbers
+
+[BVA-06] (Client revenue calc (multi-row aggregation))
+  Input:    3 delivered orders total 1000/2000/3000
+  Expected: Displayed revenue = 6000 (correct multi-row SUM)
+  ACTUAL:   delivered rows found=3; client formula(delivered*2)=12000; correct sum=6000
+
+
+Total recorded observations: 51
+
+
+################################################################
+# PASS 2 (second execution pass) - merged from the former
+# test_execution_raw_part2.txt on 2026-07-07. Content unchanged.
+################################################################
+
+========== REMAINING TEST CASES (second execution pass, 2026-07-07) ==========
+DB re-seeded fresh before this pass. Backend at http://localhost:3000.
+These are the designed cases not exercised in the first pass (test_execution_raw.txt).
+
+========== FR-01 (remaining) ==========
+
+[TC-10] (API + client regex)
+  Input:    password="" (empty)
+  Expected: Rejected: password-required (EC-29)
+  ACTUAL:   client regex("")=false; backend HTTP 200, {"message":"User registered successfully","id":3}
+
+[TC-11] (API)  [register: password key omitted]
+  Input:    password key omitted
+  Expected: Rejected: missing-field (EC-29)
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":4}
+
+[TC-17] (N/A - no field)
+  Input:    Confirm Password != Password
+  Expected: Rejected: mismatch (EC-33)
+  ACTUAL:   NOT EXECUTABLE: neither the register UI (Register.jsx has no confirm field) nor the API body has a confirmPassword field — matches OQ-01. No confirm-password check exists to exercise.
+
+[TC-18] (API, conditional OQ-04/10)
+  Input:    name="   " (whitespace only)
+  Expected: Conditional: rejected if trimmed, else success
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":5}
+
+[TC-19] (API, conditional OQ-11)
+  Input:    email="user@domain" (no TLD)
+  Expected: Conditional: rejected if TLD required, else success
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":6}
+
+[TC-20] (API, conditional OQ-11)
+  Input:    email="user+tag@mail.domain.com"
+  Expected: Conditional: success if accepted
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":7}
+
+[TC-21] (API, conditional OQ-09)
+  Input:    register "case.<ts>@domain.com" then its uppercased variant "CASE.<ts>@domain.com"
+  Expected: Conditional: rejected if uniqueness is case-insensitive
+  ACTUAL:   HTTP 200, {"message":"User registered successfully","id":9}  (second/uppercased variant also created)
+
+[TC-23] (N/A - no field)
+  Input:    Confirm Password = "" (blank)
+  Expected: Rejected (EC-29/EC-33)
+  ACTUAL:   NOT EXECUTABLE: no confirmPassword field exists in Register.jsx or API — same as TC-17.
+
+========== FR-06 (remaining) ==========
+
+[TC-02] (API GET, seeded edge fixture)
+  Input:    name(300 chars), price=0, desc(500 chars), broken imageUrl, category_id=9999
+  Expected: Screen handles each edge (per TD-06/07, OQ-11/15)
+  ACTUAL:   HTTP 200, price="0" (typeof string; product got an even id), nameLen=300, category_id=9999
+
+[TC-03] (API GET, seeded large price)
+  Input:    price=999999999999
+  Expected: Large price renders without overflow (OQ-06)
+  ACTUAL:   HTTP 200, price=999999999999 (typeof number), client toLocaleString="999,999,999,999"
+
+[TC-08] (Client parseInt)
+  Input:    Quantity field empty
+  Expected: reject / default (CF-02)
+  ACTUAL:   parseInt("")=NaN; no client validation present
+
+[TC-09] (API GET, seeded empty image)
+  Input:    imageUrl=""
+  Expected: Screen handles empty image (OQ-09)
+  ACTUAL:   HTTP 200, imageUrl=""
+
+[TC-10] (API GET, seeded empty name)
+  Input:    name=""
+  Expected: Screen handles empty name (OQ-10)
+  ACTUAL:   HTTP 200, name=""
+
+[TC-12] (API GET, seeded empty desc)
+  Input:    description=""
+  Expected: Screen handles empty description (OQ-13)
+  ACTUAL:   HTTP 200, description=""
+
+[TC-13] (API GET, seeded null category)
+  Input:    category_id=null
+  Expected: Screen handles empty category (OQ-14; CF-01)
+  ACTUAL:   HTTP 200, category_id=null
+
+[TC-11] (API GET, seeded null price)   [run LAST — crashes backend]
+  Input:    price=null
+  Expected: Screen handles empty price gracefully (OQ-12)
+  ACTUAL:   product id=12 (even=true); GET → connection failed (ECONNRESET) — backend process crashed/exited.
+            server.js:162 `if (row.id % 2 === 0) row.price = row.price.toString();` throws
+            TypeError: Cannot read properties of null (reading 'toString') → unhandled → whole Node process exits.
+            (For an ODD-id null-price product the same line is skipped and price=null is returned; the crash is
+            specific to null price AND even id.)
+
+========== FR-13 (remaining) ==========
+
+[TC-07] (API + client revenue, zero orders)
+  Input:    no orders in system
+  Expected: revenue=0, count=0
+  ACTUAL:   count=0, client revenue=0
+
+[TC-08] (API + client revenue, no delivered)
+  Input:    1 pending order (50000), 0 delivered
+  Expected: revenue=0 (no delivered)
+  ACTUAL:   count=1, delivered=0, client revenue=0
+
+[BVA-01] (API checkout + client revenue)
+  Input:    delivered order total_amount=-1 (min-step, Hyp A negative)
+  Expected: revenue reflects -1 correctly (OQ-07/09)
+  ACTUAL:   stored total_amount=-1 (typeof number); doubled contribution=-2
+
+[BVA-02] (API checkout + client revenue)
+  Input:    delivered order total_amount=0 (min)
+  Expected: revenue reflects 0 correctly
+  ACTUAL:   stored total_amount=0 (typeof number); doubled contribution=0
+
+[BVA-03] (API checkout + client revenue)
+  Input:    delivered order total_amount=1 (min+step, Hyp A)
+  Expected: revenue reflects 1 correctly
+  ACTUAL:   stored total_amount=1 (typeof number); doubled contribution=2
+
+[BVA-04] (API checkout + client revenue)
+  Input:    delivered order total_amount=-0.01 (min-step, Hyp B decimal)
+  Expected: revenue reflects -0.01 correctly
+  ACTUAL:   stored total_amount=-0.01 (typeof number; SQLite INTEGER column stored a REAL); doubled contribution=-0.02
+
+[BVA-05] (API checkout + client revenue)
+  Input:    delivered order total_amount=0.01 (min+step, Hyp B decimal)
+  Expected: revenue reflects 0.01 correctly
+  ACTUAL:   stored total_amount=0.01 (typeof number); doubled contribution=0.02
+
+Remaining observations: 23  (combined with the 51 from pass 1 = 74 observations across all designed cases)
