@@ -2,12 +2,13 @@
 
 > Group deliverable — supports **Task 1, Part A**. Documents the sources the checklist is grounded in and the full prompt chain used to generate and refine it (required by §6 and §15 of the assignment).
 > Companion files: `Shared_GUI_Checklist.md` (the checklist itself) · `../AI_Audit_Report.md` (§10 mandatory appendix).
-> Checklist version covered: **v1.8 — 59 items** (2026-07-30). Superseded the earlier v1.2/66-item
+> Checklist version covered: **v1.9 — 60 items** (2026-07-30). Superseded the earlier v1.2/66-item
 > pass covered by this file up to Prompt 4 below — v1.3–v1.7 (Prompts 5–10) reduced and corrected
 > the set via the live-EMS survey and the screenshot-verification pass; v1.8 (Prompt 11) added 6
-> scenario-specific items for D and B. Full detail for v1.3–v1.7 is in `../AI_Audit_Report.md`
-> Interactions 5–10; v1.8 is summarised in Prompt 11 below and in the checklist's own Round 4 /
-> changelog entries, to avoid duplicating pages of verbatim log across files.
+> scenario-specific items for D and B; v1.9 (Prompt 12) added 1 item after a full 55-slide
+> completeness check. Full detail for v1.3–v1.7 is in `../AI_Audit_Report.md` Interactions 5–10;
+> v1.8/v1.9 are summarised in Prompts 11–12 below and in the checklist's own Round 4/5 and changelog
+> entries, to avoid duplicating pages of verbatim log across files.
 
 ## 1. Reference Sources
 
@@ -37,7 +38,7 @@ Every source below is cited by at least one checklist item. Sources that grounde
 > *Reference Source* column, using `.claude/skills/gui-checklist-design/scripts/check_checklist.py
 > --emit-traceability` — the same command re-derives them from any future version, so drift like
 > the v1.2→v1.7 staleness this file previously had cannot happen silently again. Regenerated
-> 2026-07-30 against **v1.8 (59 items)**; script exit 0, IDs unique and contiguous, all 10+6+8
+> 2026-07-30 against **v1.9 (60 items)**; script exit 0, IDs unique and contiguous, all 10+6+8
 > framework citations present, evidence resolves against `screenshots/`.
 
 ### 2a. By framework
@@ -82,8 +83,8 @@ Every source below is cited by at least one checklist item. Sources that grounde
 | p.6 | IA02-12 |
 | p.7 | IA01-08, IA01-11 |
 | p.8 | IA01-13, IA04-12 |
-| p.11 | IA02-01, IA02-04, IA02-06, IA02-11, IA04-11 |
-| p.12 | IA02-14, IA03-08, IA04-05 |
+| p.11 | IA02-01, IA02-04, IA02-06, IA02-11, IA04-11, IA04-17 |
+| p.12 | IA02-14, IA03-08, IA04-05, IA04-17 |
 | p.13 | IA01-12, IA04-02 |
 | p.14 | IA03-08 |
 | p.16 | IA01-01, IA01-03, IA02-02, IA02-08, IA04-01 |
@@ -94,6 +95,37 @@ Every source below is cited by at least one checklist item. Sources that grounde
 The 6 v1.8 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) cite Nielsen/Norman and the
 assignment's own §4/§5 text rather than a slide page — none introduces a new slide citation, so this
 table is unchanged in which pages appear, only in which items each Nielsen/Norman row now includes.
+
+### 2d. Full 55-page slide-deck coverage check (v1.9)
+
+The student asked directly whether the checklist covers everything and follows the slides' rules.
+Rather than answer from memory, the deck was re-extracted page by page (`PyPDF2`, all 55 pages) and
+checked against the citation set above. Result: **one genuine gap found and closed (IA04-17, see
+Round 5 in the checklist)**; everything else on pages 1–28 (the GUI-testing half of the deck) is
+either already cited or is not an itemisable per-screen rule:
+
+| Pages | Content | Disposition |
+| --- | --- | --- |
+| p.1–5, 9 | Title, agenda, definitions, purpose, brand/compliance rationale for GUI testing | Conceptual framing, not a testable rule — nothing to cite |
+| p.6, 7, 8 | Common elements; visual consistency; usability/accessibility | **Cited** (IA02-12; IA01-08, IA01-11; IA01-13, IA04-12) |
+| p.10 | Section header only | No content |
+| p.11 | Data validation, incorrect field default, mishandling of server failures, mandatory fields, **wrong fields retrieved by queries** | First four bullets **cited**; fifth was the v1.9 gap — now **IA04-17** |
+| p.12 | Incorrect search criteria, field order, **multiple rows returned single expected**, currency of data, **window/DB field correspondence** | "Field order" and "currency of data" **cited**; the two bold bullets were the other half of the v1.9 gap — now **IA04-17**. "Incorrect search criteria" is partially covered by IA03-14 (D3 filters) and IA02-10 (search-box Enter behaviour), though neither is a full match — a candidate for a future round if search-result correctness itself needs its own item |
+| p.13, 14 | Window modality, control/menu state vs data state, focus | **Cited** (IA01-12, IA04-02); the near-duplicate p.13/p.14 bullets about control state are covered jointly by IA03-08 and IA04-05/07 |
+| p.15 | Section header only | No content |
+| p.16, 17, 18 | Low-level checklist categories; navigation testing (menu, breadcrumb, links, form focus order) | **Cited** (IA01-01/03/04/12, IA02-02/08, IA04-01; IA03-01, IA03-11; IA02-10, IA03-13) |
+| p.19 | Test-design **techniques** (equivalence partitioning, BVA, decision tables, state-transition) | Technique catalogue for functional testing generally, not a GUI-checklist rule — out of scope for this artefact |
+| p.20, 21 | Integration level, non-functional level (soak, compatibility, platform/environment) | Testing-**level** categories, not per-screen rules; compatibility/platform testing is Task 3's concern (`cross-platform-matrix` skill), not Task 1A's |
+| p.22–25, 27 | Challenges in GUI testing: platforms, UI churn, coverage, test data/environment, backend integration | Process/methodology guidance for running a testing *effort*, not itemisable per-screen rules |
+| p.26 | Localization / internationalization challenge | **Cited** (IA01-08, IA01-09) |
+| p.28 | Automation in GUI testing (manual vs automated mapping) | Process guidance on *how* to execute, not a UI rule to check |
+| p.29–55 | Usability-testing methodology — test types, test plans, evaluator selection, performance/preference data, questionnaires (Likert, semantic differential, branching), data analysis | **Out of scope for this Task 1A checklist by design** — this half of the deck grounds **Task 2** (the `usability-test-study` skill already cites the relevant method literature). Nothing here is a GUI-checklist item; citing it here would blur what each task's report should ground itself in. |
+
+**Answer to "does it cover everything":** for the half of the deck this checklist is actually meant
+to ground itself in (GUI testing, p.1–28), yes, after v1.9 — every bullet that names a checkable
+per-screen property has a citing item, and every uncited bullet is conceptual framing, a technique
+catalogue, or process guidance rather than a rule. The usability-testing half (p.29–55) is
+deliberately not covered here; it belongs to Task 2's report, not Task 1A's checklist.
 
 ### 2c. By screenshot — superseded by the live-EMS survey
 
@@ -206,6 +238,22 @@ verbatim text in `../AI_Audit_Report.md`, Interactions 5–10, and are not repea
   the assignment text and existing frameworks; they still need the same review any AI output gets
   before being treated as final._
 
+### Prompt 12 — Full slide-deck completeness check
+
+- **AI tool**: Claude Code (Opus 5, Anthropic)
+- **Date**: 2026-07-30
+- **Prompt** (verbatim): `checklist có bao phủ đc hết k và có tuân theo các quy tắc như trong slide không`
+- **AI output summary**: Rather than answer from the existing audit summary (which only lists the 11
+  pages already cited), re-extracted all **55 pages** of `S13_GUI Testing & Usability Testing.pdf`
+  with PyPDF2 and checked every bullet against the checklist's citation set. Found one real gap split
+  across two already-cited pages — p.11 "Wrong fields retrieved by queries" and p.12 "Window
+  object/DB field correspondence" / "Multiple database rows returned, single row expected" — missed
+  by every earlier round because those rounds tracked cited-vs-uncited *pages*, not cited-vs-uncited
+  *bullets within a page*. Added **IA04-17**. Checklist → **v1.9, 60 items**. Also produced the
+  page-by-page disposition table in §2d above, and confirmed pages 29–55 (usability-testing
+  methodology) are correctly out of scope for this checklist, since they ground Task 2 instead.
+- **Human review outcome**: _To be completed by the group._
+
 ## 4. Human Review Notes
 
 What the group changed, removed, or added after reviewing raw AI output, and why.
@@ -223,6 +271,7 @@ What the group changed, removed, or added after reviewing raw AI output, and why
 | 9  | v1.2              | Added the §4 conformance map, per-widget map, and framework-coverage table                                                                      | Coverage was previously asserted in prose. These three tables make the claim auditable — and building the first of them is what exposed the breadcrumb, drag-and-drop and progress-bar gaps.                          |
 | 10 | v1.2              | Added the scenario-assignment table (still to be filled in)                                                                                      | §5's no-duplication rule needs group-level evidence; no artefact recorded who owned which scenario and screens.                                                                                                       |
 | 11 | v1.8 (2026-07-30) | Added 6 scenario-specific items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) for D and B | Rounds 1–3 audited by IA aspect, which finds generic gaps but misses anything named only in one scenario's own text (§4 Pool B/D, §5 B3/C4). A scenario-scoped re-read is a different question from an aspect-scoped one, and finds a different set of gaps — same principle as the earlier "reframe the question" lesson in `AI_Audit_Report.md` §4. |
+| 12 | v1.9 (2026-07-30) | Added IA04-17 (record identity / stale data on direct navigation) | A full re-read of all 55 slide pages, not just the 11 already cited, found two bullets on already-cited pages (p.11, p.12) that no item covered. Earlier rounds checked cited-vs-uncited pages; nobody had checked cited-vs-uncited bullets within a page already marked "done." |
 
 ## 5. Outstanding actions before submission
 
@@ -235,6 +284,6 @@ marked done rather than left to look outstanding.*
 | 2 | Fill in the scenario-assignment table in `Shared_GUI_Checklist.md` | Group | **Done** — table present, all four members assigned, no overlapping screens (see the checklist's "Scenario assignment" section). |
 | 3 | Record the group's review outcome for the v1.2→v1.7 revision passes | Group | **Partially done** — `AI_Audit_Report.md` Interaction 10 records the student's own correction (defect verdicts stripped from the shared artefact). Formal sign-off from the other three members is still pending. |
 | 4 | Re-download `HW03/refs/Testing GUI Applications.pdf` — truncated, unreadable | Group | Still open. Nothing cites it; low priority. |
-| 5 | Distribute checklist v1.8 to all four members before Task 1B execution | Group | Not verified from this repo — confirm with the group directly. |
-| 6 | Pillar-4 gap: only 4 of 59 items grounded in the team's own EMS experience (`AI_Audit_Report.md` Interaction 6) | Group | **Still open**, retargeted to **v1.9** since v1.8 added scenario-audit items, not personal-experience ones — see the note in the checklist's *four grounding pillars* section. Each member adds 1–2 items from their own use of EMS. |
-| 7 | Group review of the 6 new v1.8 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) | Group | **Open.** AI-proposed, script-verified, not yet reviewed by the other three members. |
+| 5 | Distribute checklist v1.9 to all four members before Task 1B execution | Group | Not verified from this repo — confirm with the group directly. |
+| 6 | Pillar-4 gap: only 4 of 60 items grounded in the team's own EMS experience (`AI_Audit_Report.md` Interaction 6) | Group | **Still open**, retargeted to **v2.0** since v1.8/v1.9 both added audit-sourced items, not personal-experience ones — see the note in the checklist's *four grounding pillars* section. Each member adds 1–2 items from their own use of EMS. |
+| 7 | Group review of the 7 new v1.8/v1.9 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16, IA04-17) | Group | **Open.** AI-proposed, script-verified, not yet reviewed by the other three members. |
