@@ -387,6 +387,33 @@ script-verified for structure, but content review (are these real gaps, are the 
 the verification steps match the live product) is still owed — the same standard every other
 AI-drafted item in this file has already been through.
 
+### Interaction 12 — Full 55-slide completeness check
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (Anthropic) |
+| **Date / time** | 2026-07-30 · _time: TBD_ |
+| **Task** | Task 1A — verify checklist coverage and slide-rule conformance |
+| **Artefacts produced** | `Shared_GUI_Checklist.md` **v1.9** (60 items) · `Reference_Sources_and_Prompts.md` (§2d new, Prompt 12, Human Review Note 12) · this entry |
+
+**Prompt (verbatim):** `checklist có bao phủ đc hết k và có tuân theo các quy tắc như trong slide không`
+
+**AI output:** Instead of answering from the existing audit summary — which only enumerates the 11
+slide pages already cited — re-extracted the full 55-page deck with PyPDF2 and checked every bullet
+against the citation set. Found **one genuine gap**: p.11's "Wrong fields retrieved by queries" and
+p.12's "Window object/DB field correspondence" / "Multiple database rows returned, single row
+expected" had no citing item, even though both pages were already cited for *other* bullets — this
+is why four earlier audit rounds (organised around cited-vs-uncited pages) had walked past it. Added
+**IA04-17**, testing whether a detail screen still shows a previous record's data after navigating
+directly to a different record's URL — directly relevant to D4, which is reached by exactly this kind
+of per-record deep link. Produced a full page-by-page disposition table (`Reference_Sources_and_
+Prompts.md` §2d) classifying every one of the other 54 pages as either already cited, or
+process/methodology/technique content with no itemisable per-screen rule, or — for pages 29–55 —
+out of scope for a *GUI* checklist because they are the usability-testing-methodology half of the
+deck, which grounds Task 2 instead.
+
+**Human review and action taken:** _To be completed by the group._
+
 ## 5. Sessions still to be logged
 
 | Task | Status |
