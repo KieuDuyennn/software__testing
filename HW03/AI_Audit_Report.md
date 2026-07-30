@@ -348,6 +348,45 @@ The transferable principle: the second AI pass found what the first could not, n
 
 Points 7–8 sharpen that principle. Reframing the question is not always enough: when the error comes from the AI's **instrument** rather than its reasoning, no amount of re-asking will surface it, because every pass looks through the same instrument. The four survey errors were only exposed when the **type of evidence** changed — from DOM queries the AI ran to screenshots a person took. So the rule is not merely "verify in a separate pass" but "verify against evidence the AI did not produce". And a claim of **absence** deserves more suspicion than a claim of presence: an AI that reports "EMS has no progress bar" is really reporting "my selector matched nothing", and only a human eye can tell those apart.
 
+### Interaction 11 — Scenario-specific gap audit for D and B, and a fabrication boundary held
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (Anthropic) |
+| **Date / time** | 2026-07-30 · _time: TBD_ |
+| **Task** | Task 1A — add checklist items targeting scenarios D and B specifically |
+| **Artefacts produced** | `Shared_GUI_Checklist.md` **v1.8** (59 items) · `Reference_Sources_and_Prompts.md` (Prompt 11, Human Review Note 11, outstanding actions 5–7 updated) · this entry |
+
+**Prompt (paraphrased from a multi-turn exchange):** the student asked whether Task 1A met every
+clause of the requirement, then — after being told the checklist's "team experience" pillar was thin
+(4 of 53 items) and that the AI could not supply that pillar on a teammate's behalf — pushed back:
+they only wanted to focus on the checklist step right now, and asked directly for more items to be
+added for their own scenario (D) and a groupmate's scenario (B), to maximise the group's score on
+criterion 1a.
+
+**AI output:** Held a boundary the AI had raised a turn earlier — declined to write items *framed as*
+personal experience for either the student or a teammate who supplied nothing, since that would
+misattribute invented content as someone's real frustration using EMS (the same failure mode
+criticised in §4 point 7 below). Instead reframed the request as a legitimate, separate kind of
+audit: **scenario-scoped** re-reading of §4 Pool D / Pool B and §5 B3/C4, rather than the
+**aspect-scoped** re-reading Rounds 1–3 had already done. This surfaced six gaps invisible to an
+aspect-organised pass because each is named only in one scenario's own text: the D4 internal-note vs
+official-response boundary (§4 names both fields but nothing tested they stay apart on the user
+side); D2/D4 cross-role status consistency (a property that only exists once a scenario spans two
+roles, which only D does); D3's two named filters (member code, category) never tested for
+correctness; B3's secondary-role selector never checked against the admin-side toggle it should
+reflect (IA02-07, added in v1.2, tests the toggle's own helper text, not what it produces on the
+other role's screen); waitlist visibility (§4 names the field, no item tested its user-facing
+consequence); B1's category-browse-plus-search pairing (§4 names both, only search-adjacent status
+filtering had an item). Six items added: IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16.
+Re-verified by script: 13/15/15/16 = 59 items, no duplicate or missing IDs, all 10+6+8 framework
+citations still present, evidence still resolves against the 14 screenshots.
+
+**Human review and action taken:** _To be completed by the group._ The six items are AI-proposed and
+script-verified for structure, but content review (are these real gaps, are the citations right, do
+the verification steps match the live product) is still owed — the same standard every other
+AI-drafted item in this file has already been through.
+
 ## 5. Sessions still to be logged
 
 | Task | Status |
