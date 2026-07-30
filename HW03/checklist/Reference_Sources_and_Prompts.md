@@ -2,11 +2,12 @@
 
 > Group deliverable — supports **Task 1, Part A**. Documents the sources the checklist is grounded in and the full prompt chain used to generate and refine it (required by §6 and §15 of the assignment).
 > Companion files: `Shared_GUI_Checklist.md` (the checklist itself) · `../AI_Audit_Report.md` (§10 mandatory appendix).
-> Checklist version covered: **v1.7 — 53 items** (2026-07-26). Superseded the earlier v1.2/66-item
+> Checklist version covered: **v1.8 — 59 items** (2026-07-30). Superseded the earlier v1.2/66-item
 > pass covered by this file up to Prompt 4 below — v1.3–v1.7 (Prompts 5–10) reduced and corrected
-> the set via the live-EMS survey and the screenshot-verification pass; full detail for those steps
-> is in `../AI_Audit_Report.md` Interactions 5–10 and is only summarised here to avoid duplicating
-> pages of verbatim log across two files.
+> the set via the live-EMS survey and the screenshot-verification pass; v1.8 (Prompt 11) added 6
+> scenario-specific items for D and B. Full detail for v1.3–v1.7 is in `../AI_Audit_Report.md`
+> Interactions 5–10; v1.8 is summarised in Prompt 11 below and in the checklist's own Round 4 /
+> changelog entries, to avoid duplicating pages of verbatim log across files.
 
 ## 1. Reference Sources
 
@@ -36,27 +37,27 @@ Every source below is cited by at least one checklist item. Sources that grounde
 > *Reference Source* column, using `.claude/skills/gui-checklist-design/scripts/check_checklist.py
 > --emit-traceability` — the same command re-derives them from any future version, so drift like
 > the v1.2→v1.7 staleness this file previously had cannot happen silently again. Regenerated
-> 2026-07-30 against v1.7 (53 items); script exit 0, IDs unique and contiguous, all 10+6+8
+> 2026-07-30 against **v1.8 (59 items)**; script exit 0, IDs unique and contiguous, all 10+6+8
 > framework citations present, evidence resolves against `screenshots/`.
 
 ### 2a. By framework
 
 | Source | Items citing it |
 | --- | --- |
-| Nielsen H1 | IA01-06, IA01-07, IA01-11, IA02-14, IA03-01, IA03-03, IA03-05, IA04-04, IA04-05, IA04-07, IA04-10, IA04-13 |
-| Nielsen H2 | IA04-01 |
+| Nielsen H1 | IA01-06, IA01-07, IA01-11, IA02-14, IA03-01, IA03-03, IA03-05, IA04-04, IA04-05, IA04-07, IA04-10, IA04-13, IA04-16 |
+| Nielsen H2 | IA04-01, IA04-14 |
 | Nielsen H3 | IA03-04, IA03-10, IA03-13 |
-| Nielsen H4 | IA01-01, IA01-03, IA01-08, IA01-09, IA02-11, IA03-02, IA03-06, IA03-07 |
+| Nielsen H4 | IA01-01, IA01-03, IA01-08, IA01-09, IA02-11, IA03-02, IA03-06, IA03-07, IA03-14, IA04-15 |
 | Nielsen H5 | IA02-03, IA02-04, IA02-06, IA02-09, IA02-11, IA02-13, IA04-03 |
-| Nielsen H6 | IA01-10, IA02-02, IA02-12 |
+| Nielsen H6 | IA01-10, IA02-02, IA02-12, IA03-15 |
 | Nielsen H7 | IA03-01 |
 | Nielsen H8 | IA01-04 |
 | Nielsen H9 | IA02-08, IA04-08, IA04-11 |
 | Nielsen H10 | IA02-05 |
 | Norman P1 | IA03-08 |
 | Norman P2 | IA02-05, IA02-07, IA03-12, IA04-09 |
-| Norman P3 | IA02-01, IA02-03, IA03-05 |
-| Norman P4 | IA02-10 |
+| Norman P3 | IA02-01, IA02-03, IA03-05, IA04-14 |
+| Norman P4 | IA02-10, IA02-15 |
 | Norman P5 | IA01-03 |
 | Norman P6 | IA02-01, IA02-07, IA03-12, IA04-02, IA04-06 |
 | Shneiderman R1 | IA01-02 |
@@ -89,6 +90,10 @@ Every source below is cited by at least one checklist item. Sources that grounde
 | p.17 | IA03-01, IA03-03, IA03-11 |
 | p.18 | IA02-10, IA03-13 |
 | p.26 | IA01-08, IA01-09 |
+
+The 6 v1.8 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) cite Nielsen/Norman and the
+assignment's own §4/§5 text rather than a slide page — none introduces a new slide citation, so this
+table is unchanged in which pages appear, only in which items each Nielsen/Norman row now includes.
 
 ### 2c. By screenshot — superseded by the live-EMS survey
 
@@ -175,6 +180,32 @@ The assignment (§2) requires guiding the AI through each step of the technique 
 - **AI output summary**: Before editing, extracted the text of `HW03/refs/S13_GUI Testing & Usability Testing.pdf` so that the course slides could be cited by page rather than listed without use — this surfaced slide p.17 (*Breadcrumb Navigation*), p.6 (the GUI element list), p.11 (*Mishandling of server process failures*) and p.26 (*Localization and Internationalization*), which independently confirmed four of the gaps found in Prompt 3. Then rewrote `Shared_GUI_Checklist.md` to **v1.2 / 66 items**: added 14 items, applied 14 corrections, merged the duplicated IA02-03/IA02-04 pair and repurposed IA02-04 to cover upload-constraint enforcement, added the Pass/Fail/N/A convention, a §4 conformance map, a per-widget map and a framework-coverage table. Rewrote this file and created `../AI_Audit_Report.md`. Item IDs were verified programmatically: 17/17/17/15, no duplicates, no gaps.
 - **Human review outcome**: _To be completed by the student after reviewing the v1.2 diff — see §5 below._
 
+*Prompts 5–10 (v1.3–v1.7 — live-EMS survey and screenshot verification) are recorded with full
+verbatim text in `../AI_Audit_Report.md`, Interactions 5–10, and are not repeated here.*
+
+### Prompt 11 — Scenario-specific gap audit for D and B
+
+- **AI tool**: Claude Code (Opus 5, Anthropic)
+- **Date**: 2026-07-30
+- **Prompt** (verbatim, paraphrased from a multi-turn exchange — see the session transcript for
+  exact wording): the student asked for the Task 1A checklist to be checked against the assignment
+  requirements once more, then specifically asked for additional checklist items targeting their own
+  scenario (D) and a groupmate's scenario (B), to maximise the group's Task 1A score.
+- **AI output summary**: Declined to invent items framed as the checklist's "team experience" pillar
+  (personal frustration is not something an AI can supply on a teammate's behalf — see
+  `../AI_Audit_Report.md` §4, points 7–8, on why fabricating that pillar would misrepresent the
+  checklist's own grounding claim). Instead ran a **scenario-specific audit pass** — re-reading §4
+  Pool B / Pool D and §5 B3/C4 against the current 53-item checklist to find what a *scenario-scoped*
+  re-read surfaces that the earlier *aspect-scoped* Rounds 1–3 did not. Found and added 6 items:
+  D4 internal-note/official-response boundary (IA04-14), D2/D4 cross-role status consistency
+  (IA04-15), D3 member-code+category filter correctness (IA03-14), B3 secondary-role selector
+  reflecting the admin-side toggle (IA02-15), waitlist visibility (IA04-16), B1 category+search
+  (IA03-15). Checklist → **v1.8, 59 items**. Re-verified by script: 13/15/15/16 = 59, no duplicate or
+  missing IDs, all 10+6+8 framework citations still present, evidence still resolves.
+- **Human review outcome**: _To be completed by the group — the six items are AI-proposed, citing
+  the assignment text and existing frameworks; they still need the same review any AI output gets
+  before being treated as final._
+
 ## 4. Human Review Notes
 
 What the group changed, removed, or added after reviewing raw AI output, and why.
@@ -191,6 +222,7 @@ What the group changed, removed, or added after reviewing raw AI output, and why
 | 8  | v1.2              | Added the**Pass / Fail / N/A** result convention                                                                                           | The checklist is shared across scenarios A–D, so items such as IA02-03 (image-ratio helper text) have no referent on, say, the Users list. Recording those as "Pass" would be false and "Fail" would invent a defect. |
 | 9  | v1.2              | Added the §4 conformance map, per-widget map, and framework-coverage table                                                                      | Coverage was previously asserted in prose. These three tables make the claim auditable — and building the first of them is what exposed the breadcrumb, drag-and-drop and progress-bar gaps.                          |
 | 10 | v1.2              | Added the scenario-assignment table (still to be filled in)                                                                                      | §5's no-duplication rule needs group-level evidence; no artefact recorded who owned which scenario and screens.                                                                                                       |
+| 11 | v1.8 (2026-07-30) | Added 6 scenario-specific items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) for D and B | Rounds 1–3 audited by IA aspect, which finds generic gaps but misses anything named only in one scenario's own text (§4 Pool B/D, §5 B3/C4). A scenario-scoped re-read is a different question from an aspect-scoped one, and finds a different set of gaps — same principle as the earlier "reframe the question" lesson in `AI_Audit_Report.md` §4. |
 
 ## 5. Outstanding actions before submission
 
@@ -203,5 +235,6 @@ marked done rather than left to look outstanding.*
 | 2 | Fill in the scenario-assignment table in `Shared_GUI_Checklist.md` | Group | **Done** — table present, all four members assigned, no overlapping screens (see the checklist's "Scenario assignment" section). |
 | 3 | Record the group's review outcome for the v1.2→v1.7 revision passes | Group | **Partially done** — `AI_Audit_Report.md` Interaction 10 records the student's own correction (defect verdicts stripped from the shared artefact). Formal sign-off from the other three members is still pending. |
 | 4 | Re-download `HW03/refs/Testing GUI Applications.pdf` — truncated, unreadable | Group | Still open. Nothing cites it; low priority. |
-| 5 | Distribute checklist v1.7 to all four members before Task 1B execution | Group | Not verified from this repo — confirm with the group directly. |
-| 6 | Pillar-4 gap: only 4 of 53 items grounded in the team's own EMS experience (`AI_Audit_Report.md` Interaction 6) | Group | **Still open**, tracked for v1.8. Each member adds 1–2 items from their own use of EMS. |
+| 5 | Distribute checklist v1.8 to all four members before Task 1B execution | Group | Not verified from this repo — confirm with the group directly. |
+| 6 | Pillar-4 gap: only 4 of 59 items grounded in the team's own EMS experience (`AI_Audit_Report.md` Interaction 6) | Group | **Still open**, retargeted to **v1.9** since v1.8 added scenario-audit items, not personal-experience ones — see the note in the checklist's *four grounding pillars* section. Each member adds 1–2 items from their own use of EMS. |
+| 7 | Group review of the 6 new v1.8 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16) | Group | **Open.** AI-proposed, script-verified, not yet reviewed by the other three members. |
