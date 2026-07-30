@@ -1,14 +1,14 @@
 # Shared GUI Checklist — EMS (Event Management System)
 
 > **Group deliverable — Task 1, Part A**
-> **53 items**, sized so one member can execute the whole checklist across ≥ 3 screens within the assignment's time budget.
+> **59 items**, sized so one member can execute the whole checklist across ≥ 3 screens within the assignment's time budget.
 > Grounded on four pillars: **international standards** (WCAG 2.1) · **recognised heuristics** (Nielsen 10, Norman 6, Shneiderman 8 — all fully cited) · **the real system under test** (14 screenshots + a live survey of 14 running pages) · **the team's own experience** of using EMS.
 
 ## Group Information
 
 - **Group ID**: 09
 - **Date created**: 2026-07-25
-- **Version**: v1.7 (2026-07-26 — every claim re-verified against the 14 screenshots; four survey errors corrected)
+- **Version**: v1.8 (2026-07-30 — 6 items added targeting scenario D and B specifics: D4 internal-note/response boundary, D3/D4 cross-role status consistency, D3 filter correctness, B3 secondary-role mapping, B waitlist visibility, B1 category+search. Grounded in the assignment §4 text and the live survey, same audit process as v1.2/v1.5 — **not** claimed as the "team experience" pillar; see the note below §The four grounding pillars.)
 
 **Members**
 
@@ -139,7 +139,7 @@ Earlier drafts of this section listed specific suspected defects. They have been
 
 ---
 
-## Checklist (53 items)
+## Checklist (59 items)
 
 ### IA-01 — General UI Standards (13 items)
 
@@ -159,7 +159,7 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA01-12 | IA-01 | WCAG 2.1 SC 2.4.7 — Focus Visible / Slides S13 p.13 — "Focus on objects needing it?" · *team-added v1.1* | Press Tab repeatedly through interactive elements (nav links, buttons, inputs) on any EMS screen without touching the mouse. | Every focused element shows a clearly visible focus ring with sufficient contrast; focus order follows a logical reading order. |
 | IA01-13 | IA-01 | WCAG 2.1 SC 1.1.1 — Non-text Content / Slides S13 p.8 — accessibility features · *team-added v1.1* | Inspect the `alt` attribute (DevTools or a screen reader) of banner and avatar images (event thumbnail/banner, user avatar initials). | Every meaningful image carries descriptive `alt`; purely decorative images use `alt=""` so screen readers skip them. |
 
-### IA-02 — Forms (14 items)
+### IA-02 — Forms (15 items)
 
 | Item ID | Aspect | Reference Source | Verification Rule | Expected Behavior |
 | --- | --- | --- | --- | --- |
@@ -177,8 +177,9 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA02-12 | IA-02 | Slides S13 p.6 — GUI elements (checkboxes, radio buttons, dropdown menus) / Nielsen H6 · *added v1.2* | EMS uses three kinds of selection control: **toggle switches** (`role="switch"` — Registration toggles), **checkboxes** (Categories, Lecturer Roles) and **dropdowns** (Rows-per-page, column filter menus, Status/Time filters). Operate each kind by mouse and by keyboard alone (Tab → Enter/Space → arrows), and click the **text label** rather than the control. | Every control is fully keyboard-operable, shows its current value when closed, keeps long option lists scrollable inside the viewport, and treats its text label as part of the click target. |
 | IA02-13 | IA-02 | Nielsen H5 — Error Prevention / Shneiderman R6 — Permit Easy Reversal · *added v1.2* | Fill several fields of the long Add/Edit Event form without saving, then leave by each exit path: the "← Back" control, a sidebar item, and the browser Back button. | Every exit path warns that unsaved changes will be lost and offers a way to stay; entered data is never discarded silently. |
 | IA02-14 | IA-02 | Slides S13 p.12 — "Currency of data on screens" / Nielsen H1 · *added v1.2* | In the rich-text editor apply bold, a bulleted list, a hyperlink and a table; save, reload the edit form, then open that event's public detail page. | All formatting survives save + reload in the editor **and** renders identically on the public page — no raw HTML tags, stripped formatting or collapsed tables. |
+| IA02-15 | IA-02 | Norman P4 — Mapping / Assignment §5 B3 — "chọn role, vai trò phụ" · *added v1.8, scenario B* | On the admin Add/Edit Event form, enable **"Allow Additional Role"** (IA02-07 tests the admin-side toggle and its helper text only). Then, as a participant, open that event's **registration form (B3)** and look for a secondary-role selector. Repeat with the toggle left off on a different event. | When the admin toggle is on, the participant's registration form exposes an actual, selectable secondary-role control — not just admin-side helper text describing a feature the form never renders. When off, no secondary-role control appears. A toggle that changes the admin screen but nothing on the participant side is a Fail: the admin control must **map** to a real form element, which is exactly what IA02-07 does not check. |
 
-### IA-03 — Navigation (13 items)
+### IA-03 — Navigation (15 items)
 
 | Item ID | Aspect | Reference Source | Verification Rule | Expected Behavior |
 | --- | --- | --- | --- | --- |
@@ -195,8 +196,10 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA03-11 | IA-03 | Slides S13 p.17 — "Breadcrumb Navigation: verify that breadcrumb trails accurately reflect the user's path and allow users to backtrack" · *added v1.2, evidence corrected v1.7* | Go two levels deep along two paths — Events Management → an event → Registrants tab, and Support requests → a request detail. Look for a **breadcrumb** specifically. A back control is a *different* affordance and is scored by IA03-04 — do not report the same absence under both items. | On a page reached through two or more levels, an ancestor path is exposed: a breadcrumb whose segments each name a real ancestor, are clickable, and reflect the path taken. **Absence of any breadcrumb across a three-level hierarchy (list → record → tab) is a Fail, not an N/A** — a one-step back control cannot express a path, so the user cannot jump to an intermediate ancestor. |
 | IA03-12 | IA-03 | Norman P6 — Signifiers / Norman P2 — Feedback · *added v1.2* | First establish whether the screen has any user-orderable list (candidates: Categories, Campuses, Academic Years, Lecturer Roles). Hover for a grab cursor or grip icon and attempt a drag. If no orderable list exists, record **N/A**. Otherwise drag, drop, then reload. | Where reordering exists: a visible grab affordance, a drop-position indicator while dragging, order persisting after reload, and a keyboard alternative (its absence being an accessibility defect). Where order is fixed and system-defined, N/A is correct — but note whether a user would reasonably expect to reorder that list. |
 | IA03-13 | IA-03 | Nielsen H3 — User Control and Freedom / Slides S13 p.18 — "Links and Buttons … lead to the expected screens" · *added v1.2* | On a list screen apply a status filter, go to page 2, open a detail record, then press the browser **Back** button — then **Forward**. | Back returns to the list with filter and page still applied — not to an unfiltered page 1, a blank screen, or out of the app; Forward re-enters the detail record. |
+| IA03-14 | IA-03 | Nielsen H4 — Consistency and Standards / Assignment §4 Pool D — "tìm theo member code hoặc category" · *added v1.8, scenario D* | On the admin **Support Requests** list (D3), use the member-code search and the category filter **separately**, then **combined**. For each, note the count of rows shown. | Each filter narrows the list to rows that genuinely match — a category filter never leaves rows of other categories visible, and combining both filters returns the intersection, not either filter alone. A filter that visually looks "active" (highlighted) while the row set is unchanged is a Fail. |
+| IA03-15 | IA-03 | Nielsen H6 — Recognition Rather Than Recall / Assignment §4 Pool B — "duyệt theo category và tìm kiếm" · *added v1.8, scenario B* | On the public home / events listing (B1), browse by category **without typing anything**, then separately use the search box, then both together. | A user who does not know an exact event name can still find it by category alone — search is not the only path to a result. Combining category + search narrows rather than resets the list, and the active category stays visibly selected while a search term is present. |
 
-### IA-04 — Feedback / State (13 items)
+### IA-04 — Feedback / State (16 items)
 
 | Item ID | Aspect | Reference Source | Verification Rule | Expected Behavior |
 | --- | --- | --- | --- | --- |
@@ -213,18 +216,21 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA04-11 | IA-04 | Slides S13 p.11 — "Mishandling of server process failures" / Nielsen H9 / Shneiderman R5 · *added v1.2* | Force a server-side failure — DevTools → Network → **Offline** — then submit a form, publish an event, and load a list screen. | Every failure gives a visible plain-language error stating what failed and offering a retry. Never an infinite spinner, a permanently blank screen, a raw stack trace or HTTP code, or — worst — a **false success** toast for an action that did not persist. |
 | IA04-12 | IA-04 | WCAG 2.1 SC 4.1.3 — Status Messages / Slides S13 p.8 — accessibility features · *added v1.2* | With a screen reader running (NVDA / VoiceOver), or DevTools inspecting the toast container, perform a save action and time how long the toast stays. | The toast container carries `role="status"` / `aria-live="polite"` so it is announced without stealing focus, and it stays long enough to read (≥ 5 s, or until dismissed) rather than vanishing after 1–2 s. |
 | IA04-13 | IA-04 | Nielsen H1 — Visibility of System Status / Shneiderman R3 — Offer Informative Feedback / Assignment §5 C4 — "Export to Excel — column completeness and download feedback" · *added v1.5, fourth export added v1.7* | Trigger every export on your screens — there are **four** in EMS: **Export** on Users Management, **Export Excel** on Support request management, **Export** on `/profile` → My Activities, and **Export** on an event's **Registrants** tab (`Admin_A4_Participants.png` — this is §5 A4's Export, so **scenario A must run this item, not mark it N/A**). Watch the interval between click and file arrival. Then apply a filter (role/status, or the Pending tab) and export again. Open each downloaded file and compare its columns against the on-screen table (Users: USER · Role · MEMBER CODE · Status · CREATED · UPDATED) and its rows against what was filtered. | The click produces immediate feedback (busy state, progress, or toast) and a clear completion signal — never a dead button with no response. The file arrives with a meaningful, dated filename. Its columns are complete relative to the on-screen table, and the UI makes unambiguous **whether the export covers the current filter/page or the whole dataset** — silently exporting something other than what the user is looking at is a Fail. |
+| IA04-14 | IA-04 | Nielsen H2 — Match Between System and the Real World / Norman P3 — Constraints / Assignment §4 Pool D — "internal note và nội dung phản hồi chính thức" · *added v1.8, scenario D* | On the admin request detail (D4), write an **internal note** and, separately, an **official response**, on the same request. Save both. Then view the same request from the **user side (D2)**, logged in as the requester. | An internal note and an official response are two different real-world objects — one for staff only, one for the requester — and EMS must never blur them. On D2 the requester sees **only** the official response; the internal note is not present anywhere in the user-facing DOM (not just visually hidden — check by inspecting page source, not only by eye). Any leak of internal-note content to D2 is a Fail, and a severe one: it is a confidentiality boundary, not a cosmetic one. |
+| IA04-15 | IA-04 | Nielsen H4 — Consistency and Standards · *added v1.8, scenario D* | File a request as a user, note its Pending/Resolved status on **D2**. Resolve it from the admin side (D4), then reload **D2** and compare against the admin's **D3** list for the same request. | The status shown to the requester on D2 and the status shown to admins on D3/D4 for the **same** request always agree — never "Resolved" on one side and "Pending" on the other because of a caching or refresh gap. If they can legitimately disagree during a short propagation window, that window and its cause should be documented, not silently accepted. |
+| IA04-16 | IA-04 | Nielsen H1 — Visibility of System Status / Assignment §4 Pool B — "waitlist" · *added v1.8, scenario B* | Register for an event that is already at its Max Slots capacity (or reduce an event's Max Slots below its current registration count, if you have admin access to set up the case). | The registration flow clearly tells the participant they are being placed on a **waitlist**, not silently registering them as confirmed or silently failing. My Registrations (B4) shows a distinct waitlist status, separate from Confirmed, so the participant is never left assuming a waitlisted spot is a guaranteed one. |
 
 ---
 
 ## Coverage summary
 
-| Aspect | v1.0 AI-drafted | v1.1 Team-added | v1.2+ Audit-added | Total |
-| --- | --- | --- | --- | --- |
-| IA-01 General UI standards | 8 | 2 | 3 | **13** |
-| IA-02 Forms | 8 | 1 | 5 | **14** |
-| IA-03 Navigation | 8 | 1 | 4 | **13** |
-| IA-04 Feedback / state | 9 | 0 | 4 | **13** |
-| **Total** | **33** | **4** | **16** | **53** |
+| Aspect | v1.0 AI-drafted | v1.1 Team-added | v1.2+ Audit-added | v1.8 Scenario-audit-added | Total |
+| --- | --- | --- | --- | --- | --- |
+| IA-01 General UI standards | 8 | 2 | 3 | 0 | **13** |
+| IA-02 Forms | 8 | 1 | 5 | 1 | **15** |
+| IA-03 Navigation | 8 | 1 | 4 | 2 | **15** |
+| IA-04 Feedback / state | 9 | 0 | 4 | 3 | **16** |
+| **Total** | **33** | **4** | **16** | **6** | **59** |
 
 ## The four grounding pillars
 
@@ -232,10 +238,10 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | --- | --- | --- |
 | **International standards** | WCAG 2.1, six success criteria applied with their real thresholds | IA01-05 (SC 1.4.3), IA01-10 (SC 2.2.2), IA01-12 (SC 2.4.7), IA01-13 (SC 1.1.1), IA03-04 (SC 4.1.2), IA04-12 (SC 4.1.3) |
 | **Recognised heuristics** | Nielsen 10/10, Norman 6/6, Shneiderman 8/8 — every principle cited by at least one item | See framework table below |
-| **The real system under test** | 14 screenshots + a live survey of 14 running EMS pages; 16 items name concrete EMS widgets. 6 were rewritten in v1.3 after the survey showed the widget did not exist as assumed — and in **v1.7** a further 4 were corrected in the opposite direction, after the screenshots showed widgets the DOM-query survey had **missed** (bar meters, an icon-only back button, native date inputs, a fourth Export). Both directions are recorded rather than quietly fixed: they are the evidence that a survey by selector and a survey by eye fail differently | IA01-04, IA01-08…11, IA02-03…07, IA02-11, IA02-12, IA02-14, IA03-01, IA03-07, IA03-08, IA03-11, IA03-12, IA04-05…07, IA04-10, IA04-13 |
-| **Team experience** | Items the group derived from its own use of EMS rather than from a source — currently the four v1.1 accessibility/keyboard items | IA01-12, IA01-13, IA02-10, IA03-10 |
+| **The real system under test** | 14 screenshots + a live survey of 14 running EMS pages; 22 items name concrete EMS widgets or scenario-specific behaviour. 6 were rewritten in v1.3 after the survey showed the widget did not exist as assumed; 4 more were corrected in v1.7 in the opposite direction (bar meters, icon-only back button, native date inputs, a fourth Export); 6 more were added in v1.8 targeting scenario D and B specifics not covered by the earlier generic passes (D4 internal-note/response boundary and cross-role status agreement, D3 filter correctness, B3 secondary-role mapping, B waitlist visibility, B1 category+search) | IA01-04, IA01-08…11, IA02-03…07, IA02-11, IA02-12, IA02-14, IA02-15, IA03-01, IA03-07, IA03-08, IA03-11, IA03-12, IA03-14, IA03-15, IA04-05…07, IA04-10, IA04-13, IA04-14, IA04-15, IA04-16 |
+| **Team experience** | Items the group derived from its own *personal frustration* using EMS, rather than from any source or audit process — currently the four v1.1 accessibility/keyboard items | IA01-12, IA01-13, IA02-10, IA03-10 |
 
-> **Known weakness — the experience pillar is the thinnest of the four (4 of 53).** Every other item traces to a standard, a heuristic, the slides, or an observation of the product. Before submitting, each member should add **1–2 items from their own frustrations while using EMS** — something no framework would predict. Log them as v1.7 with the member's name, and record in `Reference_Sources_and_Prompts.md` §5 why no source would have produced them. This is the cheapest available gain on criterion 1a, and the only pillar an AI cannot supply.
+> **Known weakness — the experience pillar is still the thinnest of the four (4 of 59), and v1.8 does not close this gap.** The six v1.8 items are additional **AI-assisted scenario audit**, same process and same pillar as v1.2/v1.5 (re-reading §4 against the checklist, this time scenario-by-scenario rather than aspect-by-aspect) — they are grounded in the assignment text and the live survey, not in anyone's personal experience of using EMS, and they must not be mislabelled as pillar-4 items. The distinction matters: pillar 4 is specifically what an AI structurally cannot supply (see `AI_Audit_Report.md` §4, points 7–8), and folding audit-sourced items into it would overstate this checklist's grounding. **1–2 items from each member's own frustration while using EMS are still owed**, targeted at v1.9. Log them with the member's name and record in `Reference_Sources_and_Prompts.md` §5 why no source would have produced them — that is still the cheapest available gain on criterion 1a, and it is the one addition in this file an AI genuinely cannot make on your behalf.
 
 ## Conformance map — every element named in §4
 
@@ -267,6 +273,9 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA-04 | Status colours | IA04-01, IA04-08 |
 | IA-04 | Real-time updates | IA04-05, IA04-09 |
 | §5 C4 | **Export to Excel** (column completeness + download feedback) | IA04-13 |
+| §5 B3 | **Secondary role** (vai trò phụ) on the participant registration form | IA02-15 |
+| §4 Pool B | **Waitlist** | IA04-16 |
+| §4 Pool D | Internal note vs official response boundary | IA04-14 |
 
 ## Per-widget coverage (§6: "the per-widget checklists")
 
@@ -282,6 +291,8 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | Breadcrumb | IA03-11 | QR / barcode ticket | IA01-11 |
 | Search box | IA02-10 | Error messages | IA02-08, IA04-11 |
 | **Export / file download** | **IA04-13** | | |
+| Filter (search + category) | IA03-14, IA03-15 | Internal/private note field | IA04-14 |
+| Secondary-role selector | IA02-15 | Waitlist status | IA04-16 |
 
 ## Heuristic framework coverage
 
@@ -331,6 +342,23 @@ Round 1 asked *"what did the AI miss about the screens?"*. Round 2 asked *"what 
 | --- | --- | --- |
 | IA04-13 | Export to Excel | §5 C4 names Export as a candidate *screen*, yet the only prior mention of it anywhere in the checklist was a sub-clause of IA04-10. Nobody screenshots a file download, and the Export buttons sit on two screens the original draft never examined. |
 
+### Round 4 — v1.8, scenario-by-scenario re-read of §4/§5 for D and B
+
+Rounds 1–3 asked *"what does the assignment require, in general?"*. Round 4 asked *"for the two
+scenarios with the least generic-item coverage — D's user/admin split and B's registration-specific
+fields — what does §4/§5's own wording name that no item yet tests?"* Every gap below is something
+the assignment text names explicitly for that scenario, not a general IA-01…04 pattern, which is why
+none of Rounds 1–3 (organised by IA aspect, not by scenario) had surfaced it.
+
+| ID | Item | Why it was missing |
+| --- | --- | --- |
+| IA04-14 | Internal note vs official response boundary | §4 Pool D names both fields ("internal note và nội dung phản hồi chính thức") side by side, but no earlier item tested that they are kept apart on the user-facing side — a data-scoping property invisible to both screenshot grounding and generic heuristic review, and visible only by re-reading what a specific scenario's own admin screen contains. |
+| IA04-15 | D2/D4 cross-role status consistency | Every earlier consistency item (IA01-01…04, IA04-01) compares appearance *within one role's screens*. Whether the *same underlying record* agrees across the user and admin sides is a cross-role property that only exists once a scenario spans two roles, which only D does. |
+| IA03-14 | D3 filter correctness (member code + category) | §4 Pool D names these two filters explicitly, but earlier filter/search items (IA03-05, IA03-08) were written against the events and users areas, before the support-request area's own two-filter design was re-examined against the spec text. |
+| IA02-15 | B3 secondary-role selector reflects the admin toggle | IA02-07 already tests the **admin-side** toggle and its helper text — added in v1.2 — but nobody had checked the *other end*: whether enabling it actually renders a control on the participant's own registration form. A toggle and its effect are two different objects; testing one does not test the other. |
+| IA04-16 | Waitlist visibility | §4 Pool B names "waitlist" as a form-configuration field, but no item tested what a participant *sees* when a waitlist is actually triggered — the field's existence in admin config was covered; its user-facing consequence was not. |
+| IA03-15 | B1 category browse + search | §4 Pool B names "duyệt theo category và tìm kiếm" as two distinct actions. IA03-05 tests the Upcoming/Ongoing/Ended status filter on the same page, but category browsing and free-text search — the pair the spec actually names for B1 — had no item of their own. |
+
 ## Checklist changelog
 
 | Date | Version | Change | Author |
@@ -343,3 +371,4 @@ Round 1 asked *"what did the AI miss about the screens?"*. Round 2 asked *"what 
 | 2026-07-26 | v1.5 | Surveyed Users Management and Support request management. **Added IA04-13 — Export to Excel**, closing §5 C4. Corrected IA03-07 (EMS uses *two* deep-link conventions) and widened IA03-02 (Pending/Resolved are `<button>`, not `role="tab"`). **53 items.** | AI-assisted survey (Claude Opus 5 via Claude in Chrome) |
 | 2026-07-26 | v1.7 | **Verification pass — every claim in this file checked against the 14 screenshots.** Corrected **four widget-inventory errors** inherited from the live survey, each of which had left an item describing something EMS does not have or omitting something it does: (1) bar meters **do** exist (the Rating summary), so IA04-10 no longer assumes text-only capacity; (2) the admin event detail **does** have a back control, an icon-only one, so IA03-04 now covers icon-only forms and IA03-11 was narrowed to breadcrumbs alone — the two no longer report the same absence twice; (3) the timestamp evidence behind IA01-09 quoted user-entered content, so the item now specifies comparing rendered timestamps across areas; (4) native date inputs **do** exist on the Support filters, so IA02-11 covers both control types. Five items sharpened against the captures: IA01-04 (nine section headers, not seven) · IA02-07 (extended to the toggle outside the Registration block) · IA02-01 (a third form, the Edit User dialog) · IA03-06 (all five paginated lists named) · IA01-11 (member-code precondition for the QR button). Scope: the **scenario-B account blocker is retired** — the participant screens were captured from a student account that already holds a registration; **Export exists in four places**, so IA04-13 is no longer predicted N/A for scenario A. **Suspected-defect notes removed from this file** — see *Why this file contains no findings*. **Still 53 items**, none added or removed. | Screenshot verification (Claude Opus 5), pending group sign-off |
 | 2026-07-26 | v1.6 | Surveyed the participant-side screens — 14 pages in total. **Found that an admin account cannot reach the scenario-B screens** ("Admin can view role information only (no registration action)"), blocking B3/B4 until the owning member registers their own student account per §4. Sharpened IA02-01 (`required` present on the user support form but absent on the admin event form; the asterisk appears CSS-drawn and outside the accessibility tree), IA04-13 (a **third** Export button on `/profile`) and IA01-11 (QR reachable via `/profile`). Recorded the Vietnamese-`<title>`-with-English-body split across all five participant pages. Added the scenario-assignment table and the per-scenario N/A predictions. Still 53 items. | AI-assisted survey (Claude Opus 5 via Claude in Chrome), reviewed by the group |
+| 2026-07-30 | v1.8 | **Scenario-by-scenario audit re-read of §4/§5 for D and B (Round 4)** — added 6 items the aspect-organised Rounds 1–3 had not surfaced because they are scenario-specific rather than IA-general: IA04-14 (D4 internal-note/official-response boundary), IA04-15 (D2/D4 cross-role status consistency), IA03-14 (D3 member-code + category filter correctness), IA02-15 (B3 secondary-role selector reflects the admin toggle), IA04-16 (waitlist visibility), IA03-15 (B1 category browse + search). **53 → 59 items** (IA-02 14→15, IA-03 13→15, IA-04 13→16; IA-01 unchanged at 13). All six cite the assignment text and/or an existing framework — **none is a pillar-4 "team experience" item**; that gap (still 4/59) remains open for v1.9, and is called out explicitly in *The four grounding pillars* so it is not double-counted as closed. | AI-assisted scenario audit (Claude Opus 5), pending group review |
