@@ -4,6 +4,8 @@
 **Scenario:** **D: User requests Support, Admin resolves** (spans the user and admin sides of the support-request lifecycle)
 **Screens (≥ 3 required, 6 taken):** **D1** Create Support Request (`/complaints/new`) · **D2** My Requests list + detail with official response (`/complaints`, `/complaints/{id}`) · **D3** Admin Support Requests list, Pending/Resolved, filters (`/dashboard/admin/complaints`) · **D4** Admin request detail, internal note, official response · **D5** Notifications, header bell dropdown, `/notifications` list, `/notifications/{id}` detail · **D6** Attachment image lightbox, opened from the evidence images on D1-D4
 
+**System under test — read this before checking any URL in this package.** Every run recorded here was executed against **`https://prod-dev.ems-fitus.cloud/`**, not the `https://promoter-starboard-prude.ngrok-free.dev/` address printed in §4 of the brief. The ngrok tunnel in the brief had gone offline; the replacement host was supplied mid-session and is the same EMS instance. This is why the two do not match — it is not a different system. `docs/06_AI_Audit_Report.md` Interaction 13 records when the switch happened, and `docs/checklist/EMS_Live_Survey_2026-07-26.md` still shows the old base URL because it is a dated record of the 26 July survey, correct as of that date.
+
 **Why six screens, not three.** D1-D4 together are what the scenario *is*: dropping either the filing half (D1/D2) or the resolving half (D3/D4) would leave only one side of a two-role flow tested. D5 and D6 were added during execution because they sit inside the same journey rather than beside it: a notification is how the requester learns that the admin acted, and the lightbox is how the admin reads the evidence the requester attached. Scenario D belongs to this member alone and shares no screen with a teammate, so extending it does not touch §5's no-duplication rule. The extension earned its place twice over: D5 produced two real defects (**D-015**, notification summaries with a permanently empty complaint title, and **D-016**, ESC failing to dismiss the bell dropdown), and D6 produced none at all once its two provisional Fails were re-tested against the live product and withdrawn.
 
 ---
@@ -12,35 +14,46 @@
 
 ```
 HW03/
-├── README.md                              ← this file
-├── AI_Audit_Report.md                     ← §10 mandatory appendix (17 AI interactions, prompts, human review)
-├── AI_Critique.md                         ← §11 mandatory 200-300 word critique
-├── Git_Commit_Log.txt                     ← §13 mandatory commit log export (HW03-scoped)
-├── checklist/                             ← Task 1 Part A, group deliverable
-│   ├── Shared_GUI_Checklist.md             (60 items, IA-01 to IA-04, v1.9)
-│   ├── Reference_Sources_and_Prompts.md    (sources, traceability tables, full AI prompt chain)
-│   └── EMS_Live_Survey_2026-07-26.md       (widget inventory backing the checklist's EMS-grounded items)
-├── task1b_execution/                      ← Task 1 Part B, individual, Scenario D, complete
-│   ├── Execution_Report_ScenarioD.md       (60 items × 6 screens = 360 cells, Pass/Fail/N/A/not-executed)
-│   └── evidence/                           (32 real screenshots from the live EMS)
-├── findings/
-│   └── Bug_Usability_Findings_Log.md       ← §7 aggregated findings log (16 findings; 3 retracted on review)
-├── usability_testing/                     ← Task 2 scaffold, no real sessions run yet
-│   ├── Task_Scenario_D.md
-│   ├── Participants_Table.md
-│   ├── Metrics_Table.md
-│   ├── SUS_Responses.csv
-│   ├── Usability_Report_ScenarioD.md
-│   └── session_notes/Session_Notes_TEMPLATE.md
-├── cross_platform/                        ← Task 3 scaffold, no cloud-lab run yet
-│   └── Cross_Platform_Matrix_ScenarioD.md
-├── screenshots/                            (14 screenshots backing the shared checklist / live survey)
-├── refs/                                   (course PDFs: GUI testing, usability testing, compatibility testing)
-├── requirments/                            (assignment brief, EN + VI, + PDF)
-└── .claude/skills/                        ← §8 Agent Skills built for this engagement
-    ├── web-ui-survey, gui-checklist-design, gui-checklist-execution,
-    │   usability-test-study, cross-platform-matrix, findings-log, ai-audit-log
+├── README.md · CLAUDE.md · .gitignore           ← the only files at root
+├── docs/                                       ← every written deliverable, numbered in submission order
+│   ├── 01_Task1A_Shared_GUI_Checklist.md        Task 1A group checklist (60 items, IA-01 to IA-04, v1.9)
+│   ├── 02_Task1B_Execution_Report_ScenarioD.md  Task 1B, Scenario D (60 items × 6 screens = 360 cells)
+│   ├── 03_Task2_Usability_Report_ScenarioD.md   Task 2 report (template, no real sessions run yet)
+│   ├── 04_Task3_Cross_Platform_Matrix.md        Task 3 matrix (template, no cloud-lab run yet)
+│   ├── 05_Bug_Usability_Findings_Log.md        ← §7 aggregated findings log (16 findings; 3 retracted on review)
+│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (13 AI interactions, prompts, human review)
+│   ├── 07_AI_Critique.md                       ← §11 mandatory 200-300 word critique
+│   ├── 08_Git_Commit_Log.txt                   ← §13 mandatory commit log export (HW03-scoped)
+│   ├── checklist/                               Task 1A supporting material
+│   │   ├── Reference_Sources_and_Prompts.md      (sources, traceability tables, full AI prompt chain)
+│   │   └── EMS_Live_Survey_2026-07-26.md         (widget inventory backing the EMS-grounded items)
+│   ├── usability_testing/                       Task 2 instruments — start at 00_Run_Plan.md
+│   │   ├── 00_Run_Plan.md                        (the plan: path, open decisions, definition of done)
+│   │   ├── Recruiting_Kit.md                     (screener, VI invite + consent scripts, booking)
+│   │   ├── Task_Scenario_D.md                    (goal-only tasks + success criteria + probes)
+│   │   ├── Moderator_Runsheet.md                 (per-session checklist, admin resolve script)
+│   │   ├── SUS_Instrument_VI_EN.md               (10 items VI/EN, answer sheet, scoring)
+│   │   ├── Participants_Table.md · Metrics_Table.md · SUS_Responses.csv
+│   │   └── session_notes/Session_Notes_TEMPLATE.md
+│   ├── cross_platform/                          Task 3 planning
+│   │   └── 00_Run_Plan.md                        (24-cell plan, run order, screenshot rule)
+│   └── pdf/                                     §15 PDF exports + build_pdf.py to regenerate them
+├── reports/                                    ← generated evidence only, nothing hand-written
+│   ├── evidence_task1b/                         (32 real screenshots from the live EMS)
+│   ├── evidence_task2/                          (empty: Task 2 not run)
+│   ├── evidence_task3/                          (empty: Task 3 not run)
+│   └── screenshots/                             (14 screenshots backing the shared checklist / live survey)
+├── refs/                                       ← given material, not produced by this project
+│   ├── requirements/                            (assignment brief EN + VI, md + PDF, Google Form capture)
+│   └── slides/                                  (course PDFs: GUI testing, usability testing)
+└── .claude/skills/                             ← §8 Agent Skills built for this engagement
+    └── web-ui-survey, gui-checklist-design, gui-checklist-execution,
+        usability-test-study, cross-platform-matrix, findings-log, ai-audit-log
 ```
+
+Layout mirrors HW04: `docs/` written work, `reports/` generated evidence, `refs/` given material, root kept to README + config. All cross-references inside the files are written **relative to `HW03/`**, so `docs/05_Bug_Usability_Findings_Log.md` means exactly that path from this folder. Embedded images are the one exception: they use a path that resolves from the file's own location (`../reports/evidence_task1b/...`), because that is what a Markdown viewer renders.
+
+One file on disk is deliberately absent from the map and from the submission: `docs/Google_Form_Submission_Packets.md`, a private working aid that pre-formats each of the 16 findings for the §7 Google Form. It is listed in `.gitignore`, so it is not committed and not part of the graded package.
 
 ## Status by task
 
@@ -48,12 +61,12 @@ HW03/
 | --- | --- |
 | **1A**: Shared checklist (group) | **Done.** v1.9, 60 items across all four IA aspects; sources, traceability tables and the full prompt chain logged. Two gaps stated openly rather than closed on paper: only 4 of 60 items are grounded in the team's own EMS experience (the "pillar 4" gap, retargeted to v2.0), and the 7 newest items still need sign-off from the other three members. |
 | **1B**: Execution on D1-D6 | **Done.** All 60 items run against all 6 screens (360 item×screen cells), screen by screen on the live system. 136 applicable · **108 executed** · 92 Pass · 16 Fail · 224 N/A-with-reason · 28 not executed, each with a named cause and a named owner. 16 findings stand, every Fail backed by a screenshot or DevTools evidence. Three further findings were raised and then retracted after being re-tested against the live product. |
-| **2**: User testing, 5 real users | **Not started.** No real participants recruited. Templates for the task scenario, participant table, SUS instrument, metrics table and report are ready in `usability_testing/`; the §12 note below explains why they cannot be filled in without real sessions. **Scoped to D1-D4**, not the D5/D6 extension: `Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
-| **3**: Cross-platform matrix | **Not started.** No BrowserStack/LambdaTest run yet. Coverage-floor template ready in `cross_platform/`. **Scoped to D1-D4** for the same reason as Task 2: the matrix targets the four committed screens, not D5/D6. |
+| **2**: User testing, 5 real users | **Designed, not run.** Phase 1 is complete and Phase 2 is blocked on recruiting: 0 of 5 participants found, 0 sessions run. `docs/usability_testing/00_Run_Plan.md` holds the end-to-end plan, the five decisions still owed and the definition of done; the task scenario, recruiting/consent kit, bilingual SUS instrument, moderator run-sheet, session-note template, participant table, metrics table and report skeleton are all ready in `docs/usability_testing/`. Every result table stays empty — the §12 note below explains why they cannot be filled in without real sessions. **Scoped to D1-D2**, not the D5/D6 extension and not Task 3's D1-D4: `docs/usability_testing/Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
+| **3**: Cross-platform matrix | **Planned, not run.** No BrowserStack/LambdaTest trial used yet, 0 of 24 cells captured. `docs/cross_platform/00_Run_Plan.md` derives the per-screen coverage floor (5 cells × 4 screens = 20) and then deliberately runs **one row above it per screen** — iOS + Safari + phone on a real device, because at the bare floor three of the five required brands are Blink and mobile WebKit would go untested. 24 cells, ordered so they cost only 4 metered cloud-lab launches. `docs/04_Task3_Cross_Platform_Matrix.md` is pre-filled with all 24 rows and their capture filenames and already passes `matrix_coverage.py` clean (floor met on every screen) while unrun. **Scoped to D1-D4** for the same reason as Task 2: the matrix targets the four committed screens, not D5/D6. |
 | **§7**: Findings Log + Google Form | **16 findings logged**, deduplicated and severity-rated. **Google Form submission: TODO for all 16.** The log's `Form-submission timestamp` column reads `TODO` on every row because no finding has been submitted yet. The TA may cross-check counts against the form. |
 | **§8**: Agent Skills + demo videos | Seven skills built and used throughout. **Demo video links: TODO.** |
-| **§10**: AI Audit Report | **Done.** 17 interactions, each with tool, date/time, the prompt, the AI output and the human review outcome. |
-| **§15**: report formats | Markdown is complete. **PDF versions of the main report, the AI Audit Report and the AI Critique are outstanding**; §15 asks for Markdown and PDF. |
+| **§10**: AI Audit Report | **Done.** 13 interactions, each with tool, date/time, the prompt, the AI output and the human review outcome. |
+| **§15**: report formats | **Done.** Markdown is the source of truth; six PDFs (main report, Task 1A checklist, Task 1B execution report, findings log, AI Audit Report, AI Critique) are in `docs/pdf/`, rebuildable with `python docs/pdf/build_pdf.py`. Wide tables are rotated to landscape so no column is clipped, and the 25 embedded evidence screenshots travel with the Task 1B PDF. **Re-run the build after any further markdown edit.** |
 
 ## Task 1B results
 
@@ -97,7 +110,7 @@ This happened in two stages, and the second stage overturned the first.
 2. **D-013 (Usability 1) is withdrawn.** Escape closed the lightbox on the first press, on complaint 25 and complaint 26 alike. The two-presses observation did not reproduce.
 3. **D-016 is narrowed to the bell dropdown alone.** Three Escape presses left the notification dropdown fully open, so that half stands. The lightbox does not exhibit the defect, so the "two independent overlay components, one shared root cause" framing was dropped.
 
-The stage-one explanations were wrong. They were consistent with everything written down and still did not survive contact with the product. Nothing was deleted to make the files agree: the count fell from 18 to 16 because three claims could not be defended, which is the direction a real check moves the number. Full reasoning in `task1b_execution/Execution_Report_ScenarioD.md` §"Live re-verification".
+The stage-one explanations were wrong. They were consistent with everything written down and still did not survive contact with the product. Nothing was deleted to make the files agree: the count fell from 18 to 16 because three claims could not be defended, which is the direction a real check moves the number. Full reasoning in `docs/02_Task1B_Execution_Report_ScenarioD.md` §"Live re-verification".
 
 ### A note on how the browser automation was done
 
@@ -112,9 +125,9 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 - **Bugs found:** 13 (0 Critical, 6 Major, 6 Minor, 1 Trivial).
 - **Usability issues found:** 3 (two at severity 3, one at severity 2).
 - **Findings retracted:** 3 (D-013 and D-018 on live re-verification against EMS, D-014 on self-review); D-016 narrowed to one component on the same live re-verification.
-- **Evidence captures:** 32 real screenshots under `task1b_execution/evidence/`, plus DevTools/Network evidence where the defect is the *absence* of a visible change.
+- **Evidence captures:** 32 real screenshots under `reports/evidence_task1b/`, plus DevTools/Network evidence where the defect is the *absence* of a visible change.
 - **User-testing participants:** 0 of 5 recruited (Task 2 not started).
-- **Compatibility cells covered:** 0 of the planned 12-cell matrix (Task 3 not started).
+- **Compatibility cells covered:** 0 of the planned **24-cell** matrix (6 cells × D1-D4 — the 5-cell per-screen floor plus one iOS/WebKit real-device row); Task 3 planned but not run, see `docs/cross_platform/00_Run_Plan.md`.
 - **Google Form submissions:** 0 of 16, outstanding.
 - **Demo videos:** TODO.
 
@@ -132,11 +145,36 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 
 **Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 4 of 60 items come from the team's lived experience of EMS, and three members have not signed off the newest items. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 28 cells no available tool could execute. *2 and 3 = 0*: §12 makes fabricated participants and cloud-lab screenshots grounds for voiding the task, and nothing has been substituted for the real fieldwork. A zero here is a true statement, not a low one. *4 = 4/10*: the aggregated log is complete and validated, but none of the 16 findings has been submitted to the Google Form yet, and that is half of what this criterion asks for. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
 
+## Submission checklist (§15)
+
+**Zip filename:** `23127184_HW03_AI_GUIUsability_EMS_<SelfAssessedGrade>.zip` — the grade is the
+3-digit total from the §16 table below, so at the current self-assessment it is
+`23127184_HW03_AI_GUIUsability_EMS_039.zip`. **Recompute the number and rename the file if the
+self-assessment changes before submitting.**
+
+| §15 required content | Where it is | State |
+| --- | --- | --- |
+| Main report, Markdown **and PDF** | `README.md` + `docs/01`, `docs/02` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
+| Scenario, the ≥ 3 screens and why | `README.md` header | Done |
+| Checklist-execution results per screen | `docs/02_Task1B_Execution_Report_ScenarioD.md` | Done |
+| Usability Report | `docs/03_Task2_Usability_Report_ScenarioD.md` | **Skeleton only — sessions not run** |
+| Cross-platform report | `docs/04_Task3_Cross_Platform_Matrix.md` | **Matrix planned, 0 cells captured** |
+| User-testing evidence: scenario · 5 masked participants · per-session notes · SUS responses · metrics · screen recordings | `docs/usability_testing/` · `reports/evidence_task2/` | **Instruments ready, all result tables empty** |
+| Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done; **0 of 16 submitted to the form** |
+| Cross-platform screenshots with the student-ID overlay | `reports/evidence_task3/` | **Empty** |
+| AI Critique and AI Audit Report, Markdown **and PDF** | `docs/07`, `docs/06` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
+| Git commit log, text file | `docs/08_Git_Commit_Log.txt` | **Regenerate after the final commits** — the current export predates this session |
+| Agent Skills + demo-video links | `.claude/skills/` · §8 below | Skills done; **video links TODO** |
+| README with the §16 self-assessment table and the test summary | this file | Done |
+
+Group-level artefacts (submitted once per group, §15): `docs/01_Task1A_Shared_GUI_Checklist.md`,
+`docs/checklist/Reference_Sources_and_Prompts.md` (reference sources **and** the AI prompt chain).
+
 ## §12 Anti-AI-Cheat compliance note
 
-This submission contains no fabricated Task 2 participants or session data, no fabricated Task 3 cross-platform screenshots, and no Task 1B result unbacked by real evidence from the live system. Where a deliverable could not be produced without violating §12, it is left as a clearly-marked template (`usability_testing/`, `cross_platform/`) rather than filled in with invented content. Where a check could not be run, the row says so and names who could run it, rather than being quietly marked Pass or N/A.
+This submission contains no fabricated Task 2 participants or session data, no fabricated Task 3 cross-platform screenshots, and no Task 1B result unbacked by real evidence from the live system. Where a deliverable could not be produced without violating §12, it is left as a clearly-marked template (`docs/usability_testing/`, `docs/04_Task3_Cross_Platform_Matrix.md`) rather than filled in with invented content. Where a check could not be run, the row says so and names who could run it, rather than being quietly marked Pass or N/A.
 
-One deliberate transparency note on §10: the prompts in `AI_Audit_Report.md` and `checklist/Reference_Sources_and_Prompts.md` are **normalised English renderings** of instructions originally given in mixed Vietnamese and English, written out in full so the scope and constraints of each request are legible. They are not raw transcripts, and both files say so at the top. No interaction is recorded that did not happen.
+One deliberate transparency note on §10: the prompt chain is **mixed**, and each prompt declares which kind it is. Prompts 1-4, 11 and 12 are **normalised English renderings** of instructions originally given in mixed Vietnamese and English, written out in full so the scope and constraints of each request are legible; they are not raw transcripts. Prompts 5-10 are recorded **verbatim in Vietnamese, exactly as typed**, with an English gloss beneath. An earlier version of this note claimed the whole chain was normalised English, which was wrong in both `docs/06_AI_Audit_Report.md` and `docs/checklist/Reference_Sources_and_Prompts.md`; corrected 2026-08-01. No interaction is recorded that did not happen.
 
 ## Agent Skills (§8)
 
@@ -144,4 +182,4 @@ Seven skills were built under `.claude/skills/` for this engagement (`web-ui-sur
 
 ## References
 
-See `checklist/Reference_Sources_and_Prompts.md` for the full source list (Nielsen, Norman, Shneiderman, WCAG 2.1, the course slides cited by page) and the complete AI prompt chain behind the checklist. See `AI_Audit_Report.md` for the interaction log across all tasks, including the human review outcome for each.
+See `docs/checklist/Reference_Sources_and_Prompts.md` for the full source list (Nielsen, Norman, Shneiderman, WCAG 2.1, the course slides cited by page) and the complete AI prompt chain behind the checklist. See `docs/06_AI_Audit_Report.md` for the interaction log across all tasks, including the human review outcome for each.
