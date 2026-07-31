@@ -1,5 +1,11 @@
-=== HW03 commit log (generated 2026-07-31 09:39 UTC) ===
+=== HW03 commit log (generated 2026-07-31 09:54 UTC) ===
 Repo: software__testing  ·  Path filter: HW03/  ·  Branch: main
+
+b6fe8fe  2026-07-31 16:54:08 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): normalize all hedged Result cells to bare Pass/Fail/N/A/Not executed
+
+5bdc270  2026-07-31 16:39:32 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): regenerate commit log after second conformance pass
 
 bedb5f4  2026-07-31 16:36:55 +0700  Lê Phạm Kiều Duyên
     fix(hw03): revert D3's IA04-11 substitution, matching D6's own correction
