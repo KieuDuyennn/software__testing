@@ -1,59 +1,125 @@
-# Bug & Usability Findings Log — Scenario D (Lê Phạm Kiều Duyên, 23127184)
+# Bug & Usability Findings Log: Scenario D (Lê Phạm Kiều Duyên, 23127184)
 
-> **§7 mandatory aggregated file.** Every finding here must also be submitted to the Google Form
-> (https://forms.gle/CJQFQCAXcsDbXDMM9) using the student-ID email, and the two must stay
-> consistent — the TA may cross-check counts.
+> **§7 mandatory aggregated file.** §7 requires every finding recorded here to be submitted to the
+> Google Form (https://forms.gle/CJQFQCAXcsDbXDMM9) from the student-ID email, and requires this
+> file and the form submissions to remain consistent, since the TA may cross-check the counts.
 >
-> **Status: 1 finding logged so far (2026-07-30), from a first live Task 1B pass.** Task 2 / Task 3
-> have not run yet. This file is validated by `.claude/skills/findings-log/scripts/check_findings.py`;
-> run it again after adding rows:
->
-> ```bash
-> python .claude/skills/findings-log/scripts/check_findings.py findings/Bug_Usability_Findings_Log.md --evidence-root .
-> ```
->
-> **Never add a row for something that was not actually observed and not actually submitted to
-> the form.** A finding invented to fill this table is worse than an empty one — see
-> `.claude/skills/findings-log/SKILL.md` §"What not to log".
+> **Status: 16 findings logged (2026-07-31), from a full Task 1B pass across all 60 items × all 6
+> screens.** The screens are D1 to D4, plus D5 (Notifications) and D6 (the attachment lightbox),
+> the latter two added once the group agreed the scenario's screen set was not fixed at four.
+> **Three findings were retracted before submission: D-013, D-014 and D-018.** D-014 fell on a
+> self-review of the log; D-013 and D-018 fell on a live re-verification against EMS on 2026-07-31,
+> which also narrowed D-016 to a single component. The three retraction notes sit below the findings
+> table, and the reasoning is set out under "Live re-verification" in
+> `../task1b_execution/Execution_Report_ScenarioD.md`. Task 2 and Task 3 have not run yet.
 
-## Totals (keep in sync with the table below)
+## Totals
 
-| Source | Bug — Blocker | Bug — Critical | Bug — Major | Bug — Minor | Bug — Trivial | Usability 4 | Usability 3 | Usability 2 | Usability 1 | Usability 0 | Total |
+| Source | Bug: Blocker | Bug: Critical | Bug: Major | Bug: Minor | Bug: Trivial | Usability 4 | Usability 3 | Usability 2 | Usability 1 | Usability 0 | Total |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Task 1B (checklist execution) | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| Task 1B (checklist execution) | 0 | 0 | 6 | 6 | 1 | 0 | 2 | 1 | 0 | 0 | 16 |
 | Task 2 (usability sessions) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Task 3 (cross-platform) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **Grand total** | **0** | **0** | **1** | **0** | **0** | **0** | **0** | **0** | **0** | **0** | **1** |
+| **Grand total** | **0** | **0** | **6** | **6** | **1** | **0** | **2** | **1** | **0** | **0** | **16** |
+
+Thirteen bugs (6 Major, 6 Minor, 1 Trivial) and three usability findings (two at severity 3, one at
+severity 2).
 
 ## Findings
 
-| ID | Scenario/Screen | Type | Description | Steps/Heuristic | Severity | Suggested fix | Screenshot ref | Form-submission timestamp |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| D-001 | D1 — `/complaints/new` | Bug | Selecting a value in the "Request type" dropdown and then clicking elsewhere within roughly the next second intermittently discards the selection (reverting to the placeholder and showing "Vui lòng chọn một mục trong danh sách") or silently swaps it for a different option the user never clicked — without the user reopening the dropdown or taking any dropdown action. | 1. Log in as a student, go to `/complaints/new`. 2. Click the "Request type" combobox, click "Support". 3. Immediately (within ~0.5 s) click into the "Issue requiring support" field below. 4. Observe: Request type reverts to the unselected placeholder and the required-field error appears (or the value silently changes to a different option), even though no dropdown interaction occurred in step 3. Reproduced twice this way; did not reproduce when a ~2 s pause was inserted between steps 2 and 3 — consistent with the dropdown's closing/blur transition still intercepting the next click for a short window. Related checklist items IA02-01 (required-field marking) and IA02-09 (submit blocked with a clear summary), though neither is a clean match — see `task1b_execution/Execution_Report_ScenarioD.md` §"Findings raised" for why this is logged standalone. | Major | Ensure the dropdown's option list is not pointer-interactive (or has released focus/blur handling) during its close transition, so a click immediately after selection lands on the intended next element rather than being absorbed by the closing listbox; and make sure the selected value is committed to form state synchronously on click, not after an animation-dependent timeout. | D1_IA02-01_requesttype_selected_before_blur.jpg, D1_IA02-01_requesttype_reset_after_blur.jpg | TODO |
+| ID | Scenario/Screen | Type | Description | Expected vs actual | Steps/Heuristic | Severity | Suggested fix | Evidence (screenshot ref) | Form-submission timestamp |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| D-001 | D1, `/complaints/new` | Bug | Selecting a value in the "Request type" dropdown and then clicking elsewhere within roughly the next second intermittently discards the selection (reverting to the placeholder and showing "Vui lòng chọn một mục trong danh sách") or silently swaps it for a different option the user never clicked, without the user reopening the dropdown or taking any dropdown action. | Expected: a value chosen in "Request type" stays chosen when the user clicks the next field. Actual: the value reverts to the unselected placeholder, or silently changes to an option the user never clicked. | 1. Log in as a student, go to `/complaints/new`. 2. Click the "Request type" combobox, click "Support". 3. Immediately (within ~0.5 s) click into the "Issue requiring support" field below. 4. Observe: Request type reverts to the unselected placeholder and the required-field error appears (or the value silently changes to a different option), even though no dropdown interaction occurred in step 3. Reproduced twice this way; did not reproduce when a ~2 s pause was inserted between steps 2 and 3, consistent with the dropdown's closing/blur transition still intercepting the next click for a short window. Related checklist items IA02-01 (required-field marking) and IA02-09 (submit blocked with a clear summary), though neither is a clean match, see `task1b_execution/Execution_Report_ScenarioD.md` §"Findings raised" for why this is logged standalone. | Major | Ensure the dropdown's option list is not pointer-interactive (or has released focus/blur handling) during its close transition, so a click immediately after selection lands on the intended next element rather than being absorbed by the closing listbox; and make sure the selected value is committed to form state synchronously on click, not after an animation-dependent timeout. | D1_IA02-01_requesttype_selected_before_blur.jpg, D1_IA02-01_requesttype_reset_after_blur.jpg | TODO |
+| D-002 | D1, `/complaints/new` | Bug | Attachment-rejection messages always name the rule broken but never the offending filename, across all three violation types the item requires testing: "Chỉ chấp nhận ảnh JPG, PNG, GIF và WEBP." (wrong type), "Mỗi ảnh phải có dung lượng không quá 5 MB." (oversize), "Bạn chỉ có thể tải lên tối đa 5 ảnh." (over count). One root cause (the rejection-toast component is never passed the filename), three instances, logged once per the merge rule. | Expected: the rejection message names the rule broken and the offending filename. Actual: it names only the rule, for all three violation types. | 1. Log in as a student, go to `/complaints/new`, scroll to Attachments. 2. Upload a `.pdf` → message names the rule, not the file. 3. Reload, upload a 6 MB `.jpg` → same pattern. 4. Reload, upload 6 valid `.png` files at once → same pattern. Checklist item IA02-01/IA02-04 expects "a message naming the rule broken **and the offending filename**". | Major | Pass the rejected `File` object's `.name` into the toast/banner component and interpolate it into all three existing message strings (e.g. "big.jpg, mỗi ảnh phải có dung lượng không quá 5 MB."). | D1_IA02-04_reject_messages_no_filename.jpg | TODO |
+| D-003 | D1, `/complaints/new` | Usability | Submitting the create-request form completely empty shows exactly one generic red banner ("Vui lòng nhập loại yêu cầu, vấn đề cần hỗ trợ và mô tả chi tiết.") positioned just above the Submit button, listing all three missing fields together, never an inline message beside each individual offending field. | Expected: an inline message beside each offending field, in plain language. Actual: one generic banner above the Submit button listing all three fields together, and nothing beside any field. | IA02-08 (Nielsen H9 / error-message placement): "The error appears inline beside the offending field in plain language, not only as one generic banner at the top." | 3 | Move the per-field validity state (already computed, since native `:invalid` is set on all three fields) into a small inline `<p>` under each offending field, keeping the summary banner as a secondary aid, not the only signal. | D1_IA02-08_generic_banner_not_inline.jpg | TODO |
+| D-004 | D1, `/complaints/new` | Bug | Typing text into "Detailed description" and then clicking the "← Quay lại" (Back) link navigates straight to `/complaints` with no unsaved-changes warning of any kind; the typed text is silently discarded. | Expected: an unsaved-changes confirmation before navigating away. Actual: immediate navigation to /complaints, typed text discarded with no warning. | 1. Log in as a student, go to `/complaints/new`. 2. Type any text into "Detailed description". 3. Click "← Quay lại" without saving. 4. Observe: immediate navigation to `/complaints`, no confirm dialog, text is gone. | Minor | Add a `beforeunload`/router-guard check: if any of the three text fields is non-empty and the form has not been submitted, show a "Discard changes?" confirm dialog before navigating away via any of the exit paths (Back link, sidebar, browser Back). | D1_IA02-13_back_no_warning_data_lost.jpg | TODO |
+| D-005 | D2 `/complaints`, D3 `/dashboard/admin/complaints` | Bug | The free-text search box ("Tìm theo tiêu đề hoặc mô tả" on D2, "Search name, email or title" on D3, the same shared component) drops keystrokes under a normal fast typing sequence. On D2, typing "Technology" left `input.value` (confirmed in DevTools) holding only the last character, `"y"`. On D3, typing "Technology" left the field completely **empty** (a stronger manifestation of the same defect: 0 characters survived, not 1). Both screens: typing the same characters with an explicit pause after each key accumulates correctly, and a **second** fast attempt on D3 (typing "Technology Day") succeeded completely, confirming the bug is genuinely intermittent/timing-dependent, not a hard 100%-reproducible break. One shared-component root cause, two screen instances, logged once per the merge rule, same family as D-001. | Expected: every character typed appears in the search box. Actual: characters are dropped under fast typing (only the last one survived on D2, none at all on D3). | 1. Log in as a student (D2) or admin (D3). 2. Click the search box, type a multi-character term at normal/fast typing speed. 3. Inspect `input.value` in DevTools: it holds fewer characters than typed (sometimes zero, sometimes only the last one). 4. Repeat with an explicit pause after each keystroke: value accumulates correctly every time observed. 5. Repeat the fast attempt again: sometimes succeeds fully, sometimes fails, confirming intermittency. | Major | Audit the shared search-box component's `onChange`/debounce handler for a stale-closure bug, a handler reading a previous render's state instead of the latest keystroke produces exactly this "some/all early keys lost" pattern under fast input; needs `useState` functional updates or a ref-backed debounce instead of a naive `setTimeout` capturing a stale closure. | D2_search_box_loses_keystrokes.jpg, D3_search_box_lost_all_chars.jpg | TODO |
+| D-006 | D2, `/complaints/{id}` | Bug | Pasting a non-existent support-request id directly (`/complaints/999999`) renders a correctly-structured "not found" state (icon + message, no blank screen/crash) but with the **wrong copy**: "Event review not found.", text that belongs to an unrelated feature (event reviews), evidently reused without updating for the complaints route. | Expected: a not-found message naming this route, e.g. "Support request not found." Actual: "Event review not found.", copy belonging to an unrelated feature. | 1. While logged in (student or admin), navigate directly to `/complaints/999999`. 2. Observe the red "!" icon and the message "Event review not found.", contrast with the correct-context messages used elsewhere on the same route family. | Minor | Give the complaints-detail 404 state its own copy, e.g. "Support request not found.", instead of sharing a generic not-found component pre-filled with event-review-specific text. | D2_IA03-07_wrong_not_found_message.jpg | TODO |
+| D-007 | D2 `/complaints/{id}`, D3 `/dashboard/admin/complaints/{id}`, D4 (same URL family as D3) | Usability | No breadcrumb exists anywhere on any support-request detail page (user or admin side), despite each being reached two levels deep (My Requests / Support requests list → request detail). Only a one-step "← Back"/"← Quay lại" link is present, which per the checklist's own distinction cannot express an ancestor path. One finding, three screen instances (D2, D3, D4 all share the same missing-breadcrumb pattern), logged once per the merge rule. | Expected: a breadcrumb exposing the ancestor path on a page reached two levels deep. Actual: no breadcrumb on any request-detail page, user or admin side; only a one-step Back link. | IA03-11 (Slides S13 p.17, Breadcrumb Navigation): "On a page reached through two or more levels, an ancestor path is exposed... Absence of any breadcrumb across a three-level hierarchy... is a Fail, not an N/A." Confirmed on `/complaints/25`, `/complaints/30` (user side) and `/dashboard/admin/complaints/22`, `/25`, `/30` (admin side). | 3 | Add a simple two-segment breadcrumb ("Support requests / #NN") above the "← Back" link on every request-detail page, each segment a real link to its ancestor. | D4_admin_resolved_response_sent.jpg (admin-side request-detail page, shows only the one-step "← Back" link and no breadcrumb; the same shared component renders D2's user-side detail page, which was not separately captured this session) | TODO |
+| D-008 | D3 `/dashboard/admin/complaints` (default 20; options 10/20/50/100), D2 `/complaints` (default 10; options 5/10/20) | Bug | The "Rows per page" dropdown cannot actually change its value **at all**, on either screen. On D3: clicking "10" (verified on-screen coordinates), a `form_input` DOM value-set (reported success but did not change the rendered value), and a direct `element.click()` on the live `<li role="option">` node all left the control at "20". On D2 (a **different default and option set**, but the same underlying component): clicking "20" and separately clicking "5" both left the control at "10", so this is not specific to the value "10" on D3, it is the shared Rows-per-page component failing to apply **any** selection on **any** screen it appears on. A workaround exists (next/prev page arrows still work, so the data is not unreachable), which keeps this Major rather than Blocker/Critical. Blocks IA02-12 (keyboard/mouse operability), IA03-06 (pagination-label correctness across a real second page) and IA04-07 (KPI-card totals vs. visible-page count) on D3, since none of those checks can force a smaller page size. | Expected: choosing a value in "Rows per page" changes how many rows the table shows. Actual: the control keeps its default on both screens, under every input method tried. | 1. Log in as admin, go to `/dashboard/admin/complaints`. 2. Click "Rows per page: 20", click "10". 3. Observe: dropdown closes, but "Rows per page" still reads "20". 4. Log in as a student, go to `/complaints`. 5. Click "Rows per page: 10", click "20" (then separately "5"). 6. Observe: still reads "10" either way. | Major | Instrument the shared rows-per-page `<Select>`'s `onChange`/`onSelectionChange` handler, since it fails identically on two independent instances with different default/option values, look for a bug in the shared component itself (e.g. the handler comparing against a stale prop, or an early-return guard that never actually fires the state update) rather than anything screen-specific. | D3_rows_per_page_stuck_at_20.jpg, D2_rows_per_page_stuck_at_10.jpg | TODO |
+| D-009 | D3, `/dashboard/admin/complaints` | Bug | Switching the Pending/Resolved status filter (clicking either summary-card button) silently clears the currently-active Member-code filter instead of preserving it, confirmed via the URL losing its `userMemberCode` param the moment the tab switch fires. | Expected: switching the Pending/Resolved tab preserves the active filters. Actual: the member-code filter is cleared and its URL parameter dropped. | 1. Log in as admin, go to `/dashboard/admin/complaints`. 2. Type a real member code (e.g. `23127184`) into "Member code", URL gains `?userMemberCode=23127184...`. 3. Click the "Resolved" summary-card button. 4. Observe: URL now reads `?tab=resolved` only, "Member code" field is empty, and the list shows all resolved requests from every requester, not just the filtered one. | Minor | When the tab-switch handler updates the `tab` query param, it should preserve all other existing filter params (`userMemberCode`, `category`, dates, search) rather than replacing the whole query string. | D3_tab_switch_clears_member_code_filter.jpg | TODO |
+| D-010 | D3, `/dashboard/admin/complaints` | Bug | A specific Category-dropdown interaction (re-opening the dropdown while a previous selection's request was still settling) sent `category=undefined` to the backend, which correctly rejected it, but the raw validation string ("category must be one of the following values: SUPPORT, COMPLAINT, CONTACT, OTHER") was shown directly to the admin as the on-page error banner, not wrapped in an admin-facing message. | Expected: no category parameter is sent when none is selected, and any validation failure is shown in admin-facing wording. Actual: category=undefined is sent, and the raw backend validation string is rendered as the on-page error banner. | 1. Log in as admin, go to `/dashboard/admin/complaints`, apply a Member-code filter. 2. Open the Category dropdown, select "Complaint", then before its result settles, reopen the dropdown again. 3. Observe the URL gain `category=undefined` and a red banner reading the raw backend validation string. 4. Selecting a real category value afterwards (e.g. "Support") clears the error and filters correctly, confirming the category filter itself works once given a valid value. | Minor | Client-side, never send `category=undefined` to the API, omit the param entirely when no category is selected, matching "All categories"; server-side, wrap validation-error responses in a generic user-facing message rather than passing the raw `class-validator`-style string straight to the UI. | D3_category_undefined_raw_backend_error.jpg | TODO |
+| D-011 | D3, `/dashboard/admin/complaints` | Bug | Clicking "Export Excel" produces zero visible UI feedback of any kind (no busy state, no toast, no completion banner) even though the request succeeds server-side (`GET /api/complaints/admin/complaints/export?status=PENDING` → 200, confirmed via the Network tab). The export's scope is also silently implicit: it exported only the currently-active status tab's rows, with nothing on screen telling the admin this was a partial, filtered export rather than the whole dataset. | Expected: a visible busy state on click and a completion message stating what was exported. Actual: no visible change of any kind, and the export is silently limited to the active status tab. | 1. Log in as admin, go to `/dashboard/admin/complaints` (default/Pending tab active). 2. Open DevTools → Network, click "Export Excel". 3. Observe: request appears and succeeds (200), but the page itself shows no busy indicator, toast, or any other acknowledgement that anything happened; the exported query is scoped to `status=PENDING` with no on-screen statement of that scope. | Major | Add a visible busy state on click (spinner/disabled button) and a completion toast ("Export ready, X requests, Pending only.") that explicitly states the scope actually exported. | (Network-tab evidence only; no distinct on-screen visual to capture since the defect is precisely the *absence* of any visible change) | TODO |
+| D-012 | D1, `/complaints/new` | Usability | Pressing Enter does nothing (no submit, no navigation) in either the single-line "Vấn đề cần hỗ trợ" input or the multi-line "Mô tả chi tiết" textarea on the create-request form. Logged for the group's awareness rather than as a clear-cut defect: IA02-10 literally expects Enter to trigger the primary submit action on the last field of a multi-field form, but auto-submitting on Enter inside a multi-line description field would itself be a usability regression (users need line breaks), flagging the tension in the checklist item's wording for this screen type, not asserting a shipped bug. | Expected, per IA02-10: Enter triggers the primary submit action from the form fields. Actual: Enter does nothing in either the single-line or the multi-line field. Recorded as a tension in the item wording rather than a shipped defect, since Enter-to-submit inside a description textarea would itself be poor design. | IA02-10 (Norman P4 Mapping / keyboard convention): "Enter triggers the primary submit/search action... and never... a page reload that loses input", the "never loses input" half holds; the "triggers submit" half does not, arguably correctly. | 2 | If the group intends Enter-to-submit for this screen, wire it explicitly to the single-line field only (not the textarea); if not, consider revising the checklist item's wording to exempt multi-line fields explicitly rather than leaving the tension implicit. | (no screenshot, the defect is the absence of a state change, which a static image cannot usefully show) | TODO |
+| D-015 | D5, `/notifications` (bell dropdown + full list) | Bug | Every "new complaint" notification (type `COMPLAINT_UPDATED`, e.g. "Khiếu nại mới từ ...") renders its list-view summary line as `Update on complaint "":` / `Cập nhật khiếu nại "":`, an always-empty complaint title, in both English and Vietnamese. Root cause confirmed via the raw API: this notification type's `metadata` never includes a `complaintTitle` field (only `complaintId`, `studentId`, `studentName`, `category`, `legacyType`), yet the list-item template reads exactly that missing field. The data is not actually lost: the notification's own `content` string ("Sinh viên ... đã gửi khiếu nại: Test H") and the dedicated `/notifications/{id}` detail page both show the correct complaint reference, only the list-view summary line is broken. The same notification's category badge is separately mislabelled "Event update" for what is a Complaint-type item, consistent with the same underlying type-mapping never being finished for this notification type. | Expected: the list-view summary shows the complaint title, as the sibling notification type already does. Actual: it shows empty quotes, in both languages, and the category badge reads "Event update" on a Complaint-type item. | 1. Log in as admin, open the bell dropdown or `/notifications`. 2. Find any "Khiếu nại mới từ ..." row. 3. Observe "Update on complaint "":" with empty quotes. 4. Toggle EN/VI: the same empty-quotes bug persists as "Cập nhật khiếu nại "":", ruling out a translation-only issue. 5. Click "..." → "View details": the detail page's "Content" field shows the correct, non-empty complaint reference. | Major | Populate `complaintTitle` in this notification type's metadata at creation time (matching what `COMPLAINT_REPLIED` already does correctly), or have the list-item template fall back to parsing the already-correct `content` string when `complaintTitle` is absent; fix the category-badge label mapping for this type in the same pass. | D5_dropdown_resting.jpg, D5_notification_detail_correct_content.jpg, D5_i18n_vietnamese_full.jpg (the empty `"":"` quotes visible on the "Khiếu nại mới từ..." row) | TODO |
+| D-016 | D5, header notification bell dropdown | Bug | Pressing Escape does not close the header notification dropdown. The panel stays fully open and is visually identical before and after, and repeated presses make no difference: re-verified on 2026-07-31 by pressing Escape three times in succession with the panel open. The dropdown's own "X" control closes it correctly and is keyboard-focusable, and clicking outside the panel also closes it, so only the Escape shortcut is missing. **Scope deliberately limited to this one component.** The attachment image lightbox (D6) was tested for the same defect and does **not** exhibit it: Escape closes the lightbox on the first press, confirmed on complaints 25 and 26. An earlier version of this finding claimed both overlays were affected and attributed them to one shared handler; the live re-verification refuted that, and the negative result is recorded here so the finding is not read more broadly than the evidence supports. | Expected: Escape dismisses the open notification dropdown, the convention the product's other overlay (the attachment lightbox) already follows. Actual: the dropdown stays fully open, on the first press and on every subsequent press. | 1. Log in, click the header bell icon to open the notification dropdown. 2. Press Escape. 3. Observe: the panel remains fully open, identical before and after. 4. Press Escape twice more: still open. 5. Click the visible X, or click outside the panel: closes correctly either way, confirming only the Escape path is affected. | Minor | Add an Escape handler to the notification dropdown, bound at the document level while the panel is mounted, matching the behaviour the attachment lightbox already has. Rated Minor rather than higher because a keyboard user can still Tab to the close control and activate it, and because the equivalent overlay elsewhere in the product behaves correctly, so this is a single missing handler rather than a product-wide convention gap. | D5_esc_does_not_close_dropdown.jpg | TODO |
+| D-017 | D5, `/notifications` | Bug | Clicking "..." → "Delete" on a notification removes it from the list **immediately**, with no confirmation dialog, no "this cannot be undone" wording, and no undo affordance of any kind. | Expected: a confirmation step or an undo window before a destructive delete. Actual: the row disappears the instant Delete is clicked, with no intermediate step and no way back. | 1. Log in, open `/notifications`. 2. Click "..." on any notification row, click "Delete". 3. Observe: the row disappears instantly with zero intermediate step. | Minor | Add a confirmation step (dialog, or an "Undo" toast with a short window) before or immediately after a destructive delete, consistent with IA04-03's expectation for destructive actions elsewhere in the product. | D5_delete_no_confirmation.jpg | TODO |
+| D-019 | D5 `/notifications`, D2 `/complaints/{id}` | Bug | The browser tab `<title>` stays in Vietnamese even after switching the language toggle back to English, while every visible in-page label is already correctly in English at the same moment. Confirmed on `/notifications` ("Thông báo \| HCMUS EMS") via a direct `document.title` read taken at the same instant as the English-rendered screenshot, and independently on `/complaints/{id}` ("Chi tiết yêu cầu \| HCMUS EMS") on live re-verification (2026-07-31), where the page body was fully English but the tab title stayed Vietnamese. Two independent routes sharing the same defect, one finding. | Expected: the browser tab title follows the active language, as every in-page label does. Actual: on `/notifications` it stays "Thông báo \| HCMUS EMS"; on `/complaints/{id}` it stays "Chi tiết yêu cầu \| HCMUS EMS"; both while the page body is fully English. | 1. Log in, go to `/notifications`. 2. Toggle to Vietnamese, then back to English. 3. Read `document.title` in DevTools: still "Thông báo \| HCMUS EMS" despite the page body being fully English. 4. Repeat on `/complaints/{id}`: `document.title` stays "Chi tiết yêu cầu \| HCMUS EMS" under the same conditions. | Trivial | These routes' `<title>` are likely set once server-side rather than reading the active locale on client-side language switches; wire both to the same i18n state the rest of the page already uses correctly. | D5_title_tag_stuck_vietnamese.jpg | TODO |
 
-### Column guide (§7 required columns)
+### Retracted findings
 
-- **ID** — stable, never reused. Use `D-001`, `D-002`, … (scope-prefixed with `D` since this is the
-  Scenario-D log; keeps IDs distinguishable from teammates' A-/B-/C- logs if merged at group level).
-- **Scenario/Screen** — `D1` / `D2` / `D3` / `D4`, or the usability-session task / cross-platform
-  cell it came from.
-- **Type** — `Bug` (behaves contrary to spec or breaks) or `Usability` (works, but costs the user).
-  Different severity scale each — see below.
-- **Description** — one or two sentences, quoting the app's own strings exactly.
-- **Steps/Heuristic** — for a `Bug`: numbered repro steps from a known state (URL, account, role,
-  precondition). For a `Usability` finding: the heuristic or checklist item it violates (e.g.
-  `IA04-14`, `Nielsen H1`).
-- **Severity** — **Bug**: Blocker / Critical / Major / Minor / Trivial. **Usability**: 0–4
-  (Nielsen). Never blend the two scales in one column.
-- **Suggested fix** — concrete enough to argue with, not "improve UX."
-- **Screenshot ref** — a filename that actually exists under `task1b_execution/evidence/`,
-  `usability_testing/evidence/`, or `cross_platform/evidence/`.
-- **Form-submission timestamp** — fill in only after the finding has actually been submitted to
-  the Google Form; leave `TODO` until then, never a fabricated timestamp.
+Three findings were withdrawn before any Google Form submission was made, so nothing needs
+reconciling on the form side. Each ID is retired rather than reassigned, under the rule that a
+finding ID is never reused. They are kept visible here rather than deleted, because what was
+claimed and why it did not survive is part of the record.
 
-### Severity scales (do not mix)
+> **D-013 retracted (2026-07-31), on live re-verification.**
+> Originally logged as a Usability 1: the attachment image lightbox needed two Escape presses to
+> close on the admin side (D3 and D4) against one on the user side (D2), which was written up as a
+> timing inconsistency in the Escape listener. Re-tested against the live system on the student's
+> authenticated admin session: the lightbox was opened on complaint 25 and Escape pressed with
+> focus untouched, and it closed on the **first** press. It was reopened, the image inside the
+> modal was clicked, Escape was pressed again, and it closed on the first press once more. On
+> complaint 26 the lightbox likewise closed on the first press. The two-press behaviour did not
+> reproduce under any of these conditions. A single unreproducible observation is not a finding.
 
-**Bug** — impact on function:
+> **D-014 retracted (2026-07-31), on self-review of the log.**
+> Originally logged as: the Requester-information panel showing "Tôi là Admin" instead of a real
+> name. On review, `<p class="...">Tôi là Admin</p>` is a single flat text node, not a static
+> "Tôi là {role}" template wrapping a separate name field, so this is almost certainly just the
+> literal display name this test/seed admin account was actually given (a quirky but genuine
+> value), not a UI-label string that leaked into a data field. The live re-verification supports
+> this: on complaint 25 the same panel renders "DUYÊN LÊ PHẠM KIỀU" with the correct email and
+> member code, so the field does display a real name whenever the account has one.
+
+> **D-018 retracted (2026-07-31), on live re-verification. This was the most severe finding in the
+> log, rated Critical, and it was wrong.**
+> Originally logged as: on complaint 26 the attachment lightbox opens but the image content never
+> renders, with the supporting claims that "zero network requests were ever issued for the
+> attachment" and that "no `<img>` element matching the expected content exists in the DOM", from
+> which the conclusion was drawn that the source URL never reaches the render step. **Both of those
+> claims are factually wrong.** The re-verification found the `<img>` element present in the DOM
+> with `alt="attachment_1"`, its `src` pointing at
+> `/data/event-storage/uploads/complaints/17/...-d1-test-upload.png`, and the browser reporting
+> `complete: true`. Fetching that URL directly returns **HTTP 200**, `content-type: image/png`, and
+> a body of **68 bytes** whose PNG header decodes to `IHDR width=1 height=1`. The stored file is a
+> 1 by 1 pixel PNG. The lightbox was rendering it correctly the whole time; a 1 by 1 image scaled
+> into a large pane simply looks blank. The filename indicates a synthetic placeholder uploaded
+> during the D1 upload test rather than real user evidence, so the blank pane traces to the test
+> data, not to the product. No defect remains.
+
+### Column guide
+
+The table above carries the nine columns §7 requires, plus **Expected vs actual**, which §6 Part B
+requires for every bug report.
+
+- **ID**: stable and never reused, in the form `D-001`, `D-002` and so on. The `D` prefix is the
+  scenario, which keeps these IDs distinguishable from teammates' A, B and C logs if the group
+  merges them.
+- **Scenario/Screen**: `D1` through `D6`, or the usability-session task or cross-platform cell the
+  finding came from.
+- **Type**: `Bug` (behaves contrary to spec, or breaks) or `Usability` (works, but costs the user).
+  Each type is rated on its own severity scale, below.
+- **Description**: one or two sentences, quoting the application's own strings exactly.
+- **Expected vs actual**: the behaviour the checklist item or the product's own convention leads a
+  user to expect, set against what the screen actually did.
+- **Steps/Heuristic**: for a `Bug`, numbered reproduction steps from a known state (URL, account,
+  role, precondition). For a `Usability` finding, the heuristic or checklist item it violates, for
+  example `IA04-14` or `Nielsen H1`.
+- **Severity**: for a `Bug`, Blocker / Critical / Major / Minor / Trivial. For a `Usability`
+  finding, Nielsen 0 to 4. The two scales are never blended in one column.
+- **Suggested fix**: a specific, arguable change rather than a general aspiration.
+- **Evidence (screenshot ref)**: a filename that exists under `task1b_execution/evidence/`,
+  `usability_testing/evidence/`, or `cross_platform/evidence/`. Where a defect is the *absence* of
+  any visible change, the cell says so and cites the DevTools evidence instead.
+- **Form-submission timestamp**: the time at which the finding was submitted to the §7 Google Form.
+  `TODO` marks a finding that is logged here but not yet submitted.
+
+### Severity scales
+
+The two scales below are never mixed in one column.
+
+**Bug**: impact on function:
 
 | | Meaning |
 | --- | --- |
@@ -63,22 +129,25 @@
 | Minor | Small deviation, easily worked around |
 | Trivial | Cosmetic, no functional effect |
 
-**Usability** — Nielsen 0–4, judged on frequency + impact + persistence together:
+**Usability**: Nielsen 0-4, judged on frequency + impact + persistence together:
 
 | | Meaning |
 | --- | --- |
 | 0 | Not a usability problem |
-| 1 | Cosmetic — fix if time permits |
-| 2 | Minor — low priority |
-| 3 | Major — important to fix, high priority |
-| 4 | Catastrophe — imperative to fix before release |
+| 1 | Cosmetic, fix if time permits |
+| 2 | Minor, low priority |
+| 3 | Major, important to fix, high priority |
+| 4 | Catastrophe, imperative to fix before release |
 
-An accessibility defect that removes the *only* path for a group of users (e.g. a modal that
-ignores ESC for a keyboard-only user) is rated Major/3 at minimum, regardless of how few people it
-"functionally" blocks — see `.claude/skills/findings-log/SKILL.md` §"Accessibility findings are
-rated from the barrier, not from the flow".
+An accessibility defect that removes the *only* path for a group of users (for example a modal
+that ignores ESC for a keyboard-only user) is rated from the barrier it creates, not from how many
+people it blocks: Major, or usability severity 3, at minimum.
 
 ## Cross-cutting causes
 
-_(Fill in once findings exist: which two or more findings share one underlying root cause, so a
-reviewer sees the few structural fixes behind the list rather than N unrelated rows.)_
+- **Shared-component regressions rather than per-screen bugs.** D-005 (search box drops keystrokes) and D-008 (rows-per-page cannot be changed) each surfaced identically on two different screens with two different data/option configurations, strong evidence that the fix belongs in one shared component (a search-input and a `<Select>`), not in per-screen code. D-008's D5 counter-example (the same *kind* of rows-per-page control works correctly on `/notifications`) further narrows the fault to the specific list-table component D2/D3 both use, not every instance of the control in the product.
+- **A stale-closure/timing pattern recurring across unrelated inputs.** D-001 (Request-type dropdown reverting on a fast next click) and D-005 (search box losing keystrokes on fast typing) both look, mechanically, like a handler capturing a stale value inside a closure/debounce that a fast subsequent event outruns. Worth a single audit pass across the app's input/debounce utilities rather than fixing each call site separately.
+- **One overlay missing an Escape handler, not a product-wide convention gap, and the difference only became clear on re-verification.** D-013 and D-016 were originally logged as two symptoms of one shared handler bound inside the dialog subtree, an explanation that fitted the notes and was wrong. Re-testing both overlays live showed the attachment lightbox closes on the first Escape press under every condition tried, while the notification dropdown ignores Escape entirely. So D-016 is a single missing handler on one component, D-013 does not reproduce at all, and the product does have a working Escape convention that this one dropdown is outside of. The generalisable point is about method rather than about the product: a root cause that unifies two findings is an attractive story, and attractive stories need testing before they are written down.
+- **Test data can look exactly like a defect.** D-018 was rated Critical on the strength of a blank image pane, and the stored file turned out to be a valid 68 byte, 1 by 1 pixel PNG that the product rendered correctly. Nothing on screen distinguishes "the viewer is broken" from "the file is one pixel", which is worth noting as a genuine, if minor, observability gap. It is not logged as a finding, because the only observed instance was a placeholder the testing itself uploaded.
+- **Destructive actions with no confirmation step, product-wide.** D-017 (delete a notification) joins a pattern already implicit in IA04-03's own scope, worth checking whether other quiet-delete affordances exist elsewhere (row-level deletes on Users Management, Events Management) that this session did not re-test.
+- **Notification metadata that was only finished for one of two message types.** D-015's empty-title bug and its sibling mislabelled category badge both stem from the same root cause: `COMPLAINT_UPDATED` notifications were never given the same metadata completeness as `COMPLAINT_REPLIED` notifications, even though both are rendered by the same list-item template. One field-population fix (or one template fallback) closes both symptoms at once.
