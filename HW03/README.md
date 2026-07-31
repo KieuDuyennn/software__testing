@@ -13,7 +13,7 @@
 ```
 HW03/
 ├── README.md                              ← this file
-├── AI_Audit_Report.md                     ← §10 mandatory appendix (16 AI interactions, prompts, human review)
+├── AI_Audit_Report.md                     ← §10 mandatory appendix (17 AI interactions, prompts, human review)
 ├── AI_Critique.md                         ← §11 mandatory 200-300 word critique
 ├── Git_Commit_Log.txt                     ← §13 mandatory commit log export (HW03-scoped)
 ├── checklist/                             ← Task 1 Part A, group deliverable
