@@ -493,8 +493,58 @@ particular, the still-`PENDING` majority of the 60×4 execution matrix, Task 2 r
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, 108 executed, 16 findings. This row read "partially started" until the full pass finished; corrected 2026-08-01. |
 | Task 2 — user testing with 5 real participants, Usability Report | Designed, not run — Phase 1 instruments complete (`docs/usability_testing/`), 0 participants recruited                     |
-| Task 3 — cross-browser / cross-platform matrix                   | Planned, not run — 20-cell matrix and run plan ready (`docs/cross_platform/00_Run_Plan.md`), 0 cells captured               |
+| Task 3 — cross-browser / cross-platform matrix                   | Planned, not run — 24-cell matrix and run plan ready (`docs/cross_platform/00_Run_Plan.md`), 0 cells captured               |
 | §7 — Google Form submissions and the aggregated findings log    | **16 findings logged** (D-001…D-019, with D-013/D-014/D-018 retracted); Google Form submission still TODO for all 16. This row read "1 finding" until the full pass finished; corrected 2026-08-01. |
 | §8 — Agent Skill and demo video                                 | Skills built and used (`gui-checklist-execution`, `findings-log`, Interaction 13); demo video links TODO              |
 
 Append an interaction entry to §2 for every AI session on the tasks above, following the same format: tool, date/time, verbatim prompt, AI output, human review and action taken.
+
+
+---
+
+## 6. Human review sign-off
+
+§2 of the assignment makes human review of every AI result mandatory, and §10 requires the process
+to be logged. §2 of this file records, per interaction, what was checked and what was accepted,
+rejected or later overturned. This section is the countersignature: who actually did that review,
+and on what.
+
+**Fill each row in yourself. Leave a row blank rather than signing for someone who has not read the
+material — a signature is the one thing in this appendix that cannot be reconstructed afterwards,
+and the value of the whole section rests on every filled row being true.**
+
+### Individual review (Scenario D owner)
+
+| Interactions | Reviewed by | Student ID | Date | What the reviewer personally checked against | Signature |
+| --- | --- | --- | --- | --- | --- |
+| 1-12 (Task 1A) | Lê Phạm Kiều Duyên | 23127184 | | | |
+| 13 (Task 1B first pass) | Lê Phạm Kiều Duyên | 23127184 | | | |
+| Reorganisation + Task 2/3 planning, 2026-08-01 | Lê Phạm Kiều Duyên | 23127184 | | | |
+
+The *What the reviewer personally checked against* column is the one a marker reads: name the
+independent thing consulted — the live EMS, a screenshot, the slide PDF, the assignment text — not
+"the AI output looked correct". This project already contains the strongest example of why: three
+findings were retracted only when the claims were re-tested against the live product, after
+explanations that reconciled the documents with each other had already been written and were wrong.
+
+### Group countersignature (Task 1A is a group deliverable)
+
+Checklist v1.9 and the §5 scenario split are currently described as committed on one member's word.
+The other three members have recorded no agreement anywhere in this repository.
+
+| Member | Student ID | Reviewed checklist v1.9 (60 items) | Agrees the §5 scenario split | Date | Signature |
+| --- | --- | --- | --- | --- | --- |
+| Lê Phạm Kiều Duyên | 23127184 | | | | |
+| Nguyễn Thành Tiến | 23127128 | | | | |
+| *(member 3)* | | | | | |
+| *(member 4)* | | | | | |
+
+### Still outstanding on this appendix
+
+| # | Item | Owner | Why it matters |
+| --- | --- | --- | --- |
+| 1 | The **Date / time** field of every interaction records the date only; the time reads `TBD` | Scenario D owner | §10 asks for date **and** time. Recover the real clock times from the Claude Code session history — do not estimate them. |
+| 2 | Interactions for the 2026-08-01 reorganisation and the Task 2 / Task 3 planning are not yet written up as numbered entries | Scenario D owner | The artefacts exist and are named in the Path note and in `README.md`; the numbered entries are the part still missing. |
+| 3 | Group countersignature above | All four members | §16 criterion 1a grades a group deliverable. |
+| 4 | Once Task 2 runs: an entry stating explicitly that **the sessions and participants were not AI-produced** | Scenario D owner | §12. The TA may phone 2 of the 5 participants. |
+| 5 | Once Task 3 runs: an entry stating the captures were produced by a person on real environments, plus the §9 declaration of the cloud-lab tool actually used | Scenario D owner | §9 and §12. |
