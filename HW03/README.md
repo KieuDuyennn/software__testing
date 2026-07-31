@@ -47,7 +47,7 @@ HW03/
 | Task | Status |
 | --- | --- |
 | **1A**: Shared checklist (group) | **Done.** v1.9, 60 items across all four IA aspects; sources, traceability tables and the full prompt chain logged. Two gaps stated openly rather than closed on paper: only 4 of 60 items are grounded in the team's own EMS experience (the "pillar 4" gap, retargeted to v2.0), and the 7 newest items still need sign-off from the other three members. |
-| **1B**: Execution on D1-D6 | **Done.** All 60 items run against all 6 screens (360 item×screen cells), screen by screen on the live system. 136 applicable · **109 executed** · 92 Pass · 17 Fail · 224 N/A-with-reason · 27 not executed, each with a named cause and a named owner. 16 findings stand, every Fail backed by a screenshot or DevTools evidence. Three further findings were raised and then retracted after being re-tested against the live product. |
+| **1B**: Execution on D1-D6 | **Done.** All 60 items run against all 6 screens (360 item×screen cells), screen by screen on the live system. 136 applicable · **108 executed** · 92 Pass · 16 Fail · 224 N/A-with-reason · 28 not executed, each with a named cause and a named owner. 16 findings stand, every Fail backed by a screenshot or DevTools evidence. Three further findings were raised and then retracted after being re-tested against the live product. |
 | **2**: User testing, 5 real users | **Not started.** No real participants recruited. Templates for the task scenario, participant table, SUS instrument, metrics table and report are ready in `usability_testing/`; the §12 note below explains why they cannot be filled in without real sessions. **Scoped to D1-D4**, not the D5/D6 extension: `Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
 | **3**: Cross-platform matrix | **Not started.** No BrowserStack/LambdaTest run yet. Coverage-floor template ready in `cross_platform/`. **Scoped to D1-D4** for the same reason as Task 2: the matrix targets the four committed screens, not D5/D6. |
 | **§7**: Findings Log + Google Form | **16 findings logged**, deduplicated and severity-rated. **Google Form submission: TODO for all 16.** The log's `Form-submission timestamp` column reads `TODO` on every row because no finding has been submitted yet. The TA may cross-check counts against the form. |
@@ -63,13 +63,13 @@ Executed against the live EMS at `https://prod-dev.ems-fitus.cloud/` (the assign
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | D1 | 60 | 19 | 17 | 13 | 4 | 41 | 2 |
 | D2 | 60 | 22 | 20 | 16 | 4 | 38 | 2 |
-| D3 | 60 | 35 | 29 | 24 | 5 | 25 | 6 |
+| D3 | 60 | 35 | 28 | 24 | 4 | 25 | 7 |
 | D4 | 60 | 28 | 20 | 19 | 1 | 32 | 8 |
 | D5 | 60 | 23 | 18 | 15 | 3 | 37 | 5 |
 | D6 | 60 | 9 | 5 | 5 | 0 | 51 | 4 |
-| **Total** | **360** | **136** | **109** | **92** | **17** | **224** | **27** |
+| **Total** | **360** | **136** | **108** | **92** | **16** | **224** | **28** |
 
-N/A is never counted as a Pass, and every N/A carries a one-line reason. The 27 not-executed cells are mostly one tooling gap (DevTools Network throttling and offline mode, which the browser-automation tool set cannot drive) plus a deliberate refusal to run destructive checks on a live system holding other students' data; each is listed in the report with who could run it.
+N/A is never counted as a Pass, and every N/A carries a one-line reason. The 28 not-executed cells are mostly one tooling gap (DevTools Network throttling and offline mode, which the browser-automation tool set cannot drive) plus a deliberate refusal to run destructive checks on a live system holding other students' data; each is listed in the report with who could run it.
 
 ### Findings: 16 total
 
@@ -108,7 +108,7 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 - **Scenario chosen:** D: User requests Support, Admin resolves.
 - **Screens tested:** D1, D2, D3, D4, D5, D6 (6, ≥ 3 required).
 - **Checklist items designed:** 60 (group checklist, all four IA aspects).
-- **Item × screen cells resolved:** 360 designed → 136 applicable → **109 executed** (92 Pass / 17 Fail), 27 not executed with named causes.
+- **Item × screen cells resolved:** 360 designed → 136 applicable → **108 executed** (92 Pass / 16 Fail), 28 not executed with named causes.
 - **Bugs found:** 13 (0 Critical, 6 Major, 6 Minor, 1 Trivial).
 - **Usability issues found:** 3 (two at severity 3, one at severity 2).
 - **Findings retracted:** 3 (D-013 and D-018 on live re-verification against EMS, D-014 on self-review); D-016 narrowed to one component on the same live re-verification.
@@ -130,7 +130,7 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 | 5 | Agent Skills | 10 | 8 |
 | | **Total** | **100** | **39** |
 
-**Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 4 of 60 items come from the team's lived experience of EMS, and three members have not signed off the newest items. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 27 cells no available tool could execute. *2 and 3 = 0*: §12 makes fabricated participants and cloud-lab screenshots grounds for voiding the task, and nothing has been substituted for the real fieldwork. A zero here is a true statement, not a low one. *4 = 4/10*: the aggregated log is complete and validated, but none of the 16 findings has been submitted to the Google Form yet, and that is half of what this criterion asks for. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
+**Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 4 of 60 items come from the team's lived experience of EMS, and three members have not signed off the newest items. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 28 cells no available tool could execute. *2 and 3 = 0*: §12 makes fabricated participants and cloud-lab screenshots grounds for voiding the task, and nothing has been substituted for the real fieldwork. A zero here is a true statement, not a low one. *4 = 4/10*: the aggregated log is complete and validated, but none of the 16 findings has been submitted to the Google Form yet, and that is half of what this criterion asks for. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
 
 ## §12 Anti-AI-Cheat compliance note
 
