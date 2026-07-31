@@ -1,5 +1,29 @@
-=== HW03 commit log (generated 2026-07-31 09:54 UTC) ===
-Repo: software__testing  ·  Path filter: HW03/  ·  Branch: main
+=== HW03 commit log (generated 2026-07-31 18:54 UTC) ===
+Repo: software__testing  ·  Path filter: HW03/  ·  Branch: duyen/hw3
+
+0356bc4  2026-08-01 01:54:25 +0700  Lê Phạm Kiều Duyên
+    build(hw03): add the §15 PDF exports and their build script
+
+86a72e7  2026-08-01 01:54:25 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): close §9/§10/§15 gaps in the audit report and README
+
+b11eadf  2026-08-01 01:54:24 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): repair conformance defects found by independent audit
+
+b6e8e54  2026-08-01 01:53:33 +0700  Lê Phạm Kiều Duyên
+    feat(hw03): plan Task 3 as a 24-cell matrix, one row above the floor
+
+6d11b35  2026-08-01 01:53:33 +0700  Lê Phạm Kiều Duyên
+    feat(hw03): complete the Task 2 Phase-1 instruments
+
+f4148dc  2026-08-01 01:53:14 +0700  Lê Phạm Kiều Duyên
+    chore(hw03): regroup flat root into docs/, reports/, refs/
+
+3ab2caf  2026-07-31 18:14:03 +0700  Lê Phạm Kiều Duyên
+    chore(hw03): add Google Form reference screenshot, ignore personal working aids
+
+4882639  2026-07-31 16:54:15 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): regenerate commit log after hedged-verdict cleanup
 
 b6fe8fe  2026-07-31 16:54:08 +0700  Lê Phạm Kiều Duyên
     fix(hw03): normalize all hedged Result cells to bare Pass/Fail/N/A/Not executed
@@ -201,3 +225,5 @@ b94513d  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
 
 239c466  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
     chore(hw03): ignore Python bytecode caches
+
+=== 75 commits touching HW03/ on duyen/hw3 ===
