@@ -243,7 +243,7 @@ The capacity figures above are still useful: they confirm the shape of the data 
 
 | Property | Observed |
 | --- | --- |
-| Title | `Chi tiết sự kiện | HCMUS EMS`, **Vietnamese title, English body** |
+| Title | `Chi tiết sự kiện \| HCMUS EMS`, **Vietnamese title, English body** |
 | Back control | **"Back to events"** present |
 | Breadcrumb | 0 |
 | Tabs | 0 (`role="tab"`) |
@@ -298,8 +298,8 @@ Updated v1.7 against the screenshot set:
 | --- | --- |
 | Registration form · ticket · post-event review | **Covered**: captured from the student account (§13). Registration is inline on the event detail page |
 | Admin **Edit-user dialog** | **Covered**: `Admin_C3_UserDialog.png`, contents in §11 |
-| Support-request **detail** page + image lightbox | **Closed during Task 1B.** `User_D2_SupportDetail_Response.png` is still mis-named (it shows the **My Requests list**, `/complaints`, not the detail with the official response), but the detail page and the lightbox were both added as full screens (D5, D6) with their own evidence set once execution reached them, see `task1b_execution/Execution_Report_ScenarioD.md` and the 32 captures under `task1b_execution/evidence/`; IA03-10 now has real evidence there |
-| Admin support-request detail (internal note, official response) | **Still not captured**: §5 D4 |
+| Support-request **detail** page + image lightbox | **Closed during Task 1B.** `User_D2_SupportDetail_Response.png` is still mis-named (it shows the **My Requests list**, `/complaints`, not the detail with the official response), but the detail page and the lightbox were both added as full screens (D5, D6) with their own evidence set once execution reached them, see `docs/02_Task1B_Execution_Report_ScenarioD.md` and the 32 captures under `reports/evidence_task1b/`; IA03-10 now has real evidence there |
+| Admin support-request detail (internal note, official response) | **Closed during Task 1B** (correction 2026-08-01, this row previously still read "Still not captured"). D4 was executed as a full screen against the live system: see `docs/02_Task1B_Execution_Report_ScenarioD.md` §"Results: D4" and `reports/evidence_task1b/D4_admin_resolved_response_sent.jpg`, plus `D2_detail_resolved_response_no_internal_note_leak.jpg` for the user-side half of IA04-14. No Task 1A survey capture of this page exists, and none is now needed |
 
 Also unsurveyed and worth a look before Task 1B: the **Check-in tab** (IA04-09 depends on it), and the `Analytics` / `Settings` sidebar accordions.
 
