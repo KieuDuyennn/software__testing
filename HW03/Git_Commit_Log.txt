@@ -1,5 +1,17 @@
-=== HW03 commit log (generated 2026-07-31 09:26 UTC) ===
+=== HW03 commit log (generated 2026-07-31 09:39 UTC) ===
 Repo: software__testing  ·  Path filter: HW03/  ·  Branch: main
+
+bedb5f4  2026-07-31 16:36:55 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): revert D3's IA04-11 substitution, matching D6's own correction
+
+e85fa5b  2026-07-31 16:30:45 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): correct README's stale 16-interaction count to 17
+
+4b233bc  2026-07-31 16:30:24 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): correct stale item IDs and evidence-gap claim in Task 1A files
+
+d5cbfc1  2026-07-31 16:26:09 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): fix commit log path filter, regenerate with full history
 
 30b5c77  2026-07-31 16:21:28 +0700  Lê Phạm Kiều Duyên
     docs(hw03): regenerate commit log after committing evidence and scaffolds
