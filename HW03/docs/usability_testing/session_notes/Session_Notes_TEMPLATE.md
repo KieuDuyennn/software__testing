@@ -35,7 +35,7 @@ Types: `friction` · `hesitation` · `error` · `workaround` · `verbalisation` 
 
 Tick only what actually fired, from `docs/usability_testing/Moderator_Runsheet.md` §4. Leave the
 rest blank — this is an observation record, not a checklist to complete. Anything seen that is
-**not** on this list goes in the log above and may become a new finding (D-020+).
+**not** on this list goes in the log above and may become a new finding (D-023+).
 
 | Finding | Fired? (Y/N) | Time in the log | Did it cost the participant the task? |
 | --- | --- | --- | --- |
@@ -60,10 +60,15 @@ Every finding that reaches the report needs one of these behind it.
 
 ## Task outcomes
 
-| Task | Result (Complete/Partial/Fail) | Time on task | Error count | Hesitation count | Notes |
-| --- | --- | --- | --- | --- | --- |
-| T1 — file the report | | | | | |
-| T2 — find the response | | | | | |
+One row per task, and **per task** — the moderator can intervene in one task and not the other, and
+`docs/usability_testing/Metrics_Table.md` transcribes these rows per task, not per session. The
+"Route used" cell is T2 only: My Requests, or the notification bell, or something else — record what
+they actually did, never a nudge (`docs/usability_testing/Moderator_Runsheet.md` §2).
+
+| Task | Result (Complete/Partial/Fail) | Time on task | Error count | Hesitation count | Intervened (Y/N) | Route used (T2 only) | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| T1 — file the report | | | | | | — | |
+| T2 — find the response | | | | | | | |
 
 ## SUS responses (1 = strongly disagree … 5 = strongly agree)
 

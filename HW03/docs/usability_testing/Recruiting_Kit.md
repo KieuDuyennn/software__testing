@@ -20,9 +20,9 @@ Screener, applied before anyone is invited to schedule:
 - Plausibly matches the population that files a real EMS support request: a student, lecturer, or
   event-goer who has registered for an event before (does not need to have used EMS specifically).
 - Willing to do a ~20–25 minute screen-recorded session and a short questionnaire afterward.
-- Comfortable being contacted again by a TA to confirm they took part (see §3 of
-  `refs/requirements/2026.HW03.GUI Usability EMS_En.md` restated in §12: the TA may randomly call
-  up to 2 of the 5).
+- Comfortable being contacted again by a TA to confirm they took part (see §6 Task 2 Phase 3 of
+  `refs/requirements/2026.HW03.GUI Usability EMS_En.md`, restated in its §12: the TA may randomly
+  call up to 2 of the 5).
 
 **Disqualifies (any one is enough to drop them):**
 

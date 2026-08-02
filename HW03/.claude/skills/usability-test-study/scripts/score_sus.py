@@ -82,6 +82,11 @@ def read_rows(path: Path, expected: int) -> list[tuple[str, list[float]]]:
         except ValueError:
             raise SystemExit(f"{label}: non-numeric response value in {cells}")
         out.append((label, values))
+    if not out:
+        raise SystemExit(
+            f"{path}: header row only, no participant responses yet -- nothing to score. "
+            "Add one row per real session; never a placeholder or example row."
+        )
     return out
 
 

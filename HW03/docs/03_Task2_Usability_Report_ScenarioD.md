@@ -13,9 +13,10 @@
 > it empty and say so — an honest gap costs less than an invented fact.
 
 **Section map against the brief.** §6 Task 2 Phase 3 requires the report to contain: the scenario
-(§3 below) · the participant table, 5 people, masked (§5) · the metrics table (§6) · the findings
-ranked by severity **with a screenshot each** (§8) · a prioritised list of concrete recommendations
-(§10). §7 of the brief requires genuine bugs to be logged through the findings channel (§12 below).
+(§3 below) · the participant table, 5 people, masked (§5) · the metrics tables (§6 task metrics,
+§7 SUS) · the findings ranked by severity **with a screenshot each** (§9) · a prioritised list of
+concrete recommendations (§11). §7 of the brief requires genuine bugs to be logged through the
+findings channel (§13 below).
 Nothing here may be deleted as "not applicable"; each one is separately marked in the rubric.
 
 ---
@@ -58,7 +59,7 @@ Three distinct user-facing pages across the same package screens tested in Task 
 (`docs/02_Task1B_Execution_Report_ScenarioD.md`), plus a fourth reached only by participants who
 chose that route. **D3** and **D4** (admin list and admin detail) are operated by the moderator to
 resolve each request mid-session and are never shown to a participant — exercised, not user-tested.
-See §11.
+See §12 (Limitations).
 
 ## 3. Task scenario
 
@@ -248,8 +249,9 @@ back to a finding number in §9; a recommendation with no finding behind it is a
 ## 13. Handoff — findings channel (§7) and evidence
 
 Every genuine defect and every usability improvement from these sessions is logged in
-`docs/05_Bug_Usability_Findings_Log.md` from **D-020 onwards** (D-001…D-019 are taken; D-013, D-014
-and D-018 are retired and must not be reused), typed `Bug` or `Usability` with the 0–4 severity, and
+`docs/05_Bug_Usability_Findings_Log.md` from **D-023 onwards** (D-001…D-022 are taken — D-020…D-022
+came from Task 3; D-013, D-014 and D-018 are retired and must not be reused), typed `Bug` or
+`Usability` with the 0–4 severity, and
 **each one also submitted to the Google Form** named in §7 of the brief. The log and the form must
 agree — the TA may cross-check the counts.
 
