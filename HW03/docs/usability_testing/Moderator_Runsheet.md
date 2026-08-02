@@ -153,7 +153,7 @@ descriptions and repro steps are in `docs/05_Bug_Usability_Findings_Log.md`.
 
 Anything that goes wrong and is **not** in this table is a candidate **new** finding — log it in the
 session notes with a timestamp, and after the sessions raise it in
-`docs/05_Bug_Usability_Findings_Log.md` from **D-020** onwards and submit it to the Google Form
+`docs/05_Bug_Usability_Findings_Log.md` from **D-023** onwards (D-001…D-022 are taken) and submit it to the Google Form
 (§7 of the brief). The table below is the known set, not the expected set.
 
 | Finding | Screen / Task hit | What the participant will experience | Moderator's rule | Can fail the task through no fault of the participant? |

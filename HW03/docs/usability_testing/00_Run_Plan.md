@@ -76,7 +76,7 @@ These are yours to settle; nothing downstream can start until they are.
     [ ] metrics tabulated                   docs/usability_testing/Metrics_Table.md
     [ ] observations clustered -> findings, ranked 0-4
     [ ] usability report written            docs/03_Task2_Usability_Report_ScenarioD.md
-    [ ] new findings appended D-020+        docs/05_Bug_Usability_Findings_Log.md
+    [ ] new findings appended D-023+        docs/05_Bug_Usability_Findings_Log.md
     [ ] each new finding submitted to the Google Form (§7)
     [ ] README §16 self-assessment updated off 0
 ```
@@ -154,13 +154,14 @@ Screenshots for findings go in `reports/evidence_task2/`, named per
 ### 4.6 Feed the findings back into §7
 
 Genuine defects and usability improvements found in Task 2 are appended to
-`docs/05_Bug_Usability_Findings_Log.md` as **D-020 onwards** (D-001…D-019 are taken; D-013, D-014
-and D-018 are retired and must not be reused), typed `Usability` with the 0-4 severity, and each
-one **also submitted to the Google Form**. The TA may cross-check the counts, so the log and the
-form must agree. Then re-run:
+`docs/05_Bug_Usability_Findings_Log.md` as **D-023 onwards** (D-001…D-022 are taken — D-020…D-022
+came from Task 3; D-013, D-014 and D-018 are retired and must not be reused), typed `Usability`
+with the 0-4 severity, and each one **also submitted to the Google Form**. The TA may cross-check
+the counts, so the log and the form must agree. Then re-run, passing **every** evidence root the
+log now references (omitting one makes every finding rooted there look like missing evidence):
 
 ```bash
-python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md --evidence-root reports/evidence_task2
+python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md --evidence-root reports/evidence_task1b --evidence-root reports/evidence_task3 --evidence-root reports/evidence_task2
 ```
 
 ## 5. The §12 line, stated plainly
@@ -197,7 +198,7 @@ Task 2 is finished when all of these are true:
       screens · scenario · pilot · participants · task metrics · SUS · probe responses ·
       severity-ranked findings **each with a screenshot** · non-finding observations · prioritised
       recommendations traced to findings · limitations · §7 handoff table
-- [ ] New findings appended to `docs/05_Bug_Usability_Findings_Log.md` from D-020 and submitted to
+- [ ] New findings appended to `docs/05_Bug_Usability_Findings_Log.md` from D-023 and submitted to
       the Google Form, counts consistent
 - [ ] The Task 2 AI interactions appended to `docs/06_AI_Audit_Report.md`, stating explicitly that
       the sessions and participants were **not** AI-produced
