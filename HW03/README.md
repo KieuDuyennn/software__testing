@@ -19,9 +19,9 @@ HW03/
 │   ├── 01_Task1A_Shared_GUI_Checklist.md        Task 1A group checklist (60 items, IA-01 to IA-04, v1.9)
 │   ├── 02_Task1B_Execution_Report_ScenarioD.md  Task 1B, Scenario D (60 items × 6 screens = 360 cells)
 │   ├── 03_Task2_Usability_Report_ScenarioD.md   Task 2 report (template, no real sessions run yet)
-│   ├── 04_Task3_Cross_Platform_Matrix.md        Task 3 matrix (template, no cloud-lab run yet)
+│   ├── 04_Task3_Cross_Platform_Matrix.md        Task 3 matrix (28 rows, 26 captured: 20 Pass, 6 Fail)
 │   ├── 05_Bug_Usability_Findings_Log.md        ← §7 aggregated findings log (19 findings; 3 retracted on review)
-│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (13 AI interactions, prompts, human review)
+│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (14 AI interactions, prompts, human review)
 │   ├── 07_AI_Critique.md                       ← §11 mandatory 200-300 word critique
 │   ├── 08_Git_Commit_Log.txt                   ← §13 mandatory commit log export (HW03-scoped)
 │   ├── checklist/                               Task 1A supporting material
@@ -36,7 +36,7 @@ HW03/
 │   │   ├── Participants_Table.md · Metrics_Table.md · SUS_Responses.csv
 │   │   └── session_notes/Session_Notes_TEMPLATE.md
 │   ├── cross_platform/                          Task 3 planning
-│   │   └── 00_Run_Plan.md                        (24-cell plan, run order, screenshot rule)
+│   │   └── 00_Run_Plan.md                        (run order, tooling decisions, definition of done)
 │   └── pdf/                                     §15 PDF exports + build_pdf.py to regenerate them
 ├── reports/                                    ← generated evidence only, nothing hand-written
 │   ├── evidence_task1b/                         (32 real screenshots from the live EMS)
@@ -53,7 +53,7 @@ HW03/
 
 Layout mirrors HW04: `docs/` written work, `reports/` generated evidence, `refs/` given material, root kept to README + config. All cross-references inside the files are written **relative to `HW03/`**, so `docs/05_Bug_Usability_Findings_Log.md` means exactly that path from this folder. Embedded images are the one exception: they use a path that resolves from the file's own location (`../reports/evidence_task1b/...`), because that is what a Markdown viewer renders.
 
-One file on disk is deliberately absent from the map and from the submission: `docs/Google_Form_Submission_Packets.md`, a private working aid that pre-formats each of the 19 findings for the §7 Google Form. It is listed in `.gitignore`, so it is not committed and not part of the graded package.
+A private working aid, `docs/Google_Form_Submission_Packets.md`, pre-formatted each of the 19 findings for the §7 Google Form. It was gitignored throughout, never committed, and was deleted once all 19 submissions had been made — it held no evidence of its own, only text derived from the findings log.
 
 ## Status by task
 
@@ -63,7 +63,7 @@ One file on disk is deliberately absent from the map and from the submission: `d
 | **1B**: Execution on D1-D6 | **Done.** All 60 items run against all 6 screens (360 item×screen cells), screen by screen on the live system. 136 applicable · **108 executed** · 92 Pass · 16 Fail · 224 N/A-with-reason · 28 not executed, each with a named cause and a named owner. 16 findings stand, every Fail backed by a screenshot or DevTools evidence. Three further findings were raised and then retracted after being re-tested against the live product. |
 | **2**: User testing, 5 real users | **Designed, not run.** Phase 1 is complete and Phase 2 is blocked on recruiting: 0 of 5 participants found, 0 sessions run. `docs/usability_testing/00_Run_Plan.md` holds the end-to-end plan, the five decisions still owed and the definition of done; the task scenario, recruiting/consent kit, bilingual SUS instrument, moderator run-sheet, session-note template, participant table, metrics table and report skeleton are all ready in `docs/usability_testing/`. Every result table stays empty — the §12 note below explains why they cannot be filled in without real sessions. **Scoped to D1-D2**, not the D5/D6 extension and not Task 3's D1-D4: `docs/usability_testing/Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
 | **3**: Cross-platform matrix | **Done.** 26 of 28 cells captured — **20 Pass, 6 Fail** — with all **24 mandatory** cells complete and `matrix_coverage.py` clean (4/4 OS, 5/5 browsers, 3/3 device classes, 3/3 engines on every screen). The two open cells are rows 27-28, an optional old-WebKit extension outside the coverage floor. The per-screen floor is 5 cells; the matrix runs **6**, the extra being iOS + Safari + phone, because at the bare floor three of the five required brands are Blink and mobile WebKit would go untested — and that extra row is one of the two that caught the main defect. **Neither BrowserStack nor LambdaTest was usable**: both meter free tiers *per session* (1 and 2 minutes), too short to sign in; **Sauce Labs** was used instead, which §6 names as a permitted substitute. Environments: Windows 11 (Edge 151, Firefox 153) and an Android tablet as real local devices; macOS Safari 18, a Galaxy S23 FE and an iPhone 15 as real cloud devices. **Scoped to D1-D4** for the same reason as Task 2. |
-| **§7**: Findings Log + Google Form | **19 findings logged** (16 from Task 1B, 3 from Task 3), deduplicated and severity-rated. **Google Form submission: TODO for all 19.** The log's `Form-submission timestamp` column reads `TODO` on every row because no finding has been submitted yet. The TA may cross-check counts against the form. |
+| **§7**: Findings Log + Google Form | **Done.** 19 findings logged (16 from Task 1B, 3 from Task 3), deduplicated and severity-rated, and **all 19 submitted to the Google Form on 2026-08-02** from `lpkduyen23@clc.fitus.edu.vn`, the address burned into the Task 3 overlays. The log's `Form-submission timestamp` column carries that date on every row, recorded to the day rather than the minute — see the column's own note. Counts agree: 19 in the log, 19 sent. |
 | **§8**: Agent Skills + demo videos | Seven skills built and used throughout. **Demo video links: TODO.** |
 | **§10**: AI Audit Report | **Done.** 13 interactions, each with tool, date/time, the prompt, the AI output and the human review outcome. |
 | **§15**: report formats | **Done.** Markdown is the source of truth; six PDFs (main report, Task 1A checklist, Task 1B execution report, findings log, AI Audit Report, AI Critique) are in `docs/pdf/`, rebuildable with `python docs/pdf/build_pdf.py`. Wide tables are rotated to landscape so no column is clipped, and the 25 embedded evidence screenshots travel with the Task 1B PDF. **Re-run the build after any further markdown edit.** |
@@ -128,7 +128,7 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 - **Evidence captures:** 32 real screenshots under `reports/evidence_task1b/`, plus DevTools/Network evidence where the defect is the *absence* of a visible change.
 - **User-testing participants:** 0 of 5 recruited (Task 2 not started).
 - **Compatibility cells covered:** **26 of 28 executed — 20 Pass, 6 Fail.** All **24 mandatory** cells are captured and evidenced (6 per screen × D1-D4); the two outstanding cells belong to an optional old-WebKit extension (rows 27-28) and are not required by the coverage floor. Coverage is 4/4 OS, 5/5 browsers, 3/3 device classes and 3/3 engines on every screen. Environments: Windows 11 (Edge 151, Firefox 153) and an Android tablet as real local devices; macOS Safari 18, Android phone and iPhone 15 as real cloud devices via Sauce Labs. See `docs/04_Task3_Cross_Platform_Matrix.md`.
-- **Google Form submissions:** 0 of 19, outstanding — the 16 from Task 1B plus the three from Task 3 (D-020, D-021, D-022).
+- **Google Form submissions:** 19 of 19, sent 2026-08-02 — the 16 from Task 1B plus the three from Task 3 (D-020, D-021, D-022).
 - **Demo videos:** TODO.
 
 ## Self-Assessment Table (§16)
@@ -139,17 +139,17 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 | 1b | Task 1B: Checklist execution on ≥ 3 screens + bug reports *(individual)* | 15 | 14 |
 | 2 | Task 2: User testing with 5 real users (scenario + 5 sessions + analysis → Usability Report) | 25 | 0 |
 | 3 | Task 3: Cross-Browser / Cross-Platform matrix (3 OS × 5 browsers × 3 device classes) | 25 | 23 |
-| 4 | Bug & Usability Findings submission (Google Form) + aggregated log | 10 | 4 |
+| 4 | Bug & Usability Findings submission (Google Form) + aggregated log | 10 | 9 |
 | 5 | Agent Skills | 10 | 8 |
-| | **Total** | **100** | **62** |
+| | **Total** | **100** | **67** |
 
-**Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 4 of 60 items come from the team's lived experience of EMS, and three members have not signed off the newest items. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 28 cells no available tool could execute. *2 = 0*: §12 makes fabricated participants grounds for voiding the task, and nothing has been substituted for the real fieldwork — no participant has been recruited, so there is nothing to score. A zero here is a true statement, not a low one. *3 = 23/25*: all 24 mandatory cells captured on real hardware and real cloud devices with the coverage floor met per screen, six genuine Fails isolated to two distinct causes by elimination; the two points off are for the overlay not matching §6's literal `MSSV@....edu.vn` form (a documented decision, not an oversight) and for rows 27-28 of the optional Safari-15 extension being left unrun. Every Fail was reproduced in a second independent session before being logged. *4 = 4/10*: the aggregated log is complete and validated, but none of the 19 findings has been submitted to the Google Form yet, and that is half of what this criterion asks for. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
+**Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 4 of 60 items come from the team's lived experience of EMS, and three members have not signed off the newest items. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 28 cells no available tool could execute. *2 = 0*: §12 makes fabricated participants grounds for voiding the task, and nothing has been substituted for the real fieldwork — no participant has been recruited, so there is nothing to score. A zero here is a true statement, not a low one. *3 = 23/25*: all 24 mandatory cells captured on real hardware and real cloud devices with the coverage floor met per screen, six genuine Fails isolated to two distinct causes by elimination; the two points off are for the overlay not matching §6's literal `MSSV@....edu.vn` form (a documented decision, not an oversight) and for rows 27-28 of the optional Safari-15 extension being left unrun. Every Fail was reproduced in a second independent session before being logged. *4 = 9/10*: the aggregated log is complete, script-validated and carries every column §7 names, and all 19 findings were submitted to the form on 2026-08-02 from the student-ID address, so the two sides agree at 19 if the TA cross-checks. The point held back is that the timestamp column records the day rather than the minute, since per-submission clock times were not written down as the nineteen were sent. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
 
 ## Submission checklist (§15)
 
 **Zip filename:** `23127184_HW03_AI_GUIUsability_EMS_<SelfAssessedGrade>.zip` — the grade is the
 3-digit total from the §16 table below, so at the current self-assessment it is
-`23127184_HW03_AI_GUIUsability_EMS_062.zip`. **Recompute the number and rename the file if the
+`23127184_HW03_AI_GUIUsability_EMS_067.zip`. **Recompute the number and rename the file if the
 self-assessment changes before submitting.**
 
 | §15 required content | Where it is | State |
@@ -160,7 +160,7 @@ self-assessment changes before submitting.**
 | Usability Report | `docs/03_Task2_Usability_Report_ScenarioD.md` | **Skeleton only — sessions not run** |
 | Cross-platform report | `docs/04_Task3_Cross_Platform_Matrix.md` | **Matrix planned, 0 cells captured** |
 | User-testing evidence: scenario · 5 masked participants · per-session notes · SUS responses · metrics · screen recordings | `docs/usability_testing/` · `reports/evidence_task2/` | **Instruments ready, all result tables empty** |
-| Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done; **0 of 19 submitted to the form** |
+| Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done; **19 of 19 submitted to the form**, 2026-08-02 |
 | Cross-platform screenshots with the student-ID overlay | `reports/evidence_task3/` | **Empty** |
 | AI Critique and AI Audit Report, Markdown **and PDF** | `docs/07`, `docs/06` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
 | Git commit log, text file | `docs/08_Git_Commit_Log.txt` | **Regenerate after the final commits** — the current export predates this session |
