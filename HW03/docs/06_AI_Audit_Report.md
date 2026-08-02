@@ -662,6 +662,71 @@ the two `IA04-03` N/A verdicts, and the D-001 re-test flagged above.
 
 ---
 
+### Interaction 17 — The last Task 1B cells, and a false Critical caught before it was written
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-02 23:05 +07 |
+| **Task** | Task 1B — clear the 16 remaining unexecuted cells |
+| **Artefacts produced** | `docs/02_Task1B_Execution_Report_ScenarioD.md` (3 cells re-scored, Summary table, *Items not executed* reduced to 13), `docs/05_Bug_Usability_Findings_Log.md` (**D-023** added, totals and §7 status corrected), `.claude/skills/gui-checklist-execution/scripts/network_conditions.py` (new, ~330 lines), `README.md`, `CLAUDE.md` |
+
+**Prompt (verbatim):**
+
+```
+hoàn thành nốt 16 ô còn lại cần gì cứ cài
+```
+
+**AI output.** Three cells run and scored: `IA03-13` (D5) **Fail** and `IA03-13` (D6) **Fail**, merged
+into one new finding **D-023** because both come from the same root cause — client-side view state
+never reaching the URL or the history stack; and `IA04-17` (D6) **Pass**. Executed 117 → 120, not
+executed 16 → 13. Two preconditions the previous session had recorded as unavailable turned out to
+exist and were found by *querying* rather than browsing: `/notifications` now spans two pages, and
+request **#24 carries five attachments**, not the "no complaint has more than one" recorded earlier.
+
+For the twelve remaining throttle/offline cells the AI built a CDP harness
+(`network_conditions.py`) and **proved the instrument before trusting it**: under
+`Network.emulateNetworkConditions` the same fetch took 0.24 s unthrottled and 5.65 s on Slow-3G, and
+offline produced Chrome's own network-error page with the request blocked — while `navigator.onLine`
+still reported `true`, which is exactly why the report's long-standing note that an `onLine` override
+would be an invalid substitute was correct. The cells themselves remain unrun: they need a signed-in
+browser, and the student signs in, not the AI.
+
+**The error worth logging is one the AI made and caught within the same session.** Testing the
+attachment lightbox, it observed that Escape did not close it, that the Close button did not close
+it, and that a backdrop click did not close it either — on two different records, with the key event
+verified as `isTrusted` and reaching `document` in the capture phase, and with a programmatic
+`.click()` and a full synthetic pointer sequence also failing. That is a coherent, well-evidenced
+case for a severe finding: *the lightbox cannot be dismissed*. It would also have **contradicted a
+retraction**: D-013 says exactly this and was withdrawn on 2026-07-31 as not reproducible.
+
+A screenshot showed the overlay was not on screen at all. The dialog closes with a fade-out and its
+`role="dialog"` node lingers in the DOM during the animation; every "still open" reading had been
+taken from that lingering node. `document.querySelector` was answering a question about the DOM while
+the AI believed it was answering a question about the screen.
+
+Three lessons, the third being the one that generalises:
+
+1. D-013's retraction stands, and `IA03-10` on D6 stays Pass.
+2. A DOM query is not a visual oracle. Where a claim is about what a user can *see*, the evidence has
+   to be a capture, not a selector — which is the same bias the audit guidance names for
+   selector-based inspection, met here in its opposite direction: a false claim of *presence*.
+3. This is the second instrument error in two sessions, after the click-scaling and
+   keyboard-delivery defects. Both were caught by cheap external checks — a control input, a
+   screenshot — and neither would have been caught by thinking harder. That contrast is now recorded
+   in the execution report's *Instrument note* and is material for §11.
+
+**Not done, and stated rather than fudged.** `IA01-06` (D5) stays Not executed. Both non-destructive
+routes to an empty notification list were checked and closed: the screen has no search or filter, and
+the *Go to page* input carries `max="2"`. The only remaining route is deleting every real notification
+on a shared account, which the AI declined.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Two actions: submit
+**D-023** to the §7 form so log and form match again, and run the twelve throttle/offline cells via
+the harness after signing in.
+
+---
+
 ## 5. Sessions still to be logged
 
 | Task                                                              | Status                                                                                                                    |
