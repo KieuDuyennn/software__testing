@@ -21,7 +21,7 @@
 
 No other AI tool was used for Task 1A.
 
-**Tool declaration (§9).** The tools §9 permits and requires to be declared here are: an AI tool of the student's choice — **Claude Code (Anthropic), models Sonnet 5 and Opus 5**, the only AI tool used on this assignment; a **BrowserStack / LambdaTest** trial or equivalent cloud cross-browser tool — **not yet used**, Task 3 has not been run, and it must be declared here with the account and session dates once it is; and **Google Forms** for the §7 findings channel — **not yet used**, 0 of 16 findings submitted. The required Bloom-AI level for this homework is **G9.3 (Analyse)** and **G9.4 (Collaborate)**.
+**Tool declaration (§9).** The tools §9 permits and requires to be declared here are: an AI tool of the student's choice — **Claude Code (Anthropic), models Sonnet 5 and Opus 5**, the only AI tool used on this assignment; a **BrowserStack / LambdaTest** trial or equivalent cloud cross-browser tool — **used on 2026-08-02**, all under the account identity `lpkduyen23@clc.fitus.edu.vn`. Four were touched, in this order: **BrowserStack Live** (free trial, one session launched, abandoned once its 1-minute-per-session cap surfaced), **LambdaTest** (same outcome at a 2-minute cap), then **Sauce Labs**, which supplied the macOS, Android-phone and iPhone captures, and **TestingBot** for the single D2 / macOS / Safari 18 cell. Session-by-session detail is in `docs/04_Task3_Cross_Platform_Matrix.md` §Tooling; and **Google Forms** for the §7 findings channel — **not yet used**, 0 of 19 findings submitted. The required Bloom-AI level for this homework is **G9.3 (Analyse)** and **G9.4 (Collaborate)**.
 
 **On the checklist prompts (§10).** §10 states that the group's Task 1A checklist prompts belong in this appendix. They are logged as Interactions 1-12 below; `docs/checklist/Reference_Sources_and_Prompts.md` carries the same chain in the group artefact, annotated with the human review outcome per revision. The two are the same prompts, not two different records.
 
@@ -487,14 +487,89 @@ the current live URL after the original ngrok tunnel went offline (`https://prod
 particular, the still-`PENDING` majority of the 60×4 execution matrix, Task 2 recruiting, and Task
 3 cloud-lab access all require genuine follow-up work this interaction does not substitute for._
 
+### Interaction 14 — Task 3 executed end to end (cross-platform matrix, Scenario D)
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — **Opus 5** (Anthropic), driving the student's own Chrome via the Claude in Chrome extension, plus PowerShell on the student's Windows 11 PC |
+| **Date / time** | 2026-08-02, roughly 11:00–15:00 local |
+| **Task** | Plan and execute Task 3: capture the cross-platform matrix for D1–D4, record results, verify coverage |
+| **Artefacts produced** | `docs/04_Task3_Cross_Platform_Matrix.md` (rewritten from template to 28 filled rows), 24 evidence images under `reports/evidence_task3/`, `.claude/skills/cross-platform-matrix/scripts/stamp_evidence.py` (new), substantial rewrites to `docs/cross_platform/00_Run_Plan.md` |
+
+**Selected prompts (verbatim, Vietnamese as typed):**
+
+```
+mình xong task 1 rồi giờ có thể làm task 3 trước ròi mới qua task 2 không
+rà soát lại, và cho mình biết mình phải làm gì để bắt đầu task 3
+bạn tự chụp luôn đi hãy cài tool cần thieeys để làm
+chỉ test trên D1 tới D4 của mình thui mà
+vậy chạy lại D4 đi cái mà bạn k cminh đc hãy tự cminh lại đi
+k hiện ô để nhập mailpasss lỗi hay chưa load xong
+đó là opera đó tin mình đi
+```
+
+**How each cell was actually produced** — this is the part §12 cares about, so it is stated per block
+rather than as a single blanket claim:
+
+| Rows | Environment | Captured by |
+| --- | --- | --- |
+| 1–2 of each screen (8 cells) | Windows 11 · Edge 151 / Firefox 153 | **AI**, via a PowerShell `PrintWindow` script against the live browser window on the student's own PC |
+| 3–4 of each screen (8 cells) | macOS Safari 18 · Android Chrome (Galaxy S23 FE) | **AI**, driving Sauce Labs Live sessions in the student's browser |
+| 6 of each screen (4 cells) | iOS 26.5 Safari (iPhone 15) | **AI**, driving a Sauce Labs real-device session |
+| **5 of each screen (4 cells)** | **Android 16 · Opera · Redmi Pad 2** | **The student**, on her own tablet |
+| 25–26 (extension) | macOS Monterey · Safari 15 | **AI**, Sauce Labs |
+
+Every capture is of the real deployed EMS in a real browser. Nothing was synthesised, redrawn or
+composited. The overlay on each image was burned in by `stamp_evidence.py`, an AI-written script that
+reads its filenames from the matrix table so an image and its row cannot drift apart.
+
+**The credential boundary held throughout.** The AI never typed a password, an OTP or a login of any
+kind — every sign-in, and every switch between the student account and the `TLA` admin account, was
+performed by the student. This was tested: the student twice offered credentials to save time
+(`admin tự đnhap đc vì k sao hét mình cho phép bạn alfm để tiết kiệm thời gian cho mình mail
+admin@gmail.com pass Admin@123`, and a second account later). The AI declined both times and carried
+on with everything else.
+
+#### Human review decision points
+
+Five places where the student's intervention changed the result. These are recorded because they are
+the substance of the review, not a formality:
+
+| # | What the AI had done | What the student said | What changed |
+| --- | --- | --- | --- |
+| 1 | Recorded cell 22 (D4, Android phone) as **Pass**, with a note admitting the capture inherited a collapsed sidebar from D3 and so did not show the default state | *"chạy lại D4 đi cái mà bạn k cminh đc hãy tự cminh lại đi"* | Re-loaded the URL fresh. The cell became a confirmed **Fail** — the title wraps one word per line. Without this, the report would have concluded the defect affected only the admin *list*, understating its scope by half |
+| 2 | Was about to probe old Safari builds using the sign-in page, outside the matrix's scope | *"chỉ test trên D1 tới D4 của mình thui mà"* | Re-pointed the session at D1. The Safari 15 evidence now sits inside the graded scope instead of beside it |
+| 3 | Had captured Safari 16 with the email and password fields missing and was ready to call it a defect | *"k hiện ô để nhập mailpasss lỗi hay chưa load xong"* | Forced a verification pass — three captures spanning ~2 minutes, plus the observation that a scrollbar was present. Only then was it recorded, and it was recorded as needing a second session before being filed as a Blocker |
+| 4 | Asserted from the browser chrome that the tablet captures were taken in Chrome, not Opera, and refused to file them | *"đó là opera đó tin mình đi"* | The student was right; the shield icon is Opera's built-in ad blocker. The AI's inference from the tab counter and profile avatar was wrong. The four cells were filed as Opera |
+| 5 | — | Asked for the audit's prompts to be rewritten in polished English, and for the log to claim human review across the board | The AI declined to invent prompts or to overstate the review, and proposed this table instead. Recorded here because a disclosure appendix that hides its own method is worth less than none |
+
+#### What the AI got wrong in this session
+
+Kept for §11. Four errors, all caught within the session:
+
+1. **Trusted a quota number without checking how it was metered.** Planned four 20-minute BrowserStack
+   sessions against a "30 minutes" allowance that turns out to be sliced into **1-minute** sessions —
+   too short to even sign in. The same mistake then repeated across LambdaTest (2-minute sessions) and
+   TestingBot (monthly live-test cap) before the pattern was recognised. Roughly an hour was spent
+   discovering per-session limits that a pricing page would have shown up front.
+2. **Recorded a cell it could not support** (point 1 above) rather than either proving it or leaving it
+   unexecuted.
+3. **Misidentified the tablet browser** (point 4 above) and argued the point twice before being corrected.
+4. **Wrote a §10 line that its own later behaviour falsified.** The run plan's definition of done said
+   the captures would be "produced by a person … not AI-generated". Once the Windows blocks were
+   automated that sentence was false; it was rewritten to declare production per block, but it should
+   not have been left standing as long as it was.
+
+---
+
 ## 5. Sessions still to be logged
 
 | Task                                                              | Status                                                                                                                    |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, 108 executed, 16 findings. This row read "partially started" until the full pass finished; corrected 2026-08-01. |
 | Task 2 — user testing with 5 real participants, Usability Report | Designed, not run — Phase 1 instruments complete (`docs/usability_testing/`), 0 participants recruited                     |
-| Task 3 — cross-browser / cross-platform matrix                   | Planned, not run — 24-cell matrix and run plan ready (`docs/cross_platform/00_Run_Plan.md`), 0 cells captured               |
-| §7 — Google Form submissions and the aggregated findings log    | **16 findings logged** (D-001…D-019, with D-013/D-014/D-018 retracted); Google Form submission still TODO for all 16. This row read "1 finding" until the full pass finished; corrected 2026-08-01. |
+| Task 3 — cross-browser / cross-platform matrix                   | **Complete for the mandatory set** — 26 of 28 cells captured (20 Pass, 6 Fail), including all 24 the coverage floor requires; the 2 outstanding cells belong to the optional Safari-15 extension. Executed 2026-08-02; logged as Interaction 14. This row read "planned, not run — 0 cells captured" until then. |
+| §7 — Google Form submissions and the aggregated findings log    | **19 findings logged** — D-001…D-019 from Task 1B (D-013/D-014/D-018 retracted) plus D-020…D-022 from Task 3; Google Form submission still TODO for all 19. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-01) and "16" until Task 3 ran (corrected 2026-08-02). |
 | §8 — Agent Skill and demo video                                 | Skills built and used (`gui-checklist-execution`, `findings-log`, Interaction 13); demo video links TODO              |
 
 Append an interaction entry to §2 for every AI session on the tasks above, following the same format: tool, date/time, verbatim prompt, AI output, human review and action taken.
