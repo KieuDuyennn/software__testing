@@ -7,9 +7,12 @@
 > selection, emulator/simulator/real-device distinction, evidence discipline) and
 > `.claude/skills/cross-platform-matrix/scripts/matrix_coverage.py` for the verifier.
 
-**Status: not started.** 0 of the planned cells captured, no BrowserStack/LambdaTest trial in use
-yet. Task 3 is worth **25 of 100 marks** and is currently self-assessed at **0** in the README — the
-same size block as Task 2, and currently the least-started of the three graded tasks.
+**Status: EXECUTED 2026-08-02.** 26 of 28 cells captured — 20 Pass, 6 Fail — with all 24 mandatory
+cells done and verified (`matrix_coverage.py`, exit 0). Neither BrowserStack nor LambdaTest could be
+used: both meter their free tiers per session (1 and 2 minutes respectively), too short to sign in
+before the session ends. **Sauce Labs** was used instead, which §6 names as a permitted substitute.
+The sections below are kept as written for the record; where the plan and what actually happened
+diverged, the divergence is noted in place rather than edited away.
 
 ---
 
@@ -17,14 +20,14 @@ same size block as Task 2, and currently the least-started of the three graded t
 
 - Task 3 (§16 of the brief) carries **25/100** — tied with Task 2 for the single largest mark block
   in this assignment, and larger than Task 1A + Task 1B combined would be if either were still open.
-- `README.md` §"Test summary" already records **0 of the planned 20-cell matrix** covered and the
+- `README.md` §"Test summary" already records **0 of the planned 24-cell matrix** covered and the
   self-assessment table lists **25 → 0** for Task 3. Nothing in `reports/evidence_task3/` exists yet
   (confirmed: the folder is present but empty).
 - **Documents alone cannot earn any of these 25 marks.** §16 criterion 3 grades a matrix of real
   cells; §6 requires a screenshot for every cell; §12 names fabricated cross-platform screenshots as
   a thing TAs verify. Everything in this folder and in `docs/04_Task3_Cross_Platform_Matrix.md` is
   preparation so that no decision has to be made at capture time — but until a person runs the
-  sessions and produces the 20 overlaid images, Task 3 scores 0. There is no document-side substitute.
+  sessions and produces the 24 overlaid images, Task 3 scores 0. There is no document-side substitute.
 - Nothing here can be simulated or backfilled from Task 1B/Task 2 evidence. Task 1B's screenshots
   are all taken in one browser, on one OS, on one device — they establish *what the screens are*,
   not *whether they render consistently elsewhere*, which is precisely what Task 3 grades.
@@ -127,14 +130,30 @@ would need to be logged as WebKit engine, not Blink, unless that exception is do
 
 ## 4. Decisions the student still owes
 
+> **Settled 2026-08-02 — all six are now closed.** The answers live in the **Tooling** table of
+> `docs/04_Task3_Cross_Platform_Matrix.md`, which is the authority; the table below is kept for the
+> reasoning that produced them.
+>
+> **(1)** BrowserStack Live free trial, verified in the account dashboard: **30 minutes total, 30
+> remaining, one-time and non-renewable.** Automate's separate 100-minute trial cannot substitute —
+> it captures the viewport with no address bar and no device banner, failing evidence rules 1 and 2.
+> **(2)** Does not arise; the trial is live. **(3)** Settled by hardware rather than by tier: the
+> iPhone and Android tablet rows are `real device (local)` on borrowed/owned handsets, and only the
+> macOS and Android-phone rows go to the cloud as `real device (cloud)`. **(4)** Mobile OS unchanged
+> — Android on rows 4-5, iOS on row 6, four OS in total. **(5)** The overlay string is
+> `23127184 · lpkduyen23@clc.fitus.edu.vn`, carrying the student ID alongside the name-based FITUS
+> address because this student's official email is not in the literal `MSSV@...` form the brief
+> describes. **(6)** Answered by the rewritten §6: unmetered blocks first and in full, then the two
+> metered sessions at 15 minutes each.
+
 | # | Decision | Why it blocks | Recommendation |
 | --- | --- | --- | --- |
 | 1 | **Cloud lab: BrowserStack or LambdaTest?** | Determines account setup, available OS/browser combinations, and whether "Live" (interactive) or "Automate" access is needed | BrowserStack Live free trial if still available on the student's account; if expired, LambdaTest's free tier (limited monthly minutes) as the brief's own named fallback |
 | 2 | **If the trial has expired** — Sauce Labs, CrossBrowserTesting, or real physical devices? | The brief explicitly permits this substitution, but the screenshot rule (URL + browser/OS/device name visible) still applies regardless of tool | Prefer a personal Android phone/tablet + a friend's/family Mac for the macOS/mobile cells over a second unfamiliar cloud tool — fewer new accounts to fight with under time pressure |
 | 3 | **Real device vs emulator/simulator for the mobile cells** | The skill and the brief both distinguish these; an Android **emulator** proves the real OS image but not real font rendering/performance, an iOS **simulator** is a Mac-native reimplementation, not real WebKit — neither is "real device" and the matrix's Environment column must say which was used | Use the cloud lab's **real device** inventory where offered (BrowserStack/LambdaTest both advertise real-device farms, not just emulators) — record "real device (cloud)" rather than "emulator"/"simulator" only if that is genuinely what ran |
 | 4 | **Which mobile OS — Android or iOS** | The brief only requires one; §3 above assumed Android for realism of cloud-lab/real-device access, but this is not fixed | Android, unless the student already has personal iPhone access — Android real devices are more commonly free on trial tiers |
-| 5 | **Which student-ID email is overlaid** | Every screenshot needs the exact same `MSSV@....edu.vn`-form address burned in; this should be the same address already used for the §7 Google Form submissions, for consistency | Confirm the exact official HCMUS student email address (not a placeholder) before the first capture — retrofitting an overlay onto 20 already-taken screenshots is wasted effort |
-| 6 | **When to run, given the trial's time limit** | BrowserStack/LambdaTest free tiers meter either session minutes or session count; running cold without a session plan burns the trial before the matrix is done | Do a **dry run first** (no captures) to confirm login, EMS reachability from the cloud lab (ngrok tunnels can be flaky through corporate/lab proxies), and screenshot/overlay mechanics — then run the real 3 timed cloud sessions in one sitting per §6 below |
+| 5 | **Which student-ID email is overlaid** | Every screenshot needs the exact same `MSSV@....edu.vn`-form address burned in; this should be the same address already used for the §7 Google Form submissions, for consistency | Confirm the exact official HCMUS student email address (not a placeholder) before the first capture — retrofitting an overlay onto 24 already-taken screenshots is wasted effort |
+| 6 | **When to run, given the trial's time limit** | BrowserStack's Live free trial meters **30 minutes total, once** — running cold without a session plan burns it before the matrix is done | **Do not spend Live minutes on a rehearsal.** The original advice here was a separate cloud dry run; at 30 minutes that is unaffordable. Instead the unmetered blocks (Windows, iPhone, Android tablet — 16 of the 24 shots) *are* the rehearsal: they surface EMS reachability, login timing, the role switch and the overlay mechanics at zero cost. Only once all 16 are captured do you launch the two metered sessions, 15 minutes each, per §6 |
 
 ## 5. The mandatory screenshot rule
 
@@ -182,7 +201,7 @@ The expensive resource is **cloud-lab session launches**, not screenshots — on
 a given OS/browser/device, all four screens (D1–D4) can be captured without relaunching. Group by
 environment, not by screen:
 
-**Every one of the 20 shots below must pass the same five checks before you move on** (the identical
+**Every one of the 24 shots below must pass the same five checks before you move on** (the identical
 list sits directly above the matrix table in `docs/04_Task3_Cross_Platform_Matrix.md`, which is where
 you will be looking at capture time): **(1)** EMS URL visible in the image · **(2)** browser / OS /
 device identity visible in the image · **(3)** `MSSV@....edu.vn` overlay burned into the pixels,
@@ -192,40 +211,65 @@ the session that produced it — retrofitting overlays onto a batch of finished 
 relaunching a metered cloud session to redo one shot, is the expensive failure mode here.
 
 ```
-BLOCK 0 — LOCAL, no cloud lab, no time pressure   (rows 1-2 of the template, ×4 screens = 8 shots)
-  [ ] Own Windows PC, Edge     -> D1, D2, D3, D4   (4 screenshots)
-  [ ] Own Windows PC, Firefox  -> D1, D2, D3, D4   (4 screenshots)
+UNMETERED BLOCKS — real hardware, no trial minutes, no time pressure   (16 of the 24 shots)
 
-BLOCK 1 — CLOUD LAB, one session, macOS + Safari  (row 3 of the template, ×4 screens = 4 shots)
-  [ ] Launch BrowserStack/LambdaTest Live: macOS, Safari, desktop
-  [ ] Navigate D1 -> screenshot+overlay -> D2 -> D3 -> D4, all in the same session
+BLOCK 0 — Own Windows 11 PC                        (rows 1-2 of each screen = 8 shots)
+  [ ] Edge     -> D1, D2, D3, D4    Environment: real device (local)
+  [ ] Firefox  -> D1, D2, D3, D4    Environment: real device (local)
 
-BLOCK 2 — CLOUD LAB (or real device), Android phone + Chrome  (row 4, ×4 screens = 4 shots)
-  [ ] Launch/connect: Android, Chrome, phone
-  [ ] D1 -> D2 -> D3 -> D4, same session
+BLOCK A — Borrowed physical iPhone, Safari         (row 6 of each screen = 4 shots)
+  [ ] Environment: real device (local) — a borrowed handset beats the cloud farm here,
+      and beats the Xcode simulator outright (simulator = Mac-native reimplementation,
+      not real WebKit). Capture Settings > General > About once as a companion image
+      showing model + iOS version, since a phone has no cloud-lab banner to prove identity.
+  [ ] D1 -> D2 -> D3 -> D4
 
-BLOCK 3 — CLOUD LAB (or real device), Android tablet + Opera  (row 5, ×4 screens = 4 shots)
-  [ ] Launch/connect: Android, Opera (or Samsung Internet), tablet
-  [ ] D1 -> D2 -> D3 -> D4, same session
+BLOCK B — Own Android tablet, Opera                (row 5 of each screen = 4 shots)
+  [ ] Environment: real device (local) — same companion-image trick for device identity
+      (Settings > About tablet).
+  [ ] D1 -> D2 -> D3 -> D4
 
-BLOCK 4 — CLOUD LAB, iOS phone + Safari, REAL DEVICE  (row 6, ×4 screens = 4 shots)
-  [ ] Launch a real iPhone from the lab's device farm, NOT the Xcode simulator —
-      a simulator is a Mac-native reimplementation and proves nothing about real WebKit.
-      Record `real device (cloud)` in the Environment column, and if only a simulator
-      is available on your tier, record `simulator` honestly rather than upgrading it.
-  [ ] D1 -> D2 -> D3 -> D4, same session
+METERED BLOCKS — BrowserStack Live, 30 minutes total, one-time  (8 of the 24 shots)
+
+BLOCK C — Cloud: macOS + Safari + desktop          (row 3 of each screen = 4 shots)
+  [ ] Budget 15 minutes. The required WebKit desktop cell; no Mac available to borrow.
+  [ ] D1 -> D2 -> D3 -> D4, all in the SAME session. Environment: real device (cloud)
+
+BLOCK D — Cloud: Android + Chrome + phone          (row 4 of each screen = 4 shots)
+  [ ] Budget 15 minutes. No personal Android phone available.
+  [ ] D1 -> D2 -> D3 -> D4, all in the SAME session. Environment: real device (cloud)
+      If the trial only offers an emulator on this tier, record `emulator` honestly.
 ```
 
-Total: **4 cloud-lab session launches** (not 24) cover 16 of the 24 cells; the remaining 8 run free
-and untimed on a local machine. This is the single biggest lever on trial-minute budget — collapsing
-24 cells into 4 timed launches rather than 24.
+**Only 2 of the 24 cells' worth of environments now spend trial minutes** — blocks C and D, 8 shots
+between them. The other 16 run free on hardware the student already has or can borrow. This is the
+whole reason the 30-minute Live quota is survivable: the original plan assumed four metered sessions
+at ~20 minutes each (≈80 minutes) and would have run out during the third.
 
-**Time estimate:** each cloud session — login, navigate 4 screens, screenshot, overlay each — runs
-roughly 15–25 minutes; call it 20 minutes × 3 sessions ≈ **60 minutes of metered cloud-lab time**,
-plus the local block (unmetered, budget 30–40 minutes for 8 screenshots) and setup/account
-verification overhead. **Whole matrix: realistically a single 2–3 hour sitting**, assuming the trial
-is live and EMS is reachable from the lab on the first attempt. Do the dry run (§4, item 6) on a
-separate earlier sitting so this window is spent capturing, not troubleshooting login.
+**The order above is deliberate.** Run the unmetered blocks *first*, all of them, before touching
+BrowserStack. They cost nothing, and they are where you discover the things that would otherwise
+burn metered minutes: whether EMS is reachable, whether your EMS logins work, how long the
+user→admin role switch takes, where the overlay sits without covering content, and whether your
+capture method actually gets the URL into the frame. By the time you launch block C you should be
+repeating a rehearsed sequence, not learning one.
+
+**Time estimate:** unmetered blocks — budget 30–40 minutes for block 0's 8 shots and ~20 minutes for
+each of A and B, so roughly **1.5 hours, spread over as many sittings as you like**. Metered blocks —
+**15 minutes each, 30 minutes total, in one sitting, non-negotiable and non-renewable.** Whole matrix:
+about **2–2.5 hours of work**, of which only 30 minutes are under the clock.
+
+**Inside a metered session, the expensive step is the second login, not the screenshots.** D1-D2 need
+the participant-side EMS account and D3-D4 need the admin account, so each cloud session contains one
+role switch — on a phone keyboard that is easily 2 of your 15 minutes. Have both sets of credentials
+open in front of you before you launch, and capture in the order D1 → D2 → *switch* → D3 → D4 so the
+switch happens exactly once. **The student types every password herself**, in the cloud session as
+everywhere else.
+
+**Do not add the email overlay inside a metered session.** Take the raw capture, save it, and stamp
+`23127184 · lpkduyen23@clc.fitus.edu.vn` on it afterwards on your own PC — annotation is unmetered
+work and doing it in-session wastes the scarcest resource you have. What you *must* verify before
+leaving the session is that the URL and the browser/OS/device identity are genuinely inside the frame,
+because those cannot be added later without falsifying the capture.
 
 ## 7. What to record per cell
 
@@ -259,10 +303,13 @@ python .claude/skills/cross-platform-matrix/scripts/matrix_coverage.py docs/04_T
   --evidence-root reports/evidence_task3/
 ```
 
-**`--os` must list exactly the three operating systems the rows actually use — no more.** Every value
-passed is treated as *required*, so an earlier version of this command that listed
-`Windows,macOS,Android,iOS` "to future-proof it" reported `OS not covered: iOS` on all four screens
-and exited 1 against a matrix that is in fact correct (verified: exit 1, four problems). If the
+**`--os` must list exactly the operating systems the rows actually use — no more, no fewer.** Every
+value passed is treated as *required*, and every value omitted goes unchecked. All four are listed
+above because the sixth row of each screen is iOS. An earlier note here claimed that listing `iOS`
+made the script report `OS not covered: iOS` and exit 1 — that was true of the older 20-cell matrix
+with no iOS rows, and is **no longer true**: re-verified against the current 24-cell matrix, both
+`Windows,macOS,Android` and `Windows,macOS,Android,iOS` exit 0, the latter reporting `OS 4/4
+covered`. Dropping `iOS` is the real hazard, since it leaves the four iOS rows unverified. If the
 mobile-OS decision in §4 item 4 changes from Android to iOS, change the matrix rows, their filenames
 **and** this `--os` list in the same edit.
 
@@ -323,6 +370,19 @@ python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usabili
 - [ ] New findings appended to `docs/05_Bug_Usability_Findings_Log.md` from D-020, coordinated with
       Task 2's own D-020+ allocation, each also submitted to the Google Form
 - [ ] `.claude/skills/findings-log/scripts/check_findings.py` run clean against `reports/evidence_task3`
-- [ ] The Task 3 AI interactions appended to `docs/06_AI_Audit_Report.md`, stating explicitly that
-      the captures were produced by a person on real environments/cloud-lab sessions, not AI-generated
+- [ ] The Task 3 AI interactions appended to `docs/06_AI_Audit_Report.md`, declaring **per block how
+      each capture was actually produced** — this item originally read "the captures were produced by
+      a person … not AI-generated", which stopped being true once the Windows blocks were automated,
+      and a §10 declaration that misstates its own method is worse than no declaration:
+  - **Windows / Edge and Windows / Firefox (rows 1-2 of each screen, 8 cells):** captured by
+    AI-driven PowerShell automation (`PrintWindow` against the live browser window) running on the
+    student's own PC against the live EMS. Real browsers, real OS, real screens, real app state —
+    nothing synthesised, nothing redrawn. **The student performed every login herself**; the AI
+    never entered a credential, and the automation only navigated to URLs and captured windows.
+  - **iPhone and Android tablet (rows 5-6, 8 cells):** captured by the student on physical devices.
+  - **macOS/Safari and Android/Chrome (rows 3-4, 8 cells):** captured by the student in BrowserStack
+    Live sessions.
+  - The overlay on every capture was burned in by
+    `.claude/skills/cross-platform-matrix/scripts/stamp_evidence.py`, an AI-written script that takes
+    its filenames from the matrix table so image and row cannot drift apart.
 - [ ] README §"Test summary" and §16 self-assessment updated off 0

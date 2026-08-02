@@ -65,7 +65,7 @@ folder used to have was the specific thing that got called messy.
 ## Validator commands (run from `HW03/`)
 
 ```bash
-python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md --evidence-root reports/evidence_task1b
+python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md --evidence-root reports/evidence_task1b --evidence-root reports/evidence_task3
 python .claude/skills/gui-checklist-design/scripts/check_checklist.py docs/01_Task1A_Shared_GUI_Checklist.md --evidence-root . --expect 60
 python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/SUS_Responses.csv --instrument sus --markdown
 python .claude/skills/cross-platform-matrix/scripts/matrix_coverage.py docs/04_Task3_Cross_Platform_Matrix.md --evidence-root reports/evidence_task3
@@ -78,8 +78,8 @@ python .claude/skills/cross-platform-matrix/scripts/matrix_coverage.py docs/04_T
 | 1A shared checklist | 15 | Done. v1.9, 60 items. Open: only 4/60 items come from the team's own EMS experience (pillar-4 gap, retargeted v2.0); 7 newest items unsigned by 3 members. |
 | 1B execution D1-D6 | 15 | Done. 360 cells, 108 executed, 16 findings, 3 retracted on live re-verification. |
 | 2 user testing | 25 | **Designed, not run.** Phase 1 complete. Blocked on recruiting 6 real people. Start at `docs/usability_testing/00_Run_Plan.md`. |
-| 3 cross-platform | 25 | **Planned, not run.** Blocked on a BrowserStack/LambdaTest trial. Start at `docs/cross_platform/00_Run_Plan.md`. |
-| §7 form + log | 10 | Log complete and validated; **0 of 16 findings submitted to the Google Form**. |
+| 3 cross-platform | 25 | Done (2026-08-02). 26/28 cells — 20 Pass, 6 Fail; all 24 mandatory cells captured. Open: rows 27-28 (optional Safari-15 extension). D-020/D-021/D-022 all reproduced in a second session. |
+| §7 form + log | 10 | Log complete and validated; **0 of 19 findings submitted to the Google Form**. |
 | §8 skills | 10 | Seven skills built and used; demo video links outstanding. |
 | §15 formats | — | Markdown complete; PDFs in `docs/pdf/`. |
 
