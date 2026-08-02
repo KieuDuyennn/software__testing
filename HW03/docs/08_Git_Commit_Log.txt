@@ -1,5 +1,20 @@
-=== HW03 commit log (generated 2026-07-31 18:54 UTC) ===
+=== HW03 commit log (generated 2026-08-02 12:04 UTC) ===
 Repo: software__testing  ·  Path filter: HW03/  ·  Branch: duyen/hw3
+
+f6f4748  2026-08-02 19:03:34 +0700  Lê Phạm Kiều Duyên
+    build(hw03): regenerate the §15 PDF exports from the corrected Markdown
+
+30d2a61  2026-08-02 19:03:26 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): record the Task 3 results and fix the conformance gaps they exposed
+
+f49661a  2026-08-02 19:03:04 +0700  Lê Phạm Kiều Duyên
+    test(hw03): add the Task 3 cross-platform captures and their stamping tool
+
+32fc06d  2026-08-01 02:09:25 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): add a human-review sign-off section to the AI audit report
+
+750e3b2  2026-08-01 01:54:51 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): regenerate the §13 commit log
 
 0356bc4  2026-08-01 01:54:25 +0700  Lê Phạm Kiều Duyên
     build(hw03): add the §15 PDF exports and their build script
@@ -226,4 +241,4 @@ b94513d  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
 239c466  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
     chore(hw03): ignore Python bytecode caches
 
-=== 75 commits touching HW03/ on duyen/hw3 ===
+=== 80 commits touching HW03/ on duyen/hw3 ===
