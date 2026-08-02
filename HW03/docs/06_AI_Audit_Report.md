@@ -1,7 +1,7 @@
 # AI Audit Report — HW03 (GUI & Usability Testing on EMS)
 
 > **Mandatory appendix — §10 of the assignment.**
-> Scope of this version: **Task 1 Part A (complete)** and **Task 1B (complete — all 60 items × 6 screens)**. Interactions 1-13 are logged below. Task 2 is designed but not run and Task 3 is planned but not run; the AI interactions that produced their planning artefacts, and the reorganisation of this folder on 2026-08-01, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
+> Scope of this version: **Task 1 Part A (complete)** and **Task 1B (complete — all 60 items of checklist v1.9 × 6 screens; v2.0 later added 2 items that are unrun)** and **Task 3 (complete for its 24 mandatory cells)**. Interactions 1-14 are logged below. Task 2 is designed but not run; the AI interactions that produced their planning artefacts, and the reorganisation of this folder on 2026-08-01, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
 > Companion files: `docs/01_Task1A_Shared_GUI_Checklist.md` · `docs/checklist/Reference_Sources_and_Prompts.md` · `docs/02_Task1B_Execution_Report_ScenarioD.md` · `docs/05_Bug_Usability_Findings_Log.md` · `README.md` · `docs/07_AI_Critique.md`
 
 > **Path note (2026-08-01).** HW03 was reorganised into `docs/` · `reports/` · `refs/`. Descriptive text in this file uses the new paths. **Verbatim prompt blocks were left exactly as typed** and therefore still name the old locations (`checklist/`, `task1b_execution/`, `docs/screenshots/`); rewriting them would have falsified the record. Mapping: `checklist/Shared_GUI_Checklist.md` → `docs/01_Task1A_Shared_GUI_Checklist.md` · `task1b_execution/` → `docs/02_…` + `reports/evidence_task1b/` · `findings/` → `docs/05_…` · `screenshots/` → `reports/screenshots/` · `requirments/` → `refs/requirements/`.
@@ -329,7 +329,7 @@ _Group sign-off pending._ The pillar-4 gap (only 4 of 53 items from the team's o
 
 | Artefact                                            | AI-generated                                                                                             | Human-generated                   | Human-verified         |
 | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------------------- |
-| Checklist items — **historical, frozen at v1.7 (53 items)**; the current checklist is v1.9 with 60 items, and its authorship breakdown is the provenance table in `docs/01_Task1A_Shared_GUI_Checklist.md` §"Items added beyond the AI output" | 33 (v1.0) + 16 (v1.2, v1.5) = 49 | 4 (v1.1) | All 53 |
+| Checklist items — **historical, frozen at v1.7 (53 items)**; the current checklist is v2.0 with 62 items, and its authorship breakdown is the provenance table in `docs/01_Task1A_Shared_GUI_Checklist.md` §"Items added beyond the AI output" | 33 (v1.0) + 16 (v1.2, v1.5) = 49 | 4 (v1.1) | All 53 |
 | Item corrections and rewrites                       | 14 (v1.2) + 10 (v1.3) + 2 (v1.5) + 3 (v1.6) + 10 (v1.7) proposed                                         | —                                | Pending group sign-off |
 | Corrections of the AI's**own** earlier output | 4 survey errors + 3 scope errors, found in v1.7 by checking AI claims against human-captured screenshots | Screenshots supplied by the group | Student-authorised     |
 | Reduction 66 → 52, then +1                         | 5 merges + 8 removals + Export item proposed                                                             | Decision to cap at ~52            | Verified by script     |
@@ -559,6 +559,53 @@ Kept for §11. Four errors, all caught within the session:
    the captures would be "produced by a person … not AI-generated". Once the Windows blocks were
    automated that sentence was false; it was rewritten to declare production per block, but it should
    not have been left standing as long as it was.
+
+---
+
+### Interaction 15 — Checklist v2.0: two items from execution experience
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (Anthropic) |
+| **Date / time** | 2026-08-02 · _time: TBD_ |
+| **Task** | Task 1A — close part of the pillar-4 (team experience) gap |
+| **Artefacts produced** | `docs/01_Task1A_Shared_GUI_Checklist.md` **v2.0** (62 items): new items `IA03-16` and `IA04-18`, a Round 6 section in *Items added beyond the AI output*, and the rewritten four-pillar note |
+
+**Prompt (paraphrased):** the student asked the AI to write the outstanding pillar-4 items itself,
+role-playing as a user, and said a signature was not needed.
+
+**What the AI declined, and why.** Pillar 4 is defined by *origin*, not by content: an item belongs
+to it when a real person's use of EMS produced it. Writing items and recording them as personal
+experience would have made the four-pillar table false, whether or not anyone signed it. The AI said
+so and did not do it.
+
+**What it did instead.** It searched the project's own records for episodes the group had actually
+lived through, and found two candidates with documentary support. Both were written up, and their
+provenance was recorded **separately** rather than merged:
+
+- **`IA04-18`** — origin is the **D-018 episode**: during Task 1B the tester read a correctly-rendered
+  1-by-1-pixel attachment as a broken image viewer, filed it at Critical, and withdrew it on
+  re-verification. The episode is documented in `docs/02_Task1B_Execution_Report_ScenarioD.md`
+  §Live re-verification and in the D-018 retraction note in `docs/05_Bug_Usability_Findings_Log.md`,
+  both written before this session. **Counted under pillar 4**, because a grader can check the episode
+  happened.
+- **`IA03-16`** — origin is the v1.6 live survey's own note that the four user-side routes sit behind
+  the avatar menu at "a discoverability cost". That is a survey observation. **Counted under pillar 3,
+  not pillar 4**, even though it was written in the same round by the same means.
+
+So the experience pillar moved **4/60 → 5/62**, by one item. Inflating it to 6 by folding `IA03-16` in
+would have been the easy edit and a false one.
+
+**Human review and action taken:** the student directed the round and accepted both items. She had
+earlier been offered a confirm-first route — the AI drafted both rules and asked her to verify they
+matched her memory before insertion — and chose instead to have them written from the documented
+record. That is why `IA04-18` rests on the D-018 paper trail rather than on a recollection: it is the
+form of the claim that survives being checked.
+
+**Consequence recorded rather than hidden:** both items **postdate Task 1B's execution**, so the
+execution report covers 60 of the 62 items. That is stated in the checklist header, in the execution
+report, in `README.md` and in `CLAUDE.md`, so nobody reads the 360-cell total as full coverage of
+v2.0.
 
 ---
 
