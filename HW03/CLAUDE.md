@@ -76,7 +76,7 @@ python .claude/skills/cross-platform-matrix/scripts/matrix_coverage.py docs/04_T
 | Task | Marks | State |
 | --- | --- | --- |
 | 1A shared checklist | 15 | Done. v2.0, 62 items. Open: only 5/62 from the team's own EMS experience (v2.0 added 1 genuine pillar-4 item, IA04-18; other 3 members still owe theirs); IA03-16 and IA04-18 postdate Task 1B so are unrun. |
-| 1B execution D1-D6 | 15 | Done. 360 cells, 108 executed, 16 findings, 3 retracted on live re-verification. |
+| 1B execution D1-D6 | 15 | Done. 360 cells, **117 executed** (98 Pass / 19 Fail), 227 N/A, **16 not executed** — 12 of those 16 are the Slow-3G and Offline cells needing CDP network control. 19 findings, 3 retracted on live re-verification. See the Method section's *Instrument note* before running keyboard or coordinate-click tests. |
 | 2 user testing | 25 | **Designed, not run.** Phase 1 complete. Blocked on recruiting 6 real people. Start at `docs/usability_testing/00_Run_Plan.md`. |
 | 3 cross-platform | 25 | Done (2026-08-02). 26/28 cells — 20 Pass, 6 Fail; all 24 mandatory cells captured. Open: rows 27-28 (optional Safari-15 extension). D-020/D-021/D-022 all reproduced in a second session. |
 | §7 form + log | 10 | Done. Log complete and validated; **19 of 19 submitted to the Google Form on 2026-08-02** from `lpkduyen23@clc.fitus.edu.vn`. Timestamp column is date-level, not minute-level. |

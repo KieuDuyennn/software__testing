@@ -609,6 +609,59 @@ v2.0.
 
 ---
 
+### Interaction 16 — Six more Task 1B cells, and a self-inflicted false diagnosis corrected
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-02 22:25 +07 |
+| **Task** | Task 1B — clear unexecuted cells on D3, D4, D5 |
+| **Artefacts produced** | `docs/02_Task1B_Execution_Report_ScenarioD.md` (6 cells re-scored, Summary table, new *Instrument note* in §Method, 3 rows removed from *Items not executed*), `docs/05_Bug_Usability_Findings_Log.md` (D-011 extended to a second screen), `README.md`, `CLAUDE.md` |
+
+**Prompt (verbatim):**
+
+```
+task1b còn gì chưa chạy thì chạy tiếp đi
+```
+
+**AI output.** Ran six previously-unexecuted cells against live EMS as admin `TLA`:
+`IA02-10` (D3) Pass · `IA04-03` (D3) N/A · `IA04-03` (D4) N/A · `IA04-12` (D3) N/A ·
+`IA04-12` (D4) Pass · `IA04-12` (D5) **Fail**. Executed 114 → 117, not executed 22 → 16.
+The two N/A verdicts on `IA04-03` replaced a "too destructive to try" note with a DOM fact: neither
+screen has any delete control at all, so nothing destructive exists to guard. `IA04-12` was measured
+with a `MutationObserver` rather than estimated with screenshots — the D4 banner carries `role="alert"`
+and never auto-dismisses (still present at 39.0 s), while D5's "Mark all as read" raises no status
+message whatsoever, which merged into **D-011** as a second instance rather than becoming a new finding.
+
+**The AI corrected its own previous session's diagnosis, which had been wrong.** The prior entry in
+this project's history concluded that "synthetic mouse clicks cannot move focus to EMS textareas" and
+adopted `element.focus()` as the workaround. That explanation fitted every observation available at
+the time and was still false. Two real harness defects were behind the symptom: coordinate clicks are
+scaled by 1/`devicePixelRatio` (a click issued at (500, 300) arrives at the page as `clientX 625,
+clientY 375`), and keyboard events are not delivered to a page at all until a screenshot has been taken
+on it. What settled it was a **control**: a plain `<input>` injected into the same page at the same
+moment, which received nothing before a screenshot and every character after one. Both defects are now
+written up in the execution report's *Instrument note*.
+
+This is worth logging as an AI error of a specific kind. It is not a confident factual error about the
+product — it is an error about the **instrument**, and the audit-log guidance already warns that this
+class survives re-asking, because every re-examination looks through the same instrument. Re-reasoning
+produced a better-sounding story; only a control produced the truth. The cost was real: four
+interactions this session were nearly written up as EMS defects, and one previous session's workaround
+worked by coincidence.
+
+**Two things the AI declined to do.** It did not re-test **D-001** (the Request-type dropdown swap) even
+though the coordinate-scaling defect raised a genuine suspicion that D-001's symptom could have been a
+mis-aimed click. D-001's documented repro needs two clicks under ~0.5 s apart, which is faster than this
+tool set can issue them, so the AI recorded the suspicion for a human to settle rather than clearing or
+retracting a submitted finding on an argument. It also stopped filing new test requests once EMS returned
+"You have submitted too many requests", rather than working around the rate limit.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Specifically to check:
+the two `IA04-03` N/A verdicts, and the D-001 re-test flagged above.
+
+---
+
 ## 5. Sessions still to be logged
 
 | Task                                                              | Status                                                                                                                    |
