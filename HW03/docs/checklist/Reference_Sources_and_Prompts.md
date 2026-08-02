@@ -2,7 +2,7 @@
 
 > Group deliverable supporting **Task 1, Part A**. Documents the sources the checklist is grounded in and the full prompt chain used to generate and refine it (required by §6 and §15 of the assignment).
 > Companion files: `docs/01_Task1A_Shared_GUI_Checklist.md` (the checklist itself) · `docs/06_AI_Audit_Report.md` (§10 mandatory appendix).
-> Checklist version covered: **v1.9, 60 items** (2026-07-30; documentation-only conformance pass
+> Checklist version covered: **v2.0, 62 items** (2026-07-30; documentation-only conformance pass
 > 2026-08-01, no item added, removed or reworded). Prompt 1 produced v1.0; Prompts 2-4 produced the
 > v1.2/66-item conformance pass; Prompts 5-10 reduced and corrected the set via the live-EMS survey
 > and the screenshot-verification pass (v1.3 to v1.7); Prompt 11 added 6 scenario-specific items for
