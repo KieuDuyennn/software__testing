@@ -1,4 +1,4 @@
-# Task 1B: Execution Report, Scenario D (Lê Phạm Kiều Duyên, 23127184)
+﻿# Task 1B: Execution Report, Scenario D (Lê Phạm Kiều Duyên, 23127184)
 
 > **Status: full pass executed, extended to 6 screens (2026-07-30).** All 60 checklist items were run against the 4 committed screens (240 item×screen cells) on the live EMS at `https://prod-dev.ems-fitus.cloud/`, screen by screen, using the `gui-checklist-execution` Agent Skill built for this engagement. The group then agreed that the scenario's screen set was not fixed at four: scenario D belongs to this member alone and shares no screen with a teammate, so extending it does not touch §5's no-duplication rule. **Two further screens squarely inside the same "user requests support, admin resolves" flow were therefore added and fully run as well: D5 (Notifications: header bell dropdown, `/notifications` list, `/notifications/{id}` detail) and D6 (the attachment image lightbox, opened from D1/D2/D3/D4's evidence images).**
 >
@@ -431,7 +431,7 @@ Resting state: ![D6_resting](../reports/evidence_task1b/D6_lightbox_resting_stat
 | IA03-02 | IA-03 | N/A, reason: no tabs. | | |
 | IA03-03 | IA-03 | N/A, reason: no badge inside the lightbox. | | |
 | IA03-04 | IA-03 | Pass | The icon-only Close control carries `aria-label="Close"` (confirmed via DOM), so a screen reader announces "Close button", not just "button", the accessible-name half of this item's rule is satisfied even though the widget is a modal-dismiss control rather than a page-level back link. | |
-| IA03-05 | IA-03 | N/A, reason: not applicable. | | |
+| IA03-05 | IA-03 | N/A, reason: no status filters — D6 is an image viewer, and the item's check runs on the public Events page. | | |
 | IA03-06 | IA-03 | N/A, reason: single image, no pagination. | | |
 | IA03-07 | IA-03 | N/A, reason: the lightbox is client-side overlay state, not a distinct route; there is no independent URL to deep-link to (the parent complaint page's own deep link is already scored under D2/D3/D4's IA03-07). | | |
 | IA03-08 | IA-03 | N/A, reason: no table. | | |
@@ -447,17 +447,17 @@ Resting state: ![D6_resting](../reports/evidence_task1b/D6_lightbox_resting_stat
 | IA04-03 | IA-04 | N/A, reason: no destructive action available inside the lightbox itself. | | |
 | IA04-04 | IA-04 | N/A, reason: no action to succeed/fail inside the lightbox. | | |
 | IA04-05 | IA-04 | N/A, reason: no counter inside the lightbox. | | |
-| IA04-06 | IA-04 | N/A, reason: not applicable. | | |
-| IA04-07 | IA-04 | N/A, reason: not applicable. | | |
+| IA04-06 | IA-04 | N/A, reason: no status badge or Important-Update flag exists on a lightbox; the item targets event cards. | | |
+| IA04-07 | IA-04 | N/A, reason: no summary counters and no paged table on D6; the item compares Pending/Resolved card counts against table rows on D3. | | |
 | IA04-08 | IA-04 | N/A, reason: no contextual banner is expected or present inside the lightbox. | | |
 | IA04-09 | IA-04 | N/A, reason: no check-in flow. | | |
 | IA04-10 | IA-04 | N/A, reason: no bar meter/capacity in the lightbox. | | |
 | IA04-11 | IA-04 | Not executed, reason: same DevTools "Offline" tooling gap as D1-D4; no CDP network-conditions control is exposed by the current browser-automation tool set. An earlier pass had substituted a live-caught "permanently blank screen" observation here instead (D-018), but that observation did not survive the 2026-07-31 live re-verification, see "Live re-verification" below, so this row reverts to Not executed with nothing substituted. | | |
 | IA04-12 | IA-04 | N/A, reason: no toast inside the lightbox. | | |
 | IA04-13 | IA-04 | N/A, reason: no export control. | | |
-| IA04-14 | IA-04 | N/A, reason: not applicable. | | |
-| IA04-15 | IA-04 | N/A, reason: not applicable. | | |
-| IA04-16 | IA-04 | N/A, reason: not applicable. | | |
+| IA04-14 | IA-04 | N/A, reason: no internal note and no official response on a lightbox; the item is checked on the admin detail D4 against the user view D2. | | |
+| IA04-15 | IA-04 | N/A, reason: D6 shows no request status, so there is nothing to compare between the user and admin views. | | |
+| IA04-16 | IA-04 | N/A, reason: scenario B item (event capacity / waitlist); it has no counterpart anywhere in scenario D, let alone on D6. | | |
 | IA04-17 | IA-04 | Not executed, reason: this item needs two attachments opened back to back in the same lightbox to check whether the second still shows the first's content. Only one attachment per complaint was available among the records reachable this session, so the precondition was not met; not inferred either way. (An earlier pass had also cited the #25/#26 comparison as evidence of stale-record risk, but both records were confirmed on live re-verification to render correctly, #26's is a genuine 1-by-1-pixel placeholder rather than a broken load, so that comparison no longer applies here.) | | |
 
 ## Items not executed

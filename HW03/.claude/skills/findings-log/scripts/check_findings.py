@@ -11,7 +11,9 @@ Checks:
   * IDs unique within each table, and non-empty
   * required columns present and non-empty per record (configurable with --require)
   * severity values legal for the record's Type (Bug -> blocker..trivial, Usability -> 0..4)
-  * evidence filenames resolve on disk under --evidence-root
+  * evidence filenames resolve on disk under --evidence-root, which may be repeated when one log
+    aggregates findings whose screenshots live in more than one folder (a name resolving under any
+    one of the roots is accepted)
   * counts by type and severity, so a header total can be checked against reality
 
 A record is exempted from field and severity checks only when an explicit Status column says
@@ -23,7 +25,7 @@ Column matching is fuzzy by substring so slightly different column names still w
 that can mis-resolve, the resolved mapping is printed -- check it if a result surprises you.
 
 Usage:
-    check_findings.py LOG.md [--evidence-root DIR] [--expect N]
+    check_findings.py LOG.md [--evidence-root DIR]... [--expect N]
                              [--require "Description,Severity,Evidence"] [--quiet]
 
 Exit code 1 if any check fails.
@@ -118,7 +120,7 @@ def merge(records: dict[str, list[str]], key: str, cells: list[str], width: int)
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("log", type=Path)
-    ap.add_argument("--evidence-root", type=Path)
+    ap.add_argument("--evidence-root", type=Path, action="append", dest="evidence_roots")
     ap.add_argument("--expect", type=int, help="fail if the finding count differs")
     ap.add_argument(
         "--require",
@@ -221,19 +223,25 @@ def main() -> int:
                     "Bug or Usability, so the intended scale cannot be checked"
                 )
 
-    if ev_col is not None and args.evidence_root:
-        root = args.evidence_root
-        if not root.is_dir():
-            problems.append(f"--evidence-root is not a directory: {root}")
-        else:
+    if ev_col is not None and args.evidence_roots:
+        roots = args.evidence_roots
+        bad = [r for r in roots if not r.is_dir()]
+        for r in bad:
+            problems.append(f"--evidence-root is not a directory: {r}")
+        roots = [r for r in roots if r.is_dir()]
+        if roots:
             for fid, row in records.items():
                 cell = row[ev_col]
                 if cell.strip().lower() in EMPTY:
                     continue
                 for name in IMG_RE.findall(cell):
                     name = name.strip()
-                    if not (root / name).exists() and not list(root.rglob(Path(name).name)):
-                        problems.append(f"{fid}: evidence file not found under {root}: {name}")
+                    # A cell may name a file by bare filename or by a repo-relative path; either
+                    # form counts as resolved if it lands under any one of the roots given.
+                    if any((r / name).exists() or list(r.rglob(Path(name).name)) for r in roots):
+                        continue
+                    where = " or ".join(str(r) for r in roots)
+                    problems.append(f"{fid}: evidence file not found under {where}: {name}")
 
     if args.expect is not None and len(records) != args.expect:
         problems.append(f"expected {args.expect} findings, found {len(records)}")
@@ -264,7 +272,7 @@ def main() -> int:
         return 1
     if not args.quiet:
         print("\nOK -- IDs unique per table, required fields present, severities legal"
-              + (", evidence resolves" if (ev_col is not None and args.evidence_root) else ""))
+              + (", evidence resolves" if (ev_col is not None and args.evidence_roots) else ""))
     return 0
 
 
