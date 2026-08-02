@@ -1,14 +1,20 @@
 # Shared GUI Checklist: EMS (Event Management System)
 
 > **Group deliverable, Task 1, Part A**
-> **60 items**, sized so one member can execute the whole checklist across ≥ 3 screens within the assignment's time budget.
+> **62 items**, sized so one member can execute the whole checklist across ≥ 3 screens within the assignment's time budget.
+>
+> **Two items postdate Task 1B's execution and have not been run.** `IA03-16` and `IA04-18` were added
+> in v2.0 on 2026-08-02, after scenario D's owner had already executed the checklist end to end
+> against v1.9. `docs/02_Task1B_Execution_Report_ScenarioD.md` therefore covers **60 of these 62
+> items**, and says so; its 360-cell total is 60 × 6 and is correct as a record of what was run. The
+> two new items are open work, not silently-passed ones.
 > Grounded on four pillars: **international standards** (WCAG 2.1) · **recognised heuristics** (Nielsen 10, Norman 6, Shneiderman 8, all fully cited) · **the real system under test** (14 screenshots + a live survey of 14 running pages) · **the team's own experience** of using EMS.
 
 ## Group Information
 
 - **Group ID**: 09
 - **Date created**: 2026-07-25
-- **Version**: v1.9 (2026-07-30, v1.8 added 6 items targeting scenario D and B specifics (D4 internal-note/response boundary, D3/D4 cross-role status consistency, D3 filter correctness, B3 secondary-role mapping, B waitlist visibility, B1 category+search); v1.9 added 1 more item (IA04-17) after re-reading the **full 55-slide deck**, not just the 11 pages already cited, and finding two uncited bullets, "wrong fields retrieved by queries" (p.11) and "window object/DB field correspondence" (p.12), with no checklist item. Neither v1.8 nor v1.9 is the "team experience" pillar; that gap (4/60) is retargeted to **v2.0**, see the note below §The four grounding pillars.)
+- **Version**: v2.0 (2026-08-02; v1.9 was 2026-07-30, v1.8 added 6 items targeting scenario D and B specifics (D4 internal-note/response boundary, D3/D4 cross-role status consistency, D3 filter correctness, B3 secondary-role mapping, B waitlist visibility, B1 category+search); v1.9 added 1 more item (IA04-17) after re-reading the **full 55-slide deck**, not just the 11 pages already cited, and finding two uncited bullets, "wrong fields retrieved by queries" (p.11) and "window object/DB field correspondence" (p.12), with no checklist item. Neither v1.8 nor v1.9 is the "team experience" pillar. **v2.0** (2026-08-02) added the last 2 items, `IA03-16` and `IA04-18`, in the first round written *after* Task 1B had been executed rather than beside it; it moves the experience pillar from 4/60 to **5/62**, by one item and not two, because only `IA04-18` originates in a lived episode rather than in a source — see §The four grounding pillars and Round 6 below.)
 
 **Members**
 
@@ -141,7 +147,7 @@ Earlier drafts of this section listed specific suspected defects. They have been
 
 ---
 
-## Checklist (60 items)
+## Checklist (62 items)
 
 ### IA-01: General UI Standards (13 items)
 
@@ -181,7 +187,7 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA02-14 | IA-02 | Slides S13 p.12 ("Currency of data on screens") / Nielsen H1 · *added v1.2* | In the rich-text editor apply bold, a bulleted list, a hyperlink and a table; save, reload the edit form, then open that event's public detail page. | All formatting survives save + reload in the editor **and** renders identically on the public page, no raw HTML tags, stripped formatting or collapsed tables. |
 | IA02-15 | IA-02 | Norman P4 (Mapping) / Assignment §5 B3, "chọn role, vai trò phụ" · *added v1.8, scenario B* | On the admin Add/Edit Event form, enable **"Allow Additional Role"** (IA02-07 tests the admin-side toggle and its helper text only). Then, as a participant, open that event's **registration form (B3)** and look for a secondary-role selector. Repeat with the toggle left off on a different event. | When the admin toggle is on, the participant's registration form exposes an actual, selectable secondary-role control, not just admin-side helper text describing a feature the form never renders. When off, no secondary-role control appears. A toggle that changes the admin screen but nothing on the participant side is a Fail: the admin control must **map** to a real form element, which is exactly what IA02-07 does not check. |
 
-### IA-03: Navigation (15 items)
+### IA-03: Navigation (16 items)
 
 | Item ID | Aspect | Reference Source | Verification Rule | Expected Behavior |
 | --- | --- | --- | --- | --- |
@@ -200,8 +206,9 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA03-13 | IA-03 | Nielsen H3 (User Control and Freedom) / Slides S13 p.18 ("Links and Buttons ... lead to the expected screens") · *added v1.2* | On a list screen apply a status filter, go to page 2, open a detail record, then press the browser **Back** button, then **Forward**. | Back returns to the list with filter and page still applied, not to an unfiltered page 1, a blank screen, or out of the app; Forward re-enters the detail record. |
 | IA03-14 | IA-03 | Nielsen H4 (Consistency and Standards) / Assignment §4 Pool D, "tìm theo member code hoặc category" · *added v1.8, scenario D* | On the admin **Support Requests** list (D3), use the member-code search and the category filter **separately**, then **combined**. For each, note the count of rows shown. | Each filter narrows the list to rows that genuinely match, a category filter never leaves rows of other categories visible, and combining both filters returns the intersection, not either filter alone. A filter that visually looks "active" (highlighted) while the row set is unchanged is a Fail. |
 | IA03-15 | IA-03 | Nielsen H6 (Recognition Rather Than Recall) / Assignment §4 Pool B, "duyệt theo category và tìm kiếm" · *added v1.8, scenario B* | On the public home / events listing (B1), browse by category **without typing anything**, then separately use the search box, then both together. | A user who does not know an exact event name can still find it by category alone, search is not the only path to a result. Combining category + search narrows rather than resets the list, and the active category stays visibly selected while a search term is present. |
+| IA03-16 | IA-03 | Nielsen H6 (Recognition Rather Than Recall) / Norman P1 (Visibility) / Slides S13 p.17 (Main Menu Navigation) · *added v2.0* | Sign in as an ordinary (non-admin) user and stand on the landing page. Try to reach four destinations using **only what is visible in the persistent header**, without opening any menu: file a support request (`/complaints/new`) · read my own requests (`/complaints`) · read notifications (`/notifications`) · edit my profile (`/profile`). Record how many of the four require opening the avatar "Open menu" control first, and name the header elements that *are* exposed instead. | The routes carrying a user's own core tasks are reachable from the persistent navigation, not only from inside an account menu. A destination that is the whole purpose of the user-facing area should not be discoverable solely by opening a control whose icon signifies "my account" rather than "my tasks". **All four sitting behind the avatar menu is a Fail**, and it is a discoverability finding rather than a broken-link one: every route works once found, which is exactly why a link-checking pass will not surface it. |
 
-### IA-04: Feedback / State (17 items)
+### IA-04: Feedback / State (18 items)
 
 | Item ID | Aspect | Reference Source | Verification Rule | Expected Behavior |
 | --- | --- | --- | --- | --- |
@@ -222,18 +229,19 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | IA04-15 | IA-04 | Nielsen H4 (Consistency and Standards) · *added v1.8, scenario D* | File a request as a user, note its Pending/Resolved status on **D2**. Resolve it from the admin side (D4), then reload **D2** and compare against the admin's **D3** list for the same request. | The status shown to the requester on D2 and the status shown to admins on D3/D4 for the **same** request always agree, never "Resolved" on one side and "Pending" on the other because of a caching or refresh gap. If they can legitimately disagree during a short propagation window, that window and its cause should be documented, not silently accepted. |
 | IA04-16 | IA-04 | Nielsen H1 (Visibility of System Status) / Assignment §4 Pool B, "waitlist" · *added v1.8, scenario B* | Register for an event that is already at its Max Slots capacity (or reduce an event's Max Slots below its current registration count, if you have admin access to set up the case). | The registration flow clearly tells the participant they are being placed on a **waitlist**, not silently registering them as confirmed or silently failing. My Registrations (B4) shows a distinct waitlist status, separate from Confirmed, so the participant is never left assuming a waitlisted spot is a guaranteed one. |
 | IA04-17 | IA-04 | Slides S13 p.11 ("Wrong fields retrieved by queries") / p.12, "Window object/DB field correspondence", "Multiple database rows returned, single row expected" · *added v1.9* | Open a detail page for one record, an event, a support request, or a user, and note two or three of its distinctive field values verbatim (title, status, a note or response text). **Without returning to the list**, navigate directly to a **different** record of the same type by changing the URL/id (e.g. `.../events/views?id=15` right after `id=14`, or `/complaints/9` right after `/complaints/8`). | Every field on the new record reflects that record's **own** data, no field, image, status, count or note is left over from the previous one. A field that still shows the previous record's value after the id changed is a Fail: the component re-rendered its shell but not its data, exactly the class of bug slides p.11/p.12 name as "wrong fields retrieved by queries" and "window object/DB field correspondence." Doubly consequential on D4 in combination with IA04-14: a leftover **internal note** from a previously viewed request would be a confidentiality failure, not just a display glitch. |
+| IA04-18 | IA-04 | Norman P1 (Visibility) / Slides S13 p.7 ("prevent ... distorted graphics") · *added v2.0, from Task 1B execution experience* | Open the attachment lightbox on three records: (a) one carrying an ordinary photograph, (b) one carrying a valid but very small image (1x1 or 16x16 px), (c) one whose image `src` returns 404. Compare the three **by eye, with DevTools closed**, and ask of each: can a person tell which of the three they are looking at? | The three states are visually distinguishable without inspecting the DOM. A valid-but-tiny image is not upscaled to fill the pane as a flat colour field indistinguishable from an empty one, and a failed load carries an explicit error state rather than blank space. **A viewer that renders "loaded a 1x1 pixel file" and "failed to load anything" identically is a Fail**, because the user cannot tell whether to retry, to report a defect, or to accept what is on screen. |
 
 ---
 
 ## Coverage summary
 
-| Aspect | v1.0 AI-drafted | v1.1 Team-added | v1.2+ Audit-added | v1.8 Scenario-audit-added | v1.9 Slide-completeness-added | Total |
-| --- | --- | --- | --- | --- | --- | --- |
-| IA-01 General UI standards | 8 | 2 | 3 | 0 | 0 | **13** |
-| IA-02 Forms | 8 | 1 | 5 | 1 | 0 | **15** |
-| IA-03 Navigation | 8 | 1 | 4 | 2 | 0 | **15** |
-| IA-04 Feedback / state | 9 | 0 | 4 | 3 | 1 | **17** |
-| **Total** | **33** | **4** | **16** | **6** | **1** | **60** |
+| Aspect | v1.0 AI-drafted | v1.1 Team-added | v1.2+ Audit-added | v1.8 Scenario-audit-added | v1.9 Slide-completeness-added | v2.0 Execution-experience-added | Total |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| IA-01 General UI standards | 8 | 2 | 3 | 0 | 0 | 0 | **13** |
+| IA-02 Forms | 8 | 1 | 5 | 1 | 0 | 0 | **15** |
+| IA-03 Navigation | 8 | 1 | 4 | 2 | 0 | 1 | **16** |
+| IA-04 Feedback / state | 9 | 0 | 4 | 3 | 1 | 1 | **18** |
+| **Total** | **33** | **4** | **16** | **6** | **1** | **2** | **62** |
 
 ## The four grounding pillars
 
@@ -242,9 +250,33 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | **International standards** | WCAG 2.1, six success criteria applied with their real thresholds | IA01-05 (SC 1.4.3), IA01-10 (SC 2.2.2), IA01-12 (SC 2.4.7), IA01-13 (SC 1.1.1), IA03-04 (SC 4.1.2), IA04-12 (SC 4.1.3) |
 | **Recognised heuristics** | Nielsen 10/10, Norman 6/6, Shneiderman 8/8, every principle cited by at least one item | See framework table below |
 | **The real system under test** | 14 screenshots + a live survey of 14 running EMS pages; 23 items name concrete EMS widgets or scenario-specific behaviour. 6 were rewritten in v1.3 after the survey showed the widget did not exist as assumed; 4 more were corrected in v1.7 in the opposite direction (bar meters, icon-only back button, native date inputs, a fourth Export); 6 more were added in v1.8 targeting scenario D and B specifics (D4 internal-note/response boundary and cross-role status agreement, D3 filter correctness, B3 secondary-role mapping, B waitlist visibility, B1 category+search); 1 more added in v1.9 after re-reading the full 55-slide deck rather than only the pages already cited (record-identity / stale-data on route change) | IA01-04, IA01-08 to 11, IA02-03 to 07, IA02-11, IA02-12, IA02-14, IA02-15, IA03-01, IA03-07, IA03-08, IA03-11, IA03-12, IA03-14, IA03-15, IA04-05 to 07, IA04-10, IA04-13 to 17 |
-| **Team experience** | Items the group derived from its own *personal frustration* using EMS, rather than from any source or audit process, currently the four v1.1 accessibility/keyboard items | IA01-12, IA01-13, IA02-10, IA03-10 |
+| **Team experience** | Items derived from a member's own experience of using EMS, rather than from any source or audit process: the four v1.1 accessibility/keyboard items, plus **IA04-18**, whose origin is a documented episode during this group's own Task 1B execution rather than any reading of a source (see Round 6 below) | IA01-12, IA01-13, IA02-10, IA03-10, IA04-18 |
 
-> **Known weakness: the experience pillar is still the thinnest of the four (4 of 60), and neither v1.8 nor v1.9 closes this gap.** Both are additional **AI-assisted audit**: v1.8 scenario-scoped, v1.9 slide-completeness-scoped, grounded in the assignment text, the slides, and the live survey, not in anyone's personal experience of using EMS, and neither should be mislabelled as pillar-4. The distinction matters: pillar 4 is specifically what an AI structurally cannot supply (see `docs/06_AI_Audit_Report.md` §4, points 7-8), and folding audit-sourced items into it would overstate this checklist's grounding. **1-2 items from each member's own frustration while using EMS are still owed**, now targeted at **v2.0**. Add each as a normal five-column row in the aspect it belongs to, then log it in the *Items added beyond the AI output* section below under a new **Round 6** heading, signed with the member's name and student ID, stating why no document, heuristic, slide or survey would have produced it; `docs/checklist/Reference_Sources_and_Prompts.md` §5 action 6 carries the same instruction. That is still the cheapest available gain on criterion 1a, and it is the one addition in this file an AI genuinely cannot make on your behalf. It was re-examined again in the 2026-08-01 conformance pass and deliberately left open: the gap is 4 of 60 and writing anything into it that did not come from a member would make the grounding claim above false.
+> **Known weakness: the experience pillar is still the thinnest of the four, now 5 of 62.** v2.0 moved
+> it by exactly one item, and only because one item genuinely qualified. **IA04-18** was not derived
+> from reading anything: it exists because scenario D's owner, executing Task 1B against the live
+> product, mistook a correctly-rendered 1-by-1-pixel attachment for a broken image viewer, filed it as
+> **D-018 at Critical severity**, and had to withdraw it on re-verification once the file itself was
+> checked (68 bytes, `IHDR width=1 height=1`, HTTP 200). The rule "a viewer must distinguish a tiny
+> valid image from a failed load" has no source behind it; it has a person who lost time to the
+> confusion. The episode is documented independently of this checklist, in
+> `docs/02_Task1B_Execution_Report_ScenarioD.md` §Live re-verification and in the D-018 retraction note
+> in `docs/05_Bug_Usability_Findings_Log.md`, so the provenance claim here is checkable rather than
+> asserted.
+>
+> **IA03-16, added in the same round, is deliberately *not* counted here.** Its origin is the live
+> survey's own note that the four user-side routes sit behind the avatar menu at "a discoverability
+> cost" — that is pillar 3, grounding in the observed system, and folding it into pillar 4 to make the
+> number look better would falsify the table above. The same reasoning already kept v1.8's six items
+> and v1.9's one out of this pillar.
+>
+> **What is still owed: 1-2 items from each of the other three members**, from their own use of EMS.
+> Add each as a normal five-column row in the aspect it belongs to, then log it under **Round 6** in
+> *Items added beyond the AI output* below, stating why no document, heuristic, slide or survey would
+> have produced it; `docs/checklist/Reference_Sources_and_Prompts.md` §5 action 6 carries the same
+> instruction. This remains the cheapest available gain on criterion 1a, and writing anything into this
+> pillar that did not come from a real episode would make the grounding claim above false — which is
+> why it moved by one item and not by four.
 
 ## Conformance map: every element named in §4
 
@@ -287,11 +319,12 @@ Earlier drafts of this section listed specific suspected defects. They have been
 | Buttons / CTAs | IA01-03, IA02-09 | Tables, pagination | IA03-06 |
 | Text fields | IA02-02 | Tables, sort / filter headers | IA03-08 |
 | Checkboxes · dropdowns · switches | IA02-07, IA02-12 | Tabs | IA03-02, IA03-09 |
-| Date picker | IA02-06, IA02-11 | Modal / dialog / lightbox | IA04-02, IA04-03, IA03-10 |
+| Date picker | IA02-06, IA02-11 | Modal / dialog / lightbox | IA04-02, IA04-03, IA03-10, **IA04-18** |
 | File upload | IA02-03, IA02-04 | Toast | IA04-04, IA04-11, IA04-12 |
 | Rich-text editor | IA02-05, IA02-14 | Progress bar / capacity | IA04-10 |
 | Badges / status pills | IA01-05, IA04-01, IA04-06 | Spotlight hero | IA01-10 |
 | Breadcrumb | IA03-11 | QR / barcode ticket | IA01-11 |
+| **Header nav / account menu** | **IA03-16** | | |
 | Search box | IA02-10 | Error messages | IA02-08, IA04-11 |
 | **Export / file download** | **IA04-13** | | |
 | Filter (search + category) | IA03-14, IA03-15 | Internal/private note field | IA04-14 |
@@ -311,11 +344,11 @@ Earlier drafts of this section listed specific suspected defects. They have been
 
 **What "beyond the AI output" means here, stated plainly so nothing is overclaimed.** §6 requires an
 explanation of why the AI missed each item added beyond its output. The **AI output** is the v1.0
-draft: **33 of the current 60 items** descend from it. The other **27 are additions made after that
-draft, and all 27 are explained below** — Round 1 (4), Round 2 (15), Round 3 (1), Round 4 (6),
-Round 5 (1). None is missing an explanation.
+draft: **33 of the current 62 items** descend from it. The other **29 are additions made after that
+draft, and all 29 are explained below** — Round 1 (4), Round 2 (15), Round 3 (1), Round 4 (6),
+Round 5 (1), Round 6 (2). None is missing an explanation.
 
-The 27 were not all written the same way, and the difference is recorded rather than blurred:
+The 29 were not all written the same way, and the difference is recorded rather than blurred:
 
 | Round | Items | Who wrote the item text | Who decided the item was needed |
 | --- | --- | --- | --- |
@@ -324,13 +357,17 @@ The 27 were not all written the same way, and the difference is recorded rather 
 | **3** (v1.5) | 1 | AI, under instruction | The student, who asked for the two unsurveyed admin areas and named the Export item explicitly (Prompt 7) |
 | **4** (v1.8) | 6 | AI, under instruction | The **human-specified re-framing**: re-read §4 Pool B/D and §5 B3/C4 *by scenario* rather than by aspect (Prompt 11) |
 | **5** (v1.9) | 1 | AI, under instruction | The **human-specified re-framing**: check bullet-by-bullet across all 55 slide pages, not page-by-page across the 11 already cited (Prompt 12) |
+| **6** (v2.0) | 2 | AI, under instruction | **Two different origins, kept apart on purpose.** IA04-18 comes from an episode the group lived through while executing Task 1B — the D-018 misdiagnosis — not from any reading; the AI wrote the rule, the experience that produced it was a person's. IA03-16 comes from the live survey's own note that the four user-side routes sit behind the avatar menu at "a discoverability cost", an observation recorded in v1.6 and left without an item for four versions |
 
-So the honest statement is: **4 items are human-authored end to end; 23 were produced by an AI asked
-a question the AI had not thought to ask itself, and were then traced back to the source sentence
-they claim to come from before being accepted.** Both are additions the v1.0 output did not contain,
-and the explanation of *why the v1.0 output did not contain them* is what §6 asks for and what the
-tables below give. Recording Rounds 2-5 as if they were unaided human work would misstate the
-provenance, and the four-pillar table above already keeps the same boundary for the same reason.
+So the honest statement is: **4 items are human-authored end to end; 25 were produced by an AI asked
+a question the AI had not thought to ask itself, and were then traced back to the source sentence —
+or, for IA04-18, to the recorded episode — they claim to come from before being accepted.** All are
+additions the v1.0 output did not contain, and the explanation of *why the v1.0 output did not
+contain them* is what §6 asks for and what the tables below give. Recording Rounds 2-6 as if they
+were unaided human work would misstate the provenance, and the four-pillar table above already keeps
+the same boundary for the same reason — which is why IA04-18 counts toward the experience pillar (its
+origin is an episode, verifiable in two other files) while IA03-16, written in the same round by the
+same means, does not (its origin is a survey note).
 
 ### Round 1: v1.1, team review of the AI draft (2026-07-25)
 
@@ -397,6 +434,18 @@ had walked past because its page was "already covered" by a different bullet.
 | --- | --- | --- |
 | IA04-17 | Record identity / stale data on direct navigation between records | p.11 lists "Wrong fields retrieved by queries" and p.12 lists "Window object/DB field correspondence" and "Multiple database rows returned, single row expected", three bullets on two pages already cited for *other* bullets (IA02-01/04/06/11/04-11 on p.11; IA02-14/03-08/04-05 on p.12). Because those pages were not "uncited", no earlier round's gap-finding process, which looked for cited-vs-uncited *pages*, not cited-vs-uncited *bullets within a page*, flagged them. |
 
+### Round 6: v2.0, after executing the checklist against the live product
+
+Rounds 1-5 were all done **before or beside** execution, reading sources: the assignment text, the
+slides, the screenshots, the survey. Round 6 is the first round that could only happen **after**
+Task 1B had been run end to end, because both items come from things that only become visible when
+someone actually works with the product for hours rather than inspecting it.
+
+| ID | Item | Why the AI missed it |
+| --- | --- | --- |
+| IA04-18 | Attachment viewer must distinguish a tiny valid image from a failed load | **This item's origin is a mistake, not a source.** Executing D6, the tester opened an attachment that filled the lightbox pane with nothing and concluded the viewer was broken, filing **D-018 at Critical**. Re-verification refuted it outright: the `<img>` existed, the request returned HTTP 200, and the file was a real 68-byte PNG whose header decodes to `IHDR width=1 height=1` — a 1-pixel placeholder uploaded during the D1 upload test, rendered perfectly. No heuristic, slide bullet or spec sentence says "distinguish a 1-pixel image from a broken one"; the rule exists because a person spent real effort on the confusion and had to withdraw a Critical finding. An AI grounded in screenshots could not have produced it for a structural reason: **a screenshot of a blank pane and a screenshot of a correctly-rendered 1-pixel image are the same image.** The very indistinguishability the item tests for is what hides it from screenshot-based analysis — and it fooled a human too, which is the evidence that the gap is real rather than pedantic. |
+| IA03-16 | User-task routes must be reachable from the persistent header, not only from the avatar menu | The v1.6 live survey **did** record the fact — "`/complaints` (My Requests) · `/complaints/new` · `/profile` · `/notifications`. **None appears in the header nav**: all are behind the avatar 'Open menu' button" — and even appended "note the discoverability cost for scenario D". It then sat unused for four versions. The reason is a blind spot in how the earlier rounds looked for gaps: they asked *which named element has no item?*, and every element here **has** items (IA03-01 covers the sidebar, IA03-07 deep links, IA03-04 back controls). Nothing was missing; what was wrong was the **arrangement** of things that all exist. A survey enumerates what is present, so it is structurally good at "this widget has no item" and structurally blind to "these four destinations are all one level deeper than a user expects" — a cost measured in the gap between where someone looks first and where the control is, which leaves no trace in the DOM or in any still frame. |
+
 ## Checklist changelog
 
 | Date | Version | Change | Author |
@@ -412,3 +461,4 @@ had walked past because its page was "already covered" by a different bullet.
 | 2026-07-30 | v1.8 | **Scenario-by-scenario audit re-read of §4/§5 for D and B (Round 4)**: added 6 items the aspect-organised Rounds 1-3 had not surfaced because they are scenario-specific rather than IA-general: IA04-14 (D4 internal-note/official-response boundary), IA04-15 (D2/D4 cross-role status consistency), IA03-14 (D3 member-code + category filter correctness), IA02-15 (B3 secondary-role selector reflects the admin toggle), IA04-16 (waitlist visibility), IA03-15 (B1 category browse + search). **53 → 59 items** (IA-02 14→15, IA-03 13→15, IA-04 13→16; IA-01 unchanged at 13). All six cite the assignment text and/or an existing framework, **none is a pillar-4 "team experience" item**. | AI-assisted scenario audit (Claude Opus 5), pending group review |
 | 2026-07-30 | v1.9 | **Full 55-slide completeness check (Round 5)**, prompted directly by the student asking whether the checklist follows the slides' rules. Re-extracted every page of `S13_GUI Testing & Usability Testing.pdf` (not just the 11 already cited) and found one bullet, split across two adjacent already-cited pages, with no item: p.11 "Wrong fields retrieved by queries" / p.12 "Window object/DB field correspondence" and "Multiple database rows returned, single row expected". Added **IA04-17**: open one record, note its fields, navigate directly to a different record of the same type by id, and check nothing from the first record persists. **59 → 60 items** (IA-04 16→17). Confirmed the rest of pages 1-28 (the GUI-testing half of the deck) is either already cited or is process/methodology content with no itemisable per-screen rule (test techniques, testing levels, process challenges), see `docs/checklist/Reference_Sources_and_Prompts.md` for the page-by-page reasoning. Pages 29-55 (usability-testing methodology) are out of scope for this Task 1A checklist; they ground Task 2 instead. Pillar-4 gap (4/60) still open, retargeted to **v2.0**. | AI-assisted completeness audit (Claude Opus 5), pending group review |
 | 2026-08-01 | v1.9 *(doc-only)* | **Conformance pass against §6 / §15 / §16 criterion 1a. No item was added, removed or reworded, so the version stays v1.9 / 60 items and every file citing "v1.9, 60 items" stays true.** Changes: one citation added (IA01-04 now also cites S13 p.16 *Typography*, which grounded it in fact but was missing from its Reference Source cell, leaving `docs/checklist/Reference_Sources_and_Prompts.md` §2d claiming a citation the item did not carry); the *Items added beyond the AI output* section gained a provenance table stating which of the 27 additions are human-authored (4) and which are AI-produced under a human-specified audit axis (23), so §6's "items you added" is not read as a claim of 27 unaided items; the scenario-assignment section now records that executed screen sets may exceed the committed table and that D executed six. In the group artefact: Prompts 5-10 were inlined rather than cross-referenced to an individual appendix, the verbatim-vs-normalised disclosure was corrected, every S13 page citation was re-verified against the PDF, and two false status claims were fixed. **The pillar-4 gap (4/60) was re-examined and left open and undisguised**: nothing on paper can close it. | Conformance audit (Claude Opus 5), pending group review |
+| 2026-08-02 | v2.0 | **Execution-experience round (Round 6), the first round written after Task 1B had been run rather than beside it. 60 → 62 items** (IA-03 15→16, IA-04 17→18). Added **IA04-18**, that an attachment viewer must distinguish a valid-but-tiny image from a failed load — the rule that would have prevented **D-018**, a Critical finding raised and then withdrawn when the "broken" image turned out to be a correctly-rendered 68-byte, 1-by-1-pixel PNG. Added **IA03-16**, that a user's own task routes must be reachable from the persistent header rather than only from the avatar menu, closing a v1.6 survey observation ("the discoverability cost for scenario D") that had gone four versions without an item. **The experience pillar moves 4/60 → 5/62, by one item only.** IA04-18 qualifies because its origin is a lived episode, documented independently in `docs/02_Task1B_Execution_Report_ScenarioD.md` and `docs/05_Bug_Usability_Findings_Log.md`, so the claim is checkable rather than asserted; IA03-16 was written in the same round by the same means but is **counted under pillar 3, not pillar 4**, because it came from a survey note. Items owed from the other three members remain open. | AI-drafted from a documented execution episode (Claude Opus 5), pending group review |
