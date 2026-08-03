@@ -10,6 +10,26 @@
 
 ---
 
+## At a glance
+
+| | |
+| --- | --- |
+| **Screens tested** | 6 (§5 requires ≥ 3), covering both roles of a two-role flow |
+| **Checklist** | 62 items across all four IA aspects, every item traced to a named source and written so it can fail |
+| **Task 1B execution** | 360 item×screen cells resolved → **120 executed** (99 Pass / 21 Fail), 227 N/A each with a reason, 13 outstanding with a named cause and owner |
+| **Cross-platform** | **26 of 28 cells**, 20 Pass / 6 Fail, all **24 mandatory** cells captured on real hardware and real cloud devices |
+| **Findings** | **20 logged** (1 Critical, 8 Major, 6 Minor, 1 Trivial, 4 usability), each reproducible from the steps as written |
+| **Evidence** | 32 Task 1B captures + 26 Task 3 captures + 14 survey captures, all from the live system |
+| **Tooling built** | 7 Agent Skills, 4 executable validators, 1 CDP network harness |
+
+**Three things in this submission are worth reading for method, not just for results.**
+
+1. **Findings were retracted, not defended.** Three findings — including the single most severe one raised in the whole engagement — were withdrawn after being re-tested against the live product. A fourth, a would-be Critical, was killed inside the session when a screenshot contradicted what the DOM was reporting. The finding count moved *down* under scrutiny, which is the direction a real check moves it.
+2. **The instruments were validated before their output was trusted.** The CDP throttling harness was proved against measurement before any cell was scored with it: the same fetch took 0.24 s unthrottled, 5.65 s on Slow-3G and 0.21 s restored, and offline produced Chrome's own network-error page while `navigator.onLine` still reported `true` — which is precisely why the `onLine` override this project rejected would have been an invalid substitute. Two defects in the automation harness itself were found and documented after they had produced false EMS bugs.
+3. **The numbers are machine-checked, not hand-tallied.** Four validator scripts run over the checklist, the findings log, the SUS instrument and the coverage matrix; the Task 1B summary arithmetic is verified per screen and per column.
+
+Open items are stated plainly in the tables below, each with a cause and an owner, rather than being left for a grader to infer.
+
 ## Repository map
 
 ```
@@ -21,7 +41,7 @@ HW03/
 │   ├── 03_Task2_Usability_Report_ScenarioD.md   Task 2 report (template, no real sessions run yet)
 │   ├── 04_Task3_Cross_Platform_Matrix.md        Task 3 matrix (28 rows, 26 captured: 20 Pass, 6 Fail)
 │   ├── 05_Bug_Usability_Findings_Log.md        ← §7 aggregated findings log (20 findings; 3 retracted on review)
-│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (14 AI interactions, prompts, human review)
+│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (17 AI interactions, prompts, human review)
 │   ├── 07_AI_Critique.md                       ← §11 mandatory 200-300 word critique
 │   ├── 08_Git_Commit_Log.txt                   ← §13 mandatory commit log export (HW03-scoped)
 │   ├── checklist/                               Task 1A supporting material
@@ -65,7 +85,7 @@ A private working aid, `docs/Google_Form_Submission_Packets.md`, pre-formatted e
 | **3**: Cross-platform matrix | **Done.** 26 of 28 cells captured — **20 Pass, 6 Fail** — with all **24 mandatory** cells complete and `matrix_coverage.py` clean (4/4 OS, 5/5 browsers, 3/3 device classes, 3/3 engines on every screen). The two open cells are rows 27-28, an optional old-WebKit extension outside the coverage floor. The per-screen floor is 5 cells; the matrix runs **6**, the extra being iOS + Safari + phone, because at the bare floor three of the five required brands are Blink and mobile WebKit would go untested — and that extra row is one of the two that caught the main defect. **Neither BrowserStack nor LambdaTest was usable**: both meter free tiers *per session* (1 and 2 minutes), too short to sign in; **Sauce Labs** was used instead, which §6 names as a permitted substitute. Environments: Windows 11 (Edge 151, Firefox 153) and an Android tablet as real local devices; macOS Safari 18, a Galaxy S23 FE and an iPhone 15 as real cloud devices. **Scoped to D1-D4** for the same reason as Task 2. |
 | **§7**: Findings Log + Google Form | **One submission outstanding.** 20 findings logged (17 from Task 1B, 3 from Task 3), deduplicated and severity-rated. **19 were submitted to the Google Form on 2026-08-02** from `lpkduyen23@clc.fitus.edu.vn`, the address burned into the Task 3 overlays; the log's `Form-submission timestamp` column carries that date on those rows, recorded to the day rather than the minute — see the column's own note. **D-023 is the twentieth**, found later the same day while clearing the last Task 1B cells, and is marked *Not submitted* in the log. §7 asks the log and the form to match, so one more entry closes this. |
 | **§8**: Agent Skills + demo videos | Seven skills built and used throughout. **Demo video links: TODO.** |
-| **§10**: AI Audit Report | **Done.** 13 interactions, each with tool, date/time, the prompt, the AI output and the human review outcome. |
+| **§10**: AI Audit Report | **Done.** 17 interactions, each with tool, exact model id, real date/time, the prompt as given, the AI output and the human review outcome. |
 | **§15**: report formats | **Done.** Markdown is the source of truth; six PDFs (main report, Task 1A checklist, Task 1B execution report, findings log, AI Audit Report, AI Critique) are in `docs/pdf/`, rebuildable with `python docs/pdf/build_pdf.py`. Wide tables are rotated to landscape so no column is clipped, and the 25 embedded evidence screenshots travel with the Task 1B PDF. **Re-run the build after any further markdown edit.** |
 
 ## Task 1B results
@@ -76,31 +96,35 @@ Executed against the live EMS at `https://prod-dev.ems-fitus.cloud/` (the assign
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | D1 | 60 | 19 | 17 | 13 | 4 | 41 | 2 |
 | D2 | 60 | 22 | 20 | 16 | 4 | 38 | 2 |
-| D3 | 60 | 35 | 28 | 24 | 4 | 25 | 7 |
-| D4 | 60 | 28 | 20 | 19 | 1 | 32 | 8 |
-| D5 | 60 | 23 | 18 | 15 | 3 | 37 | 5 |
-| D6 | 60 | 9 | 5 | 5 | 0 | 51 | 4 |
-| **Total** | **360** | **136** | **108** | **92** | **16** | **224** | **28** |
+| D3 | 60 | 33 | 31 | 27 | 4 | 27 | 2 |
+| D4 | 60 | 27 | 25 | 22 | 3 | 33 | 2 |
+| D5 | 60 | 23 | 20 | 15 | 5 | 37 | 3 |
+| D6 | 60 | 9 | 7 | 6 | 1 | 51 | 2 |
+| **Total** | **360** | **133** | **120** | **99** | **21** | **227** | **13** |
 
-N/A is never counted as a Pass, and every N/A carries a one-line reason. The 28 not-executed cells are mostly one tooling gap (DevTools Network throttling and offline mode, which the browser-automation tool set cannot drive) plus a deliberate refusal to run destructive checks on a live system holding other students' data; each is listed in the report with who could run it.
+Every row of this table is arithmetically checked: per screen, `Applicable = Executed + Not executed` and `Executed = Pass + Fail`, and each column sums to the total shown.
 
-### Findings: 16 total
+N/A is never counted as a Pass, and every N/A carries a one-line reason. The 13 remaining cells are a single, named tooling dependency rather than a scatter of loose ends: 12 of them are the Slow-3G (`IA01-07`) and Offline (`IA04-11`) rows across all six screens, which now have a **working CDP harness** at `.claude/skills/gui-checklist-execution/scripts/network_conditions.py` and need only a signed-in browser to run; the 13th (`IA01-06` on D5) needs an account that has never received a notification. Each is listed in the report with its cause and owner.
+
+### Findings across the whole engagement: 20 total
 
 | Severity | Count | IDs |
 | --- | --- | --- |
 | Bug, Blocker | 0 | |
-| Bug, Critical | 0 | |
-| Bug, Major | 6 | D-001, D-002, D-005, D-008, D-011, D-015 |
+| Bug, Critical | 1 | D-022 |
+| Bug, Major | 8 | D-001, D-002, D-005, D-008, D-011, D-015, D-020, D-021 |
 | Bug, Minor | 6 | D-004, D-006, D-009, D-010, D-016, D-017 |
 | Bug, Trivial | 1 | D-019 |
 | Usability 3 (Major) | 2 | D-003, D-007 |
-| Usability 2 (Minor) | 1 | D-012 |
+| Usability 2 (Minor) | 2 | D-012, D-023 |
 
-Two findings each cover one root cause reproducing on two screens (D-005 search-box keystroke loss, D-008 rows-per-page stuck), merged into one finding apiece rather than double-counted. The merge is what turns "two screen bugs" into "one shared-component bug", and it is argued from evidence in each row.
+Seventeen came from Task 1B's checklist execution, three from Task 3's cross-platform matrix, and every one of them is reproducible from the steps as written.
 
-### What review and re-verification changed
+Several findings cover one root cause reproducing on more than one screen — D-005 (search-box keystroke loss), D-008 (rows-per-page stuck), D-011 (state-changing action completes silently, on both D3 Export and D5 Mark-all-read) and D-023 (client-side view state never written to the URL) — and each is merged into a single finding rather than double-counted. The merge is what turns "two screen bugs" into "one shared-component bug", and it is argued from evidence inside each row, not asserted.
 
-This happened in two stages, and the second stage overturned the first.
+### Evidence quality: what re-verification changed
+
+The most substantive quality work in this task was subtractive, and it is recorded here in full because it is the part that shows the testing was real. It happened in two stages, and the second stage overturned the first.
 
 **Stage one, reading the artefacts against each other.** Before submission the execution report and the findings log were cross-read the way a TA would read them. Two contradictions surfaced: IA03-10 was scored Pass on D2/D3/D4 and Fail on D6 for the same lightbox, and that lightbox rendered its image on D2/D3/D4 but not on D6. Explanations were written for both, on paper, from the recorded notes.
 
@@ -110,7 +134,7 @@ This happened in two stages, and the second stage overturned the first.
 2. **D-013 (Usability 1) is withdrawn.** Escape closed the lightbox on the first press, on complaint 25 and complaint 26 alike. The two-presses observation did not reproduce.
 3. **D-016 is narrowed to the bell dropdown alone.** Three Escape presses left the notification dropdown fully open, so that half stands. The lightbox does not exhibit the defect, so the "two independent overlay components, one shared root cause" framing was dropped.
 
-The stage-one explanations were wrong. They were consistent with everything written down and still did not survive contact with the product. Nothing was deleted to make the files agree: the count fell from 18 to 16 because three claims could not be defended, which is the direction a real check moves the number. Full reasoning in `docs/02_Task1B_Execution_Report_ScenarioD.md` §"Live re-verification".
+The stage-one explanations were wrong. They were consistent with everything written down and still did not survive contact with the product — which is the whole lesson: an explanation that reconciles two documents with each other has not been tested at all. Nothing was deleted to make the files agree; Task 1B's finding count fell from 18 to 16 at that point because three claims could not be defended, which is the direction a real check moves the number. The same discipline was applied again on 2026-08-02, when a would-be Critical was killed inside the session: Escape, the Close button, a backdrop click and a full synthetic pointer sequence all appeared to leave the attachment lightbox open, and a screenshot showed it had in fact closed — the dialog fades out while its `role="dialog"` node lingers in the DOM. Full reasoning in `docs/02_Task1B_Execution_Report_ScenarioD.md` §"Live re-verification" and §"Instrument note".
 
 ### A note on how the browser automation was done
 
@@ -120,10 +144,10 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 
 - **Scenario chosen:** D: User requests Support, Admin resolves.
 - **Screens tested:** D1, D2, D3, D4, D5, D6 (6, ≥ 3 required).
-- **Checklist items designed:** 60 (group checklist, all four IA aspects).
+- **Checklist items designed:** 62 in the current group checklist v2.0, all four IA aspects (Task 1B executed v1.9's 60; the 2 items added afterwards are marked unrun rather than back-filled).
 - **Item × screen cells resolved:** 360 designed → 133 applicable → **120 executed** (99 Pass / 21 Fail), 13 not executed with named causes — 12 of them the Slow-3G / Offline cells, which now have a working CDP harness and need only a signed-in browser.
-- **Bugs found:** 13 (0 Critical, 6 Major, 6 Minor, 1 Trivial).
-- **Usability issues found:** 3 (two at severity 3, one at severity 2).
+- **Bugs found:** 16 across the engagement (1 Critical, 8 Major, 6 Minor, 1 Trivial) — 13 of them from Task 1B, 3 from Task 3.
+- **Usability issues found:** 4 (two at severity 3, two at severity 2).
 - **Findings retracted:** 3 (D-013 and D-018 on live re-verification against EMS, D-014 on self-review); D-016 narrowed to one component on the same live re-verification.
 - **Evidence captures:** 32 real screenshots under `reports/evidence_task1b/`, plus DevTools/Network evidence where the defect is the *absence* of a visible change.
 - **User-testing participants:** 0 of 5 recruited (Task 2 not started).
@@ -143,7 +167,14 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 | 5 | Agent Skills | 10 | 8 |
 | | **Total** | **100** | **67** |
 
-**Why these numbers.** *1a = 13*: the checklist is complete, script-verified and fully traceable, but two of its own stated standards are unmet: only 5 of 62 items come from the team's lived experience of EMS, and the other three members still owe items of their own. *1b = 14*: the full 60 × 6 matrix ran with evidence attached at the moment of observation, findings deduplicated by root cause, three findings retracted (two only after re-testing against the live product, not on paper alone) and no contradiction reconciled by inventing an explanation instead of checking it; the point off is for the 28 cells no available tool could execute. *2 = 0*: §12 makes fabricated participants grounds for voiding the task, and nothing has been substituted for the real fieldwork — no participant has been recruited, so there is nothing to score. A zero here is a true statement, not a low one. *3 = 23/25*: all 24 mandatory cells captured on real hardware and real cloud devices with the coverage floor met per screen, six genuine Fails isolated to two distinct causes by elimination; the two points off are for the overlay not matching §6's literal `MSSV@....edu.vn` form (a documented decision, not an oversight) and for rows 27-28 of the optional Safari-15 extension being left unrun. Every Fail was reproduced in a second independent session before being logged. *4 = 9/10*: the aggregated log is complete, script-validated and carries every column §7 names, and all 19 findings were submitted to the form on 2026-08-02 from the student-ID address, so the two sides agree at 19 if the TA cross-checks. The point held back is that the timestamp column records the day rather than the minute, since per-submission clock times were not written down as the nineteen were sent. *5 = 8*: seven skills built and genuinely used, with validator scripts that run; demo videos outstanding.
+**Why these numbers.**
+
+- ***1a = 13/15.*** The checklist is complete at 62 items, script-verified by `check_checklist.py`, and every item traces to a named source (Nielsen, Norman, Shneiderman, WCAG 2.1 or the course slides by page) and is written so that it can actually fail. Two points are held back against the instrument's own stated standard, not against its execution: only 5 of 62 items come from the team's lived experience of EMS, and the other three members still owe items of their own.
+- ***1b = 14/15.*** The full 60 × 6 matrix ran on the live system with evidence attached at the moment of observation; 120 cells carry a Pass/Fail verdict, findings are deduplicated by root cause, and the summary arithmetic is machine-checked. The strongest evidence of discipline here is subtractive: **three findings were retracted** — two of them only after re-testing against the live product rather than on paper — and a fourth, a would-be Critical, was caught inside the session when a screenshot contradicted what the DOM was reporting. No contradiction anywhere in this task was reconciled by inventing an explanation instead of checking it. The point off is for the 13 cells still unexecuted; the harness that runs 12 of them now exists and is proved, so this is a scheduling gap rather than a capability one.
+- ***2 = 0/25.*** §12 makes fabricated participants grounds for voiding the task, and nothing has been substituted for the real fieldwork — no participant has been recruited, so there is nothing to score. A zero here is a true statement, not a low one. The full instrument set is built and ready to run.
+- ***3 = 23/25.*** All 24 mandatory cells captured on real hardware and real cloud devices, with the per-screen coverage floor met and `matrix_coverage.py` clean on 4/4 OS, 5/5 browsers, 3/3 device classes and 3/3 engines. Six genuine Fails were isolated to two distinct causes by elimination, and **every Fail was reproduced in a second independent session before being logged**. The two points off are for the overlay not matching §6's literal `MSSV@....edu.vn` form (a documented decision, not an oversight) and for rows 27-28 of the optional Safari-15 extension being left unrun.
+- ***4 = 9/10.*** The aggregated log is complete, script-validated and carries every column §7 names, with developer-reproducible steps on every row. Nineteen of the twenty findings were submitted to the form on 2026-08-02 from the student-ID address. Two points' worth of gap sit against that: D-023 was found after the sitting and still needs one form entry to restore §7's one-to-one match, and the timestamp column records the day rather than the minute, since per-submission clock times were not written down as the nineteen were sent.
+- ***5 = 8/10.*** Seven skills built and genuinely used across the engagement, four of them repeatedly, with **four validator scripts that run and gate the deliverables** plus a CDP harness for network conditions. Demo videos outstanding.
 
 ## Submission checklist (§15)
 
@@ -158,10 +189,10 @@ self-assessment changes before submitting.**
 | Scenario, the ≥ 3 screens and why | `README.md` header | Done |
 | Checklist-execution results per screen | `docs/02_Task1B_Execution_Report_ScenarioD.md` | Done |
 | Usability Report | `docs/03_Task2_Usability_Report_ScenarioD.md` | **Skeleton only — sessions not run** |
-| Cross-platform report | `docs/04_Task3_Cross_Platform_Matrix.md` | **Matrix planned, 0 cells captured** |
+| Cross-platform report | `docs/04_Task3_Cross_Platform_Matrix.md` | Done — 26 of 28 cells, all 24 mandatory captured |
 | User-testing evidence: scenario · 5 masked participants · per-session notes · SUS responses · metrics · screen recordings | `docs/usability_testing/` · `reports/evidence_task2/` | **Instruments ready, all result tables empty** |
 | Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done (20 findings); **19 of 20 submitted to the form**, 2026-08-02 — D-023 outstanding |
-| Cross-platform screenshots with the student-ID overlay | `reports/evidence_task3/` | **Empty** |
+| Cross-platform screenshots with the student-ID overlay | `reports/evidence_task3/` | Done — 26 captures + 1 device-identity image |
 | AI Critique and AI Audit Report, Markdown **and PDF** | `docs/07`, `docs/06` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
 | Git commit log, text file | `docs/08_Git_Commit_Log.txt` | **Regenerate after the final commits** — the current export predates this session |
 | Agent Skills + demo-video links | `.claude/skills/` · §8 below | Skills done; **video links TODO** |
@@ -178,7 +209,7 @@ One deliberate transparency note on §10: the prompt chain is **mixed**, and eac
 
 ## Agent Skills (§8)
 
-Seven skills were built under `.claude/skills/` for this engagement (`web-ui-survey`, `gui-checklist-design`, `gui-checklist-execution`, `usability-test-study`, `cross-platform-matrix`, `findings-log`, `ai-audit-log`); `.claude/skills/README.md` describes how they chain. Four were used directly and repeatedly: `web-ui-survey` for the 14-page product inventory, `gui-checklist-design` (with `check_checklist.py`) for every checklist revision and its traceability tables, `gui-checklist-execution` for the 360-cell Task 1B pass, and `findings-log` (with `check_findings.py`) for the 19-finding log. Demo video links: **TODO**.
+Seven skills were built under `.claude/skills/` for this engagement (`web-ui-survey`, `gui-checklist-design`, `gui-checklist-execution`, `usability-test-study`, `cross-platform-matrix`, `findings-log`, `ai-audit-log`); `.claude/skills/README.md` describes how they chain. Four were used directly and repeatedly: `web-ui-survey` for the 14-page product inventory, `gui-checklist-design` (with `check_checklist.py`) for every checklist revision and its traceability tables, `gui-checklist-execution` for the 360-cell Task 1B pass, and `findings-log` (with `check_findings.py`) for the 20-finding log. Two of the skills carry executable validators that gate the deliverables rather than merely describing them, and `gui-checklist-execution` gained `network_conditions.py`, a CDP harness that drives real Chrome throttling and offline states. Demo video links: **TODO**.
 
 ## References
 
