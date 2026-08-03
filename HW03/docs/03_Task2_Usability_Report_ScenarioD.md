@@ -371,14 +371,13 @@ agree — the TA may cross-check the counts.
 
 | Finding # (§9) | Findings-log ID | Severity | Submitted to the form |
 | --- | --- | --- | --- |
-| F1 | **D-024** | Usability 3 | **Not yet submitted** |
-| F2 | **D-025** | Usability 3 | **Not yet submitted** |
-| F3 | **D-026** | Usability 2 | **Not yet submitted** |
-| F4 | **D-027** | Usability 2 | **Not yet submitted** |
+| F1 | **D-024** | Usability 3 | 2026-08-03 |
+| F2 | **D-025** | Usability 3 | 2026-08-03 |
+| F3 | **D-026** | Usability 2 | 2026-08-03 |
+| F4 | **D-027** | Usability 2 | 2026-08-03 |
 
-Together with **D-023** (raised by Task 1B on 2026-08-02, also unsubmitted), that is **five form
-entries outstanding**; the log will then hold 24 findings and the form 24. §7 asks the two to agree
-and the TA may cross-check the counts.
+All four were submitted on 2026-08-03, together with D-023 from Task 1B. **The log and the form now
+agree at 24 each** — §7 asks the two to match, and the TA may cross-check the counts.
 
 **Evidence index.** Session recordings and screenshots are in `reports/evidence_task2/`, named
 `P<n>_<task>_<what-it-shows>.<ext>` per `docs/usability_testing/design/Moderator_Runsheet.md` §7. Raw
