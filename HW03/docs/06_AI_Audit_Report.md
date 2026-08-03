@@ -1,7 +1,7 @@
 # AI Audit Report — HW03 (GUI & Usability Testing on EMS)
 
 > **Mandatory appendix — §10 of the assignment.**
-> Scope of this version: **Task 1A (complete)**, **Task 1B (complete — all 60 items of checklist v1.9 × 6 screens; v2.0 later added 2 items that are unrun)**, **Task 2 (complete — 5 counted sessions plus a pilot, run 2026-08-03)** and **Task 3 (complete for its 24 mandatory cells)**. Interactions 1-22 are logged below. The AI interactions that produced the Task 2 / Task 3 *planning* artefacts, and the reorganisation of this folder on 2026-08-03, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
+> Scope of this version: **Task 1A (complete)**, **Task 1B (complete — all 60 items of checklist v1.9 × 6 screens; v2.0 later added 2 items that are unrun)**, **Task 2 (complete — 5 counted sessions plus a pilot, run 2026-08-03)** and **Task 3 (complete for its 24 mandatory cells)**. Interactions 1-23 are logged below. The AI interactions that produced the Task 2 / Task 3 *planning* artefacts, and the reorganisation of this folder on 2026-08-03, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
 > Companion files: `docs/01_Task1A_Shared_GUI_Checklist.md` · `docs/checklist/Reference_Sources_and_Prompts.md` · `docs/02_Task1B_Execution_Report_ScenarioD.md` · `docs/05_Bug_Usability_Findings_Log.md` · `README.md` · `docs/07_AI_Critique.md`
 
 > **Path note (2026-08-03).** HW03 was reorganised into `docs/` · `reports/` · `refs/`. Descriptive text in this file uses the new paths. **Verbatim prompt blocks were left exactly as typed** and therefore still name the old locations (`checklist/`, `task1b_execution/`, `docs/screenshots/`); rewriting them would have falsified the record. Mapping: `checklist/Shared_GUI_Checklist.md` → `docs/01_Task1A_Shared_GUI_Checklist.md` · `task1b_execution/` → `docs/02_…` + `reports/evidence_task1b/` · `findings/` → `docs/05_…` · `screenshots/` → `reports/screenshots/` · `requirments/` → `refs/requirements/`.
@@ -10,7 +10,7 @@
 > **Interactions 1-18 carry the prompt exactly as typed** — unedited, including its typing errors and its
 > now-outdated paths (see the Path note); the two exceptions, Interactions 11 and 15, say
 > *"paraphrased"* on their own block because those requests were spread over a multi-turn exchange with
-> no single quotable message. **Interactions 19-22 carry an edited restatement** (*biên tập lại*), labelled as one on every block. Those four sessions were driven from a phone in rapid Vietnamese shorthand, and the raw
+> no single quotable message. **Interactions 19-23 carry an edited restatement** (*biên tập lại*), labelled as one on every block. Those four sessions were driven from a phone in rapid Vietnamese shorthand, and the raw
 > strings were unreadable to anyone outside the session. They have been normalised for spelling,
 > abbreviation and punctuation only: **every instruction, number, name and refusal in them is preserved,
 > nothing was added, softened or removed**, and the load-bearing wording is kept verbatim inside quotation
@@ -49,13 +49,13 @@
 Claude Code (Anthropic) — models Sonnet 5 and Opus 5 — is the only AI tool used anywhere in this
 submission, for any task.
 
-**Tool declaration (§9).** The tools §9 permits and requires to be declared here are: an AI tool of the student's choice — **Claude Code (Anthropic), models Sonnet 5 and Opus 5**, the only AI tool used on this assignment; a **BrowserStack / LambdaTest** trial or equivalent cloud cross-browser tool — **used on 2026-08-02**, all under the account identity `lpkduyen23@clc.fitus.edu.vn`. Four were touched, in this order: **BrowserStack Live** (free trial, one session launched, abandoned once its 1-minute-per-session cap surfaced), **LambdaTest** (same outcome at a 2-minute cap), then **Sauce Labs**, which supplied the macOS, Android-phone and iPhone captures, and **TestingBot** for the single D2 / macOS / Safari 18 cell. Session-by-session detail is in `docs/04_Task3_Cross_Platform_Matrix.md` §Tooling; and **Google Forms** for the §7 findings channel — **used on 2026-08-02 and 2026-08-03**, **24 of the 25 logged findings** submitted by the student from `lpkduyen23@clc.fitus.edu.vn` (nineteen on the first date, five on the second; **D-028 is outstanding**). The AI drafted the objective bug descriptions (question 3) from the findings log; the student wrote every subjective answer (page-speed rating, what she liked, what dissatisfied her, what she wants improved) and performed every submission herself. The AI did not submit the form, and declined to, because those four questions ask for her own experience as a user. The required Bloom-AI level for this homework is **G9.3 (Analyse)** and **G9.4 (Collaborate)**.
+**Tool declaration (§9).** The tools §9 permits and requires to be declared here are: an AI tool of the student's choice — **Claude Code (Anthropic), models Sonnet 5 and Opus 5**, the only AI tool used on this assignment; a **BrowserStack / LambdaTest** trial or equivalent cloud cross-browser tool — **used on 2026-08-02**, all under the account identity `lpkduyen23@clc.fitus.edu.vn`. Four were touched, in this order: **BrowserStack Live** (free trial, one session launched, abandoned once its 1-minute-per-session cap surfaced), **LambdaTest** (same outcome at a 2-minute cap), then **Sauce Labs**, which supplied the macOS, Android-phone and iPhone captures, and **TestingBot** for the single D2 / macOS / Safari 18 cell. Session-by-session detail is in `docs/04_Task3_Cross_Platform_Matrix.md` §Tooling; and **Google Forms** for the §7 findings channel — **used on 2026-08-02 and 2026-08-03**, **all 25 logged findings** submitted by the student from `lpkduyen23@clc.fitus.edu.vn` (nineteen on the first date, six on the second). The AI drafted the objective bug descriptions (question 3) from the findings log; the student wrote every subjective answer (page-speed rating, what she liked, what dissatisfied her, what she wants improved) and performed every submission herself. The AI did not submit the form, and declined to, because those four questions ask for her own experience as a user. The required Bloom-AI level for this homework is **G9.3 (Analyse)** and **G9.4 (Collaborate)**.
 
 **On the checklist prompts (§10).** §10 states that the group's Task 1A checklist prompts belong in this appendix. They are logged as Interactions 1-12 below; `docs/checklist/Reference_Sources_and_Prompts.md` carries the same chain in the group artefact, annotated with the human review outcome per revision. The two are the same prompts, not two different records.
 
 **On the browser survey (Interaction 5):** the student logged in personally — the AI was not given and did not enter any credentials. The survey established *which widgets EMS contains* so that checklist items describe the real product; it did **not** produce test results. All Task 1B execution evidence, and the §12 artefacts generally, remain to be produced by the student against the live system.
 
-> **Fill in before submission:** the *Date / time* field of **Interactions 1-13 and 15** is recorded as date-only, because exact clock times were not captured at the time; **Interaction 14** carries a four-hour range rather than a start time. Retrieve the real timestamps from the Claude Code session history and complete them — §10 asks for date **and** time. Do not estimate them. **Interactions 16-22 carry real clock times** and need nothing.
+> **Fill in before submission:** the *Date / time* field of **Interactions 1-13 and 15** is recorded as date-only, because exact clock times were not captured at the time; **Interaction 14** carries a four-hour range rather than a start time. Retrieve the real timestamps from the Claude Code session history and complete them — §10 asks for date **and** time. Do not estimate them. **Interactions 16-23 carry real clock times** and need nothing.
 
 **On what is not removed from this log.** Several prompts recorded below asked for something the brief
 does not allow — fabricated pilot sessions, timings the student's own heading called *mô phỏng*, a
@@ -1198,8 +1198,9 @@ from all five recordings, to try to close the screenshot-per-finding row, showed
 attachment uploaded. Nothing in the findings log covered it. Pilot-01 §5.3 had independently flagged the
 same limit hours before the counted sessions — two sightings, two sessions — so it is logged as
 **D-028** (Usability 3) with the frame extracted as evidence, and added to §9 as F5. **This raises the
-log to 25 while the form still stands at 24**, and that gap is now stated in §13, the README and this
-file rather than left for a cross-check to surface. It also corrected §4: a claim written an hour
+log to 25 while the form still stood at 24**, and that gap was stated in §13, the README and this
+file rather than left for a cross-check to surface. *(Closed the same day: D-028 was submitted and log
+and form now agree at 25.)* It also corrected §4: a claim written an hour
 earlier, that no counted session was interrupted by the issues the pilot raised, was contradicted by
 the P5 frame and has been replaced with what the evidence shows.
 
@@ -1226,9 +1227,75 @@ of this report. §12 of the Task 2 report states that plainly, and states the on
 offsets it — the perceived-effort ranking was derived from the probe answers **before** the paper log was
 transcribed, so it could have contradicted the timings and did not.
 
-*Still open, owner Lê Phạm Kiều Duyên:* **submit D-028 to the §7 form** — the log stands at 25 findings
-and the form at 24, and that is the single largest open item in the submission; plus the two carried
-over from Interaction 21.
+*Closed since:* **D-028 was submitted to the §7 form on 2026-08-03**, by the student, after this
+entry was written — log and form now agree at 25. *Still open, owner Lê Phạm Kiều Duyên:* the two items
+carried over from Interaction 21 (the pilot participant's university, and re-testing §5.1).
+
+### Interaction 23 — The last two ranked findings evidenced, from the live product rather than the recordings
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`), driving the student's own signed-in Chrome via the Claude in Chrome extension |
+| **Date / time** | 2026-08-03 20:10 +07 |
+| **Task** | Close the screenshot-per-ranked-finding requirement for D-024 and D-027; record D-028 as submitted |
+| **Artefacts produced** | `reports/evidence_task2/D-024_event_page_has_no_support_route.jpg`, `reports/evidence_task2/D-024_support_only_in_avatar_menu.jpg`, `reports/evidence_task2/D-027_landing_list_no_request_id.jpg` (all **new, AI-captured**), `docs/05_Bug_Usability_Findings_Log.md`, `docs/03_Task2_Usability_Report_ScenarioD.md` §9/§11b, `README.md`, `CLAUDE.md` |
+
+**User request** — *edited restatement of the original Vietnamese working messages (see the
+Prompt note at the top of this file); content and intent unchanged. **Two messages, in the order they
+were sent.** Vietnamese first, English gloss beneath:*
+
+```
+[1] Nộp rồi. Bạn tự screenshot đi được không?
+
+[2] Không cần soi kĩ vậy đâu, có ảnh screenshot để làm bằng chứng là được.
+```
+
+**English gloss:** *[1] I've submitted it [D-028, to the §7 form]. Can you take the screenshots
+yourself? [2] No need to inspect so closely — just having a screenshot as evidence is enough.*
+
+**What the frame search found, and why it changed the approach.** The obvious route was to cut stills
+from the five session recordings, the way D-025, D-026 and D-028 were evidenced. Every post-submit frame
+of `Session_P4.mp4` was examined one frame at a time across the submit window. **No confirmation toast
+appears in any of them**, and the request the participant had just typed does not appear in the list on
+the far side of the transition. That frame therefore cannot carry D-027: captioning it *"the state after
+a successful submission"* would assert something the image does not show, in a report that already states
+in §9 that this exact search found nothing. The second message above — that a screenshot is enough —
+was **not** treated as authority to attach it anyway; a still that shows something other than what its
+finding claims is worse than a row that admits it has no still, because a marker who opens the image
+finds the contradiction and then distrusts the images that *are* sound.
+
+**What was captured instead.** Both findings were evidenced from the **live deployed EMS**, which
+carries the structural cause and can be photographed:
+
+| Finding | Capture | What it establishes |
+| --- | --- | --- |
+| D-024 | `D-024_event_page_has_no_support_route.jpg` | Event detail `/events/2`. The page's complete interactive inventory is *Back to events*, *Save event* and five social links; the header offers *Events · Calendar · Saved Events · User guide*. **Nothing on the page or in the header reaches `/complaints`** — read off the accessibility tree, not judged by eye |
+| D-024 | `D-024_support_only_in_avatar_menu.jpg` | The one route that does exist: *Support requests*, inside the avatar dropdown — two levels away from the event the problem is about |
+| D-027 | `D-027_landing_list_no_request_id.jpg` | `/complaints`, the page a user lands on after submitting: no request ID on any row, no confirmation region |
+
+Each is labelled in its own row as **product structure captured on 2026-08-03, after the sessions** —
+not as a frame from anyone's session. The transient-toast half of D-027 still rests on three
+participants' accounts, and §9 says so rather than implying the new still covers it.
+
+**A finding's own wording was corrected against the product.** D-027's reproduction step read *"observe
+that no request ID or status is visible anywhere on the resulting page"*. The live list **does** show a
+status pill on every row. The step was wrong and is now corrected in the log, with the correction marked:
+what is actually absent is any tie between the page and the action just taken. This is the fourth time in
+this project a claim has been re-tested against the live product and found to need changing.
+
+**Credential boundary.** The student's Chrome was already signed in as `admin@gmail.com`; the AI
+navigated and captured within that session and **entered no credential**, as everywhere else in this
+project. The account used is named here because these captures show the product from that account's
+view, and a marker should not have to guess whose screen it is.
+
+**Human review and action taken.** Reviewed by **Lê Phạm Kiều Duyên (23127184)** the same day. She
+**submitted D-028 to the §7 form**, closing the last log/form gap — log and form now both stand at 25,
+and the four files that recorded the gap were resynced. She also set the brief for this interaction and
+was told, rather than not told, that her second message had been declined in the narrow respect above.
+
+*Still open, owner Lê Phạm Kiều Duyên:* the two items carried from Interaction 21 — confirm the pilot
+participant's university, and re-test `Session_Pilot01.md` §5.1 against the live EMS, allocating **D-029**
+if it reproduces.
 
 ## 5. Sessions still to be logged
 
@@ -1237,7 +1304,7 @@ over from Interaction 21.
 | Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, **120 executed** (99 Pass / 21 Fail), 17 findings. This row read "partially started" until the full pass finished (corrected 2026-08-03) and "108 executed, 16 findings" until nine further cells were cleared and D-023 raised (corrected 2026-08-02, Interactions 16–17). |
 | Task 2 — user testing with 5 real participants, Usability Report | **Complete** — 5 counted participants **plus one pilot**, sessions run 2026-08-03, all six screen-recorded; SUS mean 67.0 (SD 26.1); time on task, errors and hesitations recorded on the moderator's paper log; **5 findings D-024…D-028**. Logged as Interactions 19-22. This row read "designed, not run — 0 participants recruited" until Interaction 19, and "4 findings, no pilot" until Interactions 21-22. |
 | Task 3 — cross-browser / cross-platform matrix                   | **Complete for the mandatory set** — 26 of 28 cells captured (20 Pass, 6 Fail), including all 24 the coverage floor requires; the 2 outstanding cells belong to the optional Safari-15 extension. Executed 2026-08-02; logged as Interaction 14. This row read "planned, not run — 0 cells captured" until then. |
-| §7 — Google Form submissions and the aggregated findings log    | **25 findings logged** — D-001…D-019 and D-023 from Task 1B (D-013/D-014/D-018 retracted), D-020…D-022 from Task 3, D-024…D-028 from Task 2. **24 are submitted** from `lpkduyen23@clc.fitus.edu.vn`: nineteen on 2026-08-02, five (D-023 and D-024…D-027) on 2026-08-03. **D-028 was raised on 2026-08-03 while verifying evidence and is not yet submitted**, so log and form stand at 25 against 24 and one submission closes the gap. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-03), "16" until Task 3 ran, "submission still TODO" until the nineteen were sent (both corrected 2026-08-02), "19 logged … agree at 19" until D-023 was raised (Interaction 17), and "20 logged / 19 submitted" until Task 2 added five (Interactions 19-22). |
+| §7 — Google Form submissions and the aggregated findings log    | **25 findings logged** — D-001…D-019 and D-023 from Task 1B (D-013/D-014/D-018 retracted), D-020…D-022 from Task 3, D-024…D-028 from Task 2. **all 25 are submitted** from `lpkduyen23@clc.fitus.edu.vn`: nineteen on 2026-08-02, six (D-023 and D-024…D-028) on 2026-08-03. D-028 was raised on 2026-08-03 while verifying evidence, after that day's first submission run, and was sent the same day; **log and form agree at 25**. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-03), "16" until Task 3 ran, "submission still TODO" until the nineteen were sent (both corrected 2026-08-02), "19 logged … agree at 19" until D-023 was raised (Interaction 17), and "20 logged / 19 submitted" until Task 2 added five (Interactions 19-22). |
 | §8 — Agent Skill and demo video                                 | Skills built and used (`gui-checklist-execution`, `findings-log`, Interaction 13); demo video links TODO              |
 
 Append an interaction entry to §2 for every AI session on the tasks above, following the same format:
@@ -1291,7 +1358,7 @@ and the value of the whole section rests on every filled row being true.**
 | 13 (Task 1B first pass) | Lê Phạm Kiều Duyên | 23127184 | | | |
 | 14 (Task 3 execution) | Lê Phạm Kiều Duyên | 23127184 | | | |
 | 15-18 (checklist v2.0, remaining Task 1B cells) | Lê Phạm Kiều Duyên | 23127184 | | | |
-| 19-22 (Task 2: analysis, pilot, §6 metrics, D-028) | Lê Phạm Kiều Duyên | 23127184 | | | |
+| 19-23 (Task 2: analysis, pilot, §6 metrics, D-028, evidence captures) | Lê Phạm Kiều Duyên | 23127184 | | | |
 | Reorganisation + Task 2/3 planning, 2026-08-03 | Lê Phạm Kiều Duyên | 23127184 | | | |
 
 The *What the reviewer personally checked against* column is the one a marker reads: name the
@@ -1302,7 +1369,7 @@ explanations that reconciled the documents with each other had already been writ
 Interaction 21 contains a second: an AI paragraph asserting the pilot's recommendations were never
 implemented, which survived until the reviewer produced the instrument the AI had assumed did not exist.
 
-For the 19-22 row, the material worth naming is: the five answer sheets, the six `.mp4` recordings, and
+For the 19-23 row, the material worth naming is: the five answer sheets, the six `.mp4` recordings, and
 the **paper timing log**, which exists only in her hands and is the sole source for the ten durations in
 §6. A marker who reads only one cell of this table will read that one.
 
@@ -1322,10 +1389,10 @@ The other three members have recorded no agreement anywhere in this repository.
 
 | # | Item | Owner | Why it matters |
 | --- | --- | --- | --- |
-| 1 | The **Date / time** field of Interactions 1-13 and 15 records the date only; Interaction 14 records a four-hour range | Scenario D owner | §10 asks for date **and** time. Recover the real clock times from the Claude Code session history — do not estimate them. Interactions 16-22 carry real clock times. |
+| 1 | The **Date / time** field of Interactions 1-13 and 15 records the date only; Interaction 14 records a four-hour range | Scenario D owner | §10 asks for date **and** time. Recover the real clock times from the Claude Code session history — do not estimate them. Interactions 16-23 carry real clock times. |
 | 2 | Interactions for the 2026-08-03 reorganisation and the Task 2 / Task 3 planning are not yet written up as numbered entries | Scenario D owner | The artefacts exist and are named in the Path note and in `README.md`; the numbered entries are the part still missing. |
 | 3 | Group countersignature above | All four members | §16 criterion 1a grades a group deliverable. |
 | 4 | ~~An entry stating explicitly that the sessions and participants were not AI-produced~~ — **done**, §5 "§12 statement" | Scenario D owner | §12. The TA may phone 2 of the 5 participants. |
 | 5 | ~~Task 3: captures produced by a person on real environments, plus the §9 cloud-lab declaration~~ — **done**, §5 "§12 statement" and §1 Tool declaration | Scenario D owner | §9 and §12. |
-| 6 | **Submit D-028 to the §7 form** | Scenario D owner | The log carries 25 findings, the form 24. A marker who counts both will find the gap; the file states it, but stating it is not closing it. |
-| 7 | Sign the *What the reviewer personally checked against* column for rows 14-22 | Scenario D owner | Those three rows cover every result Tasks 2 and 3 are graded on. An unsigned row is worth less than a blank one is honest. |
+| 6 | ~~Submit D-028 to the §7 form~~ — **done 2026-08-03**; log and form agree at 25 | Scenario D owner | Was the largest open item in the submission. Closed by the student, who performs every form submission herself. |
+| 7 | Sign the *What the reviewer personally checked against* column for rows 14-23 | Scenario D owner | Those three rows cover every result Tasks 2 and 3 are graded on. An unsigned row is worth less than a blank one is honest. |
