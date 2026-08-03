@@ -982,6 +982,63 @@ less than one whose recommendations were followed, and the report says so in its
 pilot participant's university spelling, and re-test `Session_Pilot01.md` §5.1 against the live EMS —
 if it reproduces, it is a genuine defect and needs **D-028** and a §7 form submission.
 
+### Interaction 22 — Timings entered from the moderator's paper log; a new finding found while checking them
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-03 17:20 +07 |
+| **Task** | Task 2 §6 — enter time on task and the observed error/hesitation counts |
+| **Artefacts produced** | `docs/usability_testing/results/Metrics_Table.md`, `docs/03_Task2_Usability_Report_ScenarioD.md` §1/§4/§6/§9/§11b/§12/§13, `docs/05_Bug_Usability_Findings_Log.md` (**D-028**), `reports/evidence_task2/D-028_P5_rate_limit_blocks_submission.png`, `README.md`, `CLAUDE.md` |
+
+**Prompt (verbatim):**
+
+```
+mình viết á, nãy alf copy nhầm á, các con số lấy từ nỏ mình ghi trên giấy á
+```
+
+**The condition that had been set, and was met.** The same timings had been supplied earlier under the
+student's own heading *"Bảng chỉ số tác vụ **mô phỏng**"* and were refused on that basis. The refusal
+was stated with a way out attached: name where the numbers come from, and they go in. The answer —
+recorded on paper during each session — is the moderator's own log, which is the source §6 assumes for
+these measures. They were entered, attributed to that log, with the limitation stated plainly: the
+recordings are 18.8–26.0 s excerpts and cannot corroborate a duration, so the log is the sole record.
+
+**Two arithmetic checks ran before the numbers were written in**, because a paper log transcribed hours
+later is exactly where a slip would sit. Both passed: the means recompute to 5:30 and 1:46 from the ten
+per-participant values, and the error total (7) matches, exactly, the count derived independently from
+the five answer sheets days earlier — a figure produced from different source material by a different
+method. Hesitations differ, 19 against 7, in the direction the two methods predict: an observer logging
+pauses over three seconds sees more than a participant reports of feeling uncertain.
+
+**The strongest result in Task 2 came out of this check.** Five orderings — T1 time, T2 time, error
+count, SUS score, and a perceived-effort rank that had been derived from the probe answers *before* the
+paper log was transcribed — place the five participants in the same sequence, P3 · P1 · P5 · P2 · P4,
+with no inversion. Two of those five are moderator-recorded and three are self-report, so this is a
+self-reported measure agreeing with an observed one, not four self-reports agreeing with each other.
+The report states it as a consistency check that passed at n = 5, not as a validated instrument.
+
+**A new defect was found while verifying the evidence, not while looking for defects.** Frames sampled
+from all five recordings, to try to close the screenshot-per-finding row, showed session P5 displaying
+*"You have submitted too many requests. Please try again later."* on a completed form with its
+attachment uploaded. Nothing in the findings log covered it. Pilot-01 §5.3 had independently flagged the
+same limit hours before the counted sessions — two sightings, two sessions — so it is logged as
+**D-028** (Usability 3) with the frame extracted as evidence, and added to §9 as F5. **This raises the
+log to 25 while the form still stands at 24**, and that gap is now stated in §13, the README and this
+file rather than left for a cross-check to surface. It also corrected §4: a claim written an hour
+earlier, that no counted session was interrupted by the issues the pilot raised, was contradicted by
+the P5 frame and has been replaced with what the evidence shows.
+
+**Also re-verified, with a stricter method than before.** The five recordings had been checked for
+distinctness by exact frame hashing. Because sampled frames from three sessions showed a
+visually identical page banner, the check was re-run perceptually (dHash), which catches
+near-duplicates that exact hashing misses: 0–3 % overlap between any pair, the overlap being a shared
+static banner rather than shared footage. The original claim survives the stricter test.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Three items: **submit D-028
+to the §7 form** so log and form agree at 25; confirm the pilot participant's university; and re-test
+`Session_Pilot01.md` §5.1 against live EMS.
+
 ## 5. Sessions still to be logged
 
 | Task                                                              | Status                                                                                                                    |
