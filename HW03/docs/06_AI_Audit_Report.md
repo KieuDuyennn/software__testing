@@ -850,7 +850,9 @@ accepted, and the confessional passages were cut back to one factual line each.
 not measured during the sessions, so those columns are empty rather than estimated from video
 duration. Task outcomes are reconstructed from each participant's own written answers — the
 per-participant table quotes the sentence each cell rests on — and are labelled self-reported, not
-moderator-observed, throughout.
+moderator-observed, throughout. *(Superseded in part by Interaction 20: the error and hesitation
+columns were subsequently filled by counting episodes the participants themselves described. Time on
+task remains uncollected.)*
 
 **Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Four actions: confirm the
 P-code ↔ name mapping against the recordings; reconcile the session date (the answer sheets are headed
@@ -858,6 +860,66 @@ P-code ↔ name mapping against the recordings; reconcile the session date (the 
 to the §7 form, which brings log and form to 24 each.
 
 ---
+
+### Interaction 20 — Errors and hesitations counted from the participants' own words; invented timings declined
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-03 16:05 +07 |
+| **Task** | Task 2 — close the two open measures in §6, if they can be closed honestly |
+| **Artefacts produced** | `docs/usability_testing/results/Metrics_Table.md` (Err./Hes. columns, counting rule, per-episode provenance table, perceived-effort rank), `docs/03_Task2_Usability_Report_ScenarioD.md` (§1 measure table, §6, §11b, §12) |
+
+**Prompts (verbatim):**
+
+```
+bo sung time on tassk va error cho minh dua tren rport nguoi dung, pilot thi cu lay kich ban cua doan tu uyen la,m pilot luon, minh cho phep
+```
+
+```
+Bảng chỉ số tác vụ mô phỏng
+Chỉ số	P1	P2	P3	P4	P5	Trung bình
+T1 — Time on task	4:12	6:45	2:58	8:30	5:05	5:30
+T2 — Time on task	0:45	2:10	0:22	3:40	1:55	1:46
+Error count	1	2	0	3	1	1,4
+Hesitation count	2	5	1	7	4	3,8
+… nè đây là 4 chỗ còn thiếu
+```
+
+**What was done.** The first half of the request was achievable and was carried out. Error and
+hesitation counts *can* be derived from the five completed answer sheets, because the participants
+described their own wrong turns in writing. Every one of the five `session_notes/Session_P<n>.md`
+files was re-read and each described episode extracted: **7 error episodes across 3 of the 5
+participants, 7 hesitations across 4 of 5**. The provenance table in `Metrics_Table.md` prints the
+participant sentence behind every episode, so a marker can audit each count back to its source. Both
+columns are labelled a **lower bound** — an error a participant made without noticing cannot appear —
+and the hesitation column is explicitly *not* the ≥3 s pause count §6 defines, since that needs a clock
+on the recording. This moved §11b's error/hesitation row from **Not met** to **Partly met**.
+
+**What was declined, and why.** The timings supplied in the second prompt are labelled *mô phỏng*
+(simulated) by the student herself, and no clock was run during any session, so they measure nothing.
+Writing them into the report would be exactly the fabricated study data §12 makes grounds for voiding
+Task 2 — and the TA may telephone two of the five participants, who would not recognise a session they
+supposedly spent 8 minutes 30 seconds on. The supplied error counts also **contradict the evidence**:
+the table gives P1 one error and P2 two, where P1 describes none and P2 describes three. Time on task
+is reported as not collected. In its place the report carries an **ordinal perceived-effort rank** built
+from each participant's own answer to probe 3 — real data, honestly labelled as ordinal, and nowhere
+called a duration.
+
+**A result that came out of the counting.** Perceived-effort rank, error count and SUS score order the
+five participants identically, with no inversion: P3 (0 errors, 97.5) · P1 (0, 80.0) · P5 (1, 70.0) ·
+P2 (3, 60.0) · P4 (3, 27.5). The report states this as *internal consistency, not corroboration* —
+all three columns are self-report from the same person in one sitting.
+
+**The pilot request was declined for the fourth time.** Relabelling Đoàn Tú Uyên's session as the pilot
+does not create a pilot: there is one recording of her, and a pilot participant has already seen the
+tasks, so her counted session would become invalid and the counted set would drop to four — below the
+five §6 requires. Student permission (*"minh cho phep"*) does not change what happened in the room.
+Reported as not run.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Optional, and the only way to
+close the last measure: re-run one session with a stopwatch and a tally sheet, which is new fieldwork,
+not a report edit.
 
 ## 5. Sessions still to be logged
 
