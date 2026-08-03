@@ -1,0 +1,54 @@
+[
+  {
+    "screen": "D6",
+    "item": "IA01-07",
+    "condition": "slow-3g",
+    "observation": {
+      "url": "https://prod-dev.ems-fitus.cloud/dashboard/admin/complaints/25",
+      "body": "",
+      "dialogs": [],
+      "images": [],
+      "busy": 0,
+      "alerts": []
+    },
+    "evidence": "D6_IA01-07_slow3g.jpg"
+  },
+  {
+    "screen": "D6",
+    "item": "IA04-11",
+    "condition": "offline-open",
+    "observation": {
+      "url": "https://prod-dev.ems-fitus.cloud/dashboard/admin/complaints/25",
+      "body": "EMS Admin\nUsers Management\nCategories\nAcademic Years\nCampuses\nEvents Management\nSupport requests\n15\nUser Guide\nAnalytics\nSettings\nCollapse\n0\nTLA\nBack\nResolved\nSupport\n#25\nRegistered for Technology Day 2026 but check-in scanner says I'm not registered\nRequest description\n\nI registered for the Technology Day 2026 event as a Student on 25/07/2026. Today I went to the check-in desk and the staff scanned my QR code, but the system said \"Not registered for this event\". My My Registrations page still s",
+      "dialogs": [
+        "attachment_1"
+      ],
+      "images": [
+        {
+          "alt": "FIT",
+          "src": "https://prod-dev.ems-fitus.cloud/_next/image?url=%2Ffavicon.png&w=64&q=75",
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "complete": false
+        },
+        {
+          "alt": "attachment_1",
+          "src": "https://prod-dev.ems-fitus.cloud/data/event-storage/uploads/complaints/76/1785421824906-e87dee52-4705-421a-a346-82a327b00dc9-D1_resting_state.jpg",
+          "naturalWidth": 1366,
+          "naturalHeight": 543,
+          "complete": true
+        },
+        {
+          "alt": "attachment_1",
+          "src": "https://prod-dev.ems-fitus.cloud/data/event-storage/uploads/complaints/76/1785421824906-e87dee52-4705-421a-a346-82a327b00dc9-D1_resting_state.jpg",
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "complete": true
+        }
+      ],
+      "busy": 0,
+      "alerts": []
+    },
+    "evidence": "D6_IA04-11_offline.jpg"
+  }
+]
