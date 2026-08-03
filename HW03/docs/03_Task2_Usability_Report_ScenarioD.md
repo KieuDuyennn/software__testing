@@ -16,7 +16,8 @@
 > **Headline: both tasks were completed by all five, and the product still has a findability
 > problem.** SUS mean **67.0**, but with **SD 26.1 across a 27.5–97.5 range** — no participant scored
 > within 6 points of the mean. Three of the five reached the official response only after a wrong
-> turn. Success rate alone would have reported this product as fine; it is not what the five people
+> turn, and the five reported **7 error episodes between them — 5 of the 7 are "I was in the wrong
+> place"**. Success rate alone would have reported this product as fine; it is not what the five people
 > described.
 
 **Section map against the brief.** §6 Task 2 Phase 3 requires the report to contain: the scenario
@@ -47,9 +48,10 @@ Measures collected, the minimum set named in §6 Task 2 Phase 1:
 | Measure | Definition used | Where it lands |
 | --- | --- | --- |
 | Task success | Complete / Partial / Fail against criteria fixed **before** the sessions (§3) | §6 |
-| Time on task | From the participant beginning to act on the prompt until the success criterion; intervened runs excluded from means | §6 |
-| Errors | Wrong actions requiring recovery | §6 |
-| Hesitations | Pauses of roughly 3 s or more, backtracking, re-reading | §6 |
+| Time on task | Defined as: from the participant beginning to act on the prompt until the success criterion, intervened runs excluded from means. **No clock was run, so this measure was not collected** — §6 note 3, §11b | — |
+| Errors | An action that moved the participant off the success path and had to be undone. **Counted from what each participant wrote about their own session**, one episode = 1: 7 episodes, 3 of 5 people | §6 |
+| Hesitations | Points of uncertainty the participant states in their own words. **Not** the ≥3 s pause count, which needs a clock on the recording: 7, 4 of 5 people | §6 |
+| Perceived effort | Ordinal rank from probe 3, standing in for time on task in the analysis and nowhere claimed to be it | §6 |
 | SUS | 10 items, 1–5, reverse-scored at positions 2/4/6/8/10 by `score_sus.py` | §7 |
 | Open probes | Four fixed questions: clarity · error recovery · speed · trust | §8 |
 
@@ -140,21 +142,43 @@ Tabulated in `docs/usability_testing/results/Metrics_Table.md`, which carries th
 breakdown this table is derived from. Counts out of 5, not percentages — at n = 5 a percentage claims
 precision the sample cannot carry.
 
-| Task | Complete (of 5) | of which: recovered from a self-caught error | Partial | Fail | Mean time | Errors | Hesitations |
+| Task | Complete (of 5) | of which: recovered from a self-caught error | Partial | Fail | Mean time | Errors (self-reported) | Hesitations (self-reported) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 — file the report | **5/5** | 2 (P2, P4) | 0/5 | 0/5 | not measured | not counted | not counted |
-| T2 — find the response | **5/5** | — | 0/5 | 0/5 | not measured | not counted | not counted |
+| T1 — file the report | **5/5** | 2 (P2, P4) | 0/5 | 0/5 | not measured | **4 episodes, 2 of 5** | **4, 4 of 5** |
+| T2 — find the response | **5/5** | — | 0/5 | 0/5 | not measured | **3 episodes, 3 of 5** | **3, 3 of 5** |
+| **Both** | 10/10 runs | 2 | 0 | 0 | not measured | **7, 3 of 5** | **7, 4 of 5** |
 
-**Two provenance statements this table depends on, made once here rather than implied.**
+Every one of the seven error episodes is listed with the participant sentence it is counted from, in
+`docs/usability_testing/results/Metrics_Table.md` §"Where each error episode comes from". Read that
+way the seven split **5 findability errors** (wrong page, wrong menu, wrong request, unusable bell
+route) against **2 blocked submissions** — and the blocked submissions are the form doing its job, not
+failing. That split is the argument of §9 and §10 in one line.
+
+**Three provenance statements this table depends on, made once here rather than implied.**
 
 1. **Task outcomes are self-reported.** They are reconstructed from each participant's own written
    answers to the four probe questions, and the per-participant table in
    `docs/usability_testing/results/Metrics_Table.md` quotes the sentence each cell rests on. They are
    not moderator observations, and confirming them against the recordings in
    `reports/evidence_task2/` is the next step on this task.
-2. **Time on task, error counts and hesitation counts were not measured.** No clock was run and no
-   observation log was kept, so those columns are empty rather than estimated. §6 names them, and
-   they are the one part of the required measure set this study does not carry.
+2. **The error and hesitation counts are participant-reported and are a lower bound.** Each episode is
+   one the participant described in writing; an error they made without noticing, or noticed and did
+   not mention, is not in the count. A moderator-observed count would be equal or higher, never lower.
+   The hesitation column counts self-declared uncertainty points (*"phân vân"*, *"không chắc"*,
+   *"dừng lại một chút"*) — it is **not** the ≥3 s pause count §6 defines, which needs a clock on the
+   recording. Counting rules are written out in `docs/usability_testing/results/Metrics_Table.md`.
+3. **Time on task was not measured.** No clock was run, and the recordings are 18.8–26.0 s excerpts,
+   so a duration taken from them would measure the clip and not the task. It is the one required
+   measure this study does not carry, and it is not silently replaced: what stands in its place is an
+   ordinal **perceived-effort rank**, taken from each participant's own answer to probe 3, and labelled
+   as ordinal wherever it is used.
+
+**Perceived effort, error count and SUS agree in rank order for all five participants** — P3 (0 errors,
+97.5) · P1 (0, 80.0) · P5 (1, 70.0) · P2 (3, 60.0) · P4 (3, 27.5), no inversion. Nobody who hit an
+error scored above 70; both zero-error participants scored 80 or better. That is internal consistency
+rather than corroboration — all three come from the same person in the same sitting — but it does mean
+the SUS spread in §7 is not an artefact of how people felt about filling in a questionnaire: it tracks
+what they actually reported doing.
 
 **Success rate is not where the signal is.** Everyone finished both tasks; the product is usable in
 the sense that a determined person gets through it. What separates the five is *how much guessing it
@@ -301,8 +325,8 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | --- | :-: | --- |
 | **Phase 1** — goal-oriented task scenario, no click path | Met | §3; wording avoids EMS's own vocabulary so the task tests findability |
 | Measure: **task success** | Met | §6, per participant in `results/Metrics_Table.md` |
-| Measure: **time on task** | **Not met** | No clock was run during the sessions. The recordings are short excerpts (18.8–26.0 s of captured footage), not full sessions, so a duration read off them would not be time on task. Cannot be recreated without re-running the study. |
-| Measure: **error / hesitation count** | **Not met** | No observation log was kept. Self-caught errors are recorded where a participant described one (2 on T1), but that is their account, not a count. Same reason as above. |
+| Measure: **time on task** | **Not met** | No clock was run during the sessions. The recordings are short excerpts (18.8–26.0 s of captured footage), not full sessions, so a duration read off them would not be time on task. §6 carries an ordinal **perceived-effort rank** in its place, from probe 3, labelled as ordinal — it is a substitute for the analysis, not for the measure. Cannot be recreated without re-running the study. |
+| Measure: **error / hesitation count** | **Partly met** | **Errors: 7 episodes counted**, 3 of 5 participants, each traced to the participant's own sentence in `results/Metrics_Table.md`. **Hesitations: 7**, 4 of 5 participants. Both are participant-reported and therefore a **lower bound**, and the hesitation figure counts self-declared uncertainty points, not the ≥3 s pauses §6 defines — that needs a clock on the recording. Counted honestly from the data that exists; an observer-recorded count was never taken. |
 | Measure: **post-task SUS or UEQ-S** | Met | SUS, 10 items, §7; scored by `score_sus.py` |
 | **Open probes** covering clarity · error recovery · speed · trust | Met | §8, all four asked of all five, same wording |
 | **5 real participants**, target profile, verifiable contacts, middle four digits masked, outside this class | Met | §5; four universities, none in this course, none in software |
@@ -313,17 +337,20 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | **Structured notes** on friction, errors, hesitations, verbalised frustration | **Partly met** | What exists is each participant's own written account of those things (`results/session_notes/`), not a moderator's structured log taken during the session. Honest label: participant-reported, not observer-recorded. |
 | Close each session with the scale, then the probes | Met | §1; SUS administered before the probes, deliberately |
 | **Phase 3** — score the scale across the five | Met | §7, all five individual scores plus mean, SD and range |
-| Tabulate task metrics (success rate, mean time, errors) | **Partly met** | Success rate yes; mean time and errors are the two measures above that were never taken |
+| Tabulate task metrics (success rate, mean time, errors) | **Partly met** | Success rate and errors are tabulated per participant and in aggregate (§6). Mean time is the one cell that stays empty. |
 | Group similar pain points; separate isolated bugs from systemic design issues | Met | §9 groups by cause; §10 holds what did **not** meet the systemic bar and says why |
 | Rank findings by severity **0–4** | Met | §9, Nielsen scale, two at 3 and two at 2 |
 | Report: scenario · participant table · metrics table · ranked findings · recommendations | Met | §3 · §5 · §6–§7 · §9 · §11 |
 | **A screenshot per ranked finding** | **Partly met** | D-025 and D-026 carry a still cut from the recording of the participant who hit them. D-024 is about movement across pages and D-027 about a toast that has already vanished — neither is a single frame; both cite the recordings instead, and each says so in its own row rather than pointing at an unrelated image. |
-| Log genuine findings through the §7 channel | **Outstanding** | D-024…D-027 are in `docs/05_Bug_Usability_Findings_Log.md` and **not yet submitted to the Google Form** — see §13 |
+| Log genuine findings through the §7 channel | Met | D-024…D-027 are in `docs/05_Bug_Usability_Findings_Log.md` and were **submitted to the Google Form on 2026-08-03**, alongside D-023 — log and form both stand at 24. See §13 |
 
-**Three requirements cannot be closed retroactively**: time on task, error/hesitation counts, and the
-pilot. Each needed something to happen *during* the sessions, and none can be supplied afterwards
-without inventing data — which §12 makes grounds for voiding the whole task. They are reported as
-unmet rather than filled in.
+**Two requirements cannot be closed retroactively**: **time on task** and the **pilot**. Each needed
+something to happen *during* the sessions — a clock running, or a sixth person sitting down before the
+counted five — and neither can be supplied afterwards without inventing data, which §12 makes grounds
+for voiding the whole task. They are reported as unmet rather than filled in. The **error and
+hesitation counts were recoverable** and have been counted, from what each participant wrote about
+their own session, with the sentence behind every one of the seven error episodes printed in
+`docs/usability_testing/results/Metrics_Table.md`.
 
 ## 12. Limitations
 
@@ -349,9 +376,15 @@ unmet rather than filled in.
   instruments were desk-checked against the brief instead, with task wording, success criteria and
   probe wording all fixed in advance — but nothing was rehearsed against a real person, so any
   wording problem was paid for by the counted five rather than by a throwaway session.
-- **Time on task, error counts and hesitation counts were not measured.** No clock was run and no
-  observation log was kept. These are named in §6's minimum measure set and this study does not carry
-  them; the remaining measures (task success, SUS, probes) are complete for all five.
+- **Time on task was not measured.** No clock was run, and the recordings are 18.8–26.0 s excerpts, so
+  no duration can be recovered from them. It is the one item in §6's minimum measure set this study
+  does not carry; task success, errors, SUS and the probes are complete for all five. The ordinal
+  perceived-effort rank in §6 supports the same analysis but is not the measure.
+- **Error and hesitation counts are participant-reported, so they are a floor, not a total.** Seven
+  error episodes and seven hesitations are counted, each from a sentence the participant wrote about
+  their own session. An error made without noticing it cannot appear. A moderator's observation log —
+  which is what §6 assumes — would return the same figure or a higher one, never lower, so any
+  conclusion drawn from these counts understates the friction rather than overstating it.
 - **Task outcomes are self-reported, not moderator-observed.** They are reconstructed from what each
   participant wrote, sentence by sentence, in `docs/usability_testing/results/Metrics_Table.md`. The
   five recordings in `reports/evidence_task2/` can confirm them and have not yet been reviewed for
