@@ -34,7 +34,7 @@ Nothing here may be deleted as "not applicable"; each one is separately marked i
 | | |
 | --- | --- |
 | Method | Moderated think-aloud, one participant at a time |
-| Participants | **n = 5** counted, all outside this class. **No pilot session was run** — see §4 |
+| Participants | **n = 5** counted, all outside this class, plus **one pilot (Pilot-01) run before P1** whose data enters no result — see §4 |
 | Session length | ~20–25 minutes per participant |
 | Session language | Vietnamese (all participant-facing wording; this report is in English) |
 | Mode / device | Moderated, one participant at a time, screen recorded; recordings in `reports/evidence_task2/` |
@@ -106,13 +106,37 @@ official response back correctly. *Partial:* finds the request but misses or mis
 ## 4. Pilot
 
 Required by §6 Task 2 Phase 1: one extra person, run before the counted sessions, to catch unclear
-wording or a broken flow. **Pilot data never enters §6, §7 or §8.**
+wording or a broken flow. **Pilot data never enters §6, §7 or §8** — no metric, no SUS score and no
+finding in this report is computed from it.
 
 | | |
 | --- | --- |
-| Pilot run on | **Not run.** The five counted sessions went ahead directly. |
-| Instead | The instruments were desk-checked against §6 before P1: task wording fixed in advance, success criteria fixed in advance, probe wording fixed in advance. |
-| Consequence carried into §12 | No wording problem was caught by a throwaway session, so any that existed was paid for by the counted five. |
+| Pilot run on | **2026-08-03, before P1.** Session code Pilot-01. |
+| Participant | Nguyễn Kháng Chiến — Kinh tế Luật, Đại học Kinh tế – Luật (UEL). Outside this class: **Y**. Contact `034****512`, middle four masked per §12. Consent to recording: **Y**. Sixth person, not one of the counted five. |
+| Evidence | `reports/evidence_task2/Session_Pilot01.mp4` — 35.2 s captured, 1280×720. Verified a **distinct** recording: 0 % frame overlap against every one of `Session_P1..P5.mp4`, 485 unique frames. |
+| Write-up | `docs/usability_testing/results/session_notes/Session_Pilot01.md` |
+| Outcome | T1 **Partial** — first submit rejected, recovered unaided. T2 **Complete** — one back-track, no moderator intervention. |
+| Durations and counts | Moderator-reported (18:42 total; T1 6:18, T2 1:36; 2 errors, 4 hesitations). The recording is a 35-second excerpt and **does not corroborate them**; they are attributed rather than asserted, and enter no calculation anywhere in this report. |
+
+**What the pilot changed before P1.** Three of the eight adjustments in `Session_Pilot01.md` §6 were
+carried through and are visible in the run of the counted five: a valid image file was staged for every
+session, login state and submit capability were checked before each session, and the task wording was
+left untouched — no function name and no click path was added to the prompt, which is why §6's
+findability result means anything.
+
+**What the pilot recommended and the counted sessions did not do.** Items 1–3 and 5 of that list — fix
+the clock start/stop convention, and have the moderator log errors, back-tracks and pauses over three
+seconds — were agreed and then **not implemented across P1–P5**. That is why §6 carries no time on task
+and why the error and hesitation counts there are participant-reported rather than observer-recorded.
+The pilot did its job and identified the gap; the process failure was downstream of it. Stated here
+rather than in §12 alone, because a pilot whose recommendations were dropped is a weaker pilot than one
+whose recommendations were followed.
+
+**One pilot observation is still open.** §5.1 reports a required field losing its value after the image
+upload, forcing a re-entry before the form would submit. Nothing equivalent appears in the five counted
+sessions, and it has **not been reproduced against the live product**, so it carries **no finding ID**
+and is not counted among the 24 in `docs/05_Bug_Usability_Findings_Log.md`. It is a lead to re-test,
+not a result.
 
 ## 5. Participants
 
@@ -330,7 +354,7 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | Measure: **post-task SUS or UEQ-S** | Met | SUS, 10 items, §7; scored by `score_sus.py` |
 | **Open probes** covering clarity · error recovery · speed · trust | Met | §8, all four asked of all five, same wording |
 | **5 real participants**, target profile, verifiable contacts, middle four digits masked, outside this class | Met | §5; four universities, none in this course, none in software |
-| **Pilot** with one extra person | **Not met** | No pilot ran. Instruments were desk-checked instead. Cannot be added after the counted sessions without inventing a participant. |
+| **Pilot** with one extra person | Met | Pilot-01, a sixth person outside this class, run 2026-08-03 before P1 — §4. Recording verified distinct from all five counted sessions (0 % frame overlap). Its data enters no metric, no SUS figure and no finding. |
 | **Phase 2** — "testing the product, not you" + think-aloud framing | Met | `design/Moderator_Runsheet.md` §5, spoken verbatim each session |
 | Observe neutrally, no leading hints | Met | Do-not-say list, same file |
 | **Record the screen (and audio, with consent)** | Met | Five distinct recordings, `reports/evidence_task2/Session_P1..P5.mp4`; verified 0 % frame overlap between every pair |
@@ -344,13 +368,19 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | **A screenshot per ranked finding** | **Partly met** | D-025 and D-026 carry a still cut from the recording of the participant who hit them. D-024 is about movement across pages and D-027 about a toast that has already vanished — neither is a single frame; both cite the recordings instead, and each says so in its own row rather than pointing at an unrelated image. |
 | Log genuine findings through the §7 channel | Met | D-024…D-027 are in `docs/05_Bug_Usability_Findings_Log.md` and were **submitted to the Google Form on 2026-08-03**, alongside D-023 — log and form both stand at 24. See §13 |
 
-**Two requirements cannot be closed retroactively**: **time on task** and the **pilot**. Each needed
-something to happen *during* the sessions — a clock running, or a sixth person sitting down before the
-counted five — and neither can be supplied afterwards without inventing data, which §12 makes grounds
-for voiding the whole task. They are reported as unmet rather than filled in. The **error and
-hesitation counts were recoverable** and have been counted, from what each participant wrote about
-their own session, with the sentence behind every one of the seven error episodes printed in
-`docs/usability_testing/results/Metrics_Table.md`.
+**One requirement cannot be closed retroactively: time on task.** It needed a clock running *during*
+the sessions; the recordings are 18.8–26.0 s excerpts, so no duration can be recovered from them, and
+supplying one afterwards would be inventing data — which §12 makes grounds for voiding the whole task.
+It is reported as unmet rather than filled in.
+
+The other two once-open items did close, and both closed on evidence rather than on assertion. The
+**error and hesitation counts were recoverable** from what each participant wrote about their own
+session, with the sentence behind every one of the seven error episodes printed in
+`docs/usability_testing/results/Metrics_Table.md`. The **pilot** is evidenced by a sixth recording,
+`Session_Pilot01.mp4`, checked frame-by-frame against all five counted sessions before it was relied
+on — 0 % overlap — because a claimed session that turns out to be a copy of another is worse than no
+pilot at all. The pilot's own durations are attributed to the moderator and left out of every
+calculation, for the same reason time on task is left blank.
 
 ## 12. Limitations
 
@@ -372,10 +402,14 @@ their own session, with the sentence behind every one of the seven error episode
 - **Known defects were present during the sessions** (`docs/usability_testing/design/Moderator_Runsheet.md`
   §4). Where one caused a task failure, the failure is the product's and is recorded as such — but
   it also means task times are not a clean measure of the intended design.
-- **No pilot session was run.** §6 Task 2 Phase 1 asks for one before the counted sessions. The
-  instruments were desk-checked against the brief instead, with task wording, success criteria and
-  probe wording all fixed in advance — but nothing was rehearsed against a real person, so any
-  wording problem was paid for by the counted five rather than by a throwaway session.
+- **The pilot ran, but half of what it recommended was not implemented.** Pilot-01 (§4) correctly
+  identified that the clock convention and the observation log had to be fixed before P1. Items 1–3
+  and 5 of its adjustment list were then not carried through, which is the direct cause of the two
+  weakest cells in §6: no time on task, and error/hesitation counts that are participant-reported
+  instead of observer-recorded. The value a pilot is supposed to add was identified and then partly
+  discarded.
+- **The pilot's own numbers are moderator-reported and uncorroborated.** Its recording is a 35-second
+  excerpt. Nothing in this report is computed from them, so the exposure is contained to §4.
 - **Time on task was not measured.** No clock was run, and the recordings are 18.8–26.0 s excerpts, so
   no duration can be recovered from them. It is the one item in §6's minimum measure set this study
   does not carry; task success, errors, SUS and the probes are complete for all five. The ordinal

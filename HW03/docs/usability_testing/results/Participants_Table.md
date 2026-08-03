@@ -36,11 +36,24 @@ privately when they call to verify (§12).
 
 ## Pilot (not counted in Task 2 results)
 
-| Pilot | Name (or initials) | Profile | Outside this class (Y/N) | Contact (masked) | Date | Consent: screen / audio | Notes |
+| Pilot | Name | Profile | Outside this class (Y/N) | Contact (masked) | Date | Consent: recording | Recording |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pilot-1 | — | — | — | — | — | — | Not run; the five counted sessions went ahead directly. |
+| Pilot-01 | Nguyễn Kháng Chiến | Sinh viên Kinh tế Luật, Đại học Kinh tế – Luật (UEL) | Y | `034****512` | 2026-08-03 | Y | `reports/evidence_task2/Session_Pilot01.mp4` |
 
-The instruments were desk-checked against the brief instead. Noted once in the report's Limitations.
+Run **before P1** on the same day. A sixth person, not one of the counted five — a pilot participant
+has already seen the tasks and the screens, so their session can never also be counted. Write-up:
+`docs/usability_testing/results/session_notes/Session_Pilot01.md`; what it changed and what it
+recommended-but-did-not-get is in the report's §4.
+
+**Verified before being relied on.** `Session_Pilot01.mp4` was frame-hashed against all five counted
+recordings: **0 % shared frames** with every one of them, 485 unique frames over 35.2 s at 1280×720.
+A claimed sixth session that turned out to be a copy of a counted one would be worse than no pilot, so
+the check ran first. Its **durations and error counts are moderator-reported and uncorroborated** — the
+recording is an excerpt — and they enter no table, no SUS figure and no finding.
+
+**One field to confirm before submitting:** the university was given as an abbreviation and is recorded
+here as Đại học Kinh tế – Luật (UEL), inferred from the stated major. The TA may call, so check the
+spelling against your own record.
 
 ## The 5 real participants
 
