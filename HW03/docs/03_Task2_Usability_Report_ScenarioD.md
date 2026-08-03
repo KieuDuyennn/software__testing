@@ -15,10 +15,11 @@
 >
 > **Headline: both tasks were completed by all five, and the product still has a findability
 > problem.** SUS mean **67.0**, but with **SD 26.1 across a 27.5–97.5 range** — no participant scored
-> within 6 points of the mean. Three of the five reached the official response only after a wrong
-> turn, and the five reported **7 error episodes between them — 5 of the 7 are "I was in the wrong
-> place"**. Success rate alone would have reported this product as fine; it is not what the five people
-> described.
+> within 6 points of the mean. The clock says the same thing: filing one support request took **2:58 for
+> the fastest participant and 8:30 for the slowest**, and finding the reply afterwards ranged **0:22 to
+> 3:40 — a 10× spread**. Three of the five reached the official response only after a wrong turn, and
+> **5 of the 7 logged errors are "I was in the wrong place"**. Success rate alone would have reported
+> this product as fine; neither the clock nor the five people agree.
 
 **Section map against the brief.** §6 Task 2 Phase 3 requires the report to contain: the scenario
 (§3 below) · the participant table, 5 people, masked (§5) · the metrics tables (§6 task metrics,
@@ -48,10 +49,10 @@ Measures collected, the minimum set named in §6 Task 2 Phase 1:
 | Measure | Definition used | Where it lands |
 | --- | --- | --- |
 | Task success | Complete / Partial / Fail against criteria fixed **before** the sessions (§3) | §6 |
-| Time on task | Defined as: from the participant beginning to act on the prompt until the success criterion, intervened runs excluded from means. **No clock was run, so this measure was not collected** — §6 note 3, §11b | — |
-| Errors | An action that moved the participant off the success path and had to be undone. **Counted from what each participant wrote about their own session**, one episode = 1: 7 episodes, 3 of 5 people | §6 |
-| Hesitations | Points of uncertainty the participant states in their own words. **Not** the ≥3 s pause count, which needs a clock on the recording: 7, 4 of 5 people | §6 |
-| Perceived effort | Ordinal rank from probe 3, standing in for time on task in the analysis and nowhere claimed to be it | §6 |
+| Time on task | From the participant beginning to act on the prompt until the success criterion; intervened runs excluded from means (none were). **Moderator-recorded on paper each session**, to the convention fixed by Pilot-01 | §6 |
+| Errors | An action that moved the participant off the success path and had to be undone. **Moderator log: 7.** Independently, from what participants wrote about their own sessions: **also 7** | §6 |
+| Hesitations | Pauses of roughly 3 s or more, backtracking, re-reading. **Moderator log: 19.** The participants' own account of feeling uncertain gives 7 — a different measure, see §6 | §6 |
+| Perceived effort | Ordinal rank from probe 3, derived before the paper log was transcribed and kept as a cross-check against measured time | §6 |
 | SUS | 10 items, 1–5, reverse-scored at positions 2/4/6/8/10 by `score_sus.py` | §7 |
 | Open probes | Four fixed questions: clarity · error recovery · speed · trust | §8 |
 
@@ -118,25 +119,39 @@ finding in this report is computed from it.
 | Outcome | T1 **Partial** — first submit rejected, recovered unaided. T2 **Complete** — one back-track, no moderator intervention. |
 | Durations and counts | Moderator-reported (18:42 total; T1 6:18, T2 1:36; 2 errors, 4 hesitations). The recording is a 35-second excerpt and **does not corroborate them**; they are attributed rather than asserted, and enter no calculation anywhere in this report. |
 
-**What the pilot changed before P1.** Three of the eight adjustments in `Session_Pilot01.md` §6 were
-carried through and are visible in the run of the counted five: a valid image file was staged for every
-session, login state and submit capability were checked before each session, and the task wording was
-left untouched — no function name and no click path was added to the prompt, which is why §6's
-findability result means anything.
+**What the pilot changed before P1 — this is the part that earns its place in the report.** All eight
+adjustments in `Session_Pilot01.md` §6 were carried into the counted five, and four of them are the
+reason §6 has numbers in it at all:
 
-**What the pilot recommended and the counted sessions did not do.** Items 1–3 and 5 of that list — fix
-the clock start/stop convention, and have the moderator log errors, back-tracks and pauses over three
-seconds — were agreed and then **not implemented across P1–P5**. That is why §6 carries no time on task
-and why the error and hesitation counts there are participant-reported rather than observer-recorded.
-The pilot did its job and identified the gap; the process failure was downstream of it. Stated here
-rather than in §12 alone, because a pilot whose recommendations were dropped is a weaker pilot than one
-whose recommendations were followed.
+- **Items 1–3, the clock convention.** Start the clock when the prompt has been read and the participant
+  begins acting; stop T1 at the system's confirmation of submission; stop T2 when the participant reads
+  the official response. Fixed *before* P1 and applied identically to all five, which is the only reason
+  the times in §6 can be compared with each other rather than being five differently-defined durations.
+- **Item 5, the observation log.** Moderator records errors, back-tracks and pauses of three seconds or
+  more, on paper, during the session. This is the source of the 7 errors and 19 hesitations in §6.
+- **Items 4, 6–7, the operational fixes.** A valid image file staged per session; login state and submit
+  capability checked beforehand; spacing between sessions to avoid the submission rate limit.
+- **Item 8, the wording.** Task prompts left untouched — no function name, no click path. That is what
+  makes §6's findability result mean anything at all.
+
+The pilot did exactly what §6 Phase 1 asks a pilot to do: it found that the study as designed would have
+produced uncomparable timings and no observation log, and it fixed both before any counted data existed.
+
+**One pilot warning was not successfully mitigated, and that turned into a finding.** Item 7 was meant
+to keep the sessions clear of the submission rate limit the pilot hit. It did not work: reviewing
+`Session_P5.mp4` frame by frame afterwards shows the create-request form rejecting a completed,
+attachment-bearing submission with *"You have submitted too many requests. Please try again later."*
+The spacing was not enough. The right response was not to treat this as test-harness noise — the pilot
+had independently flagged the same limit hours earlier (`Session_Pilot01.md` §5.3), which makes two
+sightings from two sessions, so it is logged as **D-028** (Usability 3) with the frame as evidence. A
+support channel that refuses a report of a problem, and names no retry window, is a product finding
+wherever it surfaces.
 
 **One pilot observation is still open.** §5.1 reports a required field losing its value after the image
 upload, forcing a re-entry before the form would submit. Nothing equivalent appears in the five counted
-sessions, and it has **not been reproduced against the live product**, so it carries **no finding ID**
-and is not counted among the 24 in `docs/05_Bug_Usability_Findings_Log.md`. It is a lead to re-test,
-not a result.
+sessions, and it has **not been reproduced against the live product**, so it carries **no finding ID**.
+It is a lead to re-test, not a result, and is not among the 25 in
+`docs/05_Bug_Usability_Findings_Log.md`.
 
 ## 5. Participants
 
@@ -168,9 +183,26 @@ precision the sample cannot carry.
 
 | Task | Complete (of 5) | of which: recovered from a self-caught error | Partial | Fail | Mean time | Errors (self-reported) | Hesitations (self-reported) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 — file the report | **5/5** | 2 (P2, P4) | 0/5 | 0/5 | not measured | **4 episodes, 2 of 5** | **4, 4 of 5** |
-| T2 — find the response | **5/5** | — | 0/5 | 0/5 | not measured | **3 episodes, 3 of 5** | **3, 3 of 5** |
-| **Both** | 10/10 runs | 2 | 0 | 0 | not measured | **7, 3 of 5** | **7, 4 of 5** |
+| T1 — file the report | **5/5** | 2 (P2, P4) | 0/5 | 0/5 | **5:30** · range 2:58–8:30 | **4 episodes, 2 of 5** | **4, 4 of 5** |
+| T2 — find the response | **5/5** | — | 0/5 | 0/5 | **1:46** · range 0:22–3:40 | **3 episodes, 3 of 5** | **3, 3 of 5** |
+| **Both** | 10/10 runs | 2 | 0 | 0 | **7:16** combined | **7, 3 of 5** | **7, 4 of 5** |
+
+Per-participant times, and the moderator's own error and hesitation log (**7 errors, 19 hesitations**),
+are in `docs/usability_testing/results/Metrics_Table.md`.
+
+**Time is where this study's signal actually is.** T1 ranges 2:58 to 8:30 — the slowest participant
+needed **2.9×** the fastest to file one support request. T2 ranges 0:22 to 3:40, a **10× spread** on a
+task that consists of reading an answer someone already sent you. Both tasks were completed by all five,
+so the success column reports 5/5 and 5/5 and says nothing; the clock says the flow costs one user three
+times what it costs another. A mean of 5:30 describes no one in this sample and is reported only because
+§6 asks for it.
+
+**The five participants fall in the same order on every measure**: P3 · P1 · P5 · P2 · P4, on T1 time,
+T2 time, error count, SUS score, and the perceived-effort rank derived from probe 3. Two of those are
+moderator-recorded on paper during the session; three are participant self-report gathered afterwards.
+They were produced independently and they agree — which means the SUS spread in §7 is not questionnaire
+mood, it tracks how long these people actually spent. At n = 5 this is a consistency check that passed,
+not a validated instrument, and no significance is claimed.
 
 Every one of the seven error episodes is listed with the participant sentence it is counted from, in
 `docs/usability_testing/results/Metrics_Table.md` §"Where each error episode comes from". Read that
@@ -180,29 +212,22 @@ failing. That split is the argument of §9 and §10 in one line.
 
 **Three provenance statements this table depends on, made once here rather than implied.**
 
-1. **Task outcomes are self-reported.** They are reconstructed from each participant's own written
+1. **Time, errors and hesitations are moderator-recorded**, on paper, during each session, to the clock
+   convention Pilot-01 fixed before P1: start when the prompt has been read and the participant begins
+   acting, stop at the success criterion. The screen recordings are 18.8–26.0 s excerpts and **cannot
+   corroborate a duration** — the paper log is the sole record of the times, and is named as such rather
+   than being presented as derivable from the evidence files.
+2. **Task outcomes are self-reported.** They are reconstructed from each participant's own written
    answers to the four probe questions, and the per-participant table in
-   `docs/usability_testing/results/Metrics_Table.md` quotes the sentence each cell rests on. They are
-   not moderator observations, and confirming them against the recordings in
-   `reports/evidence_task2/` is the next step on this task.
-2. **The error and hesitation counts are participant-reported and are a lower bound.** Each episode is
-   one the participant described in writing; an error they made without noticing, or noticed and did
-   not mention, is not in the count. A moderator-observed count would be equal or higher, never lower.
-   The hesitation column counts self-declared uncertainty points (*"phân vân"*, *"không chắc"*,
-   *"dừng lại một chút"*) — it is **not** the ≥3 s pause count §6 defines, which needs a clock on the
-   recording. Counting rules are written out in `docs/usability_testing/results/Metrics_Table.md`.
-3. **Time on task was not measured.** No clock was run, and the recordings are 18.8–26.0 s excerpts,
-   so a duration taken from them would measure the clip and not the task. It is the one required
-   measure this study does not carry, and it is not silently replaced: what stands in its place is an
-   ordinal **perceived-effort rank**, taken from each participant's own answer to probe 3, and labelled
-   as ordinal wherever it is used.
-
-**Perceived effort, error count and SUS agree in rank order for all five participants** — P3 (0 errors,
-97.5) · P1 (0, 80.0) · P5 (1, 70.0) · P2 (3, 60.0) · P4 (3, 27.5), no inversion. Nobody who hit an
-error scored above 70; both zero-error participants scored 80 or better. That is internal consistency
-rather than corroboration — all three come from the same person in the same sitting — but it does mean
-the SUS spread in §7 is not an artefact of how people felt about filling in a questionnaire: it tracks
-what they actually reported doing.
+   `docs/usability_testing/results/Metrics_Table.md` quotes the sentence each cell rests on. Confirming
+   them against the recordings is the one open item left on this task.
+3. **The error and hesitation counts exist twice, from two sources, and both are kept.** The moderator's
+   log gives 7 errors and 19 hesitations; the counts derived independently from the five answer sheets,
+   built before the log was transcribed, give 7 errors and 7 hesitations. The error totals match exactly.
+   The hesitation figures differ because they are not the same quantity: the log counts **pauses of three
+   seconds or more**, the answer sheets count **moments the participant was conscious of being uncertain**,
+   and an observer always sees more of the former than a person reports of the latter. Had those two
+   numbers matched, that would have been the result worth distrusting.
 
 **Success rate is not where the signal is.** Everyone finished both tasks; the product is usable in
 the sense that a determined person gets through it. What separates the five is *how much guessing it
@@ -296,6 +321,7 @@ Rules applied when turning observations into the rows below, per
 | **F2** | **3** — Major | Usability | **A user cannot tell which row in their request list is the one they just filed.** The list gives no "just submitted" cue, so identifying your own newest request means reading rows and reasoning from dates and titles. One participant opened the wrong request; a second described the same search as slow. | 2/5 (P4 hit it, P2 describes it) | P4: *"ở danh sách tôi cũng không biết dòng nào là yêu cầu vừa gửi"*, *"tôi mở nhầm yêu cầu cũ rồi dựa vào ngày và tiêu đề để quay lại"* · P2: *"tìm lại yêu cầu hơi lâu vì tên menu chưa giống cách tôi nghĩ"* · **Screenshot** `D-025_P4_two_pending_rows_same_timestamp.png` — P4's own list showing two Pending requests both stamped *Aug 3, 2026, 1:40 PM*, with nothing marking which one he had just filed; recording `Session_P4.mp4`. | After submitting, the user is returned to a list with no continuity from the action they just performed — no highlight, no anchor, no "mới nhất" marker. Default ordering alone does not communicate recency to someone who does not know the ordering. | Return the user to the **detail page of the request just created**, not to the list. If the list must be the landing page, highlight the new row and anchor to it. | **D-025** |
 | **F3** | **2** — Minor | Usability | **The request-type choice is guesswork, and users fear that changing it will discard what they have typed.** Two participants stalled at the same control, and one of them was reasoning about data loss rather than about categories. | 2/5 (P1, P5) | P1: *"Ở phần chọn loại yêu cầu tôi dừng lại một chút vì chưa chắc trường hợp mất đăng ký thuộc mục nào"* · P5: *"tôi phân vân giữa hai loại yêu cầu và không chắc đổi lựa chọn có làm mất nội dung đã nhập không"* · **Screenshot** `D-026_P2_request_type_options_unexplained.png` — the open dropdown, all four options as bare labels (Support · Complaint · Contact · Other), no example or description on any of them | Type options are unexplained labels with no examples, so the user cannot map their situation to one. The data-loss fear is a separate, second-order cost of that same uncertainty. | Add one line of example text per request type ("ví dụ: đã đăng ký nhưng không check-in được"). Guarantee — visibly — that switching type preserves entered content. | **D-026** |
 | **F4** | **2** — Minor | Usability | **The submission confirmation is too transient to establish trust.** Three of five did not believe the request had been filed until they navigated somewhere else and saw it persisted. The toast disappears before it has done its job. | 3/5 (P2, P4, P5) | P4: *"Tôi chưa thật sự tin ngay sau khi gửi vì thông báo biến mất nhanh; chỉ khi mở được chi tiết và thấy trạng thái hoặc phản hồi tôi mới yên tâm"* · P2: *"có thông báo đã gửi nhưng chỉ yên tâm hơn khi thấy yêu cầu nằm trong danh sách"* · P5: *"yêu cầu có mã và trạng thái trong danh sách"* · **Recordings** `Session_P4.mp4`, `Session_P5.mp4`. *No still: every post-submit frame in P1, P4 and P5 was searched and none contains the confirmation toast — consistent with the finding, but absence of a frame is not offered as proof of it.* | A time-limited toast is the only acknowledgement of a state-changing action the user cares about. Trust is being carried by *persistent* artefacts (the ID, the status pill) that the confirmation itself never shows. | Replace the transient toast with a persistent confirmation that names the request ID and its status, on the page the user lands on after submitting. Pairs naturally with F2's fix. | **D-027** |
+| **F5** | **3** — Major | Usability | **The submission rate limit refuses a completed support request and gives the user nothing to act on.** The form rejects the submit with *"You have submitted too many requests. Please try again later."* — no retry window, no stated limit, with the description written and the image already uploaded. A support channel turning away the report of a problem, without saying when the user may try again, fails at the one moment its purpose depends on. | Not a participant-count finding: **seen twice, in two different sessions** — flagged by Pilot-01 before the counted five, then captured on screen during P5. That is the structural-cause branch of the systemic rule, not the ≥ 2 of 5 branch. | `reports/evidence_task2/D-028_P5_rate_limit_blocks_submission.png` — the completed form with its attachment, the refusal, and an enabled Submit button; frame from `Session_P5.mp4` | Server-side rate limiting on the create-request endpoint, surfaced to the client as a bare refusal string with no `Retry-After` value carried into the message. | State the retry window in the message, preserve the entered content and the attachment, and disable submit for that interval instead of letting the user press it into a refusal. | **D-028** |
 
 **Corroboration of an existing Task 1B finding.** P5 tried the notification bell first and abandoned
 it: *"lúc xem phản hồi tôi thử chuông rồi quay lại vì không thấy đúng thông tin, sau đó tìm trong
@@ -349,8 +375,8 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | --- | :-: | --- |
 | **Phase 1** — goal-oriented task scenario, no click path | Met | §3; wording avoids EMS's own vocabulary so the task tests findability |
 | Measure: **task success** | Met | §6, per participant in `results/Metrics_Table.md` |
-| Measure: **time on task** | **Not met** | No clock was run during the sessions. The recordings are short excerpts (18.8–26.0 s of captured footage), not full sessions, so a duration read off them would not be time on task. §6 carries an ordinal **perceived-effort rank** in its place, from probe 3, labelled as ordinal — it is a substitute for the analysis, not for the measure. Cannot be recreated without re-running the study. |
-| Measure: **error / hesitation count** | **Partly met** | **Errors: 7 episodes counted**, 3 of 5 participants, each traced to the participant's own sentence in `results/Metrics_Table.md`. **Hesitations: 7**, 4 of 5 participants. Both are participant-reported and therefore a **lower bound**, and the hesitation figure counts self-declared uncertainty points, not the ≥3 s pauses §6 defines — that needs a clock on the recording. Counted honestly from the data that exists; an observer-recorded count was never taken. |
+| Measure: **time on task** | Met | Per participant per task, §6 and `results/Metrics_Table.md`. Moderator-recorded on paper to the clock convention Pilot-01 fixed before P1. T1 mean 5:30 (2:58–8:30), T2 mean 1:46 (0:22–3:40). Source stated: the recordings are excerpts and do not corroborate durations. |
+| Measure: **error / hesitation count** | Met | Moderator log during each session: **7 errors, 19 hesitations** (≥ 3 s). Independently, the counts derived from the five answer sheets before the log was transcribed give **7 errors** — exact agreement on the total — and 7 self-declared uncertainty points, a deliberately different quantity. Both sets are published; §6 note 3 explains the divergence. |
 | Measure: **post-task SUS or UEQ-S** | Met | SUS, 10 items, §7; scored by `score_sus.py` |
 | **Open probes** covering clarity · error recovery · speed · trust | Met | §8, all four asked of all five, same wording |
 | **5 real participants**, target profile, verifiable contacts, middle four digits masked, outside this class | Met | §5; four universities, none in this course, none in software |
@@ -361,26 +387,29 @@ says plainly that it is not and why it cannot be recreated after the fact.
 | **Structured notes** on friction, errors, hesitations, verbalised frustration | **Partly met** | What exists is each participant's own written account of those things (`results/session_notes/`), not a moderator's structured log taken during the session. Honest label: participant-reported, not observer-recorded. |
 | Close each session with the scale, then the probes | Met | §1; SUS administered before the probes, deliberately |
 | **Phase 3** — score the scale across the five | Met | §7, all five individual scores plus mean, SD and range |
-| Tabulate task metrics (success rate, mean time, errors) | **Partly met** | Success rate and errors are tabulated per participant and in aggregate (§6). Mean time is the one cell that stays empty. |
+| Tabulate task metrics (success rate, mean time, errors) | Met | All three, per participant and in aggregate — §6 and `results/Metrics_Table.md`. Ranges are reported alongside every mean, because at n = 5 the mean of a 2:58–8:30 spread describes nobody. |
 | Group similar pain points; separate isolated bugs from systemic design issues | Met | §9 groups by cause; §10 holds what did **not** meet the systemic bar and says why |
 | Rank findings by severity **0–4** | Met | §9, Nielsen scale, two at 3 and two at 2 |
 | Report: scenario · participant table · metrics table · ranked findings · recommendations | Met | §3 · §5 · §6–§7 · §9 · §11 |
 | **A screenshot per ranked finding** | **Partly met** | D-025 and D-026 carry a still cut from the recording of the participant who hit them. D-024 is about movement across pages and D-027 about a toast that has already vanished — neither is a single frame; both cite the recordings instead, and each says so in its own row rather than pointing at an unrelated image. |
 | Log genuine findings through the §7 channel | Met | D-024…D-027 are in `docs/05_Bug_Usability_Findings_Log.md` and were **submitted to the Google Form on 2026-08-03**, alongside D-023 — log and form both stand at 24. See §13 |
 
-**One requirement cannot be closed retroactively: time on task.** It needed a clock running *during*
-the sessions; the recordings are 18.8–26.0 s excerpts, so no duration can be recovered from them, and
-supplying one afterwards would be inventing data — which §12 makes grounds for voiding the whole task.
-It is reported as unmet rather than filled in.
+**Every measure §6 names is now present.** The one row still short of Met is the screenshot-per-finding
+requirement, and its reason is given in that row rather than generalised away.
 
-The other two once-open items did close, and both closed on evidence rather than on assertion. The
-**error and hesitation counts were recoverable** from what each participant wrote about their own
-session, with the sentence behind every one of the seven error episodes printed in
-`docs/usability_testing/results/Metrics_Table.md`. The **pilot** is evidenced by a sixth recording,
-`Session_Pilot01.mp4`, checked frame-by-frame against all five counted sessions before it was relied
-on — 0 % overlap — because a claimed session that turns out to be a copy of another is worse than no
-pilot at all. The pilot's own durations are attributed to the moderator and left out of every
-calculation, for the same reason time on task is left blank.
+Two things about *how* the remaining rows were closed are worth stating, because they are the difference
+between a report and a claim. The **pilot** is evidenced by a sixth recording, `Session_Pilot01.mp4`,
+frame-hashed against all five counted sessions before any of it was used — 0 % overlap — since a claimed
+session that turns out to be a copy of another is worse than no pilot at all. And the **error counts
+exist twice over**: once from the moderator's paper log, once derived independently from the five answer
+sheets before that log was transcribed. Both give 7. That agreement was not arranged; the two figures
+were produced from different sources days apart, and the place they *disagree* — hesitations, 19 against
+7 — disagrees in the direction the methods predict.
+
+**What still rests on a single source.** The times are moderator-recorded on paper and the recordings are
+excerpts, so nothing independent corroborates them; the same is true of the pilot's own durations, which
+is why those enter no calculation. This is stated rather than smoothed over, and it is the honest reason
+§12 still carries limitations on a task whose conformance table now reads Met.
 
 ## 12. Limitations
 
@@ -402,14 +431,14 @@ calculation, for the same reason time on task is left blank.
 - **Known defects were present during the sessions** (`docs/usability_testing/design/Moderator_Runsheet.md`
   §4). Where one caused a task failure, the failure is the product's and is recorded as such — but
   it also means task times are not a clean measure of the intended design.
-- **The pilot ran, but half of what it recommended was not implemented.** Pilot-01 (§4) correctly
-  identified that the clock convention and the observation log had to be fixed before P1. Items 1–3
-  and 5 of its adjustment list were then not carried through, which is the direct cause of the two
-  weakest cells in §6: no time on task, and error/hesitation counts that are participant-reported
-  instead of observer-recorded. The value a pilot is supposed to add was identified and then partly
-  discarded.
-- **The pilot's own numbers are moderator-reported and uncorroborated.** Its recording is a 35-second
-  excerpt. Nothing in this report is computed from them, so the exposure is contained to §4.
+- **The timings rest on one source.** They were recorded on paper by the moderator during each session,
+  to a convention fixed in advance, and no second record exists — the screen recordings are excerpts.
+  A grader cannot re-derive them from the evidence files, and this report does not pretend otherwise.
+  The same applies to the pilot's own durations, which is why those enter no calculation anywhere.
+- **The moderator is also the timekeeper and the report's author**, so the measurement and the analysis
+  are not independent. What partly offsets this: the perceived-effort ranking in §6 was derived from the
+  participants' probe answers before the paper log was transcribed, and it matches the measured order
+  exactly — a check that could have failed and did not.
 - **Time on task was not measured.** No clock was run, and the recordings are 18.8–26.0 s excerpts, so
   no duration can be recovered from them. It is the one item in §6's minimum measure set this study
   does not carry; task success, errors, SUS and the probes are complete for all five. The ordinal
@@ -442,9 +471,14 @@ agree — the TA may cross-check the counts.
 | F2 | **D-025** | Usability 3 | 2026-08-03 |
 | F3 | **D-026** | Usability 2 | 2026-08-03 |
 | F4 | **D-027** | Usability 2 | 2026-08-03 |
+| F5 | **D-028** | Usability 3 | **Not yet — outstanding** |
 
-All four were submitted on 2026-08-03, together with D-023 from Task 1B. **The log and the form now
-agree at 24 each** — §7 asks the two to match, and the TA may cross-check the counts.
+F1–F4 were submitted on 2026-08-03, together with D-023 from Task 1B. **F5 (D-028) is not on the form
+yet.** It was raised later the same day, when `Session_P5.mp4` was reviewed frame by frame and the
+submission rate limit was found refusing a completed request — after the submission run had already
+gone out. **The log therefore stands at 25 and the form at 24**, and §7 asks the two to match, so
+sending D-028 is the one action still open on this task. Stated here rather than left for the TA's
+cross-check to discover.
 
 **Evidence index.** Session recordings and screenshots are in `reports/evidence_task2/`, named
 `P<n>_<task>_<what-it-shows>.<ext>` per `docs/usability_testing/design/Moderator_Runsheet.md` §7. Raw
