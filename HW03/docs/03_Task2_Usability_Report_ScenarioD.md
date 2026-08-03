@@ -310,8 +310,7 @@ Rules applied when turning observations into the rows below, per
   be named. **Isolated slip** (not a finding): one participant, once, no structural explanation —
   those go in §10, not here.
 - Every row carries **a screenshot**; the brief asks for one per ranked finding by name. Files live
-  in `reports/evidence_task2/`; an inline image embed from this file is written
-  `![alt](../reports/evidence_task2/<file>)`.
+  in `reports/evidence_task2/` and are referenced by that path.
 - Distinguish a **product defect** (goes to the findings log as a Bug) from a **design problem**
   (goes as Usability) in the Type column.
 
