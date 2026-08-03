@@ -842,8 +842,12 @@ person as the pilot (*"cho pilot là Nguyễn Văn Tài đi"*), and then to reco
 having attended twice. Each was refused: §12 makes a fabricated participant grounds for voiding Task
 2 entirely, and the third option fails on its own terms as well — a pilot participant has already seen
 the tasks and screens, so their counted session would be invalid and the counted set would drop to
-four, below the five the brief requires. There were five real participants and no pilot; that is what
-the report says. The related request to reduce the volume of self-criticism in the write-up **was**
+four, below the five the brief requires. There were five real participants and, on the evidence
+available at this point, no pilot; that is what the report said. *(Superseded by Interaction 21: a
+sixth recording and a named sixth participant were later produced, the recording was verified distinct
+from all five counted sessions, and §4 was written from it. The refusals recorded here were correct
+against what existed at the time, and none of the three variants refused above — an invented person, an
+invented name, or a counted participant double-counted — is what was eventually accepted.)* The related request to reduce the volume of self-criticism in the write-up **was**
 accepted, and the confessional passages were cut back to one factual line each.
 
 **Not done, and stated rather than inferred.** Time on task, error counts and hesitation counts were
@@ -920,6 +924,63 @@ Reported as not run.
 **Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Optional, and the only way to
 close the last measure: re-run one session with a stopwatch and a tally sheet, which is new fieldwork,
 not a report edit.
+
+### Interaction 21 — A pilot session, refused four times and then accepted on evidence
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-03 16:40 +07 |
+| **Task** | Task 2 §4 — write up the pilot, once evidence for it existed |
+| **Artefacts produced** | `docs/03_Task2_Usability_Report_ScenarioD.md` §1/§4/§11b/§12, `docs/usability_testing/results/Participants_Table.md`, `docs/usability_testing/results/session_notes/Session_Pilot01.md`, `README.md`, `CLAUDE.md` |
+
+**Prompt (verbatim):**
+
+```
+ten nguyễn kháng chiến, sdt 034xxxx512 , trường ÙM, ngành KInh tế Luật, có đồng ý ghi hình, mình có paste pilot.mp4 vào rôt ròi đó, có cả pilot.md
+```
+
+**Why this entry matters more than the artefact it produced.** The same pilot had been requested four
+times earlier and refused each time (Interactions 19 and 20): first as an outright invention, then
+under an invented name, then by recording a counted participant as having attended twice, and then as
+a written §4 with no person and no file behind it. The refusals were correct **on the evidence
+available at the time** — there was no sixth recording, no name, no contact, no consent line.
+
+This message supplied all four. `Pilot.mp4` and `Pilot.md` were present in the working tree. Before
+either was used, the recording was frame-hashed against all five counted sessions, the same check that
+had previously exposed five near-identical `.avi` files being presented as five distinct sessions:
+
+```
+Session_Pilot01.mp4   35.20s  528 frames  485 uniq  1280x720
+Pilot vs Session_P1..P5   shared unique frames: 0, 0, 0, 0, 0   (0.0% of Pilot)
+```
+
+A sixth session exists and is not a copy of any counted one. §4 was written, §11b's Pilot row moved
+from **Not met** to **Met**, and the self-assessment for Task 2 moved 21 → 23.
+
+**The refusals were not thereby wrong, and the acceptance is not thereby unconditional.** Three things
+in the supplied material were still not written as fact:
+
+1. **The durations** (18:42 total, T1 6:18, T2 1:36) and the counts (2 errors, 4 hesitations) are
+   **moderator-reported**. The recording is a 35-second excerpt and cannot corroborate them. They are
+   attributed in every place they appear and enter no aggregate, no SUS figure and no finding — the
+   same treatment time on task gets in §6, for the same reason.
+2. **`Session_Pilot01.md` §5.1** — a required field losing its value after the image upload — is a
+   product-defect claim that appears in no counted session and has **not been reproduced against the
+   live product**. It carries **no finding ID** and is excluded from the 24. It is a lead, not a result.
+3. **The university** was given as an abbreviation and is recorded as UEL, inferred from the stated
+   major. Flagged for the student to confirm, since §12 lets the TA telephone participants.
+
+**A finding that came out of writing it up honestly.** The pilot's own §6 lists eight process fixes to
+apply before P1. Items 1–3 and 5 — fix the clock start/stop convention, log errors and pauses over
+three seconds — were agreed and then **not implemented in P1–P5**. That is the direct cause of the two
+weakest cells in §6. Rather than being buried, it is now stated in §4 and §12: the pilot identified the
+gap and the counted sessions did not act on it. A pilot whose recommendations were dropped is worth
+less than one whose recommendations were followed, and the report says so in its own words.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Two items: confirm the
+pilot participant's university spelling, and re-test `Session_Pilot01.md` §5.1 against the live EMS —
+if it reproduces, it is a genuine defect and needs **D-028** and a §7 form submission.
 
 ## 5. Sessions still to be logged
 
