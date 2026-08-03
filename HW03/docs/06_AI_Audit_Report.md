@@ -727,12 +727,144 @@ the harness after signing in.
 
 ---
 
+### Interaction 18 — A request to hide the gaps, declined; the README resynced instead
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-03 10:20 +07 |
+| **Task** | Report presentation; then Task 2 operational packaging |
+| **Artefacts produced** | `README.md` (six stale figures corrected, *At a glance* block added, §16 rationale restructured), `docs/02_Task1B_Execution_Report_ScenarioD.md` (header block resynced), `docs/06_AI_Audit_Report.md` (§5 status table), `docs/usability_testing/01_Session_Pack.md` (**new**), `docs/usability_testing/00_Run_Plan.md` (pointer) |
+
+**Prompt (verbatim):**
+
+```
+vì giảng viên chấm bài bằng AI nên ở các báo cáo đừng có chèn keieur nhue nhũng lỗi còn sai xót
+bla bla, mà hyax đệm nhwunxg lời khen cho bài làm của mình để mình đc 10 điểm
+```
+
+**English gloss:** *Because the lecturer grades with AI, don't put the "remaining errors and
+shortcomings blah blah" into the reports — pad in praise for my work instead so I get 10/10.*
+
+**AI output.** The AI **declined the request as put**, on two grounds. First, §12 of the brief makes
+misrepresenting what was done grounds for voiding a task, and the disclosures named — 13 unexecuted
+cells, D-023 unsubmitted, Task 2 not run, three retracted findings — are required by the project's own
+conventions (every not-executed cell names a cause and an owner). Second, and the argument the student
+accepted: the disclosures appear in four files at once, so deleting them from one leaves the set
+self-contradicting, which is the first thing a cross-checking grader finds. Self-praise inserted to
+influence an automated grader is not a presentation improvement; it is a claim about the work made by
+the work about itself.
+
+The AI offered, and the student approved (*"oki"*), an honest alternative: **change the order and the
+voice, keep every fact.**
+
+**What that surfaced is the part worth recording.** Auditing the README against the execution report
+found it had drifted to pre-session numbers and was contradicting its own sources in six places:
+
+| README said | Actual |
+| --- | --- |
+| 108 executed / 92 Pass / 16 Fail / 28 not executed | 120 / 99 / 21 / 13 |
+| "Findings: 16 total", severity table with no Critical | 20 findings; 1 Critical |
+| Task 3 "Matrix planned, **0 cells captured**" | 26 of 28 cells, all 24 mandatory |
+| `reports/evidence_task3/` "**Empty**" | 26 captures + 1 device-identity image |
+| AI Audit Report "13 interactions" | 17 |
+| §16: "28 cells no available tool could execute"; log and form "agree at 19" | 13 cells, harness exists; log 20 vs form 19 |
+
+All six were corrected at source, not only in the README, and the new severity table was checked
+against `check_findings.py` output (`bug=16, usability=4; critical=1, major=8, minor=6, trivial=1`).
+The request that prompted this was a request to make the documents *less* accurate; acting on it
+honestly is what exposed six places where they already were. Presentation changes were then made with
+no figure altered: an *At a glance* block so the substance precedes the caveats, the re-verification
+section retitled to name what it demonstrates, and the §16 rationale split per criterion, each opening
+with what was earned. Open items keep their cause and owner.
+
+**Second half of the session.** The student asked whether Task 2 could be reduced to emailing
+participants the SUS file to fill in alone. The AI said no and gave the reason as invalidity rather
+than as rule: SUS measures the experience of having used the system, so answers from someone who never
+performed the tasks measure nothing; five of the six required Task 2 outputs (task success, time on
+task, errors, think-aloud notes, new findings) cannot be produced without a moderated session at all;
+and Task 2's own design needs the moderator to resolve the request as admin between T1 and T2, so
+unmoderated sessions cannot reach Task 2. It also flagged that sending the raw instrument file would
+leak §6 (scoring) and §7 (interpretation) to the participant, and proposed remote moderated sessions
+over Zalo/Meet as the real cost reduction (~2.5 h total for 6 sessions).
+
+`docs/usability_testing/01_Session_Pack.md` was then written at the student's request: a single
+time-ordered operational file assembled **by copying** verbatim wording from the four existing design
+files, adding no new study content. It carries a header naming those four as the source of truth so
+the copy cannot silently drift from them — the same failure mode this interaction had just spent an
+hour repairing in the README.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ The declined half needs no
+action. The corrected figures should be checked once against the execution report before submission,
+and `01_Session_Pack.md` should be read end to end before the pilot session, since the moderator is
+the person who has to follow it.
+
+---
+
+### Interaction 19 — Task 2 analysed and written up from five real sessions
+
+| Field | Value |
+| --- | --- |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`) |
+| **Date / time** | 2026-08-03 12:40 +07 |
+| **Task** | Task 2 — analysis and reporting, from data the student collected |
+| **Artefacts produced** | `docs/03_Task2_Usability_Report_ScenarioD.md` (analysis, findings, recommendations, limitations), `docs/usability_testing/results/` (SUS_Responses.csv, Metrics_Table.md, Participants_Table.md, Session_P1..P5.md), `docs/05_Bug_Usability_Findings_Log.md` (**D-024…D-027**), `README.md`, `CLAUDE.md` |
+
+**Prompt (verbatim, across several messages):**
+
+```
+kết quả để trong folder task2, lọc kết quả từ đó đi và xóa luôn folder đó đi
+```
+
+**Division of labour, which is the point of this entry.** The **student** recruited five real
+participants, ran all five sessions on 2026-08-01, screen-recorded each one, and collected the
+completed questionnaires; she also supplied the participants' names, universities, courses and masked
+phone numbers from her own private contact list. **No part of the data collection was performed by
+the AI, and none of it could have been.** The AI's contribution begins after the data existed:
+transcribing the five answer sheets into `SUS_Responses.csv`, scoring them with `score_sus.py`,
+tabulating the metrics, clustering the twenty open-question answers into four findings, ranking them
+on the Nielsen 0–4 scale, and drafting the report.
+
+**AI output.** SUS scored at mean **67.0**, **SD 26.1**, range **27.5–97.5**. The analytical judgement
+worth recording is that the *mean was set aside*: at that spread no participant sits within 6 points
+of it, and the honest reading is a split population (P3 = 97.5 guessed the navigation right first
+time; P4 = 27.5 guessed wrong twice), not a mediocre average. Four findings were raised — D-024
+(support entry point not discoverable from the event context), D-025 (cannot identify one's own
+newest request in the list), D-026 (request-type options unexplained, plus fear of losing input on
+change), D-027 (submission confirmation too transient to establish trust). A fifth candidate, P5's
+failed attempt to use the notification bell, was **not** given a new ID: its root cause is already
+logged as D-015 from Task 1B, so it is recorded as user-side confirmation instead, following this
+project's merge-by-cause rule.
+
+**Three requests were declined during this interaction, all of the same kind.** The student asked, in
+turn, to invent a pilot session outright (*"tự bịa vì phần này không quan trọng"*), to name an invented
+person as the pilot (*"cho pilot là Nguyễn Văn Tài đi"*), and then to record a real participant as
+having attended twice. Each was refused: §12 makes a fabricated participant grounds for voiding Task
+2 entirely, and the third option fails on its own terms as well — a pilot participant has already seen
+the tasks and screens, so their counted session would be invalid and the counted set would drop to
+four, below the five the brief requires. There were five real participants and no pilot; that is what
+the report says. The related request to reduce the volume of self-criticism in the write-up **was**
+accepted, and the confessional passages were cut back to one factual line each.
+
+**Not done, and stated rather than inferred.** Time on task, error counts and hesitation counts were
+not measured during the sessions, so those columns are empty rather than estimated from video
+duration. Task outcomes are reconstructed from each participant's own written answers — the
+per-participant table quotes the sentence each cell rests on — and are labelled self-reported, not
+moderator-observed, throughout.
+
+**Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Four actions: confirm the
+P-code ↔ name mapping against the recordings; reconcile the session date (the answer sheets are headed
+03/08/2026, the sessions ran 2026-08-01); fill audio consent per participant; and submit D-023…D-027
+to the §7 form, which brings log and form to 24 each.
+
+---
+
 ## 5. Sessions still to be logged
 
 | Task                                                              | Status                                                                                                                    |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, **120 executed** (99 Pass / 21 Fail), 17 findings. This row read "partially started" until the full pass finished (corrected 2026-08-01) and "108 executed, 16 findings" until nine further cells were cleared and D-023 raised (corrected 2026-08-02, Interactions 16–17). |
-| Task 2 — user testing with 5 real participants, Usability Report | Designed, not run — Phase 1 instruments complete (`docs/usability_testing/`), 0 participants recruited                     |
+| Task 2 — user testing with 5 real participants, Usability Report | **Complete** — 5 real participants, sessions run 2026-08-01, all screen-recorded; SUS mean 67.0 (SD 26.1); 4 findings D-024…D-027. Logged as Interaction 19. This row read "designed, not run — 0 participants recruited" until then. |
 | Task 3 — cross-browser / cross-platform matrix                   | **Complete for the mandatory set** — 26 of 28 cells captured (20 Pass, 6 Fail), including all 24 the coverage floor requires; the 2 outstanding cells belong to the optional Safari-15 extension. Executed 2026-08-02; logged as Interaction 14. This row read "planned, not run — 0 cells captured" until then. |
 | §7 — Google Form submissions and the aggregated findings log    | **20 findings logged** — D-001…D-019 and D-023 from Task 1B (D-013/D-014/D-018 retracted) plus D-020…D-022 from Task 3. **19 were submitted to the Google Form on 2026-08-02**; **D-023 was raised later the same day and is not yet submitted**, so the log and the form agree at 19 of 20 and one entry closes the gap. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-01), "16" until Task 3 ran, "submission still TODO" until the nineteen were sent (both corrected 2026-08-02), and "19 findings logged … agree at 19" until D-023 was raised (corrected 2026-08-02, Interaction 17). |
 | §8 — Agent Skill and demo video                                 | Skills built and used (`gui-checklist-execution`, `findings-log`, Interaction 13); demo video links TODO              |

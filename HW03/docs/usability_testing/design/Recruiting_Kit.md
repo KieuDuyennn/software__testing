@@ -1,7 +1,7 @@
 # Task 2 — Recruiting Kit — Scenario D
 
 > Operational kit for going from "nobody recruited" to "6 people scheduled" (1 pilot + 5 real),
-> for `docs/usability_testing/Task_Scenario_D.md`. This kit does not recruit anyone — an agent
+> for `docs/usability_testing/design/Task_Scenario_D.md`. This kit does not recruit anyone — an agent
 > cannot be a participant, recruit participants, or supply session data (see
 > `.claude/skills/usability-test-study/SKILL.md` §"What an agent can and cannot do here"). Every
 > table below is a blank template. Fabricating a participant, a session, or a contact detail is
@@ -34,7 +34,7 @@ Screener, applied before anyone is invited to schedule:
 - Works for or is closely affiliated with the EMS project itself (would bias findability results).
 
 This screener is intentionally short. Full recruiting criteria already stated in
-`docs/usability_testing/Participants_Table.md` §"Recruiting criteria (screener)" are the source of
+`docs/usability_testing/results/Participants_Table.md` §"Recruiting criteria (screener)" are the source of
 truth; the list above is the same bar phrased as a yes/no gate for a quick decision on each
 candidate.
 
@@ -145,7 +145,7 @@ Confirm before locking in a slot:
   matches real-world conditions; note it either way.)
 - Browser they'll use (Chrome/Edge/Cốc Cốc/etc.) — record it, it matters for reproducing any bug.
 - A quiet place with stable internet (the EMS tunnel is flaky — see
-  `docs/usability_testing/Task_Scenario_D.md` §"Pre-session setup").
+  `docs/usability_testing/design/Task_Scenario_D.md` §"Pre-session setup").
 - A backup time slot in case the primary one falls through.
 - Confirm the EMS URL is live **right before** the session (moderator responsibility, not the
   participant's).
@@ -165,13 +165,13 @@ Confirm before locking in a slot:
 | R1 | Reserve | TBD | TBD | TBD | TBD | TBD |
 | R2 | Reserve | TBD | TBD | TBD | TBD | TBD |
 
-The two reserve rows are the answer to `docs/usability_testing/Moderator_Runsheet.md` §10's
+The two reserve rows are the answer to `docs/usability_testing/design/Moderator_Runsheet.md` §10's
 no-show recovery ("move to the reserve candidate"). Screen them like anyone else and hold them;
 promoting a reserve into a P-slot means moving their row into
-`docs/usability_testing/Participants_Table.md`, not inventing one.
+`docs/usability_testing/results/Participants_Table.md`, not inventing one.
 
 Once a row is confirmed, mirror the outcome into
-`docs/usability_testing/Participants_Table.md` — this table is for booking logistics only; that
+`docs/usability_testing/results/Participants_Table.md` — this table is for booking logistics only; that
 file is the record of record for the study.
 
 ## 7. After-session message — verbatim Vietnamese
@@ -197,7 +197,7 @@ Masking convention — the brief's own wording is *"middle four digits masked"* 
 rest readable, so `0901234567` becomes `090****567`; for an email, publish the local part only
 (`nguyenvana2003@…`). The full rule, including the 11-digit case and why over-masking is
 non-conforming rather than cautious, is specified once in
-`docs/usability_testing/Participants_Table.md` §"Masking rule" — apply it there, not here.
+`docs/usability_testing/results/Participants_Table.md` §"Masking rule" — apply it there, not here.
 
 The **unmasked** contact list (real names, full phone numbers/emails) must live outside this repo
 entirely — e.g. a personal notes app or a private, non-synced local file — and must never appear
@@ -207,7 +207,7 @@ in the submission zip described in §15 of
 verification window; do not fabricate a placeholder entry there either — an empty personal note
 until real recruiting happens is correct.
 
-## Gaps against `docs/usability_testing/Task_Scenario_D.md`
+## Gaps against `docs/usability_testing/design/Task_Scenario_D.md`
 
 Reviewed the study design for consistency with this kit and with §6/§12 of the brief. One gap was
 found and has since been **resolved**: the stated session duration disagreed across files
@@ -216,8 +216,8 @@ own block budget — consent 1-2 + T1 3-8 + admin resolve 1-2 + T2 2-4 + SUS 2 +
 to 12-22 minutes of the participant's time before any overrun.
 
 **Settled figure: ~20-25 minutes**, used in every participant-facing message here, in
-`docs/usability_testing/Participants_Table.md`, and in `docs/usability_testing/00_Run_Plan.md`.
-The internal target in `docs/usability_testing/Moderator_Runsheet.md` stays **~20 minutes** — the
+`docs/usability_testing/results/Participants_Table.md`, and in `docs/usability_testing/00_Run_Plan.md`.
+The internal target in `docs/usability_testing/design/Moderator_Runsheet.md` stays **~20 minutes** — the
 extra five minutes is the buffer that keeps the promise honest when a participant takes the long
 end of T1. Do not quote a shorter number to a candidate to make scheduling easier; a session that
 runs 10 minutes past what was promised is how a participant leaves before the SUS is administered,
