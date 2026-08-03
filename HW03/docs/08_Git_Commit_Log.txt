@@ -1,5 +1,8 @@
-=== HW03 commit log (generated 2026-08-04 00:50 +07:00) ===
+=== HW03 commit log (generated 2026-08-04 00:52 +07:00) ===
 Repo: software__testing  ·  Path filter: HW03/  ·  Branch: duyen/hw3
+
+6ab9d98  2026-08-04 00:52:25 +0700  Lê Phạm Kiều Duyên
+    finalize(hw03): complete evidence, reports, demo, and submission package
 
 8bdee46  2026-08-03 20:25:49 +0700  Lê Phạm Kiều Duyên
     docs(hw03): cut Interaction 23 to a minimal declaration
