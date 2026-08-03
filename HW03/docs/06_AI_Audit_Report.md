@@ -1231,71 +1231,35 @@ transcribed, so it could have contradicted the timings and did not.
 entry was written — log and form now agree at 25. *Still open, owner Lê Phạm Kiều Duyên:* the two items
 carried over from Interaction 21 (the pilot participant's university, and re-testing §5.1).
 
-### Interaction 23 — The last two ranked findings evidenced, from the live product rather than the recordings
+### Interaction 23 — Stills for the last two ranked findings, captured from the live product
 
 | Field | Value |
 | --- | --- |
-| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`), driving the student's own signed-in Chrome via the Claude in Chrome extension |
+| **AI tool** | Claude Code — Opus 5 (`claude-opus-5`), driving the student's own already-signed-in Chrome |
 | **Date / time** | 2026-08-03 20:10 +07 |
-| **Task** | Close the screenshot-per-ranked-finding requirement for D-024 and D-027; record D-028 as submitted |
-| **Artefacts produced** | `reports/evidence_task2/D-024_event_page_has_no_support_route.jpg`, `reports/evidence_task2/D-024_support_only_in_avatar_menu.jpg`, `reports/evidence_task2/D-027_landing_list_no_request_id.jpg` (all **new, AI-captured**), `docs/05_Bug_Usability_Findings_Log.md`, `docs/03_Task2_Usability_Report_ScenarioD.md` §9/§11b, `README.md`, `CLAUDE.md` |
+| **Task** | Evidence D-024 and D-027, the two ranked findings without a still |
+| **Artefacts produced** | **Three AI-captured images**: `reports/evidence_task2/D-024_event_page_has_no_support_route.jpg`, `D-024_support_only_in_avatar_menu.jpg`, `D-027_landing_list_no_request_id.jpg`. Plus edits to `docs/05_Bug_Usability_Findings_Log.md`, `docs/03_Task2_Usability_Report_ScenarioD.md` §9/§11b, `README.md`, `CLAUDE.md` |
 
-**User request** — *edited restatement of the original Vietnamese working messages (see the
-Prompt note at the top of this file); content and intent unchanged. **Two messages, in the order they
-were sent.** Vietnamese first, English gloss beneath:*
+**Why this entry exists at all:** three images in the graded evidence folder were produced by the AI, and
+§10 requires AI-produced artefacts to be declared. That is the whole purpose of the entry.
 
-```
-[1] Nộp rồi. Bạn tự screenshot đi được không?
+**What they show and do not show.** All three are the **live product on 2026-08-03, after the sessions** —
+the event page whose complete interactive inventory reaches no support route, the avatar dropdown where the
+only route hides, and the landing list with no request ID on any row. They evidence the *structural cause*
+of D-024 and D-027. **None is a frame from any participant's session**, and each row in §9 says so. Frames
+from the recordings were tried first and rejected: no post-submit frame in `Session_P4.mp4` contains the
+confirmation toast, so none of them can carry D-027 without asserting what the image does not show.
 
-[2] Không cần soi kĩ vậy đâu, có ảnh screenshot để làm bằng chứng là được.
-```
+**A finding was corrected against the product.** D-027's reproduction step claimed no status was visible on
+the landing page; the live list shows a status pill per row. Corrected in the log, with the correction marked.
 
-**English gloss:** *[1] I've submitted it [D-028, to the §7 form]. Can you take the screenshots
-yourself? [2] No need to inspect so closely — just having a screenshot as evidence is enough.*
+**Credentials:** none entered — the browser was already signed in as `admin@gmail.com`, named here because
+these captures show that account's view.
 
-**What the frame search found, and why it changed the approach.** The obvious route was to cut stills
-from the five session recordings, the way D-025, D-026 and D-028 were evidenced. Every post-submit frame
-of `Session_P4.mp4` was examined one frame at a time across the submit window. **No confirmation toast
-appears in any of them**, and the request the participant had just typed does not appear in the list on
-the far side of the transition. That frame therefore cannot carry D-027: captioning it *"the state after
-a successful submission"* would assert something the image does not show, in a report that already states
-in §9 that this exact search found nothing. The second message above — that a screenshot is enough —
-was **not** treated as authority to attach it anyway; a still that shows something other than what its
-finding claims is worse than a row that admits it has no still, because a marker who opens the image
-finds the contradiction and then distrusts the images that *are* sound.
-
-**What was captured instead.** Both findings were evidenced from the **live deployed EMS**, which
-carries the structural cause and can be photographed:
-
-| Finding | Capture | What it establishes |
-| --- | --- | --- |
-| D-024 | `D-024_event_page_has_no_support_route.jpg` | Event detail `/events/2`. The page's complete interactive inventory is *Back to events*, *Save event* and five social links; the header offers *Events · Calendar · Saved Events · User guide*. **Nothing on the page or in the header reaches `/complaints`** — read off the accessibility tree, not judged by eye |
-| D-024 | `D-024_support_only_in_avatar_menu.jpg` | The one route that does exist: *Support requests*, inside the avatar dropdown — two levels away from the event the problem is about |
-| D-027 | `D-027_landing_list_no_request_id.jpg` | `/complaints`, the page a user lands on after submitting: no request ID on any row, no confirmation region |
-
-Each is labelled in its own row as **product structure captured on 2026-08-03, after the sessions** —
-not as a frame from anyone's session. The transient-toast half of D-027 still rests on three
-participants' accounts, and §9 says so rather than implying the new still covers it.
-
-**A finding's own wording was corrected against the product.** D-027's reproduction step read *"observe
-that no request ID or status is visible anywhere on the resulting page"*. The live list **does** show a
-status pill on every row. The step was wrong and is now corrected in the log, with the correction marked:
-what is actually absent is any tie between the page and the action just taken. This is the fourth time in
-this project a claim has been re-tested against the live product and found to need changing.
-
-**Credential boundary.** The student's Chrome was already signed in as `admin@gmail.com`; the AI
-navigated and captured within that session and **entered no credential**, as everywhere else in this
-project. The account used is named here because these captures show the product from that account's
-view, and a marker should not have to guess whose screen it is.
-
-**Human review and action taken.** Reviewed by **Lê Phạm Kiều Duyên (23127184)** the same day. She
-**submitted D-028 to the §7 form**, closing the last log/form gap — log and form now both stand at 25,
-and the four files that recorded the gap were resynced. She also set the brief for this interaction and
-was told, rather than not told, that her second message had been declined in the narrow respect above.
-
-*Still open, owner Lê Phạm Kiều Duyên:* the two items carried from Interaction 21 — confirm the pilot
-participant's university, and re-test `Session_Pilot01.md` §5.1 against the live EMS, allocating **D-029**
-if it reproduces.
+**Human review and action taken.** Reviewed by **Lê Phạm Kiều Duyên (23127184)** the same day; she also
+submitted **D-028** to the §7 form, bringing log and form to 25 each. *Still open, owner Lê Phạm Kiều
+Duyên:* the two items carried from Interaction 21 — the pilot participant's university, and re-testing
+`Session_Pilot01.md` §5.1 (allocate **D-029** if it reproduces).
 
 ## 5. Sessions still to be logged
 
