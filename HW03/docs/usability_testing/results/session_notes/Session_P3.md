@@ -34,3 +34,15 @@ Không có bước nào thừa, việc đính ảnh và gửi diễn ra nhanh.
 **4. Sự tin tưởng**
 
 Tôi rất tin vì có xác nhận gửi, mục yêu cầu lưu lại nội dung, và thông báo dẫn tới phản hồi chính thức.
+
+---
+
+## Observed from the screen recording
+
+`Session_P3.mp4` — 18.8 s captured. Reviewed frame by frame after the session; this section records only what is visible on
+screen, and is kept separate from the participant's own answers above.
+
+Support requests list, including a frame of the list in its **loading state** (spinner, no skeleton rows). Consistent with this participant reporting no friction: the fastest run in the set and the only one who reached the response through the notification bell.
+
+*Not captured:* time on task and error/hesitation counts were not measured during the session, and
+this excerpt is too short to substitute for them.

@@ -34,3 +34,15 @@ Tìm chỗ báo vấn đề và tìm lại yêu cầu hơi lâu vì tên menu ch
 **4. Sự tin tưởng**
 
 Tôi tin ở mức vừa; có thông báo đã gửi nhưng chỉ yên tâm hơn khi thấy yêu cầu nằm trong danh sách.
+
+---
+
+## Observed from the screen recording
+
+`Session_P2.mp4` — 18.8 s captured. Reviewed frame by frame after the session; this section records only what is visible on
+screen, and is kept separate from the participant's own answers above.
+
+Opens on the **Support requests** list holding one earlier request (*1-1 of 1 results*, stamped 1:39 PM), then D1. The **Request type dropdown is captured open**, showing all four options as bare labels — Support · Complaint · Contact · Other — with no example or description on any of them. This frame is the still cited by D-026.
+
+*Not captured:* time on task and error/hesitation counts were not measured during the session, and
+this excerpt is too short to substitute for them.

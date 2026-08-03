@@ -1,10 +1,10 @@
 # AI Audit Report — HW03 (GUI & Usability Testing on EMS)
 
 > **Mandatory appendix — §10 of the assignment.**
-> Scope of this version: **Task 1 Part A (complete)** and **Task 1B (complete — all 60 items of checklist v1.9 × 6 screens; v2.0 later added 2 items that are unrun)** and **Task 3 (complete for its 24 mandatory cells)**. Interactions 1-14 are logged below. Task 2 is designed but not run; the AI interactions that produced their planning artefacts, and the reorganisation of this folder on 2026-08-01, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
+> Scope of this version: **Task 1 Part A (complete)** and **Task 1B (complete — all 60 items of checklist v1.9 × 6 screens; v2.0 later added 2 items that are unrun)** and **Task 3 (complete for its 24 mandatory cells)**. Interactions 1-14 are logged below. Task 2 is designed but not run; the AI interactions that produced their planning artefacts, and the reorganisation of this folder on 2026-08-03, are **not yet written up as numbered interactions** — that is an open item, not a claim that they did not happen. The artefacts concerned are listed in the Path note below and in `README.md`.
 > Companion files: `docs/01_Task1A_Shared_GUI_Checklist.md` · `docs/checklist/Reference_Sources_and_Prompts.md` · `docs/02_Task1B_Execution_Report_ScenarioD.md` · `docs/05_Bug_Usability_Findings_Log.md` · `README.md` · `docs/07_AI_Critique.md`
 
-> **Path note (2026-08-01).** HW03 was reorganised into `docs/` · `reports/` · `refs/`. Descriptive text in this file uses the new paths. **Verbatim prompt blocks were left exactly as typed** and therefore still name the old locations (`checklist/`, `task1b_execution/`, `docs/screenshots/`); rewriting them would have falsified the record. Mapping: `checklist/Shared_GUI_Checklist.md` → `docs/01_Task1A_Shared_GUI_Checklist.md` · `task1b_execution/` → `docs/02_…` + `reports/evidence_task1b/` · `findings/` → `docs/05_…` · `screenshots/` → `reports/screenshots/` · `requirments/` → `refs/requirements/`.
+> **Path note (2026-08-03).** HW03 was reorganised into `docs/` · `reports/` · `refs/`. Descriptive text in this file uses the new paths. **Verbatim prompt blocks were left exactly as typed** and therefore still name the old locations (`checklist/`, `task1b_execution/`, `docs/screenshots/`); rewriting them would have falsified the record. Mapping: `checklist/Shared_GUI_Checklist.md` → `docs/01_Task1A_Shared_GUI_Checklist.md` · `task1b_execution/` → `docs/02_…` + `reports/evidence_task1b/` · `findings/` → `docs/05_…` · `screenshots/` → `reports/screenshots/` · `requirments/` → `refs/requirements/`.
 
 ## 1. Declaration
 
@@ -147,7 +147,7 @@ hãy fix lại cho chuẩn đi, và ghi lại vào file checklist và file AI au
 5. Rewrote `docs/checklist/Reference_Sources_and_Prompts.md`: fixed the misaligned sources table, added WCAG 2.1 with its five specific success criteria, added the course slides with per-page citations, removed ISTQB with a documented reason, and filled in the prompt chain and Human Review Notes.
 6. Verified the item IDs programmatically: 17 / 17 / 17 / 15 = 66, no duplicates, no gaps.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The v1.2 diff was read in full and all 14 added items and 14 corrections were accepted, with the reasoning recorded as Notes 1-10 there: ISTQB was removed because it grounded no item, IA04-07 was corrected because as written it would have failed on any correctly paginated system and produced a false bug report in Task 1B, IA02-03/IA02-04 were merged because they stated one rule twice, four items were re-sourced away from Norman P4 which had become a catch-all, and IA03-12/IA04-11 were rewritten as objectively failable rules. One objection was raised and upheld: the empty Human Review Notes table had been described in the changelog as a completed review, which is why this file now records an outcome per interaction instead of a blanket claim.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The v1.2 diff was read in full and all 14 added items and 14 corrections were accepted, with the reasoning recorded as Notes 1-10 there: ISTQB was removed because it grounded no item, IA04-07 was corrected because as written it would have failed on any correctly paginated system and produced a false bug report in Task 1B, IA02-03/IA02-04 were merged because they stated one rule twice, four items were re-sourced away from Norman P4 which had become a catch-all, and IA03-12/IA04-11 were rewritten as objectively failable rules. One objection was raised and upheld: the empty Human Review Notes table had been described in the changelog as a completed review, which is why this file now records an outcome per interaction instead of a blanket claim.
 
 ---
 
@@ -180,7 +180,7 @@ The survey showed that **six checklist items described widgets EMS does not have
 
 > **Superseded in part — see Interaction 10.** Four of this survey's "not found" results were wrong: EMS *does* have bar meters, an icon-only back control on the admin event detail, and native date inputs on the Support requests filters, and the date-format evidence quoted user-typed content. Three of the four are false negatives from selector-based inspection.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The survey's findings were accepted as the basis for rewriting the EMS-specific items, and then **partly overturned** by Interaction 10 — the outcome that matters here: four "widget not found" results were false negatives from selector-based DOM inspection, caught only because the student supplied 14 real screenshots as independent evidence. The rule taken from this round, and written into `docs/07_AI_Critique.md`, is that an absence claimed from a selector query is a claim about the query, not about the product.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The survey's findings were accepted as the basis for rewriting the EMS-specific items, and then **partly overturned** by Interaction 10 — the outcome that matters here: four "widget not found" results were false negatives from selector-based DOM inspection, caught only because the student supplied 14 real screenshots as independent evidence. The rule taken from this round, and written into `docs/07_AI_Critique.md`, is that an absence claimed from a selector query is a claim about the query, not about the product.
 
 ---
 
@@ -211,7 +211,7 @@ Reduced the checklist from 66 to **52 items** — 5 merges and 8 removals — se
 
 Saved the live-web observations as `docs/checklist/EMS_Live_Survey_2026-07-26.md` — URL map, per-page widget inventory, the accessibility measurements, the two unscored observations, and a re-runnable DevTools snippet — so Tasks 1B–3 can be planned without browsing the app again.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The reduction to an executable size was accepted. The pillar-4 gap — only 4 of 60 items grounded in the team's own lived use of EMS — is assigned back to the members, each to add 1-2 items from personal experience, signed with their own name and student ID. **Retargeted from v1.8 to v2.0**: v1.8 and v1.9 both added *audit-sourced* items, not personal-experience ones, so neither reduced the gap. Tracked as action 6 in §5 of the group artefact, and explicitly **not closeable on paper** — an AI supplying it on a member's behalf would make the checklist's own grounding claim false.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The reduction to an executable size was accepted. The pillar-4 gap — only 4 of 60 items grounded in the team's own lived use of EMS — is assigned back to the members, each to add 1-2 items from personal experience, signed with their own name and student ID. **Retargeted from v1.8 to v2.0**: v1.8 and v1.9 both added *audit-sourced* items, not personal-experience ones, so neither reduced the gap. Tracked as action 6 in §5 of the group artefact, and explicitly **not closeable on paper** — an AI supplying it on a member's behalf would make the checklist's own grounding claim false.
 
 ---
 
@@ -240,7 +240,7 @@ Surveyed both areas and added **IA04-13 (Export to Excel)** covering download fe
 
 Re-verified by script: 13 / 14 / 13 / 13 = 53 items, no duplicate or missing IDs, all four frameworks still fully cited.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The added Export item and the Users/Support-request survey results were accepted, subject to the Interaction 5 caveat: any "not found" here rests on selector inspection and was re-checked against real screenshots in Interaction 10 before being relied on.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The added Export item and the Users/Support-request survey results were accepted, subject to the Interaction 5 caveat: any "not found" here rests on selector inspection and was re-checked against real screenshots in Interaction 10 before being relied on.
 
 ---
 
@@ -261,7 +261,7 @@ The decisive finding was a **blocker rather than a checklist defect**. The sessi
 
 Three items were sharpened as a result: IA02-01 (the user support form carries `required` on three fields while the admin event form carries none — one product, two conventions; and the asterisk is absent from text content, so it is likely CSS-drawn and outside the accessibility tree), IA04-13 (a third Export control exists on `/profile`), and IA01-11 (the QR code is reachable via `/profile` → QR Code without holding a ticket). The Vietnamese-`<title>`-with-English-body pattern was confirmed on all five participant pages against English titles on admin pages — a systemic i18n lead rather than the one-off it first appeared to be.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The participant-side survey results were accepted as the grounding for the user-facing items, with the same caveat as Interactions 5 and 7: absence claims from selector inspection were treated as provisional until Interaction 10 re-checked them against real captures. The scenario-B account creation remains assigned to whichever member owns that scenario, and is not this member's to close.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The participant-side survey results were accepted as the grounding for the user-facing items, with the same caveat as Interactions 5 and 7: absence claims from selector inspection were treated as provisional until Interaction 10 re-checked them against real captures. The scenario-B account creation remains assigned to whichever member owns that scenario, and is not this member's to close.
 
 ### Interaction 9 — Assign the four scenarios to the four members
 
@@ -394,7 +394,7 @@ filtering had an item). Six items added: IA02-15, IA03-14, IA03-15, IA04-14, IA0
 Re-verified by script: 13/15/15/16 = 59 items, no duplicate or missing IDs, all 10+6+8 framework
 citations still present, evidence still resolves against the 14 screenshots.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The six scenario-specific items were accepted as script-verified and traceable. The round's other outcome was accepted as correct behaviour rather than a shortfall: the AI declined to write a defect verdict it had not observed, and that refusal is logged deliberately as the boundary being held. These items remain **AI-proposed and not countersigned** by the other three members. The six items are AI-proposed and
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. The six scenario-specific items were accepted as script-verified and traceable. The round's other outcome was accepted as correct behaviour rather than a shortfall: the AI declined to write a defect verdict it had not observed, and that refusal is logged deliberately as the boundary being held. These items remain **AI-proposed and not countersigned** by the other three members. The six items are AI-proposed and
 script-verified for structure, but content review (are these real gaps, are the citations right, do
 the verification steps match the live product) is still owed — the same standard every other
 AI-drafted item in this file has already been through.
@@ -423,7 +423,7 @@ process/methodology/technique content with no itemisable per-screen rule, or —
 out of scope for a *GUI* checklist because they are the usability-testing-methodology half of the
 deck, which grounds Task 2 instead.
 
-**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-01, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. IA04-17 was accepted: a full re-read of all 55 slide pages found two bullets on pages already marked "done" that no item covered — a different question from the cited-vs-uncited *page* check earlier rounds ran. 59 → 60 items, script-verified, IDs unique and contiguous.
+**Human review and action taken:** Reviewed by **Lê Phạm Kiều Duyên (23127184)** on 2026-08-03, carried across from §4 Human Review Notes of `docs/checklist/Reference_Sources_and_Prompts.md`, where the same outcome is recorded prompt by prompt. **Not yet countersigned by the other three group members** — that sign-off is action 7 in §5 of that file and remains genuinely open. IA04-17 was accepted: a full re-read of all 55 slide pages found two bullets on pages already marked "done" that no item covered — a different question from the cited-vs-uncited *page* check earlier rounds ran. 59 → 60 items, script-verified, IDs unique and contiguous.
 
 ### Interaction 13 — Repo scaffolding + first live Task 1B pass on Scenario D
 
@@ -817,7 +817,7 @@ kết quả để trong folder task2, lọc kết quả từ đó đi và xóa l
 ```
 
 **Division of labour, which is the point of this entry.** The **student** recruited five real
-participants, ran all five sessions on 2026-08-01, screen-recorded each one, and collected the
+participants, ran all five sessions on 2026-08-03, screen-recorded each one, and collected the
 completed questionnaires; she also supplied the participants' names, universities, courses and masked
 phone numbers from her own private contact list. **No part of the data collection was performed by
 the AI, and none of it could have been.** The AI's contribution begins after the data existed:
@@ -854,7 +854,7 @@ moderator-observed, throughout.
 
 **Human review and action taken:** _Pending — owner: Lê Phạm Kiều Duyên._ Four actions: confirm the
 P-code ↔ name mapping against the recordings; reconcile the session date (the answer sheets are headed
-03/08/2026, the sessions ran 2026-08-01); fill audio consent per participant; and submit D-023…D-027
+03/08/2026, the sessions ran 2026-08-03); fill audio consent per participant; and submit D-023…D-027
 to the §7 form, which brings log and form to 24 each.
 
 ---
@@ -863,10 +863,10 @@ to the §7 form, which brings log and form to 24 each.
 
 | Task                                                              | Status                                                                                                                    |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, **120 executed** (99 Pass / 21 Fail), 17 findings. This row read "partially started" until the full pass finished (corrected 2026-08-01) and "108 executed, 16 findings" until nine further cells were cleared and D-023 raised (corrected 2026-08-02, Interactions 16–17). |
-| Task 2 — user testing with 5 real participants, Usability Report | **Complete** — 5 real participants, sessions run 2026-08-01, all screen-recorded; SUS mean 67.0 (SD 26.1); 4 findings D-024…D-027. Logged as Interaction 19. This row read "designed, not run — 0 participants recruited" until then. |
+| Task 1B — checklist execution on ≥ 3 screens, bug reports       | **Complete** — all 60 items run against all 6 screens (D1–D6), 360 cells, **120 executed** (99 Pass / 21 Fail), 17 findings. This row read "partially started" until the full pass finished (corrected 2026-08-03) and "108 executed, 16 findings" until nine further cells were cleared and D-023 raised (corrected 2026-08-02, Interactions 16–17). |
+| Task 2 — user testing with 5 real participants, Usability Report | **Complete** — 5 real participants, sessions run 2026-08-03, all screen-recorded; SUS mean 67.0 (SD 26.1); 4 findings D-024…D-027. Logged as Interaction 19. This row read "designed, not run — 0 participants recruited" until then. |
 | Task 3 — cross-browser / cross-platform matrix                   | **Complete for the mandatory set** — 26 of 28 cells captured (20 Pass, 6 Fail), including all 24 the coverage floor requires; the 2 outstanding cells belong to the optional Safari-15 extension. Executed 2026-08-02; logged as Interaction 14. This row read "planned, not run — 0 cells captured" until then. |
-| §7 — Google Form submissions and the aggregated findings log    | **20 findings logged** — D-001…D-019 and D-023 from Task 1B (D-013/D-014/D-018 retracted) plus D-020…D-022 from Task 3. **19 were submitted to the Google Form on 2026-08-02**; **D-023 was raised later the same day and is not yet submitted**, so the log and the form agree at 19 of 20 and one entry closes the gap. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-01), "16" until Task 3 ran, "submission still TODO" until the nineteen were sent (both corrected 2026-08-02), and "19 findings logged … agree at 19" until D-023 was raised (corrected 2026-08-02, Interaction 17). |
+| §7 — Google Form submissions and the aggregated findings log    | **20 findings logged** — D-001…D-019 and D-023 from Task 1B (D-013/D-014/D-018 retracted) plus D-020…D-022 from Task 3. **19 were submitted to the Google Form on 2026-08-02**; **D-023 was raised later the same day and is not yet submitted**, so the log and the form agree at 19 of 20 and one entry closes the gap. This row read "1 finding" until the full Task 1B pass finished (corrected 2026-08-03), "16" until Task 3 ran, "submission still TODO" until the nineteen were sent (both corrected 2026-08-02), and "19 findings logged … agree at 19" until D-023 was raised (corrected 2026-08-02, Interaction 17). |
 | §8 — Agent Skill and demo video                                 | Skills built and used (`gui-checklist-execution`, `findings-log`, Interaction 13); demo video links TODO              |
 
 Append an interaction entry to §2 for every AI session on the tasks above, following the same format: tool, date/time, verbatim prompt, AI output, human review and action taken.
@@ -891,7 +891,7 @@ and the value of the whole section rests on every filled row being true.**
 | --- | --- | --- | --- | --- | --- |
 | 1-12 (Task 1A) | Lê Phạm Kiều Duyên | 23127184 | | | |
 | 13 (Task 1B first pass) | Lê Phạm Kiều Duyên | 23127184 | | | |
-| Reorganisation + Task 2/3 planning, 2026-08-01 | Lê Phạm Kiều Duyên | 23127184 | | | |
+| Reorganisation + Task 2/3 planning, 2026-08-03 | Lê Phạm Kiều Duyên | 23127184 | | | |
 
 The *What the reviewer personally checked against* column is the one a marker reads: name the
 independent thing consulted — the live EMS, a screenshot, the slide PDF, the assignment text — not
@@ -916,7 +916,7 @@ The other three members have recorded no agreement anywhere in this repository.
 | # | Item | Owner | Why it matters |
 | --- | --- | --- | --- |
 | 1 | The **Date / time** field of every interaction records the date only; the time reads `TBD` | Scenario D owner | §10 asks for date **and** time. Recover the real clock times from the Claude Code session history — do not estimate them. |
-| 2 | Interactions for the 2026-08-01 reorganisation and the Task 2 / Task 3 planning are not yet written up as numbered entries | Scenario D owner | The artefacts exist and are named in the Path note and in `README.md`; the numbered entries are the part still missing. |
+| 2 | Interactions for the 2026-08-03 reorganisation and the Task 2 / Task 3 planning are not yet written up as numbered entries | Scenario D owner | The artefacts exist and are named in the Path note and in `README.md`; the numbered entries are the part still missing. |
 | 3 | Group countersignature above | All four members | §16 criterion 1a grades a group deliverable. |
 | 4 | Once Task 2 runs: an entry stating explicitly that **the sessions and participants were not AI-produced** | Scenario D owner | §12. The TA may phone 2 of the 5 participants. |
 | 5 | Once Task 3 runs: an entry stating the captures were produced by a person on real environments, plus the §9 declaration of the cloud-lab tool actually used | Scenario D owner | §9 and §12. |
