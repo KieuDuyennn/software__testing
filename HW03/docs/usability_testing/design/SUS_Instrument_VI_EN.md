@@ -1,6 +1,6 @@
 # SUS Instrument (Vietnamese/English) — Scenario D
 
-> Companion to `docs/usability_testing/Task_Scenario_D.md`. That document already decided **SUS
+> Companion to `docs/usability_testing/design/Task_Scenario_D.md`. That document already decided **SUS
 > over UEQ-S** for Scenario D (a score directly comparable across all four scenario owners'
 > reports) — this file does not revisit that choice. This is the actual questionnaire the
 > moderator reads aloud to a Vietnamese-speaking participant, plus the exact path from a filled
@@ -32,7 +32,7 @@
 ## 2. The 10 SUS items (bilingual)
 
 English wording is verbatim standard SUS, matching
-`docs/usability_testing/session_notes/Session_Notes_TEMPLATE.md` item-for-item and in the same
+`docs/usability_testing/results/session_notes/Session_Notes_TEMPLATE.md` item-for-item and in the same
 order. `[R]` marks the 5 reverse-scored items.
 
 | # | English (verbatim) | Vietnamese (read aloud to participant) | |
@@ -80,7 +80,7 @@ Thang điểm: 1 = hoàn toàn không đồng ý · 2 = không đồng ý · 3 =
 
 ## 4. Probe questions (Vietnamese, asked after the SUS)
 
-Same wording every session, matching `docs/usability_testing/Task_Scenario_D.md` one-for-one.
+Same wording every session, matching `docs/usability_testing/design/Task_Scenario_D.md` one-for-one.
 **Ask exactly the wording below, then stay silent** — give the participant time to think instead
 of filling the pause with a hint or a rephrase.
 
@@ -110,7 +110,7 @@ không?") — that supplies the participant an answer rather than eliciting thei
 
 ## 5. Data entry
 
-One completed answer sheet (§3) becomes **one row** in `docs/usability_testing/SUS_Responses.csv`.
+One completed answer sheet (§3) becomes **one row** in `docs/usability_testing/results/SUS_Responses.csv`.
 
 - Enter the **raw 1–5 values exactly as ticked**, including for the reverse-scored items 2, 4, 6,
   8, 10. Do **not** pre-adjust or invert them before entry — `score_sus.py` does the
@@ -118,7 +118,7 @@ One completed answer sheet (§3) becomes **one row** in `docs/usability_testing/
   script to invert them a second time and silently produce the wrong SUS score.
 - One row per participant, `participant` column holding their session id (`P1`…`P5`; the pilot's
   row, if kept for the script author's own reference, must not be counted in `Metrics_Table.md`
-  per `docs/usability_testing/Task_Scenario_D.md`).
+  per `docs/usability_testing/design/Task_Scenario_D.md`).
 
 ### Worked example (format illustration only — not real data)
 
@@ -137,14 +137,14 @@ EXAMPLE,4,2,5,1,4,2,5,2,4,1
 Run from `HW03/` (repo-root-relative paths):
 
 ```
-python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/SUS_Responses.csv --instrument sus --markdown
+python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/results/SUS_Responses.csv --instrument sus --markdown
 ```
 
 Expected output: a markdown table with one row per participant (`participant`, `SUS score`,
 adjective band), a **Mean** row, and a trailing line giving `n`, `SD`, and the `range` (min–max).
 
 Paste that output — table and the `n`/SD/range line together — into
-`docs/usability_testing/Metrics_Table.md`. **Report the individual per-participant scores, the
+`docs/usability_testing/results/Metrics_Table.md`. **Report the individual per-participant scores, the
 mean, and the range together, not the mean alone** — a mean can look identical whether all five
 participants agreed or whether they were split between "loved it" and "hated it," and only the
 individual scores and range show which one actually happened.

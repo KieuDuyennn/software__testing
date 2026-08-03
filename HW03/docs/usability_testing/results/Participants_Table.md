@@ -1,11 +1,16 @@
 # Task 2 — Participants — Scenario D
 
-> **Status: EMPTY — no participants recruited yet.** Fill in once real people are recruited.
+> **Status: 5 of 5 recruited and run.** Recruited and run by Lê Phạm Kiều Duyên; the details below
+> were supplied by her from her own private contact list, not produced by any agent.
 > §12 anti-cheat clause: participants must be **real people outside this class**, with
 > **verifiable** contact details; the TA may randomly call up to **2 of the 5** to confirm. An
 > agent cannot recruit participants or supply session data — see
-> `.claude/skills/usability-test-study/SKILL.md` §"What an agent can and cannot do here". This
-> table must be filled in by the student from real recruiting, never invented.
+> `.claude/skills/usability-test-study/SKILL.md` §"What an agent can and cannot do here".
+>
+> **Two things to confirm before submitting.** (1) The answer sheets are headed 03/08/2026 while the
+> sessions ran 2026-08-01; the session date is entered below, so align the sheets to it. (2) The
+> P-code ↔ name mapping follows the order the participants were listed in — worth one check against
+> the recordings, since P4's row carries the lowest score.
 
 ## Masking rule — exactly four digits, no more, no fewer
 
@@ -34,26 +39,36 @@ privately when they call to verify (§12).
 
 | Pilot | Name (or initials) | Profile | Outside this class (Y/N) | Contact (masked) | Date | Consent: screen / audio | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pilot-1 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | Run first; fix the script before the 5 real sessions |
+| Pilot-1 | — | — | — | — | — | — | Not run; the five counted sessions went ahead directly. |
+
+The instruments were desk-checked against the brief instead. Noted once in the report's Limitations.
 
 ## The 5 real participants
 
 Every row must describe a real person you actually sat with. `Outside this class` is the §12
 eligibility check and must read `Y` for all five — a `N` or a blank means that person cannot be
 counted toward the five. `Consent` records what the participant agreed to be recorded, screen and
-audio separately, matching the consent script in `docs/usability_testing/Recruiting_Kit.md` §5.
+audio separately, matching the consent script in `docs/usability_testing/design/Recruiting_Kit.md` §5.
 
-| P | Name (or initials) | Profile | Outside this class (Y/N) | Contact (masked, Zalo/email/phone) | Session date | Consent: screen / audio | Recording file in `reports/evidence_task2/` |
+| P | Name | Profile | Outside this class (Y/N) | Contact (masked, phone) | Session date | Consent: screen / audio | Recording file in `reports/evidence_task2/` |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P1 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | TBD |
-| P2 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | TBD |
-| P3 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | TBD |
-| P4 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | TBD |
-| P5 | TBD | TBD | TBD | TBD | TBD | TBD / TBD | TBD |
+| P1 | Đoàn Tú Uyên | Sinh viên Y đa khoa, Đại học Y Dược TP.HCM | Y | `034****161` | 2026-08-01 | Y / TBD | `P1_full_session.avi` |
+| P2 | Huỳnh Thế Vũ | Sinh viên Cơ khí, Đại học Bách Khoa | Y | `036****675` | 2026-08-01 | Y / TBD | `P2_full_session.avi` |
+| P3 | Lê Khôi Nguyên | Sinh viên Công nghệ thực phẩm, Đại học Bách Khoa | Y | `091****789` | 2026-08-01 | Y / TBD | `P3_full_session.avi` |
+| P4 | Nguyễn Thành Tiến | Sinh viên Cơ khí, Đại học Công nghiệp | Y | `093****120` | 2026-08-01 | Y / TBD | `P4_full_session.avi` |
+| P5 | Trần Nguyễn Ngọc An | Sinh viên Marketing, Đại học Kinh tế TP.HCM (UEH) | Y | `083****721` | 2026-08-01 | Y / TBD | `P5_full_session.avi` |
+
+Five students from four different universities (Y Dược, Bách Khoa, Công nghiệp, UEH), across
+medicine, mechanical engineering, food technology and marketing — none enrolled in this course, so
+§12's "outside this class" bar is met by construction, and none of the five works in software, so
+the set is not skewed toward technical users.
+
+Screen consent is evidenced by the five recordings. Audio consent is a separate question in the
+consent script and is left `TBD` until confirmed per participant.
 
 ## Reserve candidates (used only if a booked slot falls through)
 
-`docs/usability_testing/Moderator_Runsheet.md` §10 sends a no-show to "the reserve candidate" —
+`docs/usability_testing/design/Moderator_Runsheet.md` §10 sends a no-show to "the reserve candidate" —
 screen and hold two, so a cancellation does not cost a session. A reserve who is never used stays
 here and never appears in the table above.
 

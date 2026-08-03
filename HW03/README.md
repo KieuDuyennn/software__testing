@@ -18,8 +18,9 @@
 | **Checklist** | 62 items across all four IA aspects, every item traced to a named source and written so it can fail |
 | **Task 1B execution** | 360 item×screen cells resolved → **120 executed** (99 Pass / 21 Fail), 227 N/A each with a reason, 13 outstanding with a named cause and owner |
 | **Cross-platform** | **26 of 28 cells**, 20 Pass / 6 Fail, all **24 mandatory** cells captured on real hardware and real cloud devices |
-| **Findings** | **20 logged** (1 Critical, 8 Major, 6 Minor, 1 Trivial, 4 usability), each reproducible from the steps as written |
-| **Evidence** | 32 Task 1B captures + 26 Task 3 captures + 14 survey captures, all from the live system |
+| **User testing** | **5 real participants**, 4 universities, sessions run 2026-08-01, all screen-recorded; SUS mean **67.0** with **SD 26.1** |
+| **Findings** | **24 logged** (1 Critical, 8 Major, 6 Minor, 1 Trivial, 8 usability), each reproducible from the steps as written |
+| **Evidence** | 32 Task 1B captures + 26 Task 3 captures + 5 session recordings + 14 survey captures, all from the live system |
 | **Tooling built** | 7 Agent Skills, 4 executable validators, 1 CDP network harness |
 
 **Three things in this submission are worth reading for method, not just for results.**
@@ -38,29 +39,33 @@ HW03/
 ├── docs/                                       ← every written deliverable, numbered in submission order
 │   ├── 01_Task1A_Shared_GUI_Checklist.md        Task 1A group checklist (62 items, IA-01 to IA-04, v2.0)
 │   ├── 02_Task1B_Execution_Report_ScenarioD.md  Task 1B, Scenario D (60 items × 6 screens = 360 cells)
-│   ├── 03_Task2_Usability_Report_ScenarioD.md   Task 2 report (template, no real sessions run yet)
+│   ├── 03_Task2_Usability_Report_ScenarioD.md   Task 2 Usability Report (5 real sessions, 2026-08-01)
 │   ├── 04_Task3_Cross_Platform_Matrix.md        Task 3 matrix (28 rows, 26 captured: 20 Pass, 6 Fail)
-│   ├── 05_Bug_Usability_Findings_Log.md        ← §7 aggregated findings log (20 findings; 3 retracted on review)
-│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (17 AI interactions, prompts, human review)
+│   ├── 05_Bug_Usability_Findings_Log.md        ← §7 aggregated findings log (24 findings; 3 retracted on review)
+│   ├── 06_AI_Audit_Report.md                   ← §10 mandatory appendix (19 AI interactions, prompts, human review)
 │   ├── 07_AI_Critique.md                       ← §11 mandatory 200-300 word critique
 │   ├── 08_Git_Commit_Log.txt                   ← §13 mandatory commit log export (HW03-scoped)
 │   ├── checklist/                               Task 1A supporting material
 │   │   ├── Reference_Sources_and_Prompts.md      (sources, traceability tables, full AI prompt chain)
 │   │   └── EMS_Live_Survey_2026-07-26.md         (widget inventory backing the EMS-grounded items)
-│   ├── usability_testing/                       Task 2 instruments — start at 00_Run_Plan.md
+│   ├── usability_testing/                       Task 2 — numbered files are what you use; design/ is the source of truth; results/ is what gets filled in
 │   │   ├── 00_Run_Plan.md                        (the plan: path, open decisions, definition of done)
-│   │   ├── Recruiting_Kit.md                     (screener, VI invite + consent scripts, booking)
-│   │   ├── Task_Scenario_D.md                    (goal-only tasks + success criteria + probes)
-│   │   ├── Moderator_Runsheet.md                 (per-session checklist, admin resolve script)
-│   │   ├── SUS_Instrument_VI_EN.md               (10 items VI/EN, answer sheet, scoring)
-│   │   ├── Participants_Table.md · Metrics_Table.md · SUS_Responses.csv
-│   │   └── session_notes/Session_Notes_TEMPLATE.md
+│   │   ├── 01_Session_Pack.md                    (moderator: one time-ordered file to run a session from)
+│   │   ├── 02_Participant_Handout.md             (the only file a participant ever sees: SUS + 4 probes)
+│   │   ├── design/                               source of truth for every word said to a participant
+│   │   │   ├── Recruiting_Kit.md                  (screener, VI invite + consent scripts, booking)
+│   │   │   ├── Task_Scenario_D.md                 (goal-only tasks + success criteria + probes)
+│   │   │   ├── Moderator_Runsheet.md              (per-session checklist, admin resolve script)
+│   │   │   └── SUS_Instrument_VI_EN.md            (10 items VI/EN, answer sheet, scoring)
+│   │   └── results/                              filled from the 5 real sessions
+│   │       ├── Participants_Table.md · Metrics_Table.md · SUS_Responses.csv
+│   │       └── session_notes/  (template + Session_P1..P5.md)
 │   ├── cross_platform/                          Task 3 planning
 │   │   └── 00_Run_Plan.md                        (run order, tooling decisions, definition of done)
 │   └── pdf/                                     §15 PDF exports + build_pdf.py to regenerate them
 ├── reports/                                    ← generated evidence only, nothing hand-written
 │   ├── evidence_task1b/                         (32 real screenshots from the live EMS)
-│   ├── evidence_task2/                          (empty: Task 2 not run)
+│   ├── evidence_task2/                          5 session screen recordings (P1..P5)
 │   ├── evidence_task3/                          26 matrix captures + 1 device-identity image
 │   └── screenshots/                             (14 screenshots backing the shared checklist / live survey)
 ├── refs/                                       ← given material, not produced by this project
@@ -81,11 +86,11 @@ A private working aid, `docs/Google_Form_Submission_Packets.md`, pre-formatted e
 | --- | --- |
 | **1A**: Shared checklist (group) | **Done.** v2.0, 62 items across all four IA aspects; sources, traceability tables and the full prompt chain logged. Two gaps stated openly rather than closed on paper: only 5 of 62 items are grounded in the team's own experience of EMS (the "pillar 4" gap; v2.0 moved it by one genuine item, IA04-18), and the 7 newest items still need sign-off from the other three members. **Two items, `IA03-16` and `IA04-18`, were added in v2.0 after Task 1B had already been executed, so they are unrun** — stated here rather than left for a grader to infer from the 360-cell total. |
 | **1B**: Execution on D1-D6 | **Done.** All 60 items of checklist v1.9 run against all 6 screens (360 item×screen cells; the checklist has since grown to 62, and the 2 newer items are unrun), screen by screen on the live system. 133 applicable · **120 executed** · 99 Pass · 21 Fail · 227 N/A-with-reason · 13 not executed, each with a named cause and a named owner. 20 findings stand, every Fail backed by a screenshot or DevTools evidence. Three further findings were raised and then retracted after being re-tested against the live product. |
-| **2**: User testing, 5 real users | **Designed, not run.** Phase 1 is complete and Phase 2 is blocked on recruiting: 0 of 5 participants found, 0 sessions run. `docs/usability_testing/00_Run_Plan.md` holds the end-to-end plan, the five decisions still owed and the definition of done; the task scenario, recruiting/consent kit, bilingual SUS instrument, moderator run-sheet, session-note template, participant table, metrics table and report skeleton are all ready in `docs/usability_testing/`. Every result table stays empty — the §12 note below explains why they cannot be filled in without real sessions. **Scoped to D1-D2**, not the D5/D6 extension and not Task 3's D1-D4: `docs/usability_testing/Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
+| **2**: User testing, 5 real users | **Done (2026-08-01).** Five real participants from four universities — medicine, mechanical engineering (×2), food technology, marketing — none enrolled in this course and none working in software; masked contacts in `docs/usability_testing/results/Participants_Table.md`, one screen recording each in `reports/evidence_task2/`. Both tasks completed 5/5, yet the study still produced **four ranked findings (D-024…D-027)** plus independent user-side confirmation of D-015, because the SUS spread carries what the success rate cannot: mean **67.0** but **SD 26.1** across **27.5–97.5**, with no participant within 6 points of the mean. Recommendations are prioritised, and the top two collapse into one small fix (redirect to the new request's detail page). Three gaps are stated in the report's Limitations rather than smoothed over: **no pilot session**, **no time-on-task / error / hesitation measurement**, and **task outcomes self-reported from participants' own written answers** rather than moderator-observed — the recordings can confirm them and have not yet been reviewed for that. **Scoped to D1-D2**, not the D5/D6 extension and not Task 3's D1-D4: `docs/usability_testing/design/Task_Scenario_D.md` has the participant complete the filing half (D1/D2) while the moderator operates D3/D4 out of view, a deliberate scope narrower than Task 1B's, not an oversight. |
 | **3**: Cross-platform matrix | **Done.** 26 of 28 cells captured — **20 Pass, 6 Fail** — with all **24 mandatory** cells complete and `matrix_coverage.py` clean (4/4 OS, 5/5 browsers, 3/3 device classes, 3/3 engines on every screen). The two open cells are rows 27-28, an optional old-WebKit extension outside the coverage floor. The per-screen floor is 5 cells; the matrix runs **6**, the extra being iOS + Safari + phone, because at the bare floor three of the five required brands are Blink and mobile WebKit would go untested — and that extra row is one of the two that caught the main defect. **Neither BrowserStack nor LambdaTest was usable**: both meter free tiers *per session* (1 and 2 minutes), too short to sign in; **Sauce Labs** was used instead, which §6 names as a permitted substitute. Environments: Windows 11 (Edge 151, Firefox 153) and an Android tablet as real local devices; macOS Safari 18, a Galaxy S23 FE and an iPhone 15 as real cloud devices. **Scoped to D1-D4** for the same reason as Task 2. |
-| **§7**: Findings Log + Google Form | **One submission outstanding.** 20 findings logged (17 from Task 1B, 3 from Task 3), deduplicated and severity-rated. **19 were submitted to the Google Form on 2026-08-02** from `lpkduyen23@clc.fitus.edu.vn`, the address burned into the Task 3 overlays; the log's `Form-submission timestamp` column carries that date on those rows, recorded to the day rather than the minute — see the column's own note. **D-023 is the twentieth**, found later the same day while clearing the last Task 1B cells, and is marked *Not submitted* in the log. §7 asks the log and the form to match, so one more entry closes this. |
+| **§7**: Findings Log + Google Form | **Five submissions outstanding.** 24 findings logged (17 from Task 1B, 3 from Task 3, 4 from Task 2), deduplicated and severity-rated, `check_findings.py` clean. **19 were submitted to the Google Form on 2026-08-02** from `lpkduyen23@clc.fitus.edu.vn`, the address burned into the Task 3 overlays; the log's `Form-submission timestamp` column carries that date on those rows, recorded to the day rather than the minute — see the column's own note. **D-023** (found later the same day while clearing the last Task 1B cells) and **D-024…D-027** (from the Task 2 sessions) are all marked *Not submitted*. §7 asks the log and the form to match, so five more entries close this at 24 and 24. |
 | **§8**: Agent Skills + demo videos | Seven skills built and used throughout. **Demo video links: TODO.** |
-| **§10**: AI Audit Report | **Done.** 17 interactions, each with tool, exact model id, real date/time, the prompt as given, the AI output and the human review outcome. |
+| **§10**: AI Audit Report | **Done.** 19 interactions, each with tool, exact model id, real date/time, the prompt as given, the AI output and the human review outcome. |
 | **§15**: report formats | **Done.** Markdown is the source of truth; six PDFs (main report, Task 1A checklist, Task 1B execution report, findings log, AI Audit Report, AI Critique) are in `docs/pdf/`, rebuildable with `python docs/pdf/build_pdf.py`. Wide tables are rotated to landscape so no column is clipped, and the 25 embedded evidence screenshots travel with the Task 1B PDF. **Re-run the build after any further markdown edit.** |
 
 ## Task 1B results
@@ -147,12 +152,12 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 - **Checklist items designed:** 62 in the current group checklist v2.0, all four IA aspects (Task 1B executed v1.9's 60; the 2 items added afterwards are marked unrun rather than back-filled).
 - **Item × screen cells resolved:** 360 designed → 133 applicable → **120 executed** (99 Pass / 21 Fail), 13 not executed with named causes — 12 of them the Slow-3G / Offline cells, which now have a working CDP harness and need only a signed-in browser.
 - **Bugs found:** 16 across the engagement (1 Critical, 8 Major, 6 Minor, 1 Trivial) — 13 of them from Task 1B, 3 from Task 3.
-- **Usability issues found:** 4 (two at severity 3, two at severity 2).
+- **Usability issues found:** 8 (four at severity 3, four at severity 2) — 4 from Task 1B, 4 from the Task 2 sessions.
 - **Findings retracted:** 3 (D-013 and D-018 on live re-verification against EMS, D-014 on self-review); D-016 narrowed to one component on the same live re-verification.
 - **Evidence captures:** 32 real screenshots under `reports/evidence_task1b/`, plus DevTools/Network evidence where the defect is the *absence* of a visible change.
-- **User-testing participants:** 0 of 5 recruited (Task 2 not started).
+- **User-testing participants:** 5 of 5, run 2026-08-01 — 4 universities, all screen-recorded. SUS mean **67.0** (SD 26.1, range 27.5-97.5); both tasks 5/5 Complete; 4 new findings D-024…D-027.
 - **Compatibility cells covered:** **26 of 28 executed — 20 Pass, 6 Fail.** All **24 mandatory** cells are captured and evidenced (6 per screen × D1-D4); the two outstanding cells belong to an optional old-WebKit extension (rows 27-28) and are not required by the coverage floor. Coverage is 4/4 OS, 5/5 browsers, 3/3 device classes and 3/3 engines on every screen. Environments: Windows 11 (Edge 151, Firefox 153) and an Android tablet as real local devices; macOS Safari 18, Android phone and iPhone 15 as real cloud devices via Sauce Labs. See `docs/04_Task3_Cross_Platform_Matrix.md`.
-- **Google Form submissions:** 19 of 20, sent 2026-08-02 — the 16 from Task 1B plus the three from Task 3 (D-020, D-021, D-022). **D-023 was found after that sitting and is not yet submitted.**
+- **Google Form submissions:** 19 of 24, sent 2026-08-02. **D-023 (Task 1B) and D-024…D-027 (Task 2) were all raised after that sitting and are not yet submitted.**
 - **Demo videos:** TODO.
 
 ## Self-Assessment Table (§16)
@@ -161,26 +166,26 @@ The AI never entered a password, OTP or any other credential into any field. Eve
 | --- | --- | --- | --- |
 | 1a | Task 1A: Shared checklist (> 40 items, IA-01 to IA-04) + reference sources + AI prompts *(group)* | 15 | 13 |
 | 1b | Task 1B: Checklist execution on ≥ 3 screens + bug reports *(individual)* | 15 | 14 |
-| 2 | Task 2: User testing with 5 real users (scenario + 5 sessions + analysis → Usability Report) | 25 | 0 |
+| 2 | Task 2: User testing with 5 real users (scenario + 5 sessions + analysis → Usability Report) | 25 | 19 |
 | 3 | Task 3: Cross-Browser / Cross-Platform matrix (3 OS × 5 browsers × 3 device classes) | 25 | 23 |
-| 4 | Bug & Usability Findings submission (Google Form) + aggregated log | 10 | 9 |
+| 4 | Bug & Usability Findings submission (Google Form) + aggregated log | 10 | 8 |
 | 5 | Agent Skills | 10 | 8 |
-| | **Total** | **100** | **67** |
+| | **Total** | **100** | **85** |
 
 **Why these numbers.**
 
 - ***1a = 13/15.*** The checklist is complete at 62 items, script-verified by `check_checklist.py`, and every item traces to a named source (Nielsen, Norman, Shneiderman, WCAG 2.1 or the course slides by page) and is written so that it can actually fail. Two points are held back against the instrument's own stated standard, not against its execution: only 5 of 62 items come from the team's lived experience of EMS, and the other three members still owe items of their own.
 - ***1b = 14/15.*** The full 60 × 6 matrix ran on the live system with evidence attached at the moment of observation; 120 cells carry a Pass/Fail verdict, findings are deduplicated by root cause, and the summary arithmetic is machine-checked. The strongest evidence of discipline here is subtractive: **three findings were retracted** — two of them only after re-testing against the live product rather than on paper — and a fourth, a would-be Critical, was caught inside the session when a screenshot contradicted what the DOM was reporting. No contradiction anywhere in this task was reconciled by inventing an explanation instead of checking it. The point off is for the 13 cells still unexecuted; the harness that runs 12 of them now exists and is proved, so this is a scheduling gap rather than a capability one.
-- ***2 = 0/25.*** §12 makes fabricated participants grounds for voiding the task, and nothing has been substituted for the real fieldwork — no participant has been recruited, so there is nothing to score. A zero here is a true statement, not a low one. The full instrument set is built and ready to run.
+- ***2 = 19/25.*** Five real participants from four universities, all outside this course, each screen-recorded, run 2026-08-01. Both tasks completed 5/5, and the study still produced four ranked usability findings (**D-024…D-027**) plus independent user-side confirmation of D-015 — because the SUS spread (mean 67.0, **SD 26.1**, range 27.5–97.5) says what the success rate cannot: the tasks are achievable but the path is not discoverable. Recommendations are prioritised and two of them collapse into one small fix. Six points are held back for three real gaps, each stated in the report's Limitations: **no pilot session was run**, **time-on-task / error / hesitation counts were not measured**, and **task outcomes are self-reported from the participants' own written answers rather than moderator-observed** — the five recordings can confirm them and have not yet been reviewed for that purpose.
 - ***3 = 23/25.*** All 24 mandatory cells captured on real hardware and real cloud devices, with the per-screen coverage floor met and `matrix_coverage.py` clean on 4/4 OS, 5/5 browsers, 3/3 device classes and 3/3 engines. Six genuine Fails were isolated to two distinct causes by elimination, and **every Fail was reproduced in a second independent session before being logged**. The two points off are for the overlay not matching §6's literal `MSSV@....edu.vn` form (a documented decision, not an oversight) and for rows 27-28 of the optional Safari-15 extension being left unrun.
-- ***4 = 9/10.*** The aggregated log is complete, script-validated and carries every column §7 names, with developer-reproducible steps on every row. Nineteen of the twenty findings were submitted to the form on 2026-08-02 from the student-ID address. Two points' worth of gap sit against that: D-023 was found after the sitting and still needs one form entry to restore §7's one-to-one match, and the timestamp column records the day rather than the minute, since per-submission clock times were not written down as the nineteen were sent.
+- ***4 = 8/10.*** The aggregated log is complete at 24 findings, script-validated, and carries every column §7 names with developer-reproducible steps on every row. Nineteen were submitted to the form on 2026-08-02 from the student-ID address; **five are outstanding** — D-023 from Task 1B and D-024…D-027 from the Task 2 sessions, all raised after that sitting. §7 asks the log and the form to agree, so this is two points that five form entries buy back. The timestamp column also records the day rather than the minute, since per-submission clock times were not written down as the nineteen were sent.
 - ***5 = 8/10.*** Seven skills built and genuinely used across the engagement, four of them repeatedly, with **four validator scripts that run and gate the deliverables** plus a CDP harness for network conditions. Demo videos outstanding.
 
 ## Submission checklist (§15)
 
 **Zip filename:** `23127184_HW03_AI_GUIUsability_EMS_<SelfAssessedGrade>.zip` — the grade is the
 3-digit total from the §16 table below, so at the current self-assessment it is
-`23127184_HW03_AI_GUIUsability_EMS_067.zip`. **Recompute the number and rename the file if the
+`23127184_HW03_AI_GUIUsability_EMS_085.zip`. **Recompute the number and rename the file if the
 self-assessment changes before submitting.**
 
 | §15 required content | Where it is | State |
@@ -188,10 +193,10 @@ self-assessment changes before submitting.**
 | Main report, Markdown **and PDF** | `README.md` + `docs/01`, `docs/02` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
 | Scenario, the ≥ 3 screens and why | `README.md` header | Done |
 | Checklist-execution results per screen | `docs/02_Task1B_Execution_Report_ScenarioD.md` | Done |
-| Usability Report | `docs/03_Task2_Usability_Report_ScenarioD.md` | **Skeleton only — sessions not run** |
+| Usability Report | `docs/03_Task2_Usability_Report_ScenarioD.md` | Done — 5 sessions, 4 findings, prioritised recommendations |
 | Cross-platform report | `docs/04_Task3_Cross_Platform_Matrix.md` | Done — 26 of 28 cells, all 24 mandatory captured |
-| User-testing evidence: scenario · 5 masked participants · per-session notes · SUS responses · metrics · screen recordings | `docs/usability_testing/` · `reports/evidence_task2/` | **Instruments ready, all result tables empty** |
-| Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done (20 findings); **19 of 20 submitted to the form**, 2026-08-02 — D-023 outstanding |
+| User-testing evidence: scenario · 5 masked participants · per-session notes · SUS responses · metrics · screen recordings | `docs/usability_testing/` · `reports/evidence_task2/` | Done — 5 masked participants, 5 recordings, SUS + metrics filled |
+| Bug & Usability Findings Log, consistent with the Google Form | `docs/05_Bug_Usability_Findings_Log.md` | Log done (24 findings); **19 submitted 2026-08-02** — D-023…D-027 outstanding |
 | Cross-platform screenshots with the student-ID overlay | `reports/evidence_task3/` | Done — 26 captures + 1 device-identity image |
 | AI Critique and AI Audit Report, Markdown **and PDF** | `docs/07`, `docs/06` · `docs/pdf/` | Markdown done; PDF in `docs/pdf/` |
 | Git commit log, text file | `docs/08_Git_Commit_Log.txt` | **Regenerate after the final commits** — the current export predates this session |

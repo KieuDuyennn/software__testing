@@ -2,7 +2,7 @@
 
 > One sheet, kept open by the moderator (Lê Phạm Kiều Duyên) for all 6 sessions: 1 pilot + 5 real
 > (P1–P5). Operational only — the study design, success criteria and probe wording live in
-> `docs/usability_testing/Task_Scenario_D.md`; this file does not repeat the "why," only the
+> `docs/usability_testing/design/Task_Scenario_D.md`; this file does not repeat the "why," only the
 > "what to click / say / write, when." Screens under test: **D1** `/complaints/new`, **D2**
 > `/complaints`, `/complaints/{id}`. **D3**/**D4** (`/dashboard/admin/complaints`,
 > `/dashboard/admin/complaints/{id}`) are operated by the moderator only, never shown to the
@@ -16,7 +16,7 @@
 
 - [ ] Confirm the EMS URL resolves **right now**, not from memory: try
   `https://prod-dev.ems-fitus.cloud/` first. If it does not load, the hosted instance has moved —
-  both the assignment brief and `docs/usability_testing/Task_Scenario_D.md` warn the tunnel
+  both the assignment brief and `docs/usability_testing/design/Task_Scenario_D.md` warn the tunnel
   resets — find the currently-live host and write it at the top of today's notes. This is not a
   one-time check: repeat it at T-15min of every session (§2), because the instance can move again
   between sessions.
@@ -45,7 +45,7 @@
 - [ ] **VERIFY BEFORE PILOT:** that logging into a pre-created account with plain email + password
   does not trigger an OTP step. The login screen's only observed fields are Email and Password
   (`docs/checklist/EMS_Live_Survey_2026-07-26.md` §3); OTP is mentioned in
-  `docs/usability_testing/Task_Scenario_D.md` only as a generic pilot-failure risk, most likely
+  `docs/usability_testing/design/Task_Scenario_D.md` only as a generic pilot-failure risk, most likely
   tied to the guest self-registration path this design deliberately avoids — confirm live rather
   than assuming.
 - [ ] **VERIFY BEFORE PILOT:** whether the account-creation path used above lets the moderator set
@@ -65,7 +65,7 @@
 
 - [ ] **T-24h — confirm slot.** Message/call the participant to confirm date, time and method
   (in-person or remote screen-share); confirm they still meet the recruiting screener in
-  `docs/usability_testing/Participants_Table.md`.
+  `docs/usability_testing/results/Participants_Table.md`.
 - [ ] **T-15min — set up (~10 min for all steps below).**
   - [ ] Re-confirm the EMS URL resolves today (§1).
   - [ ] Pre-authenticate the participant's dedicated account in their browser tab; leave it on the
@@ -78,13 +78,13 @@
 - [ ] **T-0 — framing + consent (~1–2 min).** Deliver the framing verbatim in Vietnamese (§5) —
   this is §6 Task 2 Phase 2's "you are testing the product, not the participant" requirement, plus
   the think-aloud instruction, and both must be said out loud in every session. Read the consent
-  script (`docs/usability_testing/Recruiting_Kit.md` §5) and get an **explicit spoken yes** to
+  script (`docs/usability_testing/design/Recruiting_Kit.md` §5) and get an **explicit spoken yes** to
   recording the screen, and separately to recording audio, **before** the recorder starts. Then
   start recording and re-state the consent question on tape if the participant is willing, so the
   consent itself is evidenced. If they decline audio, record screen only and note it — do not
   negotiate the consent down and do not run the session without either.
 - [ ] **T1 — Task 1 (target 3–8 min per `Task_Scenario_D.md`).** Read the **Vietnamese** Task 1
-  prompt verbatim from `docs/usability_testing/Task_Scenario_D.md` §"Task 1 — verbatim Vietnamese"
+  prompt verbatim from `docs/usability_testing/design/Task_Scenario_D.md` §"Task 1 — verbatim Vietnamese"
   (or hand it over on paper) — same wording every session, never a fresh translation. Observe
   neutrally, think-aloud prompts only (§5), take structured notes in `Session_P<n>.md` (§8). Stop
   the clock at submission or at give-up.
@@ -97,9 +97,9 @@
   **Record which route they take to the response** — My Requests, or the notification bell — in the
   session log; do not nudge either way, the choice is a findability result.
 - [ ] **SUS (~2 min).** Administer the 10-item scale by reading the **Vietnamese** wording in
-  `docs/usability_testing/SUS_Instrument_VI_EN.md` §2, on the printable answer sheet in its §3;
+  `docs/usability_testing/design/SUS_Instrument_VI_EN.md` §2, on the printable answer sheet in its §3;
   1 (hoàn toàn không đồng ý) to 5 (hoàn toàn đồng ý). The English-only list in
-  `docs/usability_testing/session_notes/Session_Notes_TEMPLATE.md` is for transcribing the answers
+  `docs/usability_testing/results/session_notes/Session_Notes_TEMPLATE.md` is for transcribing the answers
   afterwards, not for reading aloud.
 - [ ] **Probes (~3–4 min).** Ask the four fixed probe questions from `Task_Scenario_D.md`
   (Clarity, Error recovery, Speed, Trust), same wording every session.
@@ -153,7 +153,7 @@ descriptions and repro steps are in `docs/05_Bug_Usability_Findings_Log.md`.
 
 Anything that goes wrong and is **not** in this table is a candidate **new** finding — log it in the
 session notes with a timestamp, and after the sessions raise it in
-`docs/05_Bug_Usability_Findings_Log.md` from **D-023** onwards (D-001…D-022 are taken) and submit it to the Google Form
+`docs/05_Bug_Usability_Findings_Log.md` from **D-024** onwards (D-001…D-023 are taken) and submit it to the Google Form
 (§7 of the brief). The table below is the known set, not the expected set.
 
 | Finding | Screen / Task hit | What the participant will experience | Moderator's rule | Can fail the task through no fault of the participant? |
@@ -249,11 +249,11 @@ session notes with a timestamp, and after the sessions raise it in
 
 ## 8. Post-session, within 10 minutes
 
-- [ ] Copy `docs/usability_testing/session_notes/Session_Notes_TEMPLATE.md` to
-  `docs/usability_testing/session_notes/Session_P<n>.md` (or `Session_Pilot.md`).
+- [ ] Copy `docs/usability_testing/results/session_notes/Session_Notes_TEMPLATE.md` to
+  `docs/usability_testing/results/session_notes/Session_P<n>.md` (or `Session_Pilot.md`).
 - [ ] Fill the Structured observation log and Task outcomes table (Result, Time on task, Error
   count, Hesitation count, Notes) for both tasks.
-- [ ] Transcribe the 10 SUS answers (1–5) into `docs/usability_testing/SUS_Responses.csv`, one row
+- [ ] Transcribe the 10 SUS answers (1–5) into `docs/usability_testing/results/SUS_Responses.csv`, one row
   per participant, columns `participant,q1,...,q10`.
 - [ ] Fill in the four probe-question responses (Clarity · Error recovery · Speed · Trust), with at
   least one verbatim quote each where the participant gave one.
@@ -264,7 +264,7 @@ session notes with a timestamp, and after the sessions raise it in
 - [ ] Move/rename the recording file into `reports/evidence_task2/` per the §7 convention.
 - [ ] Pilot session only: note anything to fix in the task wording or script before Session P1;
   pilot data is never merged into `Metrics_Table.md` or the SUS scoring, per
-  `docs/usability_testing/Task_Scenario_D.md`.
+  `docs/usability_testing/design/Task_Scenario_D.md`.
 
 ## 9. Reset checklist between participants
 
@@ -289,7 +289,7 @@ session notes with a timestamp, and after the sessions raise it in
 
 | Situation | Recovery |
 | --- | --- |
-| EMS is down / URL does not load | Try the currently-live tunnel if already known; if still down, reschedule within 24h and note the outage in `docs/usability_testing/Participants_Table.md` — never run against a stale cached page. |
+| EMS is down / URL does not load | Try the currently-live tunnel if already known; if still down, reschedule within 24h and note the outage in `docs/usability_testing/results/Participants_Table.md` — never run against a stale cached page. |
 | Participant no-shows | Wait 10 minutes past the start time, mark the slot missed in `Participants_Table.md`, and move to the reserve candidate rather than merging it into the same day's next session without a break. |
 | Recording failed | If caught mid-session, restart recording immediately and note the gap in `Session_P<n>.md`; if only discovered afterward, write the raw impressions from memory right away and flag that session's evidence as incomplete — never fabricate a screenshot after the fact. |
 | Participant cannot log in | Should not occur, since the moderator pre-authenticates the account before the session (§1, §2); if it does, the moderator re-enters the credentials personally, without the participant seeing or typing the password, and notes the delay. |

@@ -6,8 +6,8 @@
 > a usability *participant* is never given the admin account.
 > **Session length: ~20-25 minutes per participant** (consent 1-2 · T1 3-8 · moderator resolves
 > 1-2 · T2 2-4 · SUS 2 · probes 3-4). This is the figure promised to candidates in
-> `docs/usability_testing/Recruiting_Kit.md`; the moderator's internal target is ~20 minutes,
-> per `docs/usability_testing/Moderator_Runsheet.md` §2.
+> `docs/usability_testing/design/Recruiting_Kit.md`; the moderator's internal target is ~20 minutes,
+> per `docs/usability_testing/design/Moderator_Runsheet.md` §2.
 > Instrument: **SUS** (10 items) — chosen over UEQ-S because the group wants a score directly
 > comparable across all four scenario owners' reports.
 
@@ -126,7 +126,7 @@ sentence unchanged rather than translating the label for them.
 
 The four themes are the ones §6 Task 2 Phase 1 names: **clarity, error recovery, speed, trust** —
 one probe each, none droppable. The **Vietnamese wording actually asked** is in
-`docs/usability_testing/SUS_Instrument_VI_EN.md` §4, one-for-one with the four English probes
+`docs/usability_testing/design/SUS_Instrument_VI_EN.md` §4, one-for-one with the four English probes
 below; read it from there.
 
 1. **Clarity** — "Was there any point where you weren't sure what the platform wanted from you, or
@@ -141,7 +141,7 @@ below; read it from there.
 
 1. **Framing — "I'm testing the product, not you" (required by §6 Task 2 Phase 2).** The
    **Vietnamese wording that is actually spoken** is in
-   `docs/usability_testing/Moderator_Runsheet.md` §5; read it from there. The English below is the
+   `docs/usability_testing/design/Moderator_Runsheet.md` §5; read it from there. The English below is the
    gloss of that same framing, kept here so the design document is self-contained:
    *"Thanks for helping out. I'm testing this event-support feature, not
    you — there's no wrong way to do this. Please think out loud as you go: tell me what you're
@@ -149,7 +149,7 @@ below; read it from there.
    let me know and I'll help, but try your own way first."*
 2. Get consent to record screen (and audio, if used) before starting.
 3. Hand over Task 1. Observe neutrally — no leading hints ("did you see the button at the top?"),
-   intervene only if fully stuck. Take structured notes (see `docs/usability_testing/session_notes/Session_Notes_TEMPLATE.md`).
+   intervene only if fully stuck. Take structured notes (see `docs/usability_testing/results/session_notes/Session_Notes_TEMPLATE.md`).
 4. Once submitted, moderator quietly resolves the request from the admin session (D4: write an
    internal note for the group's own record, plus an official response reusing wording consistent
    with the fictional scenario — e.g. confirming the registration was restored).
@@ -158,9 +158,9 @@ below; read it from there.
 
 ## Data files this scenario produces
 
-- `docs/usability_testing/Participants_Table.md` — the 5 (+1 pilot) participants, masked contact info
-- `docs/usability_testing/session_notes/Session_P1.md` … `Session_P5.md` — structured, timestamped notes per session
-- `docs/usability_testing/SUS_Responses.csv` — raw 1–5 answers per participant, scored with
-  `python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/SUS_Responses.csv --instrument sus --markdown`
-- `docs/usability_testing/Metrics_Table.md` — task success / time / errors, tabulated across the 5 real sessions
+- `docs/usability_testing/results/Participants_Table.md` — the 5 (+1 pilot) participants, masked contact info
+- `docs/usability_testing/results/session_notes/` — one structured, timestamped note file per session
+- `docs/usability_testing/results/SUS_Responses.csv` — raw 1–5 answers per participant, scored with
+  `python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/results/SUS_Responses.csv --instrument sus --markdown`
+- `docs/usability_testing/results/Metrics_Table.md` — task success / time / errors, tabulated across the 5 real sessions
 - `docs/03_Task2_Usability_Report_ScenarioD.md` — the final Phase-3 deliverable required by §6 Task 2
