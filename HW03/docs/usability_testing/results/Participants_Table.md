@@ -7,10 +7,9 @@
 > agent cannot recruit participants or supply session data — see
 > `.claude/skills/usability-test-study/SKILL.md` §"What an agent can and cannot do here".
 >
-> **Two things to confirm before submitting.** (1) The answer sheets are headed 03/08/2026 while the
-> sessions ran 2026-08-01; the session date is entered below, so align the sheets to it. (2) The
-> P-code ↔ name mapping follows the order the participants were listed in — worth one check against
-> the recordings, since P4's row carries the lowest score.
+> **One thing to confirm before submitting.** The P-code ↔ name mapping follows the order the
+> participants were listed in, and has not been checked against the recordings. Worth one pass, since
+> P4's row carries the lowest score and the TA may call two of the five.
 
 ## Masking rule — exactly four digits, no more, no fewer
 
@@ -52,19 +51,19 @@ audio separately, matching the consent script in `docs/usability_testing/design/
 
 | P | Name | Profile | Outside this class (Y/N) | Contact (masked, phone) | Session date | Consent: screen / audio | Recording file in `reports/evidence_task2/` |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P1 | Đoàn Tú Uyên | Sinh viên Y đa khoa, Đại học Y Dược TP.HCM | Y | `034****161` | 2026-08-01 | Y / TBD | `P1_full_session.avi` |
-| P2 | Huỳnh Thế Vũ | Sinh viên Cơ khí, Đại học Bách Khoa | Y | `036****675` | 2026-08-01 | Y / TBD | `P2_full_session.avi` |
-| P3 | Lê Khôi Nguyên | Sinh viên Công nghệ thực phẩm, Đại học Bách Khoa | Y | `091****789` | 2026-08-01 | Y / TBD | `P3_full_session.avi` |
-| P4 | Nguyễn Thành Tiến | Sinh viên Cơ khí, Đại học Công nghiệp | Y | `093****120` | 2026-08-01 | Y / TBD | `P4_full_session.avi` |
-| P5 | Trần Nguyễn Ngọc An | Sinh viên Marketing, Đại học Kinh tế TP.HCM (UEH) | Y | `083****721` | 2026-08-01 | Y / TBD | `P5_full_session.avi` |
+| P1 | Đoàn Tú Uyên | Sinh viên Y đa khoa, Đại học Y Dược TP.HCM | Y | `034****161` | 2026-08-03 | Y / Y | `Session_P1.mp4` |
+| P2 | Huỳnh Thế Vũ | Sinh viên Cơ khí, Đại học Bách Khoa | Y | `036****675` | 2026-08-03 | Y / Y | `Session_P2.mp4` |
+| P3 | Lê Khôi Nguyên | Sinh viên Công nghệ thực phẩm, Đại học Bách Khoa | Y | `091****789` | 2026-08-03 | Y / Y | `Session_P3.mp4` |
+| P4 | Nguyễn Thành Tiến | Sinh viên Cơ khí, Đại học Công nghiệp | Y | `093****120` | 2026-08-03 | Y / Y | `Session_P4.mp4` |
+| P5 | Trần Nguyễn Ngọc An | Sinh viên Marketing, Đại học Kinh tế TP.HCM (UEH) | Y | `083****721` | 2026-08-03 | Y / Y | `Session_P5.mp4` |
 
 Five students from four different universities (Y Dược, Bách Khoa, Công nghiệp, UEH), across
 medicine, mechanical engineering, food technology and marketing — none enrolled in this course, so
 §12's "outside this class" bar is met by construction, and none of the five works in software, so
 the set is not skewed toward technical users.
 
-Screen consent is evidenced by the five recordings. Audio consent is a separate question in the
-consent script and is left `TBD` until confirmed per participant.
+All five consented to screen **and** audio recording, asked as two separate questions per the consent
+script, before recording started.
 
 ## Reserve candidates (used only if a booked slot falls through)
 
