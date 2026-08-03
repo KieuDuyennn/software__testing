@@ -34,3 +34,15 @@ Việc nhập lại khá nhanh, chỉ mất thời gian chọn đúng loại.
 **4. Sự tin tưởng**
 
 Tôi khá tin vì sau khi gửi có thông báo thành công và yêu cầu xuất hiện trong danh sách với trạng thái.
+
+---
+
+## Observed from the screen recording
+
+`Session_P1.mp4` — 26.0 s captured. Reviewed frame by frame after the session; this section records only what is visible on
+screen, and is kept separate from the participant's own answers above.
+
+Filing on D1. Request type **Support**. Title typed live: *"Mất đăng ký workshop AI Career Day"* (counter reads 34/255). Description names a 28/07 registration that check-in did not recognise. Own scenario, not the moderator's.
+
+*Not captured:* time on task and error/hesitation counts were not measured during the session, and
+this excerpt is too short to substitute for them.

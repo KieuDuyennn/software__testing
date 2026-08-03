@@ -1,6 +1,6 @@
 # Task 2 — Metrics table — Scenario D
 
-> Five sessions run 2026-08-01. Counts, not percentages, at n = 5 — a percentage implies more
+> Five sessions run 2026-08-03. Counts, not percentages, at n = 5 — a percentage implies more
 > precision than 5 data points support.
 >
 > **Provenance of the two columns below.** `Result` and `Route` are reconstructed from each

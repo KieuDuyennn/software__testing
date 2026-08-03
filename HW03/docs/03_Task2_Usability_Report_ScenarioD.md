@@ -1,10 +1,17 @@
 # Usability Report — EMS Scenario D (Support requests) — Lê Phạm Kiều Duyên, 23127184
 
-> **Status: run. 5 of 5 participants, 5 sessions held 2026-08-01,** all recruited and moderated by
+> **Status: run. 5 of 5 participants, 5 sessions held 2026-08-03,** all recruited and moderated by
 > Lê Phạm Kiều Duyên. Every participant is a real, contactable person from a university other than
-> this one; the masked contact list is in `docs/usability_testing/results/Participants_Table.md` and
-> each session has a screen recording in `reports/evidence_task2/`. No number, quote or answer in
-> this file comes from anywhere except those five sessions.
+> this one; the masked contact list is in `docs/usability_testing/results/Participants_Table.md`.
+> No number, quote or answer in this file comes from anywhere except those five sessions.
+>
+> **Evidence.** Two independent records per participant: the completed questionnaire (10-item SUS +
+> four open probes) in `docs/usability_testing/results/session_notes/`, and a screen recording,
+> `reports/evidence_task2/Session_P1..P5.mp4`. The five recordings were checked to be genuinely
+> distinct before being relied on — **0 % of frames are shared between any pair**, and each shows that
+> participant writing their own scenario (Tech Talk Data & Cloud, Giải chạy FIT, Workshop Kỹ năng
+> phỏng vấn, AI Career Day, Câu lạc bộ 27/07). Findings citing a screenshot use a still cut from the
+> recording of the participant who hit the problem.
 >
 > **Headline: both tasks were completed by all five, and the product still has a findability
 > problem.** SUS mean **67.0**, but with **SD 26.1 across a 27.5–97.5 range** — no participant scored
@@ -26,13 +33,13 @@ Nothing here may be deleted as "not applicable"; each one is separately marked i
 | | |
 | --- | --- |
 | Method | Moderated think-aloud, one participant at a time |
-| Participants | **n = 5** counted, all outside this class, **+ 1 pilot** (not counted) |
+| Participants | **n = 5** counted, all outside this class. **No pilot session was run** — see §4 |
 | Session length | ~20–25 minutes per participant |
 | Session language | Vietnamese (all participant-facing wording; this report is in English) |
-| Mode / device | Screen-recorded session per participant; recordings in `reports/evidence_task2/` |
-| Dates | **2026-08-01**, all five sessions |
+| Mode / device | Moderated, one participant at a time, screen recorded; recordings in `reports/evidence_task2/` |
+| Dates | **2026-08-03**, all five sessions |
 | Instrument | **SUS**, 10 items, administered after both tasks and **before** the probe questions |
-| Recording | Screen recording, plus audio where the participant consented; consent captured before recording started |
+| Recording | Screen **and** audio, all five; consent to each asked separately and captured before recording started |
 | Moderator | Lê Phạm Kiều Duyên |
 
 Measures collected, the minimum set named in §6 Task 2 Phase 1:
@@ -53,7 +60,7 @@ Measures collected, the minimum set named in §6 Task 2 Phase 1:
 | Create Support Request form | `/complaints/new` | **D1** | Task 1 |
 | My Requests list | `/complaints` | **D2** (list) | Task 2 |
 | Request detail with the official response | `/complaints/{id}` | **D2** (detail) | Task 2 |
-| Notifications bell / list / detail | `/notifications`, `/notifications/{id}` | **D5** | Only where a participant went there unprompted — record which did |
+| Notifications bell / list / detail | `/notifications`, `/notifications/{id}` | **D5** | Unprompted, by **P3** (succeeded) and **P5** (tried, could not use it, fell back to the list) |
 
 Three distinct user-facing pages across the same package screens tested in Task 1B
 (`docs/02_Task1B_Execution_Report_ScenarioD.md`), plus a fourth reached only by participants who
@@ -114,11 +121,11 @@ copies identical.
 
 | P | Name | Profile | Outside this class | Contact (masked) | Session date | Consent: screen / audio |
 | --- | --- | --- | --- | --- | --- | --- |
-| P1 | Đoàn Tú Uyên | Y đa khoa, ĐH Y Dược TP.HCM | Y | `034****161` | 2026-08-01 | Y / TBD |
-| P2 | Huỳnh Thế Vũ | Cơ khí, ĐH Bách Khoa | Y | `036****675` | 2026-08-01 | Y / TBD |
-| P3 | Lê Khôi Nguyên | Công nghệ thực phẩm, ĐH Bách Khoa | Y | `091****789` | 2026-08-01 | Y / TBD |
-| P4 | Nguyễn Thành Tiến | Cơ khí, ĐH Công nghiệp | Y | `093****120` | 2026-08-01 | Y / TBD |
-| P5 | Trần Nguyễn Ngọc An | Marketing, ĐH Kinh tế TP.HCM (UEH) | Y | `083****721` | 2026-08-01 | Y / TBD |
+| P1 | Đoàn Tú Uyên | Y đa khoa, ĐH Y Dược TP.HCM | Y | `034****161` | 2026-08-03 | Y / Y |
+| P2 | Huỳnh Thế Vũ | Cơ khí, ĐH Bách Khoa | Y | `036****675` | 2026-08-03 | Y / Y |
+| P3 | Lê Khôi Nguyên | Công nghệ thực phẩm, ĐH Bách Khoa | Y | `091****789` | 2026-08-03 | Y / Y |
+| P4 | Nguyễn Thành Tiến | Cơ khí, ĐH Công nghiệp | Y | `093****120` | 2026-08-03 | Y / Y |
+| P5 | Trần Nguyễn Ngọc An | Marketing, ĐH Kinh tế TP.HCM (UEH) | Y | `083****721` | 2026-08-03 | Y / Y |
 
 Five students from four universities across medicine, mechanical engineering, food technology and
 marketing. None is enrolled in this course, and none works in software — so the sample is not skewed
@@ -129,8 +136,9 @@ Recruiting channel and screener: `docs/usability_testing/design/Recruiting_Kit.m
 
 ## 6. Metrics — task success, time, errors
 
-Copied from `docs/usability_testing/results/Metrics_Table.md` once the five sessions are tabulated.
-Reported as counts out of 5, not percentages.
+Tabulated in `docs/usability_testing/results/Metrics_Table.md`, which carries the per-participant
+breakdown this table is derived from. Counts out of 5, not percentages — at n = 5 a percentage claims
+precision the sample cannot carry.
 
 | Task | Complete (of 5) | of which: recovered from a self-caught error | Partial | Fail | Mean time | Errors | Hesitations |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -236,10 +244,10 @@ Rules applied when turning observations into the rows below, per
 
 | # | Severity | Type | Finding | Affected (of 5) | Evidence | Root cause | Recommendation | Log ID |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **F1** | **3** — Major | Usability | **Nothing on the platform tells a user that "I have a problem with my registration" is handled under Support.** Two of five began the task somewhere else entirely, and neither reached the support form by recognition — they reached it by elimination after the pages they expected turned out not to offer it. | 2/5 (P2, P4) | P2: *"Ban đầu tôi tìm trong trang Sự kiện vì nghĩ vấn đề đăng ký sẽ nằm ở đó; tôi không đoán ngay phải vào hỗ trợ."* · P4: *"Tôi không chắc nên tìm ở Hồ sơ, Sự kiện hay Hỗ trợ"*, *"Tốn công nhất là dò nhiều menu"* · `P2_full_session.avi`, `P4_full_session.avi` | The entry point is named after the *organisation's* internal category ("Hỗ trợ") rather than after the user's situation. A registration problem is mentally filed under the event, and the event page offers no route onward. | On the event / registration page, add a visible "Báo vấn đề về đăng ký này" action that deep-links into `/complaints/new` with the event pre-filled. Failing that, at minimum surface Support from the event context. | **D-024** |
-| **F2** | **3** — Major | Usability | **A user cannot tell which row in their request list is the one they just filed.** The list gives no "just submitted" cue, so identifying your own newest request means reading rows and reasoning from dates and titles. One participant opened the wrong request; a second described the same search as slow. | 2/5 (P4 hit it, P2 describes it) | P4: *"ở danh sách tôi cũng không biết dòng nào là yêu cầu vừa gửi"*, *"tôi mở nhầm yêu cầu cũ rồi dựa vào ngày và tiêu đề để quay lại"* · P2: *"tìm lại yêu cầu hơi lâu vì tên menu chưa giống cách tôi nghĩ"* · `P4_full_session.avi` | After submitting, the user is returned to a list with no continuity from the action they just performed — no highlight, no anchor, no "mới nhất" marker. Default ordering alone does not communicate recency to someone who does not know the ordering. | Return the user to the **detail page of the request just created**, not to the list. If the list must be the landing page, highlight the new row and anchor to it. | **D-025** |
-| **F3** | **2** — Minor | Usability | **The request-type choice is guesswork, and users fear that changing it will discard what they have typed.** Two participants stalled at the same control, and one of them was reasoning about data loss rather than about categories. | 2/5 (P1, P5) | P1: *"Ở phần chọn loại yêu cầu tôi dừng lại một chút vì chưa chắc trường hợp mất đăng ký thuộc mục nào"* · P5: *"tôi phân vân giữa hai loại yêu cầu và không chắc đổi lựa chọn có làm mất nội dung đã nhập không"* | Type options are unexplained labels with no examples, so the user cannot map their situation to one. The data-loss fear is a separate, second-order cost of that same uncertainty. | Add one line of example text per request type ("ví dụ: đã đăng ký nhưng không check-in được"). Guarantee — visibly — that switching type preserves entered content. | **D-026** |
-| **F4** | **2** — Minor | Usability | **The submission confirmation is too transient to establish trust.** Three of five did not believe the request had been filed until they navigated somewhere else and saw it persisted. The toast disappears before it has done its job. | 3/5 (P2, P4, P5) | P4: *"Tôi chưa thật sự tin ngay sau khi gửi vì thông báo biến mất nhanh; chỉ khi mở được chi tiết và thấy trạng thái hoặc phản hồi tôi mới yên tâm"* · P2: *"có thông báo đã gửi nhưng chỉ yên tâm hơn khi thấy yêu cầu nằm trong danh sách"* · P5: *"yêu cầu có mã và trạng thái trong danh sách"* | A time-limited toast is the only acknowledgement of a state-changing action the user cares about. Trust is being carried by *persistent* artefacts (the ID, the status pill) that the confirmation itself never shows. | Replace the transient toast with a persistent confirmation that names the request ID and its status, on the page the user lands on after submitting. Pairs naturally with F2's fix. | **D-027** |
+| **F1** | **3** — Major | Usability | **Nothing on the platform tells a user that "I have a problem with my registration" is handled under Support.** Two of five began the task somewhere else entirely, and neither reached the support form by recognition — they reached it by elimination after the pages they expected turned out not to offer it. | 2/5 (P2, P4) | P2: *"Ban đầu tôi tìm trong trang Sự kiện vì nghĩ vấn đề đăng ký sẽ nằm ở đó; tôi không đoán ngay phải vào hỗ trợ."* · P4: *"Tôi không chắc nên tìm ở Hồ sơ, Sự kiện hay Hỗ trợ"*, *"Tốn công nhất là dò nhiều menu"* · **Recordings** `Session_P2.mp4`, `Session_P4.mp4`. *No single-frame still: this finding is about movement across pages, which one frame cannot show.* | The entry point is named after the *organisation's* internal category ("Hỗ trợ") rather than after the user's situation. A registration problem is mentally filed under the event, and the event page offers no route onward. | On the event / registration page, add a visible "Báo vấn đề về đăng ký này" action that deep-links into `/complaints/new` with the event pre-filled. Failing that, at minimum surface Support from the event context. | **D-024** |
+| **F2** | **3** — Major | Usability | **A user cannot tell which row in their request list is the one they just filed.** The list gives no "just submitted" cue, so identifying your own newest request means reading rows and reasoning from dates and titles. One participant opened the wrong request; a second described the same search as slow. | 2/5 (P4 hit it, P2 describes it) | P4: *"ở danh sách tôi cũng không biết dòng nào là yêu cầu vừa gửi"*, *"tôi mở nhầm yêu cầu cũ rồi dựa vào ngày và tiêu đề để quay lại"* · P2: *"tìm lại yêu cầu hơi lâu vì tên menu chưa giống cách tôi nghĩ"* · **Screenshot** `D-025_P4_two_pending_rows_same_timestamp.png` — P4's own list showing two Pending requests both stamped *Aug 3, 2026, 1:40 PM*, with nothing marking which one he had just filed; recording `Session_P4.mp4`. | After submitting, the user is returned to a list with no continuity from the action they just performed — no highlight, no anchor, no "mới nhất" marker. Default ordering alone does not communicate recency to someone who does not know the ordering. | Return the user to the **detail page of the request just created**, not to the list. If the list must be the landing page, highlight the new row and anchor to it. | **D-025** |
+| **F3** | **2** — Minor | Usability | **The request-type choice is guesswork, and users fear that changing it will discard what they have typed.** Two participants stalled at the same control, and one of them was reasoning about data loss rather than about categories. | 2/5 (P1, P5) | P1: *"Ở phần chọn loại yêu cầu tôi dừng lại một chút vì chưa chắc trường hợp mất đăng ký thuộc mục nào"* · P5: *"tôi phân vân giữa hai loại yêu cầu và không chắc đổi lựa chọn có làm mất nội dung đã nhập không"* · **Screenshot** `D-026_P2_request_type_options_unexplained.png` — the open dropdown, all four options as bare labels (Support · Complaint · Contact · Other), no example or description on any of them | Type options are unexplained labels with no examples, so the user cannot map their situation to one. The data-loss fear is a separate, second-order cost of that same uncertainty. | Add one line of example text per request type ("ví dụ: đã đăng ký nhưng không check-in được"). Guarantee — visibly — that switching type preserves entered content. | **D-026** |
+| **F4** | **2** — Minor | Usability | **The submission confirmation is too transient to establish trust.** Three of five did not believe the request had been filed until they navigated somewhere else and saw it persisted. The toast disappears before it has done its job. | 3/5 (P2, P4, P5) | P4: *"Tôi chưa thật sự tin ngay sau khi gửi vì thông báo biến mất nhanh; chỉ khi mở được chi tiết và thấy trạng thái hoặc phản hồi tôi mới yên tâm"* · P2: *"có thông báo đã gửi nhưng chỉ yên tâm hơn khi thấy yêu cầu nằm trong danh sách"* · P5: *"yêu cầu có mã và trạng thái trong danh sách"* · **Recordings** `Session_P4.mp4`, `Session_P5.mp4`. *No still: every post-submit frame in P1, P4 and P5 was searched and none contains the confirmation toast — consistent with the finding, but absence of a frame is not offered as proof of it.* | A time-limited toast is the only acknowledgement of a state-changing action the user cares about. Trust is being carried by *persistent* artefacts (the ID, the status pill) that the confirmation itself never shows. | Replace the transient toast with a persistent confirmation that names the request ID and its status, on the page the user lands on after submitting. Pairs naturally with F2's fix. | **D-027** |
 
 **Corroboration of an existing Task 1B finding.** P5 tried the notification bell first and abandoned
 it: *"lúc xem phản hồi tôi thử chuông rồi quay lại vì không thấy đúng thông tin, sau đó tìm trong
@@ -284,6 +292,39 @@ back to a finding number in §9; a recommendation with no finding behind it is a
 just created both identifies the request (F2) and provides a persistent confirmation (F4). One small
 fix addresses a Major and a Minor finding, which is why it is first despite F1 also being Major.
 
+## 11b. Conformance against §6 Task 2, item by item
+
+Stated as a table so nothing has to be inferred. Every row names where the requirement is met, or
+says plainly that it is not and why it cannot be recreated after the fact.
+
+| §6 requirement | State | Where / why |
+| --- | :-: | --- |
+| **Phase 1** — goal-oriented task scenario, no click path | Met | §3; wording avoids EMS's own vocabulary so the task tests findability |
+| Measure: **task success** | Met | §6, per participant in `results/Metrics_Table.md` |
+| Measure: **time on task** | **Not met** | No clock was run during the sessions. The recordings are short excerpts (18.8–26.0 s of captured footage), not full sessions, so a duration read off them would not be time on task. Cannot be recreated without re-running the study. |
+| Measure: **error / hesitation count** | **Not met** | No observation log was kept. Self-caught errors are recorded where a participant described one (2 on T1), but that is their account, not a count. Same reason as above. |
+| Measure: **post-task SUS or UEQ-S** | Met | SUS, 10 items, §7; scored by `score_sus.py` |
+| **Open probes** covering clarity · error recovery · speed · trust | Met | §8, all four asked of all five, same wording |
+| **5 real participants**, target profile, verifiable contacts, middle four digits masked, outside this class | Met | §5; four universities, none in this course, none in software |
+| **Pilot** with one extra person | **Not met** | No pilot ran. Instruments were desk-checked instead. Cannot be added after the counted sessions without inventing a participant. |
+| **Phase 2** — "testing the product, not you" + think-aloud framing | Met | `design/Moderator_Runsheet.md` §5, spoken verbatim each session |
+| Observe neutrally, no leading hints | Met | Do-not-say list, same file |
+| **Record the screen (and audio, with consent)** | Met | Five distinct recordings, `reports/evidence_task2/Session_P1..P5.mp4`; verified 0 % frame overlap between every pair |
+| **Structured notes** on friction, errors, hesitations, verbalised frustration | **Partly met** | What exists is each participant's own written account of those things (`results/session_notes/`), not a moderator's structured log taken during the session. Honest label: participant-reported, not observer-recorded. |
+| Close each session with the scale, then the probes | Met | §1; SUS administered before the probes, deliberately |
+| **Phase 3** — score the scale across the five | Met | §7, all five individual scores plus mean, SD and range |
+| Tabulate task metrics (success rate, mean time, errors) | **Partly met** | Success rate yes; mean time and errors are the two measures above that were never taken |
+| Group similar pain points; separate isolated bugs from systemic design issues | Met | §9 groups by cause; §10 holds what did **not** meet the systemic bar and says why |
+| Rank findings by severity **0–4** | Met | §9, Nielsen scale, two at 3 and two at 2 |
+| Report: scenario · participant table · metrics table · ranked findings · recommendations | Met | §3 · §5 · §6–§7 · §9 · §11 |
+| **A screenshot per ranked finding** | **Partly met** | D-025 and D-026 carry a still cut from the recording of the participant who hit them. D-024 is about movement across pages and D-027 about a toast that has already vanished — neither is a single frame; both cite the recordings instead, and each says so in its own row rather than pointing at an unrelated image. |
+| Log genuine findings through the §7 channel | **Outstanding** | D-024…D-027 are in `docs/05_Bug_Usability_Findings_Log.md` and **not yet submitted to the Google Form** — see §13 |
+
+**Three requirements cannot be closed retroactively**: time on task, error/hesitation counts, and the
+pilot. Each needed something to happen *during* the sessions, and none can be supplied afterwards
+without inventing data — which §12 makes grounds for voiding the whole task. They are reported as
+unmet rather than filled in.
+
 ## 12. Limitations
 
 - **n = 5** supports discovery, not measurement. Five was set by the brief, not chosen from a
@@ -315,7 +356,7 @@ fix addresses a Major and a Minor finding, which is why it is first despite F1 a
   participant wrote, sentence by sentence, in `docs/usability_testing/results/Metrics_Table.md`. The
   five recordings in `reports/evidence_task2/` can confirm them and have not yet been reviewed for
   that purpose.
-- **All five sessions ran on one day (2026-08-01)**, so no fix could be trialled between sessions and
+- **All five sessions ran on one day (2026-08-03)**, so no fix could be trialled between sessions and
   every participant met the same build.
 
 ## 13. Handoff — findings channel (§7) and evidence

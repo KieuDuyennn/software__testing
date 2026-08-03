@@ -34,3 +34,15 @@ Không quá chậm, nhưng tôi phải kiểm tra các trường và làm mới 
 **4. Sự tin tưởng**
 
 Tôi khá tin vì yêu cầu có mã và trạng thái trong danh sách; phản hồi chính thức trong trang chi tiết làm tôi chắc chắn hơn.
+
+---
+
+## Observed from the screen recording
+
+`Session_P5.mp4` — 23.6 s captured. Reviewed frame by frame after the session; this section records only what is visible on
+screen, and is kept separate from the participant's own answers above.
+
+D1 with request type set to **Contact** — not Support — which matches this participant reporting that she hesitated between two types. Title: *"Đăng ký Workshop Kỹ năng phỏng vấn biến mất"*.
+
+*Not captured:* time on task and error/hesitation counts were not measured during the session, and
+this excerpt is too short to substitute for them.
