@@ -24,7 +24,9 @@
 ## Per-participant results (the raw table everything else is derived from)
 
 Transcribed from the five `session_notes/Session_P<n>.md` "Task outcomes" tables — one row per
-participant per task, nothing aggregated yet. The pilot is **not** a row here. Mark `Intervened`
+participant per task, nothing aggregated yet. **Pilot-01 is deliberately not a row here** — it ran
+before P1 and its data enters no aggregate, no SUS figure and no finding; it lives in the report's §4
+and in `session_notes/Session_Pilot01.md`. Mark `Intervened`
 `Y` wherever the moderator gave a task-specific hint or clicked for the participant; an intervened
 run cannot count as a clean Complete and its time is excluded from the mean below
 (`docs/usability_testing/design/Moderator_Runsheet.md` §6).
