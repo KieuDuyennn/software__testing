@@ -7,8 +7,8 @@
 > selection, emulator/simulator/real-device distinction, evidence discipline) and
 > `.claude/skills/cross-platform-matrix/scripts/matrix_coverage.py` for the verifier.
 
-**Status: EXECUTED 2026-08-02.** 26 of 28 cells captured — 20 Pass, 6 Fail — with all 24 mandatory
-cells done and verified (`matrix_coverage.py`, exit 0). Neither BrowserStack nor LambdaTest could be
+**Status: COMPLETE after the 2026-08-04 closure.** All 28 cells are captured — 20 Pass, 8 Fail —
+including the optional Safari-15 D3/D4 extension; verified by `matrix_coverage.py`, exit 0. Neither BrowserStack nor LambdaTest could be
 used: both meter their free tiers per session (1 and 2 minutes respectively), too short to sign in
 before the session ends. **Sauce Labs** was used instead, which §6 names as a permitted substitute.
 The sections below are kept as written for the record; where the plan and what actually happened

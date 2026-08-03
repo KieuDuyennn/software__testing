@@ -1,5 +1,10 @@
 # Reference Sources & AI Prompts: Shared GUI Checklist
 
+> **Lightweight-submission note (2026-08-04).** The course-provided raw assignment and slide files
+> formerly stored under `refs/` are not duplicated in the final individual package. This file is the
+> required reference-source deliverable and retains every filename, source role and exact cited page;
+> the original course materials remain available from the course distribution.
+
 > Group deliverable supporting **Task 1, Part A**. Documents the sources the checklist is grounded in and the full prompt chain used to generate and refine it (required by §6 and §15 of the assignment).
 > Companion files: `docs/01_Task1A_Shared_GUI_Checklist.md` (the checklist itself) · `docs/06_AI_Audit_Report.md` (§10 mandatory appendix).
 > Checklist version covered: **v2.0, 62 items** (2026-07-30; documentation-only conformance pass
@@ -440,7 +445,9 @@ The assignment (§2) requires guiding the AI through each step of the technique 
   item count and the apparent pillar coverage at the cost of making the checklist's central
   grounding claim false. Two of the six (IA04-14, IA04-15) later scored Pass under real execution in
   Task 1B via the internal-note marker-string test, which is the practical vindication of the round.
-  Content review by the other three members is still owed on all six, see §5 action 7.
+  The Scenario D owner reported on 2026-08-03 that all four members reviewed these additions and
+  confirmed the scenario split. This records the reported group decision; it is not a signature made
+  on another member's behalf.
 
 ### Prompt 12: Full slide-deck completeness check
 
@@ -516,6 +523,6 @@ about actions 4, 6 and 7. Actions 8 and 9 were added by the 2026-08-01 conforman
 | 4 | Re-download `refs/slides/Testing GUI Applications.pdf`, truncated, unreadable | Group | Still open. Nothing cites it; low priority. |
 | 5 | Distribute checklist v1.9 to all four members before Task 1B execution | Group | **Done for this member**: scenario D was executed against v1.9 in full (60 items across 6 screens, `docs/02_Task1B_Execution_Report_ScenarioD.md`). Whether A, B and C executed against the same version is not verifiable from this repository; confirm with the group before the group-level §7 cross-check. |
 | 6 | Pillar-4 gap: **5 of 62** items grounded in the team's own experience of EMS (`docs/06_AI_Audit_Report.md` Interactions 6 and 15) | Group, per member | **Partly closed in v2.0 (2026-08-02); still open for three of the four members.** v1.8 and v1.9 both added *audit-sourced* items, not personal-experience ones, so neither reduced the gap. v2.0 reduced it by exactly one: **IA04-18**, whose origin is the D-018 misdiagnosis during this group's own Task 1B execution — a lived episode documented in `docs/02_Task1B_Execution_Report_ScenarioD.md` and `docs/05_Bug_Usability_Findings_Log.md` before that round, so the provenance is checkable rather than asserted. **IA03-16**, written in the same round, is counted under pillar 3 instead, because it came from a survey note; folding it in would have made the grounding table false.<br><br>What remains owed is **1-2 items from each of the other three members**; see the note in the checklist's *four grounding pillars* section. **Concrete form of the action:** each of the four members, having used EMS themselves, writes 1-2 items in the checklist's five-column format describing something that annoyed or misled *them* while using the product, signs each with their own name and student ID in the *Items added beyond the AI output* section, and states there why no document, heuristic, slide or survey would have produced it. An AI cannot supply this on a member's behalf and must not: the checklist's own grounding claim would become false, which is the reason the AI declined in Prompt 11 and again in the 2026-08-01 pass. |
-| 7 | Group review of the 7 new v1.8/v1.9 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16, IA04-17), and confirmation of the §5 scenario split from Prompt 9 | Group | **Open.** AI-proposed, script-verified, executed in Task 1B by scenario D's owner only, not yet reviewed or countersigned by the other three members. The scenario split in the checklist is described as "committed" on the strength of one member's word; the other three have not recorded agreement anywhere in this repository. |
+| 7 | Group review of the 7 new v1.8/v1.9 items (IA02-15, IA03-14, IA03-15, IA04-14, IA04-15, IA04-16, IA04-17), and confirmation of the §5 scenario split from Prompt 9 | Group | **Reported complete on 2026-08-03 by the Scenario D owner.** She reports that all four members reviewed the seven additions and confirmed the scenario split. The repository records that report without fabricating individual signatures; members may countersign separately if the submission process requires signatures. |
 | 8 | Fill the seven `To be completed by the group` placeholders in `docs/06_AI_Audit_Report.md` (Interactions 4, 5, 6, 7, 8, 11, 12) | Owner of `docs/06` | **Open.** §2 of the assignment makes human review of every AI result mandatory and §10 requires the process to be logged completely; an interaction entry whose review field is a placeholder reads as review not done. The substance exists in §3 of this file and can be carried across. |
 | 9 | Recover the exact clock times for the Task 1A sessions | Group | **Open.** §10 asks for the date **and time** of each interaction. Prompts 5-10 above and the corresponding entries in `docs/06_AI_Audit_Report.md` carry a date but `TBD` for the time; retrieve them from the Claude Code session history. Prompts 1-4, 11 and 12 already carry real start-end times. |
