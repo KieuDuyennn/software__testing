@@ -1,5 +1,71 @@
-=== HW03 commit log (generated 2026-08-02 12:04 UTC) ===
+=== HW03 commit log (generated 2026-08-04 00:50 +07:00) ===
 Repo: software__testing  ·  Path filter: HW03/  ·  Branch: duyen/hw3
+
+8bdee46  2026-08-03 20:25:49 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): cut Interaction 23 to a minimal declaration
+
+206f428  2026-08-03 20:14:29 +0700  Lê Phạm Kiều Duyên
+    test(hw03): evidence the last two ranked findings, and record D-028 as submitted
+
+f2ce3d1  2026-08-03 19:47:30 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): English glosses on every prompt, redact a password, declare what stays in the log
+
+d6ef665  2026-08-03 14:53:25 +0700  Lê Phạm Kiều Duyên
+    test(hw03): enter the measured timings, and log D-028 found while verifying them
+
+465f198  2026-08-03 14:31:45 +0700  Lê Phạm Kiều Duyên
+    test(hw03): write up Pilot-01 after verifying the sixth recording is genuine
+
+5788efd  2026-08-03 14:13:02 +0700  Lê Phạm Kiều Duyên
+    test(hw03): count the 7 error episodes the participants described; time on task stays uncollected
+
+b0edbdb  2026-08-03 14:03:28 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): all 24 findings submitted; log and form now agree
+
+9b38254  2026-08-03 13:58:44 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): swap in the real session recordings, audit Task 2 line by line
+
+98bbcfa  2026-08-03 13:19:30 +0700  Lê Phạm Kiều Duyên
+    feat(hw03): Task 2 analysed and written up from the five real sessions
+
+b6a2d6b  2026-08-03 10:20:53 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): resync README to the real counts, lead with evidence quality
+
+8a2cc26  2026-08-02 23:01:07 +0700  Lê Phạm Kiều Duyên
+    test(hw03): re-verify the IA02-13 Fail on a click that can be proved, rebuild PDFs
+
+beb6095  2026-08-02 22:49:53 +0700  Lê Phạm Kiều Duyên
+    test(hw03): attach the IA04-17 capture the cell was scored from
+
+a441b5b  2026-08-02 22:49:24 +0700  Lê Phạm Kiều Duyên
+    test(hw03): clear 3 more 1B cells, add D-023, build the CDP network harness
+
+44e44f0  2026-08-02 22:26:54 +0700  Lê Phạm Kiều Duyên
+    test(hw03): clear 6 more 1B cells, and correct a wrong instrument diagnosis
+
+e6baa1e  2026-08-02 21:11:12 +0700  Lê Phạm Kiều Duyên
+    test(hw03): clear 2 more D4 cells, and pin down why keyboard tests kept failing
+
+64ec7a3  2026-08-02 21:05:25 +0700  Lê Phạm Kiều Duyên
+    fix(hw03): repair the Task 2 instruments before any real session runs
+
+a6b4c24  2026-08-02 21:05:24 +0700  Lê Phạm Kiều Duyên
+    test(hw03): clear 2 more Task 1B cells on D4, one of them a new Fail
+
+576d11c  2026-08-02 20:49:35 +0700  Lê Phạm Kiều Duyên
+    test(hw03): clear 2 of the 28 unexecuted Task 1B cells on D3
+
+a98a256  2026-08-02 20:39:17 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): file IA03-16 under pillar 3 and close out the v2.0 pillar note
+
+d03764d  2026-08-02 20:33:37 +0700  Lê Phạm Kiều Duyên
+    feat(hw03): checklist v2.0 — two items from execution experience (60 -> 62)
+
+71c7b7e  2026-08-02 20:02:49 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): record the 19 Google Form submissions and close §7
+
+3debb17  2026-08-02 19:04:15 +0700  Lê Phạm Kiều Duyên
+    docs(hw03): regenerate the §13 commit log
 
 f6f4748  2026-08-02 19:03:34 +0700  Lê Phạm Kiều Duyên
     build(hw03): regenerate the §15 PDF exports from the corrected Markdown
@@ -240,5 +306,3 @@ b94513d  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
 
 239c466  2026-07-30 19:56:02 +0700  Lê Phạm Kiều Duyên
     chore(hw03): ignore Python bytecode caches
-
-=== 80 commits touching HW03/ on duyen/hw3 ===

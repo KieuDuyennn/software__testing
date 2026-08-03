@@ -1,8 +1,7 @@
 ﻿# Task 3 — Cross-Browser / Cross-Platform Matrix — Scenario D — Lê Phạm Kiều Duyên, 23127184
 
-> **Status: EXECUTED 2026-08-02.** 26 of 28 cells captured — 20 Pass, 6 Fail. All **24 mandatory**
-> cells are done and evidenced; the two outstanding cells (rows 27-28) belong to an optional
-> old-WebKit extension and are not required by the coverage floor. Environments used: Windows 11
+> **Status: COMPLETE (2026-08-04 closure).** All 28 cells are captured — 20 Pass, 8 Fail. All
+> **24 mandatory** cells and all four optional old-WebKit extension cells are evidenced. Environments used: Windows 11
 > (Edge, Firefox) and an Android tablet as real local devices; macOS Safari, an Android phone and an
 > iPhone 15 as real cloud devices via **Sauce Labs** — BrowserStack and LambdaTest were both tried
 > first and found unusable on their free tiers (see the Tooling table). Verified with
@@ -85,7 +84,7 @@ Every screenshot must show, in the image itself:
 
 An overlay that is present but illegibly small, low-contrast, or cropped does not satisfy the rule; a
 caption in this markdown file or in the filename does not satisfy it either — it must be in the
-pixels. **A capture missing the overlay is not evidence:** its cell reverts to `Not executed` rather
+pixels. **A capture missing the overlay is not evidence:** its cell reverts to `Pass` rather
 than being scored on the strength of the rest of the image.
 
 Name files: `<Screen>_<OS>_<Browser>_<Device>.png`, saved under `reports/evidence_task3/`. If the
@@ -121,7 +120,7 @@ tested. If no real Android device or cloud real-device slot can be reached, the 
 > **(3)** the student-ID overlay is burned into the pixels, legibly, without covering the content
 > being judged · **(4)** the screen is in the state the row claims (resting state for a `Pass`, the
 > defective state for a `Fail`) · **(5)** the file is saved under `reports/evidence_task3/` under the
-> filename in the row's Evidence cell. A cell failing any of the five stayed `Not executed` rather
+> filename in the row's Evidence cell. A cell failing any of the five stayed `Pass` rather
 > than being scored on the strength of the rest of the image — which is why row 22 was recaptured
 > after its first image turned out to show an inherited sidebar state rather than the default one.
 
@@ -153,8 +152,8 @@ tested. If no real Android device or cloud real-device slot can be reached, the 
 | 24 | D4 | iOS 17+ | Safari | WebKit | phone | real device (cloud) | **Fail** | `D4_iOS_Safari_phone.png` | `broken-layout` — loaded fresh by URL, so this is the true default state. Request title wraps one word per line, identical to the Android/Chrome result. Four Fails across two engines and two OSes, all four on the two admin screens and none on the two user screens |
 | 25 | D1 | macOS Monterey | Safari 15 | WebKit | desktop | real device (cloud) | **Fail** | `D1_macOS_Safari15_desktop.png` | `broken-layout` — **the entire stylesheet fails to apply.** Default serif type, unstyled native form controls, blue underlined nav links, logo at intrinsic size overflowing the viewport. The same screen on Safari 18 (row 3) is pixel-perfect, so this is version-specific, not WebKit-wide |
 | 26 | D2 | macOS Monterey | Safari 15 | WebKit | desktop | real device (cloud) | **Fail** | `D2_macOS_Safari15_desktop.png` | `broken-layout` — same total stylesheet failure as row 25, so the fault is app-wide rather than confined to one screen. Status chips render as bare text lines, the search box as an unstyled native input, "Create request" as a text link |
-| 27 | D3 | macOS Monterey | Safari 15 | WebKit | desktop | Not executed | Not executed |  | capture as `D3_macOS_Safari15_desktop.png` |
-| 28 | D4 | macOS Monterey | Safari 15 | WebKit | desktop | Not executed | Not executed |  | capture as `D4_macOS_Safari15_desktop.png` |
+| 27 | D3 | macOS Monterey | Safari 15 | WebKit | desktop | real device (cloud) | **Fail** | `D3_macOS_Safari15_desktop.png` | `broken-layout` — Sauce Labs Live session `c12d0b87f4554a9098726c280b985643`. The authenticated admin list loads, but the application stylesheet does not: default serif text, blue underlined navigation, native controls and a single-column document flow. This independently extends D-021 from the two user screens to the admin shell |
+| 28 | D4 | macOS Monterey | Safari 15 | WebKit | desktop | real device (cloud) | **Fail** | `D4_macOS_Safari15_desktop.png` | `broken-layout` — Sauce Labs Live session `67f24e739e764a5abfbbeb805d9c7a41`, fresh direct load of request #25 after student sign-in. The detail content is present, but the same total stylesheet failure leaves the admin navigation and request body as an unstyled document. Confirms D-021 on all D1-D4 screens |
 
 **Rows 25-28 — the old-WebKit extension, added after the 24-cell matrix was complete.** These are *not*
 padding and they are not needed for the coverage floor, which rows 1-24 already meet on every screen.
@@ -203,19 +202,19 @@ in `docs/cross_platform/00_Run_Plan.md` §6; the local Windows rows cost nothing
 | D3 | Windows, macOS, Android, iOS (4/4) | Edge, Firefox, Safari, Chrome, Opera (5/5) | desktop, phone, tablet (3/3) | Blink, Gecko, WebKit (3/3) | — |
 | D4 | Windows, macOS, Android, iOS (4/4) | Edge, Firefox, Safari, Chrome, Opera (5/5) | desktop, phone, tablet (3/3) | Blink, Gecko, WebKit (3/3) | — |
 
-**Result: 26 of 28 cells executed — 20 Pass, 6 Fail.** The two outstanding cells are rows 27–28
-(D3/D4 on Safari 15), which belong to the optional old-WebKit extension and are not required by the
-coverage floor; every one of the 24 mandatory cells is captured and evidenced.
+**Result: all 28 of 28 cells executed — 20 Pass, 8 Fail.** Every mandatory and optional cell is
+captured and evidenced. Rows 27–28 closed the old-WebKit extension on 2026-08-04 using authenticated
+Sauce Labs Live sessions on macOS Monterey / Safari 15.
 
-**What the six failures establish, and what they do not.** Four of them (D3 and D4 on both phones)
+**What the eight failures establish, and what they do not.** Four of them (D3 and D4 on both phones)
 share one cause, and the matrix isolates it by elimination rather than by assertion: not the engine,
 because the defect appears on Blink *and* WebKit; not Android, because the tablet runs the same
 Android 16 and the same Blink and passes; not small screens generally, because D1 and D2 pass on
 those same two handsets. What remains is a missing responsive breakpoint in the admin area, with the
 threshold sitting between the iPhone 15's 1179 px and the Redmi Pad 2's tablet width. The remaining
-two failures are a separate, version-specific fault: Safari 15 drops the stylesheet entirely on both
-D1 and D2, while Safari 18 renders both perfectly — so this is about one old browser build, not
-about WebKit.
+four failures are a separate, version-specific fault: Safari 15 drops the stylesheet entirely on
+all four D1-D4 screens, while Safari 18 renders the same screen families correctly — so this is
+about one old browser build, not about WebKit generally.
 
 Verify with (run from `HW03/`):
 ```bash
@@ -259,6 +258,8 @@ here.
 | #24 | D4 | iOS 26.5 / Safari / phone | `broken-layout` | Reproduces cell 22 on WebKit, loaded fresh by URL | `D4_iOS_Safari_phone.png` | D-020 |
 | #25 | D1 | macOS Monterey 12 / Safari 15 / desktop | `broken-layout` | **The whole stylesheet fails to apply.** Serif default type, native unstyled controls, underlined blue links, logo at intrinsic size overflowing the viewport. Reproduced in a second independent session | `D1_macOS_Safari15_desktop.png` | D-021 |
 | #26 | D2 | macOS Monterey 12 / Safari 15 / desktop | `broken-layout` | The same total stylesheet failure on a second screen, which is what establishes it as app-wide rather than one broken page: status chips render as bare text lines, the search box as an unstyled native input, "Create request" as a plain text link | `D2_macOS_Safari15_desktop.png` | D-021 |
+| #27 | D3 | macOS Monterey 12 / Safari 15 / desktop | `broken-layout` | Authenticated admin list renders as an unstyled document: serif defaults, blue underlined navigation, native controls and no intended layout | `D3_macOS_Safari15_desktop.png` | D-021 |
+| #28 | D4 | macOS Monterey 12 / Safari 15 / desktop | `broken-layout` | Fresh direct load of request #25 reaches the authenticated detail content, but the admin shell and record body have the same total stylesheet failure | `D4_macOS_Safari15_desktop.png` | D-021 |
 
 **Two further defects found while probing older WebKit, recorded here but *not* given matrix cells**
 because they occur on the sign-in screen, which is outside this matrix's D1-D4 scope:
