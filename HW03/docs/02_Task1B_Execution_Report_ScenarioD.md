@@ -1,0 +1,550 @@
+# Task 1B: Execution Report, Scenario D (Lê Phạm Kiều Duyên, 23127184)
+
+> **Status: full pass executed, extended to 6 screens (2026-07-30).** All 60 checklist items were run against the 4 committed screens (240 item×screen cells) on the live EMS at `https://prod-dev.ems-fitus.cloud/`, screen by screen, using the `gui-checklist-execution` Agent Skill built for this engagement. The group then agreed that the scenario's screen set was not fixed at four: scenario D belongs to this member alone and shares no screen with a teammate, so extending it does not touch §5's no-duplication rule. **Two further screens squarely inside the same "user requests support, admin resolves" flow were therefore added and fully run as well: D5 (Notifications: header bell dropdown, `/notifications` list, `/notifications/{id}` detail) and D6 (the attachment image lightbox, opened from D1/D2/D3/D4's evidence images).**
+>
+> **Closure run, 2026-08-03.** The report now covers checklist **v2.0: 62 items × 6 screens = 372 cells**. Of these, 137 are applicable and **all 137 were executed**: **103 Pass / 34 Fail**; the remaining 235 are N/A with a stated reason; **zero cells remain unexecuted**. The closure run used the repository's CDP harness for all twelve Slow-3G/Offline cells, a newly verified guest account for D5's natural zero-notification state, and direct DOM/image measurements for `IA03-16` and `IA04-18`. Authentication was performed by the student; generated JSON and screenshots are under `reports/evidence_task1b/`.
+>
+> **34 Fail cells map to the existing findings plus three new root causes, D-029…D-031.** `IA03-16` independently confirms D-024's discoverability finding rather than creating a duplicate. The new findings were produced after the earlier 25-item Google Form submission and therefore remain **not submitted** until the student sends them.
+>
+> **Live re-verification, 2026-07-31.** With the student's explicit permission, this report and the findings log were checked back against the live EMS, already authenticated as admin, rather than only against each other. Three findings did not survive: D-013 (a two-Escape-press quirk on the admin side of the lightbox) did not reproduce, closing on the first press every time it was retried; D-018 (Critical, "attachment image never loads") was refuted outright, the `<img>` element does exist, the fetch returns HTTP 200, and the file is a genuine 68-byte, 1-by-1-pixel PNG placeholder from the D1 upload test, not a broken viewer; and D-016 was narrowed from two overlays to one, the lightbox closes on Escape correctly and only the notification dropdown does not. No result was softened without a new observation behind it, and nothing that survived this pass was changed. The full reasoning for each retraction is under "Live re-verification" at the end of this file and in `docs/05_Bug_Usability_Findings_Log.md`.
+
+Checklist version executed: `docs/01_Task1A_Shared_GUI_Checklist.md` **v2.0, 62 items**. The original tables preserve the 60-item v1.9 pass; the closure table below adds the two v2.0 items and explicitly supersedes the thirteen former `Not executed` cells.
+
+Screens: **D1** Create Support Request form (user side), /complaints/new · **D2** My Requests list and request detail with official response (user side), /complaints, /complaints/{id} · **D3** Admin Support Requests list, Pending/Resolved tabs, filters, /dashboard/admin/complaints · **D4** Admin support request detail: image lightbox, internal note, official response · **D5** Notifications: header bell dropdown, /notifications list, /notifications/{id} detail (both roles use the same route) · **D6** Attachment image lightbox, opened from an evidence image on D1/D2/D3/D4
+
+### Screens chosen, and why
+
+§5 asks for at least three screens from the chosen scenario's function group, and requires a justification for the choice. Six were run. D1-D4 are the four screens §5 itself suggests for Scenario D, and they are taken as a set rather than as a menu because Scenario D is a two-role flow: D1 and D2 are the requester filing and then reading the outcome, D3 and D4 are the admin triaging and then answering. Testing only three of them would leave one side of the hand-off untested, and the checklist's cross-role items (IA04-14 internal-note leakage, IA04-15 status agreement across roles) cannot be executed at all without both sides present.
+
+- **D1, Create support request** (`/complaints/new`) — the only form in the scenario, and therefore the only screen where the IA-02 aspect can be exercised at full depth: required-field marking, upload rejection, validation-error placement, unsaved-changes handling.
+- **D2, My Requests list and request detail** (`/complaints`, `/complaints/{id}`) — the requester's read side. Carries the list/empty-state/pagination items and the deep-link item, and is the only place the internal-note leak check (IA04-14) can be verified from the role that must *not* see it.
+- **D3, Admin Support Requests list** (`/dashboard/admin/complaints`) — the widest screen in the scenario by applicable-item count (35 of 60), because it is the only one carrying tabs, filters, a data table, KPI cards, an export control and an admin sidebar at once.
+- **D4, Admin request detail** — where the request is actually resolved. Holds the internal note, the official response and the attachment lightbox entry point, and is the counterpart D2 is checked against.
+- **D5, Notifications** and **D6, Attachment lightbox** — added during execution; each has its own "Why this screen was added" note at the head of its results section below.
+
+Account(s): a self-registered student/guest account for D1/D2; `admin@gmail.com` (ADMIN role) for D3/D4.
+
+## Method
+
+Execution ran screen by screen rather than item by item: each screen was opened once, every
+applicable item was run against it in order, and only then did the pass move on. Each row carries
+`Pass`, `Fail`, or `N/A` with a one-line reason; a row that could not be run this session is marked
+not executed and states why and who could run it, rather than being resolved by inference. Every
+`Fail` records what was expected against what happened, quotes the application's own wording, and
+references a screenshot in `reports/evidence_task1b/`. The scenario-D N/A predictions inherited
+from Task 1A were treated as unconfirmed hints and re-decided against the live screen; several
+turned out to be wrong and were replaced with real results. Each `Fail` was then raised into
+`docs/05_Bug_Usability_Findings_Log.md`.
+
+### Instrument note: two harness defects that were nearly written up as EMS bugs (2026-08-02)
+
+Recorded here because they produced *false product defects* repeatedly, and because the first
+attempt at diagnosing them was itself wrong. Both concern the browser-automation tool, not EMS.
+
+**1. Coordinate clicks are scaled by 1 / `devicePixelRatio`.** The browser was running at 80 % zoom
+(`devicePixelRatio` 0.8), and the tool's click coordinates are multiplied by 1.25 before reaching
+the page. Measured directly: a click issued at (500, 300) arrived at the page as
+`event.clientX = 625, clientY = 375` — exactly 1.25×. So a click aimed at an element's true CSS
+centre lands roughly a quarter of the way further down and right, which for a 40 px-tall button
+means it misses entirely and the event target comes back as `HTML`. This is what produced the
+"dead Send response button": the button was never broken, the click never touched it. The fix is
+to multiply CSS coordinates by `devicePixelRatio` before passing them, and the check is to capture
+`event.target` on a document-level capture listener and confirm it is the intended element. Every
+click reported in this document after this date was verified that way.
+
+**2. Keyboard events do not reach a page until a screenshot has been taken on it.** After any
+navigation, `computer.type` and `computer.key` are silently discarded — not merely dropped by the
+target element, but never delivered: a `keydown` listener on `document` in the **capture** phase
+recorded nothing at all. Taking one screenshot of the tab restores delivery, after which the same
+keystrokes arrive with `isTrusted: true`. Verified by injecting a plain `<input>` into the page as
+a control: before a screenshot it received nothing, after a screenshot it received every character.
+
+**The earlier diagnosis of this was wrong, and the way it was wrong is the point.** A previous
+session concluded that "synthetic mouse clicks cannot move focus to EMS textareas" and adopted
+`element.focus()` as the workaround. That story fitted the symptom — but focus was never the
+problem. The elements were focusable and *were* focused (`document.activeElement` confirmed it);
+the keystrokes simply were not being delivered to the page. The workaround appeared to work only
+because it happened to be used after a screenshot had been taken. This is the same error mode the
+2026-07-31 re-verification already caught once (see "Live re-verification"): an explanation was
+constructed that reconciled the observations with each other, and it was never tested against a
+control. One three-line control experiment — a vanilla `<input>` in the same page at the same
+moment — settled it. Reaching for a control earlier is cheaper than reasoning harder.
+
+## Summary
+
+| Screen | Designed | Applicable | Executed | Pass | Fail | N/A | Not executed |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| D1 | 62 | 20 | 20 | 14 | 6 | 42 | 0 |
+| D2 | 62 | 23 | 23 | 17 | 6 | 39 | 0 |
+| D3 | 62 | 33 | 33 | 27 | 6 | 29 | 0 |
+| D4 | 62 | 27 | 27 | 22 | 5 | 35 | 0 |
+| D5 | 62 | 24 | 24 | 17 | 7 | 38 | 0 |
+| D6 | 62 | 10 | 10 | 6 | 4 | 52 | 0 |
+| **Total** | **372** | **137** | **137** | **103** | **34** | **235** | **0** |
+
+Sixty-two items were designed per screen. Applicable = Designed minus N/A. Executed = Pass plus Fail. N/A is never counted as a Pass. Every applicable cell now has a verdict.
+
+**Original v1.9 pass: 21 Fail cells mapping to 13 distinct Fail-cell-derived findings.** The closure run added 13 Fail cells, summarised separately below, for the final total of 34. D-007 and D-008 each cover Fail cells across multiple screens sharing one root cause. All are backed by screenshots or DevTools evidence in `reports/evidence_task1b/`:
+- D1: IA02-04 (upload-rejection messages never name the file, D-002), IA02-08 (one generic validation banner, not inline per-field, D-003), IA02-10 (Enter does nothing in either field, D-012), IA02-13 (Back discards typed input with no warning, D-004).
+- D2: IA02-10 (search box drops keystrokes under fast typing, D-005), IA02-12 (Rows-per-page dropdown stuck at its default, found via further exploratory testing after the D3 instance, D-008), IA03-07 (wrong-context "Event review not found" message, D-006), IA03-11 (no breadcrumb, D-007).
+- D3: IA02-12 (Rows-per-page "10" cannot be selected, D-008), IA03-06 (blocked by the same Rows-per-page bug, D-008), IA03-11 (no breadcrumb, D-007), IA04-13 (Export Excel: zero UI feedback + silent partial scope, D-011).
+- D4: IA03-11 (no breadcrumb, D-007), IA02-08 (validation banner renders outside the viewport the user is looking at, second instance of D-003), IA02-13 (Back discards an unsaved reply with no warning, second instance of D-004).
+- D5: IA01-08 (browser `<title>` stuck in Vietnamese regardless of the language toggle, D-019), IA03-10 (ESC does not close the notification dropdown, D-016), IA04-03 (deleting a notification has zero confirmation, D-017), IA04-12 ("Mark all as read" succeeds in complete silence — no toast, no live region, second instance of D-011), IA03-13 (Back loses the page position because paging never enters the URL, D-023).
+- D6: IA03-13 (opening the lightbox pushes no history entry, so Back leaves the record instead of closing the overlay, D-023). See "Live re-verification" below for why the two Fails originally recorded here (IA01-07, IA03-10) did not hold up.
+
+Three notes on why the counts above do not add up naively. First, D3's IA02-10 row carries a Fail-flavoured note about the search box in its Notes column while the row itself now scores **Pass**: the note records the keystroke-loss bug already counted as D-005 on D2 (cross-referenced, not double-counted), whereas the Pass verdict answers what the item actually asks — what the **Enter** key does — which was finally isolated on 2026-08-02. A row's verdict tracks its own item, not every defect visible from it. Second, D-009 (the tab-switch filter bug) and D-015 (the empty-title notification summary) were both discovered along the way during exploratory testing rather than tied to one clean checklist Fail row, so they are logged directly in the findings log rather than appearing in the bullet list above. Third, D3's own IA04-11 row is **not** in this list even though it originally scored Fail: the Fail was a substituted, unrelated observation (the raw-backend-error bug, D-010) rather than an actual offline-mode test, corrected on the same 2026-07-31 pass that reverted D6's identical substitution, see "Live re-verification" below. D-010 stands as its own along-the-way finding, the same treatment D-009 and D-015 already get.
+
+## Results: D1 (Create Support Request form (user side), /complaints/new)
+
+Resting state: ![D1_resting](../reports/evidence_task1b/D1_resting_state.jpg)
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | Pass | Page-title treatment ("Tạo yêu cầu hỗ trợ" / "Create support request"), white-card padding and vertical rhythm on D1 match the same conventions on D3's Support Requests card. | |
+| IA01-02 | IA-01 | N/A, reason: this is a user-facing screen; the 9-icon admin sidebar this item targets does not render here at all. | | |
+| IA01-03 | IA-01 | Pass | Exactly one primary-action button ("Gửi yêu cầu" / "Submit request") in the cyan accent colour; no other control on the screen reuses it. | |
+| IA01-04 | IA-01 | N/A, reason: this item's verification rule is specifically the Add/Edit Event form's nine section headers; D1 has a single card with field labels only, no comparable section-header hierarchy to test. | | |
+| IA01-05 | IA-01 | N/A, reason: no status pill is rendered anywhere on the create-request form. | | |
+| IA01-06 | IA-01 | N/A, reason: D1 is a create form, not a list/table; the empty-state check is executed on D2 (`/complaints`). | | |
+| IA01-07 | IA-01 | Pass | Closure run: Slow-3G displayed a busy indicator and no zero-flash. | `D1_IA01-07_slow3g.jpg`; `network_conditions_user_results.json` |
+| IA01-08 | IA-01 | Pass | Switched EN→VI via the header flag toggle (same top-right position). Every static label translated ("Create support request"→"Tạo yêu cầu hỗ trợ", "Request type"→"Loại yêu cầu", etc.) **and the browser `<title>` itself changed** to "Gửi yêu cầu hỗ trợ \| HCMUS EMS" (confirmed via `document.title`), so the tab title is localised too, not just the visible body. No raw translation key or untranslated string spotted; Vietnamese diacritics wrapped cleanly inside their containers with no clipping/overflow. | |
+| IA01-09 | IA-01 | N/A, reason: the create-request form displays no date or numeric value anywhere to compare across locales. | | |
+| IA01-10 | IA-01 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no spotlight hero on this screen. | | |
+| IA01-11 | IA-01 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no QR/barcode rendered on this screen. | | |
+| IA01-12 | IA-01 | Pass | Tabbed through the header controls, the "← Back" link and the "Request type" combobox: every focused element showed a clearly visible ring (red/cyan depending on control), and focus order followed the header-then-content reading order. | |
+| IA01-13 | IA-01 | Pass | The two meaningful `<img>` elements on the page ("FIT HCMUS" logo, "fit@hcmus" logo) both carry descriptive `alt` text (checked via `document.querySelectorAll('img,svg')`); decorative icon SVGs are either `aria-hidden="true"` or sit inside links that already have an accessible name (e.g. "Facebook"). | |
+| IA02-01 | IA-02 | Pass | Three fields carry a red asterisk visually ("Loại yêu cầu*", "Vấn đề cần hỗ trợ*", "Mô tả chi tiết*") and the same three, and only those three, have `required=true` in the DOM (confirmed via `querySelectorAll('select,input,textarea')`); the optional Attachments input is unmarked and not `required`. Visual marking and DOM state agree on this screen. Cross-form consistency against the Add/Edit Event and Edit User forms is scored once, not per screen, see the item's own multi-form note. | |
+| IA02-02 | IA-02 | Pass | "Loại yêu cầu", "Vấn đề cần hỗ trợ" and "Mô tả chi tiết" are real labels sitting above each field, distinct from the grey "Ví dụ: ..." example/placeholder text inside the field, typing does not make the label disappear because it was never the placeholder. | |
+| IA02-03 | IA-02 | Pass | Before any file is chosen, the Attachments box already states "JPG, PNG, GIF hoặc WEBP · Tối đa 5 ảnh · 5 MB mỗi ảnh" (JPG, PNG, GIF or WEBP · Up to 5 images · 5 MB each). | |
+| IA02-04 | IA-02 | **Fail** | Tested all three violations for real: (1) a `.pdf` file → rejected with "Chỉ chấp nhận ảnh JPG, PNG, GIF và WEBP." (2) a 6 MB `.jpg` → rejected with "Mỗi ảnh phải có dung lượng không quá 5 MB." (3) 6 images at once → rejected with "Bạn chỉ có thể tải lên tối đa 5 ảnh." All three correctly name the rule broken and none of the files silently "uploaded" (the box stayed empty each time), but **none of the three messages names the offending filename**, which the item explicitly requires ("a message naming the rule broken and the offending filename"). One root cause, three instances. | ![D1_IA02-04](../reports/evidence_task1b/D1_IA02-04_reject_messages_no_filename.jpg) |
+| IA02-05 | IA-02 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no rich-text editor on this screen. | | |
+| IA02-06 | IA-02 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no start/end date pair on this screen. | | |
+| IA02-07 | IA-02 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no toggle switch on this screen. | | |
+| IA02-08 | IA-02 | **Fail** | Submitted the form completely empty. The only feedback is one generic banner ("Vui lòng nhập loại yêu cầu, vấn đề cần hỗ trợ và mô tả chi tiết.", "Please enter the request type, the issue and the detailed description.") sitting just above the Submit button, listing all three missing fields together, not an inline message beside each individual offending field, which is exactly the anti-pattern the item calls out ("not only as one generic banner at the top"). | ![D1_IA02-08](../reports/evidence_task1b/D1_IA02-08_generic_banner_not_inline.jpg) |
+| IA02-09 | IA-02 | Pass | Submission with required fields empty is genuinely blocked (native `:invalid` state on the three required controls plus the banner above), never a silent no-op or a false-success redirect. | |
+| IA02-10 | IA-02 | **Fail** | Pressed Enter in the single-line "Vấn đề cần hỗ trợ" input: nothing happened (no submit, no navigation, cursor stayed in place). Pressed Enter in the multi-line "Mô tả chi tiết" textarea: it inserted a newline, as textareas conventionally do. Neither case lost data or triggered the wrong control (Cancel, Delete), so the "never a different button / never a destructive reload" half of the expectation holds, but neither case triggered the primary submit either, which the item's literal wording expects of "the last field of a multi-field form". Flagging the tension rather than force-fitting a verdict: auto-submitting on Enter inside a multi-line description field would itself be a usability regression (a user typing a paragraph needs line breaks), so this is judged a **defensible product decision, not a shipped defect**: but it is scored Fail against the item as literally worded, and the item's wording for this screen type should probably be revisited by the group. | (No screenshot: the observed behaviour is that pressing Enter changes nothing on screen, so a still image of the form before and after the keypress would be identical and would evidence nothing. Recorded as a keystroke-by-keystroke observation instead, and carried into the findings log the same way, see D-012. A screen recording would be the right capture; none was taken this session.) |
+| IA02-11 | IA-02 | N/A, reason: no date-entry control of either kind (custom or native) exists on the create-request form; the native "From date / To date" inputs this item also tests live on D3's Filters panel, not here. | | |
+| IA02-12 | IA-02 | Pass | The "Loại yêu cầu" combobox is fully keyboard-operable: Tab gives it a visible focus ring, Enter opens the option list (first option pre-highlighted), Enter again selects "Hỗ trợ", and the closed control then displays "Hỗ trợ" (its current value), not the placeholder. | |
+| IA02-13 | IA-02 | **Fail** | Typed text into "Mô tả chi tiết", then clicked the "← Quay lại" (Back) exit path without saving. Navigated straight to `/complaints` with **no warning dialog** of any kind; the typed text was silently discarded. | ![D1_IA02-13](../reports/evidence_task1b/D1_IA02-13_back_no_warning_data_lost.jpg) |
+| IA02-14 | IA-02 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no rich-text editor to test formatting persistence on. | | |
+| IA02-15 | IA-02 | N/A, reason: this item targets the participant registration form (B3)'s secondary-role selector; D1 has no registration or role concept at all. | | |
+| IA03-01 | IA-03 | N/A, reason: no admin sidebar renders on this user-facing screen. | | |
+| IA03-02 | IA-03 | N/A, reason: no tab group (neither `role="tab"` nor button-styled) exists on this screen. | | |
+| IA03-03 | IA-03 | N/A, reason: the pending-indicator badges this item names (sidebar/tab badges) live on the admin side; D1 carries neither a sidebar nor a tab group to badge. | | |
+| IA03-04 | IA-03 | Pass | "← Quay lại" is a text link, not icon-only (accessible name "Back" confirmed via the accessibility tree, `href="/complaints"`), and clicking it returns to the correct originating list. | |
+| IA03-05 | IA-03 | N/A, reason: the Upcoming/Ongoing/Ended status filters belong to the public Events page, not the create-request form. | | |
+| IA03-06 | IA-03 | N/A, reason: D1 has no list/table to paginate. | | |
+| IA03-07 | IA-03 | N/A, reason: D1 is a create form with no record id; the deep-link-by-id behaviour this item tests applies to D2's/D3's/D4's detail pages, not the create form. | | |
+| IA03-08 | IA-03 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no table/header controls on this screen. | | |
+| IA03-09 | IA-03 | N/A, reason: no sub-tabs exist on this screen for a record name to stay visible across. | | |
+| IA03-10 | IA-03 | N/A, reason: no modal, dialog or lightbox opens from this screen. | | |
+| IA03-11 | IA-03 | N/A, reason: D1 is reached in a single hop from the avatar menu, not a two-or-more-level list→record hierarchy; same scope judgement as IA03-04 (this is a "no ancestor path to show" case, not "path exists but is hidden"). | | |
+| IA03-12 | IA-03 | N/A, reason: no user-orderable list exists on this screen. | | |
+| IA03-13 | IA-03 | N/A, reason: no filtered/paginated list state exists on this screen to preserve across Back/Forward. | | |
+| IA03-14 | IA-03 | N/A, reason: this item targets D3's admin member-code/category filters; D1 has no such filters. | | |
+| IA03-15 | IA-03 | N/A, reason: this item targets the public home/events listing (B1); not applicable to the support-request create form. | | |
+| IA04-01 | IA-04 | N/A, reason: no status badge is rendered anywhere on the create-request form. | | |
+| IA04-02 | IA-04 | N/A, reason: no modal opens from this screen. | | |
+| IA04-03 | IA-04 | N/A, reason: no destructive action (delete, etc.) exists on this screen. | | |
+| IA04-04 | IA-04 | Pass | Submitted a fresh, real request ("GUI checklist full-run test D1"). Redirected to `/complaints?created=1` with the new request visible at the top of the list, status "Chờ xử lý" (Pending), a specific, immediate confirmation, not a silent redirect. | |
+| IA04-05 | IA-04 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no slot/role counters on this screen. | | |
+| IA04-06 | IA-04 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no "Important Update" flag concept on this screen. | | |
+| IA04-07 | IA-04 | N/A, reason: the Pending/Resolved summary cards this item counts live on D3, not D1. | | |
+| IA04-08 | IA-04 | N/A, reason: no contextual warning banner (of the "member code" / "registration ended" kind this item names) appears on this screen; the only banner observed is the validation-error banner already scored under IA02-08. | | |
+| IA04-09 | IA-04 | N/A (confirmed live), scenario-D prediction from checklist v1.9 holds: no check-in/QR scanning concept on this screen. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter or text-only capacity figure appears anywhere on the create-request form. | | |
+| IA04-11 | IA-04 | Fail | Closure run: Offline reload exposed raw `ERR_INTERNET_DISCONNECTED`, with no EMS-owned error state or retry. Finding D-030. | `D1_IA04-11_offline.jpg`; `network_conditions_user_results.json` |
+| IA04-12 | IA-04 | Pass | The validation-error banner (same one scored under IA02-08) carries `role="alert"` in the DOM, which is an **implicit** `aria-live="assertive"` region per the ARIA spec even without an explicit `aria-live` attribute, so it is announced. Confirmed via a `MutationObserver` watching the DOM from the moment Submit is clicked. Could not additionally isolate and time the post-*success* toast in seconds, because the successful-submit path immediately client-navigates to `/complaints?created=1`, and any toast tied to the pre-navigation page is torn down with it before a duration could be measured with the tools available this session, flagged as incomplete rather than guessed. | |
+| IA04-13 | IA-04 | N/A, reason: no export control exists on the create-request form. | | |
+| IA04-14 | IA-04 | N/A, reason: no internal note exists on this screen; tested on D4 (writer) and D2 (leak check). | | |
+| IA04-15 | IA-04 | N/A, reason: this is a D2-vs-D3/D4 cross-role comparison; D1 has only a moment-of-creation state, nothing to compare yet. | | |
+| IA04-16 | IA-04 | N/A, reason: waitlist is a Pool B (event registration) concept; the create-support-request form has no capacity/waitlist concept. | | |
+| IA04-17 | IA-04 | N/A, reason: D1 is a create form with no record id; there is no "switch between two records" case to test here (this is exactly the D4 case, given IA04-14's internal-note risk). | | |
+
+## Results: D2 (My Requests list + request detail with official response (user side), /complaints, /complaints/{id})
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | Pass | Page-title style, card padding and spacing match D1 and D3. | ![D2_resting](../reports/evidence_task1b/D2_MyRequests_list_resting.jpg) |
+| IA01-02 | IA-01 | N/A, reason: no admin sidebar on this user-facing screen. | | |
+| IA01-03 | IA-01 | Pass | Only "+ Create request" is the cyan primary action; "All statuses" filter and pagination controls are neutral grey. | ![D2_resting](../reports/evidence_task1b/D2_MyRequests_list_resting.jpg) |
+| IA01-04 | IA-01 | N/A, reason: D2 is a list/detail view, not a form with a section-header hierarchy to compare. | | |
+| IA01-05 | IA-01 | Pass | Measured with a Lab->sRGB contrast calculation against each pill's own background: "Chờ xử lý"/Pending (`#BB4D00` on `#FFFBEB`) = **4.85:1**; "Đã giải quyết"/Resolved (`#007866` on `#F0FDFA`) = **5.14:1**. Both pills are 12px/400-weight text, so the WCAG threshold is 4.5:1, both pass. | |
+| IA01-06 | IA-01 | Pass | Re-triggered the empty state this session by searching for a nonsense term ("RGUI"): centred icon + "Chưa có yêu cầu" / "No requests yet", not a blank table. Matches the prior session's finding on the same screen. | ![D2_empty_state](../reports/evidence_task1b/D2_search_box_loses_keystrokes.jpg) (RGUI search, 0 results) |
+| IA01-07 | IA-01 | Pass | Closure run: Slow-3G displayed a busy indicator and no zero-flash. | `D2_IA01-07_slow3g.jpg`; `network_conditions_user_results.json` |
+| IA01-08 | IA-01 | Pass | Switched EN<->VI on the My Requests list: "Yêu cầu hỗ trợ"<->"Support requests", "Tất cả trạng thái"<->"All statuses", "Số dòng mỗi trang"<->"Rows per page", pill labels, and the list page's own `<title>` all translate; toggle stays in the same header position. **Caveat added on live re-verification (2026-07-31):** the request-*detail* page (`/complaints/{id}`) does not share this behaviour, its `<title>` stays "Chi tiết yêu cầu \| HCMUS EMS" (Vietnamese) even with the page body fully English, the same class of defect as D5's IA01-08 Fail. D-019 was widened to cover both routes; scored Pass here because this row's own evidence (the list page) genuinely translates, the detail-page defect is recorded once, under D5. | |
+| IA01-09 | IA-01 | Pass | Same record's submitted-at timestamp read "22:12 30 thg 7, 2026" in VI (24h, day-month-year) and "Jul 30, 2026, 10:12 PM" in EN (12h, month-name), re-renders per locale, not a hard-coded format. | |
+| IA01-10 | IA-01 | N/A (confirmed live), scenario-D prediction holds: no spotlight hero on this screen. | | |
+| IA01-11 | IA-01 | N/A (confirmed live), scenario-D prediction holds: no QR/barcode on this screen. | | |
+| IA01-12 | IA-01 | Pass | Tabbing through header + list controls lands on real focusable elements (e.g. the notification button) with `outline-style: auto` in DevTools, the browser's own visible focus ring is not suppressed (no `outline: none` override found). | |
+| IA01-13 | IA-01 | Pass | Same two meaningful logo images carry descriptive `alt`; no other content images on this list/detail screen besides the one user-uploaded attachment image (which itself is not decorative and needs no `alt` beyond its filename label "attachment_1"). | ![D2_detail_attachment](../reports/evidence_task1b/D2_detail_before_response_attachment.jpg) |
+| IA02-01 | IA-02 | N/A, reason: D2 has no form among the three this item names (Add/Edit Event, Create Support Request, Edit User dialog); the search box is a filter, not a validated form field. | | |
+| IA02-02 | IA-02 | N/A, reason: same scope note as IA02-01; the search box's placeholder-as-label pattern is covered qualitatively under IA02-10, not this item. | | |
+| IA02-03 | IA-02 | N/A, reason: no upload control on this screen. | | |
+| IA02-04 | IA-02 | N/A, reason: no upload control on this screen. | | |
+| IA02-05 | IA-02 | N/A (confirmed live), scenario-D prediction holds: no rich-text editor. | | |
+| IA02-06 | IA-02 | N/A (confirmed live), scenario-D prediction holds: no start/end date pair. | | |
+| IA02-07 | IA-02 | N/A (confirmed live), scenario-D prediction holds: no toggle switch. | | |
+| IA02-08 | IA-02 | N/A, reason: no form submission happens on this screen to produce a validation error. | | |
+| IA02-09 | IA-02 | N/A, reason: no submit action exists on this screen. | | |
+| IA02-10 | IA-02 | **Fail** | Tested the search box, which this item explicitly names as a target ("a single-field form or search box"). Typing a multi-character term via a normal fast keystroke sequence (`Technology`) resulted in the field's own state retaining only the **last character typed** (`y`), confirmed via `input.value` in DevTools, not "Enter fails to submit", but a more fundamental **loss of keystrokes before Enter is even pressed**. Typing the same characters with an explicit pause after each key (`G`, wait, `U`, wait, `I`) accumulated correctly to `"GUI"` and then `"RGUI"`, and filtering itself worked correctly at that point (returned the correct empty state for a non-matching term). The defect is a race condition in the search box's controlled-input state under fast/bulk keystroke delivery, not a missing feature. | ![D2_search_bug](../reports/evidence_task1b/D2_search_box_loses_keystrokes.jpg) |
+| IA02-11 | IA-02 | N/A, reason: no date-entry control on this screen (the native "From date / To date" inputs this item also tests live on D3's Filters panel). | | |
+| IA02-12 | IA-02 | **Fail** | "All statuses" filter dropdown is fully operable. **But** "Rows per page" is not: clicking "20" or "5" (this screen's default is "10", options 5/10/20) both left the control stuck at "10", the exact same defect independently found on D3's Rows-per-page control (which has a different default/option set: 20, options 10/20/50/100). Since the same failure reproduces on two screens with different configurations of what should be the same component, this is scored as a shared-component bug, see the standalone finding. | ![D2_rows_stuck](../reports/evidence_task1b/D2_rows_per_page_stuck_at_10.jpg) |
+| IA02-13 | IA-02 | N/A, reason: no data-entry form exists on this list/detail screen to lose unsaved input from. | | |
+| IA02-14 | IA-02 | N/A (confirmed live), scenario-D prediction holds: no rich-text editor. | | |
+| IA02-15 | IA-02 | N/A, reason: targets B3's secondary-role selector; not applicable here. | | |
+| IA03-01 | IA-03 | N/A, reason: no admin sidebar on this user-facing screen. | | |
+| IA03-02 | IA-03 | N/A, reason: D2 has no tab group of any kind (unlike D3's Pending/Resolved button-tabs); status is filtered via a dropdown here, a different pattern entirely. | | |
+| IA03-03 | IA-03 | N/A, reason: no sidebar/tab badges on this user-facing screen. | | |
+| IA03-04 | IA-03 | Pass | "← Quay lại" / "← Back" on the request-detail page is a text link (not icon-only) and returns correctly to `/complaints`. | |
+| IA03-05 | IA-03 | N/A, reason: targets the public Events page's Upcoming/Ongoing/Ended filters; D2's own status filter is a dropdown, a different control entirely. | | |
+| IA03-06 | IA-03 | Pass | "1-2 of 2 results" / "1-2 của 2 kết quả" matched the 2 rows actually rendered at the time. This list is not one of IA03-06's five named lists, so scored for arithmetic correctness only. **Follow-up:** attempting to change "Rows per page" away from its default (to force a real second page and re-verify the label under load) revealed the Rows-per-page control cannot be changed at all on this screen either, same bug as D3, see the standalone finding. The 2-result arithmetic check above therefore also could not be re-verified under a forced multi-page condition. | |
+| IA03-07 | IA-03 | **Fail** | Direct-pasted `/complaints/999999` (a non-existent id). The app correctly avoided a blank screen or crash, it rendered a proper error state with an icon, but the message reads **"Event review not found."**, which is factually wrong for a support-request detail page (this text belongs to a different feature, event reviews, and was evidently copy-pasted without updating for this route). The existing-id case (`/complaints/25`, `/complaints/30`) loads correctly with no detour through the list. | ![D2_wrong_error](../reports/evidence_task1b/D2_IA03-07_wrong_not_found_message.jpg) |
+| IA03-08 | IA-03 | N/A (confirmed live), D2 renders as a card list, not a header-filterable table; no sort/filter column controls exist here (those belong to D3's admin table). | | |
+| IA03-09 | IA-03 | N/A, reason: no sub-tabs on the request-detail page. | | |
+| IA03-10 | IA-03 | Pass | Clicked the attachment thumbnail on request #25's detail page, opened a dimmed lightbox showing the real uploaded image (confirmed via DevTools: `img.complete=true`, `naturalWidth=1366`, `naturalHeight=543`, matching a real screenshot file, not a broken/placeholder image or a rendering glitch). Pressed ESC and it closed on the first press, focus returned to the attachment thumbnail (visible focus ring on it afterward). Re-confirmed on live re-verification (2026-07-31) on both request #25 and #26: the lightbox closes on the first Escape press in every condition tried, see "Live re-verification" below. | |
+| IA03-11 | IA-03 | **Fail** | Went two levels deep (My Requests -> request #25 detail). No breadcrumb anywhere on the detail page, only the one-step "← Back" link, which (per the item's own distinction) cannot express an ancestor path. Matches the checklist's live-survey finding ("Breadcrumb: Not found on any page surveyed"). | ![D4_admin_resolved_response_sent](../reports/evidence_task1b/D4_admin_resolved_response_sent.jpg) (admin-side instance of the same shared no-breadcrumb component design, see D3/D4 below; a dedicated user-side capture of this exact page was not taken this session) |
+| IA03-12 | IA-03 | N/A, reason: no user-orderable list on this screen. | | |
+| IA03-13 | IA-03 | N/A, reason: with only 2 records and no working multi-character search (see IA02-10), there is no meaningful filtered/paginated state to test Back/Forward preservation against on this screen this session. | | |
+| IA03-14 | IA-03 | N/A, reason: targets D3's admin member-code/category filters. | | |
+| IA03-15 | IA-03 | N/A, reason: targets B1's public events home. | | |
+| IA04-01 | IA-04 | Pass | Pending = amber/yellow, Resolved = green/teal on D2, matching the same mapping on D3 and D4. | |
+| IA04-02 | IA-04 | N/A, reason: no modal other than the image lightbox (scored under IA03-10) opens on this screen. | | |
+| IA04-03 | IA-04 | N/A, reason: no destructive action (delete/withdraw a request) exists on this user-facing screen. | | |
+| IA04-04 | IA-04 | Pass | After D1 submit, `/complaints?created=1` shows the new request as the top row with status "Pending", title and description matching exactly what was typed, a clear signal the submission was recorded, not a silent no-op. | ![D2_resting](../reports/evidence_task1b/D2_MyRequests_list_resting.jpg) |
+| IA04-05 | IA-04 | N/A (confirmed live), scenario-D prediction holds: no slot/role counters. | | |
+| IA04-06 | IA-04 | N/A (confirmed live), scenario-D prediction holds: no "Important Update" flag concept. | | |
+| IA04-07 | IA-04 | N/A, reason: the Pending/Resolved summary cards this item counts live on D3, not D2 (D2 has no such cards, only individual status pills per request). | | |
+| IA04-08 | IA-04 | N/A, reason: no contextual warning banner (member-code / registration-ended style) appears anywhere on this screen. | | |
+| IA04-09 | IA-04 | N/A (confirmed live), scenario-D prediction holds: no check-in/QR scanning. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter or capacity figure on this screen. | | |
+| IA04-11 | IA-04 | Fail | Closure run: Offline reload exposed raw `ERR_INTERNET_DISCONNECTED`, with no EMS recovery state. Finding D-030. | `D2_IA04-11_offline.jpg`; `network_conditions_user_results.json` |
+| IA04-12 | IA-04 | N/A, reason: no save/submit action exists on D2 itself to produce a toast (the toast this item would test belongs to D1's submit and D4's respond/resolve actions). | | |
+| IA04-13 | IA-04 | N/A, reason: no export control on the user-side My Requests screen (Export lives on the admin Users/Support-Requests lists and on `/profile`). | | |
+| IA04-14 | IA-04 | Pass | Wrote an internal note containing a unique marker string ("CONFIDENTIAL-NOTE-XYZ789") on D4, then re-logged in as the original requester and viewed this same request (#25) on D2. Checked both by eye and via the accessibility tree / page text (`get_page_text`, `read_page`), the marker string, and the internal note generally, do not appear anywhere in the requester-facing DOM. Only the official response text ("Hi Duyen, we found the issue...") is shown. | ![D2_no_leak](../reports/evidence_task1b/D2_detail_resolved_response_no_internal_note_leak.jpg) |
+| IA04-15 | IA-04 | Pass | Filed as Pending on D2, resolved from D4 (admin), reloaded D2, status now shows "Resolved" on D2, matching the "Resolved" badge on D3/D4 for the same request (#25). No propagation delay observed; reload was immediate (page navigation, not a live-refresh test). | ![D2_no_leak](../reports/evidence_task1b/D2_detail_resolved_response_no_internal_note_leak.jpg) |
+| IA04-16 | IA-04 | N/A, reason: waitlist is a Pool B (event registration) concept; not applicable to support requests. | | |
+| IA04-17 | IA-04 | Pass | Navigated directly from `/complaints/30` to `/complaints/25` via full URL replacement (a hard navigation/remount, not an in-app client-side route-param change). Fields on `/complaints/25` correctly reflected request #25's own data (title, status, response) with nothing left over from #30. **Caveat:** a hard navigation naturally remounts the page, so this does not exercise the specific SPA-remount-without-refetch bug class the item targets; D2 exposes no in-app link between two same-type records without an intervening list step, so that stricter variant of the test could not be run here. The higher-risk variant of this exact check (admin browsing between requests via in-app links) is covered on D3/D4. | |
+
+## Results: D3 (Admin, Support Requests list, Pending/Resolved tabs, filters, /dashboard/admin/complaints)
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | Pass | Page-title style, card padding and KPI-style summary cards match D1/D2's card conventions. | |
+| IA01-02 | IA-01 | Pass | All 9 sidebar icons (Users Management, Categories, Academic Years, Campuses, Events Management, Support requests, User Guide, Analytics, Settings) share stroke/size/alignment; "Support requests" is highlighted (filled background) as the active item. | |
+| IA01-03 | IA-01 | Pass | No cyan primary-action button is misused here; "Export Excel" is a neutral outline button, correctly not styled as the primary CTA (there is no single primary action on a list screen). | |
+| IA01-04 | IA-01 | N/A, reason: no multi-section form on this screen (that comparison is Add/Edit-Event-specific). | | |
+| IA01-05 | IA-01 | Pass | Same measured ratios as D2 (Pending 4.85:1, Resolved 5.14:1), identical pill component reused here, confirmed by identical `lab()` colour values in DevTools. | |
+| IA01-06 | IA-01 | Pass | Filtering to a nonsense member code (e.g. an id matching nothing) and to Category=Complaint against a member with no complaints both correctly rendered "No matching requests." centred, not a blank table with only headers. | |
+| IA01-07 | IA-01 | Fail | Closure run: no spinner or skeleton appeared under Slow-3G. Finding D-029. | `D3_IA01-07_slow3g.jpg`; `network_conditions_admin_results.json` |
+| IA01-08 | IA-01 | Pass | EN<->VI toggle in the same header position; "Support request management"<->"Support request management" (VI: "Quản lý yêu cầu hỗ trợ" observed via the sidebar label), "Pending"/"Resolved" cards, filter labels and the `<title>` all translate. | |
+| IA01-09 | IA-01 | Pass | Same record's time column read "Jul 30, 2026, 10:12 PM" (EN) vs "30 thg 7, 2026, 22:12" (VI, from D1/D2 cross-check), re-renders per locale. | |
+| IA01-10 | IA-01 | N/A (confirmed live), no spotlight hero on this admin screen. | | |
+| IA01-11 | IA-01 | N/A (confirmed live), no QR/barcode on this screen. | | |
+| IA01-12 | IA-01 | Pass | Sidebar items, filter inputs and the Category/rows-per-page dropdowns all show a visible focus ring on Tab, consistent with D1/D2. | |
+| IA01-13 | IA-01 | Pass | Same logo images carry descriptive `alt`; the attachment thumbnails shown inline in some rows are user content, not decorative. | |
+| IA02-01 | IA-02 | N/A, reason: no form among the three this item names exists directly on D3 (the Edit User dialog it does name lives on scenario C's screens, out of scope here). | | |
+| IA02-02 | IA-02 | Pass | "Search name, email or title", "Member code" and the date labels stay visible above their inputs while typing. | |
+| IA02-03 | IA-02 | N/A, reason: no upload control on this screen. | | |
+| IA02-04 | IA-02 | N/A, reason: no upload control on this screen. | | |
+| IA02-05 | IA-02 | N/A (confirmed live), no rich-text editor. | | |
+| IA02-06 | IA-02 | N/A (confirmed live), no start/end date pair (From/To date here are an independent range filter, not a validated start-before-end pair on a single record). | | |
+| IA02-07 | IA-02 | N/A (confirmed live), no toggle switch. | | |
+| IA02-08 | IA-02 | N/A, reason: filters degrade to "No matching requests", not a validation error tied to a specific field (the one real validation error found, `category=undefined`, is scored under IA04-11/notes below, not here, it is a malformed filter state, not a form-field validation message). | | |
+| IA02-09 | IA-02 | N/A, reason: no submit/save action with required fields on this screen. | | |
+| IA02-10 | IA-02 | Pass | **Re-run 2026-08-02, Enter isolated at last.** Typing one key at a time (see the harness note below), a single `d` reached the field as a trusted `keydown`/`input` pair and the URL became `?search=d&page=1`, i.e. the search fires live on input. Enter was then pressed with a page-liveness marker set on `window`: the marker survived (**no reload**), `input.value` stayed `"d"`, focus stayed in the field, the URL was unchanged and the filtered result set (5 rows) was unchanged. Enter is therefore a harmless no-op here rather than a wrong action, and the primary search action does run — the item's failure modes (reload, lost input, a different action) are all absent. Earlier note kept for context: further exploratory testing of "Search name, email or title" found the field itself sometimes fails to even retain fast-typed text (once emptied completely after typing "Technology"; a repeat attempt with "Technology Day" succeeded fully), the same shared-component bug as D2's search box, see the standalone finding. The Member-code field's own filtering was confirmed to apply automatically (debounced, no Enter needed) and does not show the same keystroke-loss defect. | ![D3_search_bug](../reports/evidence_task1b/D3_search_box_lost_all_chars.jpg) |
+| IA02-11 | IA-02 | Pass | Confirmed via DevTools: both From date and To date are real `input[type=date]` (native), default value `""` (no arbitrary epoch), no `min`/`max` restriction. Native control, so keyboard operability and locale-formatted display are inherited from the browser for free. | |
+| IA02-12 | IA-02 | **Fail** | The Category and Rows-per-page dropdowns are keyboard-focusable with a visible ring and (once a real option is picked) do show their current value when closed ("Support" confirmed). **But** the Rows-per-page dropdown's "10" option cannot actually be selected at all, see the standalone bug below, which is itself a keyboard/mouse-operability failure for that one option. | ![D3_stuck](../reports/evidence_task1b/D3_rows_per_page_stuck_at_20.jpg) |
+| IA02-13 | IA-02 | N/A, reason: no data-entry form to lose unsaved input from on this screen (filters are not "entered data" in the same sense, there is nothing to warn about losing). | | |
+| IA02-14 | IA-02 | N/A (confirmed live), no rich-text editor. | | |
+| IA02-15 | IA-02 | N/A, reason: targets B3. | | |
+| IA03-01 | IA-03 | Pass | Visited Users Management, Events Management and Support requests in turn, the current section is highlighted each time. Collapsing the sidebar (seen briefly during scroll) reduced it to icon-only while "Support requests" stayed reachable. | |
+| IA03-02 | IA-03 | Pass | Pending/Resolved render as **summary-card buttons** (not `role="tab"`), the active one outlined in its own status colour (amber/green), confirmed by clicking "Resolved" and watching the outline move. This is visually and structurally **different** from the event-detail tab group (`role="tab"`, scenario A/B territory, not directly re-verified this session), the checklist's own point stands: two different treatments for the same "switch view" pattern. Recorded as the consistency finding the item calls for, not a fresh contradiction. | |
+| IA03-03 | IA-03 | Pass | Sidebar "Support requests" badge shows the live Pending count (12, then 11 after resolving one) and matches the Pending KPI card exactly at the same moment. | |
+| IA03-04 | IA-03 | Pass | "← Back" is a text link on the request-detail page, returns to `/dashboard/admin/complaints` correctly. | |
+| IA03-05 | IA-03 | N/A, reason: targets the public Events page's status filters, not this screen. | | |
+| IA03-06 | IA-03 | **Fail** | Attempted the required step, lower rows-per-page below the default 20, to force a second page and properly test the "does the label count the whole dataset" question. **Could not do so**: see the standalone bug below. At the fixed default (20/page), the label "1-20 of 20 results" is arithmetically correct for what's currently rendered, but the item's real intent (catching a label that only counts the visible page once a real second page exists) could not be exercised at all on this screen this session. | ![D3_stuck](../reports/evidence_task1b/D3_rows_per_page_stuck_at_20.jpg) |
+| IA03-07 | IA-03 | Pass | `/dashboard/admin/complaints/25` and `/dashboard/admin/complaints/30` (path-segment form, same convention as D2) both loaded the correct record directly, no detour through the list. (The wrong-id case was already tested on D2 with the same URL family; not repeated here to avoid duplicate evidence for one shared defect.) | |
+| IA03-08 | IA-03 | N/A (confirmed live), the 5-column Support-request table (Requester/Request/Status/Time/Assignee) carries no header sort or filter icons at all; filtering happens only through the separate Filters card above, not through column headers. | | |
+| IA03-09 | IA-03 | N/A, reason: no sub-tabs on the request-detail page. | | |
+| IA03-10 | IA-03 | Pass | Same image lightbox as D2, opened from the admin side on request #25: dimmed background, real uploaded image (confirmed once already, same file). ESC pressed and it closed on the first press, returning focus to the thumbnail. An earlier pass had recorded a two-press quirk here (logged as D-013); the live re-verification on 2026-07-31 retested this exact sequence, including reopening the lightbox and clicking into the image before pressing Escape again, and it closed on the first press every time, so the two-press behaviour did not reproduce and D-013 was retracted, see "Live re-verification" below. | |
+| IA03-11 | IA-03 | **Fail** | Same as D2: request-detail pages here have no breadcrumb, only the one-step "← Back" link, despite being reached two levels deep (Support requests list -> request #NN). | ![D4_admin_resolved_response_sent](../reports/evidence_task1b/D4_admin_resolved_response_sent.jpg) |
+| IA03-12 | IA-03 | N/A, reason: no user-orderable list on this screen. | | |
+| IA03-13 | IA-03 | Pass | **Re-run 2026-08-02 with a filter the tab switch does not clear.** The earlier attempt used the Member-code filter and was pre-empted by D-009 (switching Pending/Resolved wipes it). Using the **status tab plus a page number** instead — state that survives to the point of the test — the item runs cleanly: from `?tab=resolved&page=3` (5 rows, `41-45 of 45`), opening request #8 and pressing the browser Back button returns to `?tab=resolved&page=3` with those same 5 rows, not to an unfiltered page 1. Forward re-enters `/dashboard/admin/complaints/8`. Both halves of the item hold. | |
+| IA03-14 | IA-03 | Pass | Retested this session: Member-code filter alone (`23127184`) against the Resolved tab correctly returned exactly the 2 matching rows, both genuinely belonging to that member code, no rows of other requesters leaked in. Category filter alone, once a **valid** selection completes (e.g. "Support"), also correctly narrowed to the 2 matching rows. Combined (member code + category=Support) correctly returned the same 2 rows, the intersection, not either filter alone. **The v1.9-recorded "Pass (partial)" text-search result for "Technology Day 2026" (1 exact match) is also reconfirmed.** The Category dropdown has a separate, real bug, documented as its own finding, not folded into this item's Pass, where a specific interaction sequence sends `category=undefined` to the API and surfaces a raw backend validation string to the admin. | ![D3_category_bug](../reports/evidence_task1b/D3_category_undefined_raw_backend_error.jpg), ![D3_search_filter](../reports/evidence_task1b/D3_admin_list_search_filter.jpg) (the "Technology Day 2026" 1-match search re-run, with the Filters panel's native From/To date inputs also visible) |
+| IA03-15 | IA-03 | N/A, reason: targets B1. | | |
+| IA04-01 | IA-04 | Pass | Pending = amber/yellow KPI card and pill, Resolved = green KPI card and pill, same mapping as D2/D4. | |
+| IA04-02 | IA-04 | N/A, reason: no modal other than the image lightbox (scored under IA03-10). | | |
+| IA04-03 | IA-04 | N/A, reason: **no destructive control exists on this screen at all** (settled 2026-08-02 by DOM inspection rather than by not looking hard enough). Every row of the results table was queried for `button` and `a` descendants: **zero** in any row, no ACTIONS column, and the last cell holds only the assignee text. A document-wide sweep for delete/remove/trash wording matched exactly one node, and that was the *title of a test request* ("Task 1B draft A - safe to delete"), not a control. With no delete/destructive action to trigger, the item has nothing to check here. Earlier this row read Not executed on data-safety grounds; that was the right caution but the wrong verdict — the control was never there. | | |
+| IA04-04 | IA-04 | Pass | "Send response" on request #30 produced the immediate green inline banner "Response sent successfully." directly on the page. | |
+| IA04-05 | IA-04 | Pass | After resolving #30, the sidebar's Support-requests badge dropped 12->11 immediately (no reload), and the D3 list's own **Pending** KPI card also updated 12->11 and **Resolved** 20->21 on the very next list view, confirming the half of this item the v1.9 report had left PENDING (whether the D3 list's own KPI cards, not just the sidebar badge, update after the admin's own action). | |
+| IA04-06 | IA-04 | N/A (confirmed live), no "Important Update" flag concept on this screen. | | |
+| IA04-07 | IA-04 | Pass | **Re-run 2026-08-02, using pagination instead of rows-per-page.** The earlier attempt was abandoned because the rows-per-page dropdown is stuck (D-008), so the "smallest page size" precondition could not be forced. It is not needed: the dataset has since grown to **Pending 6 / Resolved 45**, so at the default 20/page the Resolved set spans 3 pages and the card can be checked against a total the visible page cannot show. Counted by paging through with the next-page arrow, which does work: page 1 = 20 rows (`1-20`), page 2 = 20 (`21-40`), page 3 = 5 (`41-45`), total **45**, equal to the Resolved card. Pending: card 6, one page of 6 rows. The pagination label itself reads "41-45 of 45 results", i.e. the product states the true total independently of the page. The cards count the whole status, not the visible page. | |
+| IA04-08 | IA-04 | N/A, reason: no contextual warning banner of the kind this item names appears on this screen (the `category=undefined` message is a raw backend validation string, not a designed contextual banner, scored as its own bug, not this item). | | |
+| IA04-09 | IA-04 | N/A (confirmed live), no check-in/QR scanning. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter or capacity figure on this screen. | | |
+| IA04-11 | IA-04 | Fail | Closure run executed the actual Offline condition: raw `ERR_INTERNET_DISCONNECTED`, no friendly message or retry. This is distinct from the earlier substituted D-010 observation. Finding D-030. | `D3_IA04-11_offline.jpg`; `network_conditions_admin_results.json` |
+| IA04-12 | IA-04 | N/A, reason: this screen has no save action that could raise a status message. It is a read-only list with filters; the only action available is **Export Excel**, and that produces no toast, banner or live region of any kind — already scored as a hard Fail on IA04-13 and logged as D-011, so scoring the same silence twice here would double-count one defect. The "Response sent successfully." banner referred to in the previous note belongs to D4 and is measured there. | | |
+| IA04-13 | IA-04 | **Fail** | Clicked "Export Excel" (confirmed via Network tab: `GET /api/complaints/admin/complaints/export?status=PENDING` -> 200 OK, the request did succeed server-side). **But the click produced zero visible UI feedback of any kind**: no busy state, no toast, no completion signal on screen; a user with no DevTools open has no way to know whether anything happened at all. Separately, the export's scope was **silently implicit**: it exported only the currently-active status tab's rows (`status=PENDING` in the request) with no on-screen statement that this was a filtered, partial export rather than the whole dataset, exactly the ambiguity the item calls a Fail. | (Network-tab evidence only; no distinct on-screen visual to capture since the defect is precisely the *absence* of any visible change, see D-011) |
+| IA04-14 | IA-04 | Pass | Wrote a **new** internal note ("INTERNAL-ONLY-MARKER-D3D4-2026") and a new official response on request #30 (my own, filed earlier this session) via D4, saved together via "Send response". Reloaded via `/complaints/22` (a different record) and back to `/complaints/30`, the note persisted correctly under its own record and did not leak into `/complaints/22`'s internal-note box (which showed empty, that record's own genuine state). Re-confirms the same finding as the prior session's #25 test, now with independently fresh data. | |
+| IA04-15 | IA-04 | Pass | #30 was Pending when filed, Resolved after "Send response" on D4, D3's list, the sidebar badge and the KPI cards all agreed immediately (12->11 Pending, 20->21 Resolved), no propagation delay observed. | |
+| IA04-16 | IA-04 | N/A, reason: waitlist is Pool B. | | |
+| IA04-17 | IA-04 | Pass | Navigated directly between `/dashboard/admin/complaints/30` and `/dashboard/admin/complaints/22` via full URL replacement. Each load showed that record's own title, requester, status, response and internal-note box correctly, no leftover text from the other record, including no cross-contamination of the internal note (the higher-risk case IA04-17 itself calls out). Same caveat as D2: this is a hard navigation/remount, not the stricter in-app-link SPA-param-change case, because no in-app "next record" link exists on this screen to trigger that stricter variant. | |
+
+## Results: D4 (Admin, Support request detail: image lightbox, internal note, official response)
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | Pass | Card padding, title treatment consistent with D3. | |
+| IA01-02 | IA-01 | Pass | Unlike D1/D2 (user-facing, no sidebar), D4 is an admin screen and does carry the full 9-item sidebar with "Support requests" highlighted, consistent with D3. | |
+| IA01-03 | IA-01 | Pass | "Send response" is the single cyan primary action on this page; no decorative reuse of the accent colour elsewhere. | |
+| IA01-04 | IA-01 | N/A, reason: no multi-section-header form on this screen. | | |
+| IA01-05 | IA-01 | Pass | Same status pill component/contrast as D2/D3 (shared, not re-measured separately). | |
+| IA01-06 | IA-01 | N/A, reason: this item targets list/table empty states; D4 is a single-record detail page, not a list. (An unfilled Internal-note textarea is a different concept, not an "empty state" in this item's sense.) | | |
+| IA01-07 | IA-01 | Fail | Closure run: no spinner or skeleton appeared under Slow-3G. Finding D-029. | `D4_IA01-07_slow3g.jpg`; `network_conditions_admin_results.json` |
+| IA01-08 | IA-01 | Pass | Confirmed via the "← Back" label switching EN/VI on this exact screen during D3 testing. | |
+| IA01-09 | IA-01 | Pass | "Submitted at" timestamp re-renders per locale (same shared formatting as D2/D3). | |
+| IA01-10 | IA-01 | N/A (confirmed live), no spotlight hero. | | |
+| IA01-11 | IA-01 | N/A (confirmed live), no QR/barcode. | | |
+| IA01-12 | IA-01 | Pass | Sidebar, Back link and the Response/Internal-note textareas all reachable with a visible focus ring via Tab. | |
+| IA01-13 | IA-01 | Pass | Same logo `alt` text; attachment thumbnails are real user content (filename-labelled), not decorative. | |
+| IA02-01 | IA-02 | N/A, reason: no form among the three this item names lives on D4 itself. | | |
+| IA02-02 | IA-02 | Pass | "Response content" and "Internal note" are persistent labels/headings above their own textareas, not placeholder text that disappears on input, confirmed while typing the response and the internal-note marker string this session. | |
+| IA02-03 | IA-02 | N/A, reason: D4 only displays attachments (read-only); the upload control itself is D1's. | | |
+| IA02-04 | IA-02 | N/A, reason: same as IA02-03. | | |
+| IA02-05 | IA-02 | N/A (confirmed live), no rich-text editor. | | |
+| IA02-06 | IA-02 | N/A (confirmed live), no start/end date pair. | | |
+| IA02-07 | IA-02 | N/A (confirmed live), no toggle switch. | | |
+| IA02-08 | IA-02 | **Fail** | **Run 2026-08-02** on request #53, a draft filed for this purpose so no real requester's record was touched. Clicking **Send response** with both fields empty produces a message, but it is a **full-width banner rendered at the top of the page**, not an inline message beside the offending field. Measured in the DOM at the moment it appeared: the alert's bounding box sits at **y = -234**, i.e. **above the viewport**, while the Response textarea the user is looking at is at y = 235 and the Send button at y = 268. So at the scroll position from which the action is necessarily taken, the feedback is off-screen and the click looks like it did nothing. This is the same generic-banner pattern as D-003 on D1, made worse by the banner being outside the viewport rather than merely above the field. | |
+| IA02-09 | IA-02 | Pass | **Run 2026-08-02** on request #53. The item allows either branch: the button disabled, or submission blocked with a clear summary. The **Send response** button is *not* disabled (`disabled` false, no `aria-disabled`) but the submission is genuinely blocked — the request is never sent, the status stays Pending, and a `role="alert"` node appears **93 ms** after the click reading "Enter the response content before sending.", which names the missing field. Not a silent no-op, so the item passes; the placement of that message is IA02-08's concern and fails there. | |
+| IA02-10 | IA-02 | Pass | **Run 2026-08-02** on request #53. Both fields here are multi-line `<textarea>`s. Typing then pressing Enter inserts a newline (`"Draft reply A
+"` read back from the DOM) and does **not** submit: the request stays Pending and the page does not navigate. No input is lost. This is the correct behaviour for a multi-line field, and it is why D-012 records the tension in this item's wording rather than treating "Enter does not submit" as a defect everywhere: on D1 the same item fails because the **single-line** "Issue" input also ignores Enter, which has no such justification. | |
+| IA02-11 | IA-02 | N/A, reason: no date-entry control on the detail page itself (D3's Filters panel is the relevant screen for this item). | | |
+| IA02-12 | IA-02 | N/A, reason: no select/toggle/checkbox control on D4 itself (only free-text textareas and one button). | | |
+| IA02-13 | IA-02 | **Fail** | **Run 2026-08-02** on request #53. With unsaved text in the Response textarea (confirmed present in the DOM immediately before the click), clicking the "← Back" control navigates straight to `/dashboard/admin/complaints`. No confirm dialog fired (a `window.confirm` interceptor installed beforehand recorded nothing), no warning node was added to the DOM, and the typed text is gone. Same defect as D-004 on D1, second screen instance. | | **Re-verified 2026-08-02 after the click-scaling defect came to light** (see the *Instrument note*): the original run's click could not be proven to have hit the control, so the whole cell was run again on request #41, this time capturing `event.target`. The click landed on the `<a>` whose text is "Back" (confirmed), a 38-character draft was present in "Response content" immediately before it, a `window.confirm` interceptor was installed before the click and recorded `null`, and zero `[role=dialog]` / `[role=alertdialog]` nodes appeared. The browser left for `/dashboard/admin/complaints` and the draft was gone. The Fail stands on evidence that no longer depends on an unverified click. Nothing was saved to #41 — "Send response" was never pressed, so that record is unchanged.
+| IA02-14 | IA-02 | N/A (confirmed live), no rich-text editor. | | |
+| IA02-15 | IA-02 | N/A, reason: targets B3. | | |
+| IA03-01 | IA-03 | Pass | Sidebar highlights "Support requests" on this detail page too, consistent with D3. | |
+| IA03-02 | IA-03 | N/A, reason: no tab group on the detail page itself (Pending/Resolved live on D3's list). | | |
+| IA03-03 | IA-03 | N/A, reason: the pending-count badge lives in the (shared) sidebar, already scored under D3; no separate badge originates from D4 itself. | | |
+| IA03-04 | IA-03 | Pass | "← Back" returns correctly to `/dashboard/admin/complaints`, confirmed repeatedly across #22/#25/#30 this session. | |
+| IA03-05 | IA-03 | N/A, reason: targets the public Events page. | | |
+| IA03-06 | IA-03 | N/A, reason: no pagination on a single-record detail page. | | |
+| IA03-07 | IA-03 | Pass | Direct-pasted `/dashboard/admin/complaints/22`, `/25` and `/30` this session, every one loaded the correct record with no detour through the list. | |
+| IA03-08 | IA-03 | N/A, reason: no table on this screen. | | |
+| IA03-09 | IA-03 | N/A, reason: no sub-tabs on this screen. | | |
+| IA03-10 | IA-03 | Pass | Image lightbox on request #25 (admin side): dimmed background, real uploaded image confirmed via `img.complete`/`naturalWidth`/`naturalHeight` in DevTools (same file already verified from D2). ESC pressed closed it on the first press and returned focus to the thumbnail; see D3's row and "Live re-verification" below for why an earlier session had recorded a two-press quirk here (D-013, retracted). | |
+| IA03-11 | IA-03 | **Fail** | No breadcrumb anywhere on the detail page across #22/#25/#30, only the one-step "← Back" link, which cannot express the two-level list->record path. Same finding as D2, now confirmed on three separate records via the admin route. | ![D4_admin_resolved_response_sent](../reports/evidence_task1b/D4_admin_resolved_response_sent.jpg) |
+| IA03-12 | IA-03 | N/A, reason: no orderable list. | | |
+| IA03-13 | IA-03 | N/A, reason: no filtered/paginated list state on the detail page itself to preserve. | | |
+| IA03-14 | IA-03 | N/A, reason: this is D3's item (the filters live on the list screen, not the detail screen). | | |
+| IA03-15 | IA-03 | N/A, reason: targets B1. | | |
+| IA04-01 | IA-04 | Pass | Same Pending (amber)/Resolved (green) mapping as D2/D3. | |
+| IA04-02 | IA-04 | N/A, reason: no modal besides the image lightbox (scored under IA03-10). | | |
+| IA04-03 | IA-04 | N/A, reason: **no destructive control exists on this screen either** (settled 2026-08-02 by DOM inspection). The admin detail page for request #53 exposes exactly one action button, "Send response"; a sweep of every `button`, `a` and `[role=menuitem]` for delete/remove/trash wording returned nothing. An admin can answer a support request but cannot delete one, so there is no destructive action for a confirmation dialog to guard. Same correction as D3's IA04-03: previously Not executed on data-safety grounds, now N/A on evidence. | | |
+| IA04-04 | IA-04 | Pass | Clicking "Send response" on request #30 (filed and resolved this session, not reused from the prior session) produced the immediate green inline banner "Response sent successfully." directly on the detail page. | |
+| IA04-05 | IA-04 | Pass | Sidebar Support-requests badge dropped 12->11 immediately after Send response, no reload; D3's own Pending/Resolved KPI cards also updated on the very next list view (see D3 IA04-05), both halves of this item are now confirmed, closing the gap the prior session's report explicitly flagged as still PENDING. | |
+| IA04-06 | IA-04 | N/A (confirmed live), no "Important Update" flag concept. | | |
+| IA04-07 | IA-04 | N/A, reason: the Pending/Resolved KPI cards this item counts live on D3, not D4. | | |
+| IA04-08 | IA-04 | N/A, reason: no contextual warning banner on this screen. | | |
+| IA04-09 | IA-04 | N/A (confirmed live), no check-in/QR scanning. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter or capacity figure. | | |
+| IA04-11 | IA-04 | Fail | Closure run: Offline reload exposed raw `ERR_INTERNET_DISCONNECTED`, no EMS recovery state. Finding D-030. | `D4_IA04-11_offline.jpg`; `network_conditions_admin_results.json` |
+| IA04-12 | IA-04 | Pass | **Measured 2026-08-02, no stopwatch involved.** A `MutationObserver` was armed on `document.body` before the action, and a real response was sent on request #53 (36 characters typed into "Response content", click confirmed to have landed on the `Send response` button by capturing `event.target`). The success banner was added to the DOM as a **live region** carrying `role="alert"`, text "Response sent successfully."; the request moved Pending → Resolved in the same update. Dwell time: still present **39.0 s** after insertion with no `remove` mutation ever logged, i.e. it does not auto-dismiss at all. The item's substantive requirement — announced to assistive technology without taking focus, and on screen long enough to read — is met. One deviation recorded but deliberately **not** raised as a finding: the role is `alert` (assertive) rather than the `role="status"` / `aria-live="polite"` the item names, so a screen reader interrupts itself for a routine success. WCAG SC 4.1.3 accepts `role="alert"` as a status-message mechanism, so this is a politeness-level nitpick, not a conformance failure. | | |
+| IA04-13 | IA-04 | N/A, reason: no export control on the detail page itself (Export Excel lives on D3's list screen, already scored there). | | |
+| IA04-14 | IA-04 | Pass | Wrote internal note "INTERNAL-ONLY-MARKER-D3D4-2026" + a real official response on request #30, saved together via "Send response". Navigated directly to a different record (#22) and back, #30's note stayed under #30 only, and #22 showed its own genuinely-empty internal note, not a leak. This independently reproduces the prior session's #25-based finding with completely fresh data and a different record pair. | |
+| IA04-15 | IA-04 | Pass | #30: Pending at filing -> Resolved after Send response on D4 -> D3's list, sidebar badge and KPI cards all agreed immediately, no propagation delay. | |
+| IA04-16 | IA-04 | N/A, reason: waitlist is Pool B. | | |
+| IA04-17 | IA-04 | Pass | Switching directly between `/dashboard/admin/complaints/30` and `/dashboard/admin/complaints/22` (hard navigation each time) always showed that record's own title, requester, response and internal-note state, crucially including the internal note, which is exactly the field IA04-17 flags as doubly consequential in combination with IA04-14. No leftover data observed in either direction. Same hard-navigation caveat as D2/D3, no in-app "next record" link exists on this screen to exercise the stricter SPA-remount case. | |
+
+## Results: D5 (Notifications, header bell dropdown + full list + detail, /notifications, /notifications/{id})
+
+> **Why this screen was added.** The group's committed table fixes D1-D4 as "the screens", but the underlying rule (§5, checklist v1.9) is *no-duplication across scenarios*, not a hard cap of four, and Scenario D is this member's alone, shared with no teammate. The live survey (`docs/01_Task1A_Shared_GUI_Checklist.md` §"User-side routes") already lists `/notifications` as part of the D account's own route set, and Notifications is where both halves of the D story actually surface to a human: the admin gets told a new request arrived, the requester gets told it was resolved. It was added after the group discussion on digging deeper into D1-D4 rather than stopping at the first-found bugs, per the user's explicit go-ahead this session.
+
+Resting state: ![D5_dropdown_resting](../reports/evidence_task1b/D5_dropdown_resting.jpg) (header bell dropdown) and ![D5_notifications_page_resting](../reports/evidence_task1b/D5_notifications_page_resting.jpg) (full `/notifications` page).
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | Pass | The "Notifications" page-title uses the same weight/size/underline-accent treatment as "Support requests" and D1-D4's titles. | |
+| IA01-02 | IA-01 | N/A, reason: `/notifications` renders the general public header, not the 9-icon admin sidebar this item targets, even when logged in as admin. | | |
+| IA01-03 | IA-01 | N/A, reason: no cyan filled-CTA button exists anywhere on this screen to test the "reserved for the single primary action" rule against, "Mark all as read" and the per-item "..." menu are both plain text/icon links, not the accent-fill style. | | |
+| IA01-04 | IA-01 | N/A, reason: this item's rule is specifically the Add/Edit Event form's section headers; no comparable form exists here. | | |
+| IA01-05 | IA-01 | Pass | Measured the "Updated" status pill (`bg-blue-100`/`text-blue-700`, both in `lab()` colour space) with the same CIE-Lab-to-sRGB pipeline used for D1-D4: text luminance 0.104, background luminance 0.811, **contrast ratio 5.60:1**: comfortably above the 4.5:1 threshold. | |
+| IA01-06 | IA-01 | Pass | Closure run used a newly verified, clearly labelled guest test fixture with no prior activity; `/notifications` displayed “No notifications yet”. | `D5_IA01-06_empty_notifications_fresh_account.jpg`; `D5_IA01-06_result.json` |
+| IA01-07 | IA-01 | Pass | Closure run: Slow-3G displayed a busy indicator and no zero-flash. | `D5_IA01-07_slow3g.jpg`; `network_conditions_user_results.json` |
+| IA01-08 | IA-01 | **Fail** | Every **in-page** label translates correctly and completely EN<->VI (confirmed both directions: "Notifications"<->"Thông báo", "Mark all as read"<->"Đánh dấu tất cả đã đọc", "Back to Dashboard"<->"Về trang chủ", relative-time strings "1 minute ago"<->"1 phút trước", nav labels, etc.), but the item's own expected behaviour explicitly includes "the `<title>` included", and here `document.title` stayed **"Thông báo \| HCMUS EMS" even after switching the toggle back to English**, while every visible label on the same page was already in English. Confirmed via direct `document.title` read at the same moment as the English-rendered screenshot. | ![D5_title_stuck_vi](../reports/evidence_task1b/D5_title_tag_stuck_vietnamese.jpg) |
+| IA01-09 | IA-01 | Pass | Relative-time strings translate correctly ("4 week ago"<->"4 tuần trước", "3 day ago"<->"3 ngày trước") in both directions; no raw ISO timestamp ever leaked into the UI. | |
+| IA01-10 | IA-01 | N/A, reason: no spotlight hero on this screen. | | |
+| IA01-11 | IA-01 | N/A, reason: no QR/barcode on this screen. | | |
+| IA01-12 | IA-01 | Pass | Clicked into the page body then tabbed: "Mark all as read" and each row's "..." button in turn showed a clearly visible focus ring, in the expected top-to-bottom reading order. | |
+| IA01-13 | IA-01 | Pass | The two real `<img>` elements (FIT HCMUS / fit@hcmus logos) carry descriptive `alt`; every notification-row icon is an inline SVG with `aria-hidden="true"`, so a screen reader is not handed a meaningless icon description. | |
+| IA02-01 | IA-02 | N/A, reason: no form on this screen. | | |
+| IA02-02 | IA-02 | N/A, reason: no text input. | | |
+| IA02-03 | IA-02 | N/A, reason: no upload control. | | |
+| IA02-04 | IA-02 | N/A, reason: no upload control. | | |
+| IA02-05 | IA-02 | N/A, reason: no rich-text editor. | | |
+| IA02-06 | IA-02 | N/A, reason: no date-range pair. | | |
+| IA02-07 | IA-02 | N/A, reason: no toggle switches. | | |
+| IA02-08 | IA-02 | N/A, reason: no form to submit. | | |
+| IA02-09 | IA-02 | N/A, reason: no form to submit. | | |
+| IA02-10 | IA-02 | N/A, reason: no text input/search box on this screen. | | |
+| IA02-11 | IA-02 | N/A, reason: no date control. | | |
+| IA02-12 | IA-02 | Pass | The "Rows per page" dropdown (options 5/10/20/50/100, default 10) **did** accept a new selection, clicked open, picked "5", and the closed control immediately relabelled to "5". This is the same *kind* of control that is completely stuck on D2 and D3 (D-008); working correctly here rules out a tool/technique problem on my end and narrows D-008 to that specific shared list-table component, not every rows-per-page control in the product. Keyboard-only operation of this particular instance was not separately re-tested given the mouse path already confirmed the core defect-vs-no-defect question. | ![D5_rowsperpage_works](../reports/evidence_task1b/D5_rows_per_page_works_correctly.jpg) |
+| IA02-13 | IA-02 | N/A, reason: no form with unsaved-changes risk. | | |
+| IA02-14 | IA-02 | N/A, reason: no rich-text editor. | | |
+| IA02-15 | IA-02 | N/A, reason: scenario B item. | | |
+| IA03-01 | IA-03 | N/A, reason: no sidebar renders on this screen. | | |
+| IA03-02 | IA-03 | N/A, reason: no tab group. | | |
+| IA03-03 | IA-03 | Pass | Filed a fresh admin-owned request, then resolved it: the header bell went from no badge (`unreadCount:0`, confirmed via `GET /api/notifications/unread-count`) to a red **"1"** badge immediately after the response was sent, matching the API's `unreadCount:1` read at the same moment, and the corresponding list item carries a small blue unread dot that the already-read items lack. | ![D5_unread_dot](../reports/evidence_task1b/D5_new_notification_unread_dot.jpg) |
+| IA03-04 | IA-03 | Pass | "Back to Dashboard" (list level) and "Back to notifications" (detail level, reached via a row's "View details") are both plain text links and both return to the correct originating screen, never a blank or unrelated one. | |
+| IA03-05 | IA-03 | N/A, reason: Upcoming/Ongoing/Ended filters belong to the public Events page, not this screen. | | |
+| IA03-06 | IA-03 | Pass | A **sixth** pagination location beyond the five the checklist names. Label "1-5 of 5 results" is arithmetically correct for the 5 notifications on the account; "Rows per page" genuinely applies a new value (see IA02-12), unlike D2/D3's stuck control, this is the one pagination instance tested this session where changing rows-per-page actually works. | ![D5_rowsperpage_works](../reports/evidence_task1b/D5_rows_per_page_works_correctly.jpg) |
+| IA03-07 | IA-03 | Pass | Loaded `/notifications` and `/notifications/33` directly via fresh navigation (no click-through from a list); each rendered its own correct content immediately, no detour through a parent screen. | |
+| IA03-08 | IA-03 | N/A, reason: no column headers/table. | | |
+| IA03-09 | IA-03 | N/A, reason: no tabs. | | |
+| IA03-10 | IA-03 | **Fail** | Opened the header bell dropdown, pressed **Escape**: the panel stayed fully open (before/after screenshots are visually identical). Clicking the visible "X" and clicking outside the panel both close it correctly, so only the keyboard (ESC) path is broken. **Scope corrected on live re-verification (2026-07-31):** an earlier version of this row also claimed the D6 attachment lightbox was affected by the same missing-ESC-handler defect. Re-tested live on complaints #25 and #26, the lightbox closes on Escape's first press under every focus condition tried, so D-016 is limited to this dropdown alone; see D6's IA03-10 row and "Live re-verification" below. | ![D5_esc_fails](../reports/evidence_task1b/D5_esc_does_not_close_dropdown.jpg) |
+| IA03-11 | IA-03 | N/A, reason: `/notifications` is reached directly from the header bell in one hop, not a two-level-deep list-record-tab path; a text "Back to..." link is present and sufficient at this depth, unlike D2/D3/D4's request-detail pages (D-007). | | |
+| IA03-12 | IA-03 | N/A, reason: no orderable list. | | |
+| IA03-13 | IA-03 | **Fail** | **Run 2026-08-02, once the account finally held more than one page.** `/notifications` now has 11 notifications over 2 pages at 10 per page, so the precondition the earlier note lacked exists. Went to page 2 (confirmed: the "2" button took the active style and the single 11th row rendered), opened that notification's linked record, then pressed browser **Back**. The list came back on **page 1**, showing 10 rows again — the page position was lost. The cause is visible in the address bar: paging on this screen never writes to the URL, which stays a bare `/notifications` on page 1 and page 2 alike, so history has nothing to restore. **Forward** works correctly and returns to the record. Contrast D3, which passes this same item because its list *does* put its state in the URL (`?search=d&page=1`) — so this is one list component doing what another already does right. Logged as **D-023**. | | |
+| IA03-14 | IA-03 | N/A, reason: D3-specific filter combination. | | |
+| IA03-15 | IA-03 | N/A, reason: B1-specific. | | |
+| IA04-01 | IA-04 | Pass | The "Updated" pill is blue, consistent with the blue = informational mapping used for "Admin" badges elsewhere; no colour-semantic clash observed. | |
+| IA04-02 | IA-04 | N/A, reason: this item's object is specifically the Edit User dialog, which does not exist on this screen; the equivalent dimmed-background/close-control check for a modal overlay is executed on D6's lightbox instead, where it applies more literally. | | |
+| IA04-03 | IA-04 | **Fail** | Opened a notification's "..." menu and clicked **Delete**: the item vanished from the list **immediately**, with no confirmation dialog, no "this cannot be undone" wording, and no undo affordance of any kind. Before/after screenshots show the item present, then gone, with nothing in between. | ![D5_delete_no_confirm](../reports/evidence_task1b/D5_delete_no_confirmation.jpg) |
+| IA04-04 | IA-04 | Pass | Sending an admin response produced **both** an inline green "Response sent successfully." banner on the complaint page **and** a separate system toast ("Phản hồi khiếu nại") in the corner, clearer feedback than most other screens tested this session. | ![D5_toast_badge](../reports/evidence_task1b/D5_toast_and_badge_after_response.jpg) |
+| IA04-05 | IA-04 | Pass | Both the header bell badge and the admin sidebar's "Support requests" badge updated immediately (11->12 on filing a new request, 12->11 on resolving it) with no manual refresh, confirmed by screenshots taken immediately after each action. | |
+| IA04-06 | IA-04 | N/A, reason: no "Important Update" + status-badge combination on this screen. | | |
+| IA04-07 | IA-04 | N/A, reason: no Pending/Resolved summary cards here (that is D3). | | |
+| IA04-08 | IA-04 | N/A, reason: no contextual warning banner on this screen. | | |
+| IA04-09 | IA-04 | N/A, reason: no check-in/QR flow. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter or capacity figure. | | |
+| IA04-11 | IA-04 | Fail | Closure run: Offline reload exposed raw `ERR_INTERNET_DISCONNECTED`, no EMS recovery state. Finding D-030. | `D5_IA04-11_offline.jpg`; `network_conditions_user_results.json` |
+| IA04-12 | IA-04 | **Fail** | **Measured 2026-08-02 with the same `MutationObserver` rig used on D4, and the answer turned out not to be a timing question at all.** Clicking **Mark all as read** was confirmed to hit the right control (`event.target` captured as the `BUTTON` whose text is "Mark all as read") and the action genuinely succeeded: the unread dot on the first row and the bell badge both cleared. Yet for the whole 9 s observation window the observer logged **zero** additions and `document.querySelectorAll('[aria-live],[role=status],[role=alert]')` returned **0 elements** — no toast, no banner, no live region, nothing to announce. A state-changing action that succeeds in complete silence gives a screen-reader user no confirmation at all, and gives a sighted user only a subtle dot they may not have been watching. Same root cause as D3's Export Excel, so merged into **D-011** rather than logged separately. The earlier note here guessed the toast had "appeared and auto-dismissed"; it never appeared. | | |
+| IA04-13 | IA-04 | N/A, reason: no export control on this screen. | | |
+| IA04-14 | IA-04 | N/A, reason: no internal-note/response pair on this screen; already scored on D2/D4. | | |
+| IA04-15 | IA-04 | Pass | The notification's own `metadata.newStatus: "RESOLVED"` (read directly via `GET /api/notifications`) matched the complaint's actual displayed status at the same moment, consistent with the already-Pass D2/D3/D4 result, corroborating rather than a new independent instance. | |
+| IA04-16 | IA-04 | N/A, reason: Pool B concept. | | |
+| IA04-17 | IA-04 | Pass | Opened two different notifications' detail pages (`/notifications/33` and others) back to back without a full list reload in between; each showed its own correct title and `Content` text, no leftover data from the previously viewed notification. | |
+
+## Results: D6 (Attachment image lightbox, opened from an uploaded evidence image on D1/D2/D3/D4)
+
+> **Why this screen was added.** Same rationale as D5: it is squarely inside the "User requests Support, Admin resolves" flow (D1's own uploaded evidence, viewed back by the admin resolving the request), the checklist's own Per-widget coverage table already names "Modal / dialog / lightbox" as a widget category with three items assigned to it (IA04-02, IA04-03, IA03-10), and the live survey flagged that "the support-request detail page and its image lightbox have not been captured at all" as a known evidence gap. Opened from complaint #26's attachment thumbnail (`/dashboard/admin/complaints/26`, admin role).
+
+Resting state: ![D6_resting](../reports/evidence_task1b/D6_lightbox_resting_state.jpg) (modal shell renders correctly: title "attachment_1", dimmed background, visible X).
+
+| Item ID | Aspect | Result | Notes | Evidence |
+| --- | --- | --- | --- | --- |
+| IA01-01 | IA-01 | N/A, reason: a modal image viewer has no page-title/card treatment comparable to the Events/Users/Support screens this item compares. | | |
+| IA01-02 | IA-01 | N/A, reason: no sidebar inside a modal. | | |
+| IA01-03 | IA-01 | N/A, reason: no filled-CTA button inside the lightbox (only the icon-only Close control). | | |
+| IA01-04 | IA-01 | N/A, reason: not a form. | | |
+| IA01-05 | IA-01 | N/A, reason: no status pill rendered inside the lightbox. | | |
+| IA01-06 | IA-01 | N/A, reason: not a list. | | |
+| IA01-07 | IA-01 | Fail | Closure run tested the actual lightbox path under Slow-3G: after 12 seconds the surface remained blank with no loading indicator. This is separate from the withdrawn D-018 diagnosis. Finding D-029. | `D6_IA01-07_slow3g.jpg`; `d6_and_empty_state_results.json` |
+| IA01-08 | IA-01 | N/A, reason: no static UI label exists inside the lightbox besides the attachment's own filename (data, not a translatable string) and an icon-only Close control. | | |
+| IA01-09 | IA-01 | N/A, reason: no date/numeric value shown. | | |
+| IA01-10 | IA-01 | N/A, reason: no hero. | | |
+| IA01-11 | IA-01 | N/A, reason: no QR/barcode. | | |
+| IA01-12 | IA-01 | Pass | Clicked into the page body, pressed Tab once: the Close ("X") control showed a clearly visible focus ring. | ![D6_focus](../reports/evidence_task1b/D6_lightbox_focus_visible_on_close_button.jpg) |
+| IA01-13 | IA-01 | Pass | The `<img>` element for the attachment carries `alt="attachment_1"`, confirmed on the live re-verification (2026-07-31); an earlier pass had recorded this item as N/A on the mistaken premise that no `<img>` element existed at all, see "Live re-verification" below. | |
+| IA02-01 | IA-02 | N/A, reason: no form field inside the lightbox. | | |
+| IA02-02 | IA-02 | N/A, reason: no text input. | | |
+| IA02-03 | IA-02 | N/A, reason: no upload control. | | |
+| IA02-04 | IA-02 | N/A, reason: no upload control. | | |
+| IA02-05 | IA-02 | N/A, reason: no rich-text editor. | | |
+| IA02-06 | IA-02 | N/A, reason: no date-range pair. | | |
+| IA02-07 | IA-02 | N/A, reason: no toggle switches. | | |
+| IA02-08 | IA-02 | N/A, reason: no form to submit. | | |
+| IA02-09 | IA-02 | N/A, reason: no form to submit. | | |
+| IA02-10 | IA-02 | N/A, reason: no text input/search box inside the lightbox. | | |
+| IA02-11 | IA-02 | N/A, reason: no date control. | | |
+| IA02-12 | IA-02 | N/A, reason: no dropdown/checkbox/toggle inside the lightbox. | | |
+| IA02-13 | IA-02 | N/A, reason: no form with unsaved-changes risk. | | |
+| IA02-14 | IA-02 | N/A, reason: no rich-text editor. | | |
+| IA02-15 | IA-02 | N/A, reason: scenario B item. | | |
+| IA03-01 | IA-03 | N/A, reason: no sidebar. | | |
+| IA03-02 | IA-03 | N/A, reason: no tabs. | | |
+| IA03-03 | IA-03 | N/A, reason: no badge inside the lightbox. | | |
+| IA03-04 | IA-03 | Pass | The icon-only Close control carries `aria-label="Close"` (confirmed via DOM), so a screen reader announces "Close button", not just "button", the accessible-name half of this item's rule is satisfied even though the widget is a modal-dismiss control rather than a page-level back link. | |
+| IA03-05 | IA-03 | N/A, reason: no status filters — D6 is an image viewer, and the item's check runs on the public Events page. | | |
+| IA03-06 | IA-03 | N/A, reason: single image, no pagination. | | |
+| IA03-07 | IA-03 | N/A, reason: the lightbox is client-side overlay state, not a distinct route; there is no independent URL to deep-link to (the parent complaint page's own deep link is already scored under D2/D3/D4's IA03-07). | | |
+| IA03-08 | IA-03 | N/A, reason: no table. | | |
+| IA03-09 | IA-03 | N/A, reason: no tabs. | | |
+| IA03-10 | IA-03 | Pass | An earlier pass had recorded this row as Fail, on the claim that clicking into the page body before pressing Escape left the overlay open. The live re-verification on 2026-07-31 retested this on both complaint #25 and #26, including with focus moved into the page body first, and Escape closed the lightbox on the first press every time; the visible X control also closes it correctly. The Fail was withdrawn and the finding narrowed so that only D5's notification dropdown remains affected (D-016); see "Live re-verification" below. | |
+| IA03-11 | IA-03 | N/A, reason: a modal overlay, not a nested page in a list-record hierarchy. | | |
+| IA03-12 | IA-03 | N/A, reason: not an orderable list. | | |
+| IA03-13 | IA-03 | **Fail** | **Run 2026-08-02.** Opening the attachment lightbox pushes **no history entry** (`history.length` was 8 before opening and 8 after). Pressing browser **Back** with the lightbox open therefore does not close the overlay — it leaves the record entirely, landing on whatever unrelated page preceded it (here `/complaints/new`, two navigations earlier). The overlay fills the viewport, so it reads to a user as a screen, and Back is the universal way out of a screen; instead it discards both the overlay and the record being viewed. Same root cause as D5's row — client-side view state is never represented in the URL or history — so both are logged under **D-023** rather than separately. Noted honestly: a modal that ignores Back is a common pattern and the weaker half of this finding; D5's lost page number is the clear-cut half. | | |
+| IA03-14 | IA-03 | N/A, reason: D3-specific filter combination. | | |
+| IA03-15 | IA-03 | N/A, reason: B1-specific. | | |
+| IA04-01 | IA-04 | N/A, reason: no badge in the lightbox. | | |
+| IA04-02 | IA-04 | Pass | The background dims and is inert while the lightbox is open (background controls did not visibly respond), and a visible X close control sits in the header, exactly the behaviour this item expects, and the checklist's own Per-widget coverage table lists this exact widget category ("Modal / dialog / lightbox") against this item. | ![D6_resting](../reports/evidence_task1b/D6_lightbox_resting_state.jpg) |
+| IA04-03 | IA-04 | N/A, reason: no destructive action available inside the lightbox itself. | | |
+| IA04-04 | IA-04 | N/A, reason: no action to succeed/fail inside the lightbox. | | |
+| IA04-05 | IA-04 | N/A, reason: no counter inside the lightbox. | | |
+| IA04-06 | IA-04 | N/A, reason: no status badge or Important-Update flag exists on a lightbox; the item targets event cards. | | |
+| IA04-07 | IA-04 | N/A, reason: no summary counters and no paged table on D6; the item compares Pending/Resolved card counts against table rows on D3. | | |
+| IA04-08 | IA-04 | N/A, reason: no contextual banner is expected or present inside the lightbox. | | |
+| IA04-09 | IA-04 | N/A, reason: no check-in flow. | | |
+| IA04-10 | IA-04 | N/A, reason: no bar meter/capacity in the lightbox. | | |
+| IA04-11 | IA-04 | Fail | Closure run loaded the record, disabled cache, forced Offline, and opened the attachment. The dialog contained a failed 0×0 image but no alert, explanation or retry. Finding D-030. | `D6_IA04-11_offline.jpg`; `d6_and_empty_state_results.json` |
+| IA04-12 | IA-04 | N/A, reason: no toast inside the lightbox. | | |
+| IA04-13 | IA-04 | N/A, reason: no export control. | | |
+| IA04-14 | IA-04 | N/A, reason: no internal note and no official response on a lightbox; the item is checked on the admin detail D4 against the user view D2. | | |
+| IA04-15 | IA-04 | N/A, reason: D6 shows no request status, so there is nothing to compare between the user and admin views. | | |
+| IA04-16 | IA-04 | N/A, reason: scenario B item (event capacity / waitlist); it has no counterpart anywhere in scenario D, let alone on D6. | | |
+| IA04-17 | IA-04 | Pass | **Run 2026-08-02.** The earlier note said no complaint carried more than one attachment; that was wrong, and was settled by querying the API rather than by browsing — request **#24 has five**. Opened `attachment_1` (LEGO logo, `images.png`, 447×447), closed it, then opened `attachment_3` (LEGO WORLD Utrecht poster). The lightbox showed **attachment_3's own image**, and its caption updated from "attachment_1" to "attachment_3"; no pixel or label of the first attachment survived into the second. Verified from screenshots rather than from the DOM, for the reason given in the *Instrument note*. | ![D6_IA04-17](../reports/evidence_task1b/D6_IA04-17_second_attachment_own_image.jpg) `reports/evidence_task1b/D6_IA04-17_second_attachment_own_image.jpg` | |
+
+## Closure of the formerly unexecuted cells and checklist v2.0
+
+| Item | Screens | Result | Evidence / observation |
+| --- | --- | --- | --- |
+| IA01-06 | D5 | **Pass** | A newly verified guest test account opened `/notifications` with no prior activity and displayed **“No notifications yet”**. `D5_IA01-06_empty_notifications_fresh_account.jpg`; `D5_IA01-06_result.json`. |
+| IA01-07 | D1, D2, D5 | **Pass ×3** | Slow-3G showed a busy indicator and no zero-flash. `network_conditions_user_results.json`. |
+| IA01-07 | D3, D4, D6 | **Fail ×3** | D3/D4 never showed a spinner or skeleton; D6 remained blank without a loading indicator after 12 seconds. `D3_IA01-07_slow3g.jpg`, `D4_IA01-07_slow3g.jpg`, `D6_IA01-07_slow3g.jpg`. Finding D-029. |
+| IA04-11 | D1-D6 | **Fail ×6** | Offline navigation exposed raw `ERR_INTERNET_DISCONNECTED`; the D6 attachment dialog offered no error or retry state. `network_conditions_*_results.json`, `d6_and_empty_state_results.json`. Finding D-030. |
+| IA03-16 | D1, D2, D5 | **Fail ×3** | Persistent header omitted Support/Notifications; the route appeared only through the avatar context. `IA03-16_results.json`. Independently confirms D-024. |
+| IA03-16 | D3, D4, D6 | **N/A ×3** | Admin surfaces/lightbox do not use the user-task persistent header addressed by this item. |
+| IA04-18 | D6 | **Fail** | A valid 1×1 image opened a visually blank dialog; when the same attachment was blocked, no explicit failed-load state or recovery instruction appeared. `D6_IA04-18_valid_1x1.png`, `D6_IA04-18_failed_load.png`, `IA04-18_results.json`. Finding D-031. |
+| IA04-18 | D1-D5 | **N/A ×5** | The attachment viewer is D6. |
+
+**Items not executed: none.**
+
+## Findings raised
+
+Every `Fail` has a corresponding row in `docs/05_Bug_Usability_Findings_Log.md`. The original pass produced 17 Task-1B findings; the closure run added D-029…D-031 for **20 Task-1B findings total**. IA03-16 independently confirms D-024 and is not double-counted. D-029…D-031 were submitted to the Google Form on 2026-08-04. Three earlier findings were retracted on re-verification (D-013, D-014, D-018); their IDs remain retired.
+
+- **D-001 (Bug, Major, D1)**: carried over from the prior session: the "Request type" dropdown intermittently discards or silently swaps its selection if the next click lands within ~1 s of picking an option.
+- **D-002 (Bug, Major, D1, IA02-04)**: upload-rejection messages ("Chỉ chấp nhận ảnh JPG, PNG, GIF và WEBP.", "Mỗi ảnh phải có dung lượng không quá 5 MB.", "Bạn chỉ có thể tải lên tối đa 5 ảnh.") correctly name the rule broken but never name the offending filename, across all three violation types.
+- **D-003 (Usability 3, D1, IA02-08)**: submitting the empty create-request form shows one generic banner listing all three missing fields together, not inline errors beside each field.
+- **D-004 (Bug, Minor, D1, IA02-13)**: typing into "Detailed description" then clicking "← Back" silently discards the text with no unsaved-changes warning.
+- **D-005 (Bug, Major, D2 + D3, IA02-10 on both)**: the shared free-text search-box component drops keystrokes under fast typing on **both** screens: D2's My-Requests search left only the last character; D3's admin search once emptied completely, once succeeded fully on a repeat attempt, confirming the defect is intermittent/timing-dependent, not deterministic. One shared-component root cause, two screen instances.
+- **D-006 (Bug, Minor, D2, IA03-07)**: pasting a non-existent request id (`/complaints/999999`) shows the correct "not found" structure but with the wrong copy: "Event review not found." (text belongs to a different feature, event reviews).
+- **D-007 (Usability 3, D2 + D3 + D4, IA03-11)**: no breadcrumb exists anywhere on any request-detail page (user or admin side), despite being reached two levels deep; only a one-step Back link. One finding, three screen instances.
+- **D-008 (Bug, Major, D2 + D3, IA02-12 / IA03-06 / IA04-07)**: the shared "Rows per page" dropdown component cannot have its value changed **at all**, on either screen: D3's control (default 20, options 10/20/50/100) is stuck refusing "10"; D2's control (default 10, options 5/10/20, a different configuration of the same component) is equally stuck refusing both "20" and "5". Confirmed via real mouse clicks, a `form_input` DOM value-set, and a direct `.click()` on the live option element, all methods failed identically on both screens. Blocks three downstream D3 checklist items that need a smaller page size as a precondition.
+- **D-009 (Bug, Minor, D3)**: switching between the Pending/Resolved status-card buttons silently clears the active Member-code filter (and, by the same mechanism, presumably other active filters) instead of preserving it.
+- **D-010 (Bug, Minor, D3, found along the way, thematically IA04-11)**: a specific Category-dropdown interaction sequence sends `category=undefined` to the export/list API, and the raw backend validation string ("category must be one of the following values: SUPPORT, COMPLAINT, CONTACT, OTHER") is shown directly to the admin instead of a friendly message or being silently ignored. Not produced by executing IA04-11 itself (that item needs a forced offline condition this session's tooling cannot drive); an earlier pass had substituted this observation into that item's Fail cell, corrected on live re-verification (2026-07-31) to match the D-009/D-015 precedent for along-the-way findings.
+- **D-011 (Bug, Major, D3, IA04-13)**: clicking "Export Excel" gives zero visible UI feedback (no busy state, no toast, no completion signal) even though the request succeeds server-side (confirmed via Network tab), and silently scopes the export to only the currently-active status tab without disclosing this on screen.
+- **D-012 (Usability 2, D1, IA02-10)**: Enter does nothing (no submit) in either the single-line "Issue" field or the multi-line "Detailed description" textarea on the create-request form; flagged as a possible checklist-wording tension rather than a clear-cut defect, since auto-submitting a multi-line field on Enter would itself be poor UX, logged for the group's awareness, not as a hard bug.
+- ~~D-013~~ **retracted on live re-verification, 2026-07-31.** Originally logged as: with focus left inside the overlay, the image lightbox needed two ESC presses to close on the admin side versus one on the user side (D2). Re-tested against the live system, including reopening the lightbox and clicking into the image before pressing Escape again: it closed on the first press every time, on both complaint #25 and #26. The two-press behaviour did not reproduce; a single unreproducible observation is not a finding. ID retired, not reused.
+- ~~D-014~~ **retracted on self-review, 2026-07-31.** Originally logged as "Requester-information panel shows the UI-menu label 'Tôi là Admin' instead of a real name." On review, the DOM renders it as a single flat `<p>Tôi là Admin</p>` node with no separate label-plus-name template around it, so it is almost certainly this test admin account's actual, if unusual, display name rather than a defect. The live re-verification supports this: complaint #25's panel renders "DUYÊN LÊ PHẠM KIỀU" with a correct email and member code. Caught before the Google Form submission; ID retired, not reused.
+- **D-015 (Bug, Major, D5, thematically IA04-17)**: every "new complaint" notification's list-view summary reads "Update on complaint "":" with a permanently empty title, in both EN and VI, because that notification type's metadata never carries a `complaintTitle` field even though the data exists correctly elsewhere (the notification's own `content` string and its dedicated detail page). Same root cause also mislabels the notification's category badge "Event update" for a Complaint-type item.
+- **D-016 (Bug, Minor, D5, IA03-10)**: pressing Escape does not close the header notification dropdown; its own X control and an outside click both close it correctly, only the Escape path is missing. **Scope narrowed on live re-verification, 2026-07-31:** an earlier version of this finding also claimed the attachment lightbox (D6), attributing both to one shared handler. Re-testing the lightbox live found it closes on Escape's first press on both complaint #25 and #26, so the lightbox is not affected and the finding is limited to the notification dropdown alone.
+- **D-017 (Bug, Minor, D5, IA04-03)**: deleting a notification via its "..." menu happens instantly with zero confirmation dialog and no undo.
+- ~~D-018~~ **retracted on live re-verification, 2026-07-31. This was the most severe finding in the log, rated Critical, and it was wrong.** Originally logged as: on complaint #26 the attachment lightbox opens but the image content never loads, with the supporting claims that zero network requests were issued for the attachment and that no `<img>` element existed in the DOM. Both claims were factually wrong: the `<img>` element is present with `alt="attachment_1"`, `complete: true`, and a `src` that resolves with HTTP 200 to a genuine 68-byte PNG whose header decodes to `IHDR width=1 height=1`. The lightbox was rendering the file correctly the whole time; a 1-by-1-pixel image scaled into a large pane simply looks blank. The filename indicates a synthetic placeholder from the D1 upload test, not real user evidence. No defect remains; ID retired, not reused.
+- **D-019 (Bug, Trivial, D5 + D2, IA01-08)**: the browser tab `<title>` stays stuck in Vietnamese even after switching the language toggle back to English, while every in-page label is already correctly English at the same moment. Confirmed on `/notifications` and, on live re-verification (2026-07-31), independently on `/complaints/{id}` as well. Two routes, one root cause.
+
+D-002's three violation types (wrong file type, oversize, over-count) are one finding with three instances, under the findings-log rule that one fix means one finding: "always include the filename in the rejection message" resolves all three. They are not split into separate IDs.
+
+See `docs/05_Bug_Usability_Findings_Log.md` for the full table with repro steps, severity and evidence references.
+
+### Live re-verification (2026-07-31)
+
+With the student's explicit permission, this report was checked back against the live EMS rather than only against the findings log, using the same authenticated admin session the rest of Task 1B ran under. The trigger was a self-review pass that had, in the prior version of this report, reconciled two apparent contradictions by inventing a "focus precondition" hypothesis for the lightbox's Escape behaviour instead of testing it. That hypothesis is now known to be wrong, and this section replaces the "Reconciliation notes" that previously stood here.
+
+1. **D-013 did not reproduce.** The lightbox was reopened on complaint #25 with focus left inside the overlay, on the image itself, and on the page body outside it; Escape closed it on the first press in every condition tried, on both #25 and #26. The originally recorded two-press behaviour on the admin side (D3, D4) could not be reproduced and is retracted.
+2. **D-018 was refuted, not merely narrowed.** The claims it was built on, zero network requests and no `<img>` element, were both checked directly and were both false. The `<img>` element exists, the request succeeds with HTTP 200, and the file is a genuine 1-by-1-pixel PNG placeholder uploaded during the D1 upload test, not a broken viewer or an unreachable record. Retracted in full. `reports/evidence_task1b/D6_lightbox_image_never_loads.jpg` is kept in the evidence folder as the record of what the original, incorrect claim looked like on screen; it is no longer cited by any live Result cell.
+3. **D-016 narrowed from two overlays to one.** Once D-013 and D-018 were shown to be wrong, the "focus precondition" story that had linked them to the notification dropdown's Escape defect no longer had a basis. Retesting the lightbox found it closes correctly under every focus condition tried; the notification dropdown alone stays open. D2, D3 and D4's IA03-10 rows, and D6's IA01-13 and IA03-10 rows, were all corrected to match: no row's Result was changed to protect a prior hypothesis, each was re-observed directly against the live system. `reports/evidence_task1b/D6_lightbox_esc_does_not_close.jpg` is kept as the record of the original, incorrect lightbox-side claim; it is no longer cited by any live Result cell.
+4. **D3's IA04-11 reverted from Fail to Not executed, correcting a methodological inconsistency a second review pass caught on 2026-07-31.** D6's IA04-11 had already been reverted from a substituted "image never loads" Fail once D-018 was refuted, but D3's own IA04-11 carried the same defect and was missed the first time: it had been scored Fail on the strength of an unrelated bug (the Category-dropdown race condition, D-010) rather than an actual forced-offline test, on the reasoning that it was "the closest-matching item". D-009 and D-015 already establish the correct treatment for a bug found along the way rather than by executing the item it gets attached to: log it standalone, leave the item itself Not executed. D3's IA04-11 now gets that same treatment, and D-010 is recorded as a fourth along-the-way finding alongside D-001, D-009 and D-015.
+
+The lesson carried into `docs/07_AI_Critique.md` is twofold: a root cause invented to make two rows agree with each other is not the same thing as a root cause confirmed against the system both rows describe, only the second is evidence; and a correction applied once (D6) needs to be checked against every other place the same pattern occurs (D3), not assumed fixed everywhere it appears.

@@ -128,6 +128,15 @@ someone will check the counts.
 python .claude/skills/findings-log/scripts/check_findings.py <log.md> --evidence-root <dir>
 ```
 
+Repeat `--evidence-root` once per folder when the log aggregates findings whose screenshots live in
+more than one place — a §7 log covering several tasks normally does. A filename resolving under any
+one of the roots counts as resolved:
+
+```bash
+python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md \
+  --evidence-root reports/evidence_task1b --evidence-root reports/evidence_task3
+```
+
 Checks IDs unique, required fields non-empty, severity values legal, evidence files present on
 disk, and prints the counts by type and severity. Missing evidence is the most common defect in a
 findings log and the one that most damages its credibility — a finding whose screenshot is not
