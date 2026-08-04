@@ -1,0 +1,50 @@
+{
+  "item": "IA04-18",
+  "screen": "D6",
+  "valid_1x1": {
+    "dialog": [
+      "attachment_1"
+    ],
+    "images": [
+      {
+        "alt": "FIT",
+        "src": "https://prod-dev.ems-fitus.cloud/_next/image?url=%2Ffavicon.png&w=64&q=75",
+        "w": 0,
+        "h": 0,
+        "complete": false
+      },
+      {
+        "alt": "attachment_1",
+        "src": "https://prod-dev.ems-fitus.cloud/data/event-storage/uploads/complaints/17/1785423873494-26a2dfa7-9b49-4531-9acd-e2320c48b30c-d1-test-upload.png",
+        "w": 1,
+        "h": 1,
+        "complete": true
+      },
+      {
+        "alt": "attachment_1",
+        "src": "https://prod-dev.ems-fitus.cloud/data/event-storage/uploads/complaints/17/1785423873494-26a2dfa7-9b49-4531-9acd-e2320c48b30c-d1-test-upload.png",
+        "w": 1,
+        "h": 1,
+        "complete": true
+      }
+    ],
+    "alerts": []
+  },
+  "failed_load": {
+    "dialog": [],
+    "images": [
+      {
+        "alt": "FIT",
+        "src": "https://prod-dev.ems-fitus.cloud/_next/image?url=%2Ffavicon.png&w=64&q=75",
+        "w": 0,
+        "h": 0,
+        "complete": false
+      }
+    ],
+    "alerts": []
+  },
+  "evidence": [
+    "D6_IA04-18_valid_1x1.png",
+    "D6_IA04-18_failed_load.png"
+  ]
+}
