@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Personal working aids, not part of the graded submission
+Google_Form_Submission_Packets.md

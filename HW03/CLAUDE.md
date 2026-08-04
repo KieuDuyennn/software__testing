@@ -1,0 +1,87 @@
+# HW03 — GUI & Usability Testing on EMS (Scenario D)
+
+Context file for future sessions. Read this before touching anything; it exists so a new session
+does not have to re-derive the layout, the conventions or the rules by reading twenty files.
+
+**Student:** Lê Phạm Kiều Duyên · 23127184 · Group 09 · branch `duyen/hw3`
+**System under test:** EMS, `https://prod-dev.ems-fitus.cloud/` — the hosted instance moves; verify
+the URL is live before relying on it, never assume from memory.
+**Scenario D:** user files a support request, admin resolves it. Screens D1 `/complaints/new` ·
+D2 `/complaints`, `/complaints/{id}` · D3 `/dashboard/admin/complaints` · D4 admin detail ·
+D5 notifications · D6 attachment lightbox.
+
+## Layout
+
+```
+docs/      every written deliverable. 01_..08_ are numbered in submission order.
+           docs/checklist/          Task 1A supporting material
+           docs/usability_testing/  Task 2 instruments  (00_Run_Plan.md is the entry point)
+           docs/cross_platform/     Task 3 planning     (00_Run_Plan.md is the entry point)
+           docs/pdf/                generated PDF exports (§15); markdown is the source of truth
+reports/   generated evidence only, never hand-written prose
+           evidence_task1b/ (32 real captures) · evidence_task2/ (6 recordings + 6 stills) · evidence_task3/ · screenshots/ (14)
+refs/      given material: refs/requirements/ (the brief, EN+VI) · refs/slides/ (course PDFs)
+.claude/skills/   the seven Agent Skills built for this engagement (§8)
+```
+
+Root holds only `README.md`, this file and `.gitignore`. Keep it that way — the flat root this
+folder used to have was the specific thing that got called messy.
+
+## Conventions that are load-bearing
+
+- **Every path reference inside a markdown file is written relative to `HW03/`** — e.g.
+  `docs/05_Bug_Usability_Findings_Log.md`, `reports/evidence_task1b/D1_resting_state.jpg`. Never `../`, never a
+  bare filename. A path written any other way is a bug; fix it rather than matching it.
+- **Two files are deliberately exempt from path rewriting.** `docs/08_Git_Commit_Log.txt` is a
+  historical export. Verbatim prompt blocks inside code fences in `docs/06_AI_Audit_Report.md` and
+  `docs/checklist/Reference_Sources_and_Prompts.md` still name pre-reorganisation paths on purpose;
+  a "Path note" at the top of the audit report gives the mapping. Editing those blocks falsifies
+  the record — do not "fix" them.
+- **Finding IDs are `D-0NN`, allocated when a finding is written, never in advance.** D-001…D-022
+  are used (D-020…D-022 came from Task 3). **D-013, D-014 and D-018 are retired** (withdrawn on live re-verification) and must
+  never be reused. **D-024…D-028 came from Task 2 on 2026-08-03; the next free ID is D-029.** **All 25 live findings are submitted** — D-028, raised 2026-08-03 from the P5 recording, went in the same day.
+- Severity: bugs use Blocker/Critical/Major/Minor/Trivial; usability findings use the Nielsen 0-4
+  scale written as `Usability 0`…`Usability 4`.
+- Result cells are bare `Pass` / `Fail` / `N/A` / `Not executed` — no hedged wording. Every `N/A`
+  carries a one-line reason; every not-executed cell names a cause and an owner.
+
+## Hard rules — these are graded, not stylistic
+
+- **Never fabricate study data.** No invented participant, session, quote, timing, SUS answer,
+  cross-platform screenshot or Pass/Fail. §12 of the brief makes this grounds for voiding the task,
+  the TA may phone 2 of the 5 Task 2 participants to verify them, and a fabricated result also
+  poisons every conclusion drawn from it. An AI may design, score, cluster and draft; it may not be
+  a participant or supply session data. Where a deliverable cannot be produced honestly, it stays a
+  clearly-marked empty template — that is why several tables here read TBD.
+- **The AI never enters a credential.** Every login, password and OTP is typed by the student
+  herself, including each role switch. Browser automation hands the tab back at every auth step.
+- **Claims get checked against the product, not against other documents.** Three findings were
+  retracted in this project only after re-testing against the live EMS; explanations that merely
+  made two files agree turned out to be wrong. Prefer "verify before relying on this" to a
+  confident reconciliation on paper.
+- §10 requires the AI Audit Report to declare which artefacts are AI-generated. Log new AI-produced
+  deliverables in `docs/06_AI_Audit_Report.md`.
+
+## Validator commands (run from `HW03/`)
+
+```bash
+python .claude/skills/findings-log/scripts/check_findings.py docs/05_Bug_Usability_Findings_Log.md --evidence-root reports/evidence_task1b --evidence-root reports/evidence_task2 --evidence-root reports/evidence_task3
+python .claude/skills/gui-checklist-design/scripts/check_checklist.py docs/01_Task1A_Shared_GUI_Checklist.md --evidence-root . --expect 62
+python .claude/skills/usability-test-study/scripts/score_sus.py docs/usability_testing/results/SUS_Responses.csv --instrument sus --markdown
+python .claude/skills/cross-platform-matrix/scripts/matrix_coverage.py docs/04_Task3_Cross_Platform_Matrix.md --evidence-root reports/evidence_task3
+```
+
+## State — update this section when it changes
+
+| Task | Marks | State |
+| --- | --- | --- |
+| 1A shared checklist | 15 | Done. v2.0, 62 items. Open: only 5/62 from the team's own EMS experience (v2.0 added 1 genuine pillar-4 item, IA04-18; other 3 members still owe theirs); IA03-16 and IA04-18 postdate Task 1B so are unrun. |
+| 1B execution D1-D6 | 15 | Done. 372 cells, **137 applicable and all 137 executed** (103 Pass / 34 Fail), 235 N/A, **0 not executed**. The closure run used the CDP Slow-3G/Offline harness, a fresh guest account for D5's empty state and controlled attachment-load states. 20 Task-1B findings, 3 retracted on live re-verification. Read the Method section's *Instrument note* before any keyboard or coordinate-click test. |
+| 2 user testing | 25 | **Done (2026-08-03).** 5 real participants, 4 universities, one screen recording each in `reports/evidence_task2/`. SUS mean 67.0, **SD 26.1**, range 27.5-97.5. Both tasks 5/5 Complete. **5 findings D-024…D-028** + user-side confirmation of D-015. **Time on task measured** (moderator paper log, Pilot-01 convention): T1 mean 5:30 range 2:58-8:30, T2 mean 1:46 range 0:22-3:40. **Errors 7 / hesitations 19** from the same log; an independent count derived from the answer sheets also gives **7 errors**, and 7 self-declared uncertainty points. **Pilot-01 ran before P1** (Nguyễn Kháng Chiến, 6th person, `reports/evidence_task2/Session_Pilot01.mp4`, verified 0% frame overlap vs all five); its data enters no result, and its durations are moderator-reported, uncorroborated by a 35 s excerpt. Its §5.3 rate-limit warning **was corroborated** by the P5 recording and became D-028. All five orderings (T1 time, T2 time, errors, SUS, perceived-effort rank) put the five in the same sequence P3·P1·P5·P2·P4. **All five ranked findings now carry a still**: F2/F3/F5 from the recordings, F1/F4 from live captures of the product structure (`D-024_event_page_has_no_support_route.jpg`, `D-024_support_only_in_avatar_menu.jpg`, `D-027_landing_list_no_request_id.jpg`, all taken 2026-08-03 after the sessions and labelled as such). Open: times rest on the **paper log alone** (recordings are 19-26 s excerpts, cannot corroborate); task outcomes are **self-reported**, not yet confirmed against the recordings; `Session_Pilot01.md` §5.1 (required field cleared by image upload) is **unreproduced — no finding ID allocated**. Invented timings were offered and declined (audit Interaction 20). Folder is `00_Run_Plan` (plan) · `01_Session_Pack` (run a session) · `02_Participant_Handout` (the only file a participant sees) · `design/` (source of truth for wording) · `results/` (data). |
+| 3 cross-platform | 25 | Done. **28/28 cells — 20 Pass, 8 Fail**; all mandatory and optional Safari-15 cells captured. D-020/D-021/D-022 reproduced; D3/D4 Safari-15 closure is Interaction 22 in the audit. |
+| §7 form + log | 10 | Log complete and validated (**28 findings**); **all 28 submitted**: 19 on 2026-08-02, D-023…D-028 on 2026-08-03, and D-029…D-031 on 2026-08-04. **Log and form agree at 28.** Timestamp column is date-level, not minute-level. |
+| §8 skills | 10 | Seven skills built and used; 4:30 end-to-end demo published at https://youtu.be/5qZPP9oyK5c with compressed local copy under `reports/agent_skill_demo/`. |
+| §15 formats | — | Markdown complete; PDFs in `docs/pdf/`. |
+
+The README's §16 self-assessment table must stay consistent with this. When a task moves, update
+both.
