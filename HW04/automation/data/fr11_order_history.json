@@ -1,0 +1,51 @@
+{
+  "_schema": {
+    "note": "Sample rows only - replace with your own >= 12 cases. Keep tc_id traceable to the HW02 FR-11 test-design artifact. Delete this _schema key once the file is real.",
+    "fields": {
+      "tc_id": "stable ID, e.g. FR11-TC-01",
+      "title": "one-line intent, becomes the Playwright test title",
+      "type": "positive | negative | edge",
+      "account": "which seeded account to log in as",
+      "filter": "status filter to apply, or null",
+      "page": "pagination page to request, or null",
+      "expect_row_count": "expected number of rows, or null when not asserted",
+      "expect_outcome": "rendered | empty_state | forbidden | not_found",
+      "expect_sorted_desc_by": "column name asserted to be newest-first, or null"
+    }
+  },
+  "cases": [
+    {
+      "tc_id": "FR11-TC-01",
+      "title": "user with orders sees them newest-first",
+      "type": "positive",
+      "account": "user_with_orders",
+      "filter": null,
+      "page": 1,
+      "expect_row_count": null,
+      "expect_outcome": "rendered",
+      "expect_sorted_desc_by": "created_at"
+    },
+    {
+      "tc_id": "FR11-TC-02",
+      "title": "user with no orders sees the empty state, not an error",
+      "type": "positive",
+      "account": "user_without_orders",
+      "filter": null,
+      "page": 1,
+      "expect_row_count": 0,
+      "expect_outcome": "empty_state",
+      "expect_sorted_desc_by": null
+    },
+    {
+      "tc_id": "FR11-TC-03",
+      "title": "anonymous visitor cannot read another user's order by ID",
+      "type": "negative",
+      "account": "anonymous",
+      "filter": null,
+      "page": null,
+      "expect_row_count": null,
+      "expect_outcome": "forbidden",
+      "expect_sorted_desc_by": null
+    }
+  ]
+}
