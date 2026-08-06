@@ -1,0 +1,4 @@
+tc_id,title,type,name,email,password,phone,expect_outcome,expect_message,http_status
+FR01-TC-01,register with all valid fields,positive,Nguyen Van A,valid.new@example.com,Passw0rd!23,0901234567,success,,201
+FR01-TC-02,reject duplicate email,negative,Nguyen Van A,existing@example.com,Passw0rd!23,0901234567,rejected,email,409
+FR01-TC-03,reject password of exactly 7 chars (lower boundary - 1),edge,Nguyen Van A,bva.pw7@example.com,Pass1!a,0901234567,rejected,password,400
