@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Playwright runtime artifacts (raw traces/videos are large; HTML reports ARE committed)
+test-results/
+playwright/.cache/
+blob-report/
+
+# Authentication storage state - contains real session cookies, never commit
+automation/fixtures/.auth/
+
+# Local environment
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python caches (from skill scripts)
+__pycache__/
+*.pyc
