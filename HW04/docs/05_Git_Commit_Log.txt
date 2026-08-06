@@ -1,0 +1,15 @@
+HW04 Git commit log
+Student: Le Pham Kieu Duyen (23127184)
+
+Regenerate this file before submitting, from the HW04 folder only:
+
+  git log --since=<first HW04 commit date> --date=iso \
+      --pretty=format:"%h  %ad  %an  %s" -- HW04/ > HW04/Git_Commit_Log.txt
+
+Section 12 requirement: at least 8 commits over at least 4 days, counting ONLY
+commits that change test-script files (.spec.ts). To check that count:
+
+  git log --oneline --date=short --pretty=format:"%ad %h %s" -- "HW04/tests/**/*.spec.ts"
+
+-------------------------------------------------------------------------------
+(log goes below this line)
