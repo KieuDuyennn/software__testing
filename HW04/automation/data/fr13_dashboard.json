@@ -1,0 +1,47 @@
+{
+  "_schema": {
+    "note": "Sample rows only - replace with your own >= 12 cases. HW02 confirmed a revenue-doubling defect on this page; keep at least one case that recomputes the KPI independently rather than only checking that a number is displayed. Delete this _schema key once the file is real.",
+    "fields": {
+      "tc_id": "stable ID, e.g. FR13-TC-01",
+      "title": "one-line intent, becomes the Playwright test title",
+      "type": "positive | negative | edge",
+      "account": "admin | user | anonymous",
+      "date_range": "filter applied to the dashboard, or null",
+      "kpi": "which KPI card the case asserts on",
+      "expect_outcome": "rendered | forbidden | zero_state",
+      "cross_check": "how the expected value is derived independently (api | orders_table | none)"
+    }
+  },
+  "cases": [
+    {
+      "tc_id": "FR13-TC-01",
+      "title": "admin sees all KPI cards populated",
+      "type": "positive",
+      "account": "admin",
+      "date_range": null,
+      "kpi": "all",
+      "expect_outcome": "rendered",
+      "cross_check": "none"
+    },
+    {
+      "tc_id": "FR13-TC-02",
+      "title": "revenue KPI equals the sum of the orders it claims to summarise",
+      "type": "positive",
+      "account": "admin",
+      "date_range": "last_30_days",
+      "kpi": "revenue",
+      "expect_outcome": "rendered",
+      "cross_check": "api"
+    },
+    {
+      "tc_id": "FR13-TC-03",
+      "title": "non-admin user is refused the dashboard route",
+      "type": "negative",
+      "account": "user",
+      "date_range": null,
+      "kpi": "all",
+      "expect_outcome": "forbidden",
+      "cross_check": "none"
+    }
+  ]
+}
