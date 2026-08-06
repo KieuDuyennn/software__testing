@@ -12,6 +12,9 @@ automation/fixtures/.auth/
 # Local environment
 .env
 
+# Personal working aids (not part of the submission)
+refs/requirements/*_Vi.md
+
 # Logs
 *.log
 npm-debug.log*
