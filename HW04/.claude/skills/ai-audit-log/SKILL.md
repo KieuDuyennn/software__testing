@@ -26,6 +26,14 @@ Rules:
 - **Never fabricate a row** for something that did not happen in this session.
 - If something cannot be verified from this session's actual context (a prompt that
   scrolled out of view), say so — do not reconstruct from memory.
+- **Timestamps are observed, never estimated.** §11 lists invented timestamps as
+  cheating. Read the real clock at the time of writing; if a row is written late, the
+  honest value is the time it was written, not a plausible reconstruction.
+- **The student can switch logging off** for a session. Honour it for that session and
+  do not backfill afterwards — a batch of rows written from memory is exactly the
+  fabrication §11 prohibits. The log is then simply shorter, and that is fine.
+- **Prompts are often mixed Vietnamese and English.** Keep them in the language they
+  were written. Translation belongs in the §9 curation step, declared as such.
 
 ## When preparing the §9 appendix
 
