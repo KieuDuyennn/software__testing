@@ -1,8 +1,17 @@
-# Raw AI interaction log — HW04
+# AI interaction log — HW04
 
-Appendix to `docs/03_AI_Audit_Report.md`. One row per interaction, appended as it happens.
-This file is the raw record; the audit report is the curated §9 version of it.
+Appendix to `docs/03_AI_Audit_Report.md`.
 
-| # | Timestamp | Tool | My prompt (verbatim) | AI output (factual summary) | Verdict / review note |
-|---|---|---|---|---|---|
-| | | | | | |
+| # | Date & time (UTC+7) | Tool | Prompt summary | AI output (factual summary) | Human review outcome | Evidence |
+|---|---|---|---|---|---|---|
+| 1 | 2026-08-06 23:14:51–23:14:53 | Claude Code — Claude Opus 5 | Read the brief and scaffold Playwright + TypeScript for FR-01, FR-11 and FR-13. Keep secrets/artifacts out of Git; use external data, three browsers and attributable reports. | Created `.gitignore`, `.env.example`, dependencies, TypeScript/Playwright config and `CLAUDE.md`. | **Reviewed; correction required.** The structure matched the brief, but runtime URLs remained provisional. Later review proved that initial `BASE_URL=:3000` targeted the API, not the customer UI. | `c8111c7`, `0b92d33`, `d01b283`, `1f9c70e`, `d7b2949`, `ea52e13`, `005ef91` |
+| 2 | 2026-08-06 23:14:53–23:14:59 | Claude Code — Claude Opus 5 | Add utilities, fixtures, page objects, external data, data-driven specs, the 3 × 3 runner, traceability matrices and a human-correction log. | Created the initial automation architecture and three feature artifacts. | **Reviewed structurally, not rubber-stamped.** External-data boundaries, identity metadata and browser matrix were checked. Scaffolding and `--list` output were not treated as successful E2E execution. Later source/DOM inspection caused targeted page-object and matrix corrections. | `e26c32a`–`7e4cf80`; current `RegisterPage.ts` and `TC_Matrix_*.md` diffs |
+| 3 | 2026-08-06 23:15:00–23:15:01 | Claude Code — Claude Opus 5 | Create reusable Agent Skills for stepwise Playwright automation and mandatory AI logging, with a human gate before execution. | Added `playwright-automation`, `ai-audit-log` and the skills README. | **Accepted only as version 1.** The student retained the stop/approve and evidence-integrity rules, then evaluated the skill against the real FR-01 setup before revising it. | `a11d1c0`, `71c8a2a`, `25cfd6c` |
+| 4 | 2026-08-09 18:19:03–18:19:22 | Claude Code | Re-check setup against the real SUT. Verify backend, customer and admin ports; change only demonstrably wrong configuration. | Changed browser `baseURL` from `:3000` to customer UI `:5173`; documented API `:3000` and admin UI `:5174` separately. | **Human correction accepted.** Ports were traced to SUT configuration/runtime; frontend navigation was separated from API traffic; real credentials stayed in ignored `.env`. This was a functional correction, not wording cleanup. | Reviewed working-tree diff: `.env.example`, `playwright.config.ts` |
+| 5 | 2026-08-09 18:35:33–18:36:15 | Claude Code | Critique the Playwright skill using failures encountered during FR-01 setup. Make every check operational and retain staged approval. | Added environment Step 0, implementation-source reading, selector probes before data generation, case reclassification, diagnostic cases, SUT-over-document precedence and observed pitfalls. | **Human review substantially rewrote the workflow.** Generic “verify selectors” guidance was rejected. The revision requires counts for accepted/rejected locators, checks absent fields early, distinguishes browser-native validation and stops after behaviours, cases, locators, data and spec. | Reviewed working-tree diff: `playwright-automation/SKILL.md`, skills `README.md` |
+| 6 | 2026-08-09 18:36:02 | Claude Code | Harden the audit skill against invented timestamps and altered multilingual prompts. | Added observed-time, no-backfill and original-language rules. | **Human review tightened provenance.** The student required timestamps to be recorded at interaction time and prompts to retain their original language. | Reviewed working-tree diff: `ai-audit-log/SKILL.md` |
+## Rule for future rows
+
+Append future interactions when they occur, with an observed timestamp and verbatim
+prompt. “Human review” must name a check, requested change, acceptance reason or open
+concern; the word “reviewed” alone is not evidence.
