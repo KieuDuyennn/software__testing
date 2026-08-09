@@ -53,7 +53,10 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: process.env.BASE_URL ?? 'http://localhost:3000',
+    // The web front-end is the Vite dev server on 5173; :3000 is the backend API
+    // (frontend-web posts to http://localhost:3000/api/...), so it must not be the
+    // baseURL for page.goto(). Verified against the running SUT.
+    baseURL: process.env.BASE_URL ?? 'http://localhost:5173',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
