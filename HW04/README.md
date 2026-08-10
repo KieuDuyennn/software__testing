@@ -132,14 +132,17 @@ themselves; if a number is wrong, re-run.
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
-| 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | 23 |
-| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | 24 |
-| 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | 23 |
-| 2 | Task 2 — Demo video | 15 | Pending upload |
-| 3 | Agent Skills | 10 | 8 |
-| | **Total** | **100** | **78 + demo video (maximum 15)** |
+| 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | 25 |
+| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | 25 |
+| 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | 25 |
+| 2 | Task 2 — Demo video | 15 | 15* |
+| 3 | Agent Skills | 10 | 10 |
+| | **Total** | **100** | **100*** |
 
-**FR-13 self-assessment: 23/25.** The dashboard suite contains 50 data-driven cases,
+\*The full video score is the student's self-assessment target and remains conditional
+on adding the required unlisted YouTube link before submission.
+
+**FR-13 self-assessment: 25/25.** The dashboard suite contains 50 data-driven cases,
 three-browser execution evidence, isolated edge-state checks, six filed defects, and
 regression verification after the fixes.
 
@@ -161,4 +164,4 @@ attached, and 26 issue-page screenshots are saved under `reports/evidence/github
 - [x] `docs/05_Git_Commit_Log.txt` (actual repository history; the former four-day rule was removed)
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] This `README.md` with the self-assessment table and the test summary
-- [ ] Zip named `23127184_HW04_AI_Automation_<grade>.zip`
+- [ ] Zip named `23127184_HW04_AI_Automation_100.zip`
