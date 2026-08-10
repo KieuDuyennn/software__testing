@@ -565,12 +565,15 @@ test.describe('FR-13 Dashboard', () => {
           for (const item of row.cart_items!) {
             await api.addToCart(request, ownerToken, item);
           }
-          const orderId = await api.checkout(request, ownerToken, submitted);
+          const orderId = await api.checkoutRaw(request, ownerToken, submitted, row.cart_items);
+          expect(orderId.ok(), `${row.tc_id}: checkout failed`).toBeTruthy();
+          const orderBody = await orderId.json();
+          const createdOrderId = orderBody.orderId as number;
 
           const orders = (await (await api.adminOrdersListRaw(request, adminToken)).json()) as Array<
             Record<string, unknown>
           >;
-          const stored = orders.find((order) => Number(order.id) === orderId);
+          const stored = orders.find((order) => Number(order.id) === createdOrderId);
           expect(stored, `${row.tc_id}: seeded order ${orderId} not found`).toBeTruthy();
 
           // README FR-08 requires the backend to recompute the total FROM THE CART. The
