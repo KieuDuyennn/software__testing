@@ -271,3 +271,6 @@ oracle passed. Evidence is in `reports/html/fr11/<browser>/index.html` and the a
 merged runs under `reports/archive/`. Severity is an engineering assessment based on
 security exposure, data integrity and user impact; the student may adjust it to match the
 course rubric before filing issues.
+
+Evidence screenshots for BUG-FR11-01 through BUG-FR11-16 are stored under
+`reports/screenshots/BUG-FR11-*.png` and linked from GitHub Issues #18–#33.
