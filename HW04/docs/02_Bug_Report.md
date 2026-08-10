@@ -296,9 +296,32 @@ kept as separate bugs so every reproducible failure has a traceable finding.
 clusters. The same underlying cause may therefore appear in multiple issue rows. TC-45
 is not included: the final concurrent run returned `200` and `400`, so its single-success
 oracle passed. Evidence is in `reports/final/html/fr11/<browser>/index.html` and the archived
-merged runs under `reports/history/archived-runs/`. Severity is an engineering assessment based on
-security exposure, data integrity and user impact; the student may adjust it to match the
-course rubric before filing issues.
+merged runs under `reports/history/archived-runs/`. Severity is an engineering assessment
+based on security exposure, data integrity and user impact and was reviewed before the
+issues were filed.
 
 Evidence screenshots for BUG-FR11-01 through BUG-FR11-16 are stored under
 `reports/evidence/failure-screenshots/fr11/BUG-FR11-*.png` and linked from GitHub Issues #18–#33.
+Screenshots of the filed issue pages themselves are stored under
+`reports/evidence/github-issues/fr11/`; filenames map Issue #18–#33 in order to
+BUG-FR11-01–BUG-FR11-16 (for example,
+`issue-18-BUG-FR11-01.png` and `issue-33-BUG-FR11-16.png`).
+
+## FR-13 Dashboard — root-cause bug assessment
+
+The 50-case Chromium run produced 29 passes and 21 failed assertions. Firefox and
+WebKit reproduced the same six root-cause mechanisms across the `tc`, `bva`, and `api`
+report groups. These are filed and preserved as follows:
+
+| Bug ID | Severity | Finding | GitHub Issue | Issue-page screenshot |
+|---|---|---|---|---|
+| BUG-FR13-01 | Major | Delivered revenue is multiplied by two. | [#15](https://github.com/KieuDuyennn/software__testing/issues/15) | `reports/evidence/github-issues/fr13/issue-15-BUG-FR13-01.png` |
+| BUG-FR13-02 | Major | `canceled → delivered` is accepted and mutates the order. | [#38](https://github.com/KieuDuyennn/software__testing/issues/38) | `reports/evidence/github-issues/fr13/issue-38-BUG-FR13-02.png` |
+| BUG-FR13-03 | Critical | Checkout trusts malformed client `total_amount` values. | [#34](https://github.com/KieuDuyennn/software__testing/issues/34) | `reports/evidence/github-issues/fr13/issue-34-BUG-FR13-03.png` |
+| BUG-FR13-04 | Critical | Admin endpoints authenticate tokens without enforcing the admin role. | [#14](https://github.com/KieuDuyennn/software__testing/issues/14) | `reports/evidence/github-issues/fr13/issue-14-BUG-FR13-04.png` |
+| BUG-FR13-05 | Critical | A signed admin token for a nonexistent user reads global orders. | [#36](https://github.com/KieuDuyennn/software__testing/issues/36) | `reports/evidence/github-issues/fr13/issue-36-BUG-FR13-05.png` |
+| BUG-FR13-06 | Critical | A normal user can promote their own profile to `admin`. | [#37](https://github.com/KieuDuyennn/software__testing/issues/37) | `reports/evidence/github-issues/fr13/issue-37-BUG-FR13-06.png` |
+
+Execution evidence remains in `reports/final/json/fr13-chromium.json` and the Firefox/
+WebKit `tc`, `bva`, and `api` reports. The issue-page screenshots document filing status;
+they do not replace the generated execution evidence.
