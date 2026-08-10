@@ -26,6 +26,8 @@ and WebKit executions were produced in three complete case groups (`tc`, `bva`, 
 - `evidence/failure-screenshots/fr01/` — FR-01 assertion evidence.
 - `evidence/failure-screenshots/fr11/` — FR-11 assertion evidence.
 - `evidence/github-issues/fr01/` — screenshots of filed FR-01 GitHub Issues.
+- `evidence/github-issues/fr11/` — 16 screenshots of GitHub Issues #18–#33.
+- `evidence/github-issues/fr13/` — 6 screenshots of GitHub Issues #14, #15, #34, #36–#38.
 
 ## History
 

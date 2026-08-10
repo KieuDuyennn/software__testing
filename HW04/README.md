@@ -3,7 +3,7 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public repository:** https://github.com/KieuDuyennn/software__testing
+**Public submission branch:** https://github.com/KieuDuyennn/software__testing/tree/duyen/hw4/HW04
 **AI declaration:** I use AI tools for the tasks recorded in `docs/03_AI_Audit_Report.md`.
 
 ## Features under test (§5)
@@ -98,12 +98,17 @@ Run everything from the HW04 root. Each run writes
 
 ## Test summary report (§14)
 
-Fill from `reports/final/summaries/fr01.txt`, the JSON results, and the HTML reports. Do not hand-edit the reports
-themselves; if a number is wrong, re-run.
+Derived from the final summaries, JSON results, and HTML reports. Generated reports are
+not hand-edited; incorrect generated values must be corrected by rerunning the suite.
 
 | Metric | Value |
 |---|---|
 | Features automated | 3 |
+| Unique data-driven cases | 139 (FR-01: 43; FR-11: 46; FR-13: 50) |
+| Total browser executions | 417 |
+| Total passed / failed executions | 230 / 187 |
+| Browser combinations | 9 (13 HTML entry points because FR-13 Firefox/WebKit are split into `tc`/`bva`/`api`) |
+| Confirmed issue-level findings | 45 (FR-01: 23; FR-11: 16; FR-13: 6) |
 | FR-01 test cases automated | 43 / ≥ 12 |
 | FR-01 executions | 129 (43 × 3 browsers) |
 | FR-01 passed | 51 |
@@ -118,9 +123,9 @@ themselves; if a number is wrong, re-run.
 
 | # | Feature | Browser | Started (ISO) | Tests | Pass | Fail | Report |
 |---|---|---|---|---|---|---|---|
-| 1 | FR-01 | chromium | 43 | 17 | 26 | 2026-08-10T12:06:09.635Z | `reports/final/html/fr01/chromium/index.html` |
-| 2 | FR-01 | firefox | 43 | 17 | 26 | 2026-08-10T14:28:58.633Z | `reports/final/html/fr01/firefox/index.html` |
-| 3 | FR-01 | webkit | 43 | 17 | 26 | 2026-08-10T14:55:13.862Z | `reports/final/html/fr01/webkit/index.html` |
+| 1 | FR-01 | chromium | 2026-08-10T12:06:09.635Z | 43 | 17 | 26 | `reports/final/html/fr01/chromium/index.html` |
+| 2 | FR-01 | firefox | 2026-08-10T14:28:58.633Z | 43 | 17 | 26 | `reports/final/html/fr01/firefox/index.html` |
+| 3 | FR-01 | webkit | 2026-08-10T14:55:13.862Z | 43 | 17 | 26 | `reports/final/html/fr01/webkit/index.html` |
 | 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
 | 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
 | 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
@@ -156,8 +161,8 @@ attached, and 26 issue-page screenshots are saved under `reports/evidence/github
 ## Submission checklist (§14)
 
 - [x] `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
-- [ ] Public GitHub repository link is filled; push the final local `duyen/hw4` commit before submission
-- [x] 9 multi-browser HTML reports, each showing `Run by: 23127184` + ISO timestamp
+- [x] Public GitHub repository link; `duyen/hw4` is pushed and tracks `origin/duyen/hw4`
+- [x] 9 browser combinations (13 HTML entry points), all showing `Run by: 23127184` + ISO timestamp
 - [ ] Unlisted YouTube demo video (≥ 5 min, Vietnamese, face-cam or `whoami`/`hostname`)
 - [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
 - [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
