@@ -247,22 +247,22 @@ kept as separate bugs so every reproducible failure has a traceable finding.
 
 | Bug ID | TC | Verdict | Severity | Finding |
 |---|---|---|---|---|
-| BUG-FR11-01 | TC-03 | Confirmed defect | Critical | `GET /api/orders/:id` exposes another user's order (HTTP 200). This is an authorization/data-disclosure failure. |
-| BUG-FR11-02 | TC-14 | Confirmed defect | Major | Cancel buttons are shown for shipping orders; UI offers an operation that should be unavailable. |
-| BUG-FR11-03 | TC-15 | Confirmed defect | Critical | Order-detail route accepts a request without authentication instead of refusing it. |
-| BUG-FR11-04 | TC-18 | Confirmed defect | Critical | Non-admin user can list all orders through `/api/admin/orders` (missing role enforcement). |
-| BUG-FR11-05 | TC-19 | Confirmed defect | Critical | Non-admin user can change order status through the admin endpoint. |
-| BUG-FR11-06 | TC-22 | Confirmed defect | Major | API accepts illegal `canceled → delivered` transition. |
-| BUG-FR11-07 | TC-23 | Confirmed defect | Major | UI displays a canceled order as delivered after the illegal transition. |
-| BUG-FR11-08 | TC-26 | Confirmed defect | Major | Clicking cancel on a shipping order succeeds; synchronized UI evidence shows `Đã hủy`. |
-| BUG-FR11-09 | TC-27 | Confirmed defect | Major | Cancel API accepts a shipping-order cancellation directly, independently of the UI. |
-| BUG-FR11-10 | TC-31 | Confirmed defect | Major | Non-numeric `total_amount` renders as `NaN ₫`. |
-| BUG-FR11-11 | TC-33 | Confirmed defect | Major | Negative order total is accepted and displayed as a price. |
-| BUG-FR11-12 | TC-34 | Confirmed defect | Major | Missing total is silently rendered as `0 ₫`, masking malformed order data. |
-| BUG-FR11-13 | TC-35 | Confirmed defect | Major | Checkout accepts a non-numeric client-supplied total and creates the order. |
-| BUG-FR11-14 | TC-36 | Confirmed defect | Major | Order-fetch failure is rendered as the empty-history state, misleading the user. |
-| BUG-FR11-15 | TC-42 | Confirmed defect | Major | Truthy nested `orders` payload of the wrong type reaches `.map` and breaks the profile page. |
-| BUG-FR11-16 | TC-43 | Confirmed defect | Critical | Correctly signed token for a nonexistent user is accepted as a live session (HTTP 200). |
+| BUG-FR11-01 | TC-03 | Confirmed defect | Critical | [Issue #18](https://github.com/KieuDuyennn/software__testing/issues/18) — `GET /api/orders/:id` exposes another user's order (HTTP 200). |
+| BUG-FR11-02 | TC-14 | Confirmed defect | Major | [Issue #19](https://github.com/KieuDuyennn/software__testing/issues/19) — cancel buttons are shown for shipping orders. |
+| BUG-FR11-03 | TC-15 | Confirmed defect | Critical | [Issue #20](https://github.com/KieuDuyennn/software__testing/issues/20) — order-detail route accepts an unauthenticated request. |
+| BUG-FR11-04 | TC-18 | Confirmed defect | Critical | [Issue #21](https://github.com/KieuDuyennn/software__testing/issues/21) — non-admin user can list all orders. |
+| BUG-FR11-05 | TC-19 | Confirmed defect | Critical | [Issue #22](https://github.com/KieuDuyennn/software__testing/issues/22) — non-admin user can change order status. |
+| BUG-FR11-06 | TC-22 | Confirmed defect | Major | [Issue #23](https://github.com/KieuDuyennn/software__testing/issues/23) — API accepts illegal `canceled → delivered` transition. |
+| BUG-FR11-07 | TC-23 | Confirmed defect | Major | [Issue #24](https://github.com/KieuDuyennn/software__testing/issues/24) — UI displays a canceled order as delivered. |
+| BUG-FR11-08 | TC-26 | Confirmed defect | Major | [Issue #25](https://github.com/KieuDuyennn/software__testing/issues/25) — cancel on a shipping order succeeds. |
+| BUG-FR11-09 | TC-27 | Confirmed defect | Major | [Issue #26](https://github.com/KieuDuyennn/software__testing/issues/26) — cancel API accepts a shipping-order cancellation. |
+| BUG-FR11-10 | TC-31 | Confirmed defect | Major | [Issue #27](https://github.com/KieuDuyennn/software__testing/issues/27) — non-numeric `total_amount` renders as `NaN ₫`. |
+| BUG-FR11-11 | TC-33 | Confirmed defect | Major | [Issue #28](https://github.com/KieuDuyennn/software__testing/issues/28) — negative order total is accepted and displayed. |
+| BUG-FR11-12 | TC-34 | Confirmed defect | Major | [Issue #29](https://github.com/KieuDuyennn/software__testing/issues/29) — missing total is silently rendered as `0 ₫`. |
+| BUG-FR11-13 | TC-35 | Confirmed defect | Major | [Issue #30](https://github.com/KieuDuyennn/software__testing/issues/30) — checkout accepts a non-numeric total. |
+| BUG-FR11-14 | TC-36 | Confirmed defect | Major | [Issue #31](https://github.com/KieuDuyennn/software__testing/issues/31) — fetch failure is shown as empty history. |
+| BUG-FR11-15 | TC-42 | Confirmed defect | Major | [Issue #32](https://github.com/KieuDuyennn/software__testing/issues/32) — malformed nested `orders` payload breaks the profile page. |
+| BUG-FR11-16 | TC-43 | Confirmed defect | Critical | [Issue #33](https://github.com/KieuDuyennn/software__testing/issues/33) — signed token for a nonexistent user is accepted. |
 
 **FR-11 assessment:** 16 failure-level findings, comprising 8 implementation root-cause
 clusters. The same underlying cause may therefore appear in multiple issue rows. TC-45
