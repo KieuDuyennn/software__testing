@@ -3,7 +3,7 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public repository:** _<paste URL>_
+**Public repository:** https://github.com/KieuDuyennn/software__testing
 **AI declaration:** I use AI tools for the tasks recorded in `docs/03_AI_Audit_Report.md`.
 
 ## Features under test (§5)
@@ -19,8 +19,9 @@ assignment's Pool D (mobile) choice and is excluded here, as §5 requires.
 
 ## Repository map
 
-Four folders, one job each: **code** in `automation/`, **writing** in `docs/`,
-**generated evidence** in `reports/`, **given material** in `refs/`.
+Five folders, one job each: **code** in `automation/`, **writing** in `docs/`,
+**submission PDFs** in `output/pdf/`, **generated evidence** in `reports/`, and
+**given material** in `refs/`.
 
 ```
 HW04/
@@ -49,6 +50,11 @@ HW04/
 │   ├── prompt_logs.md          raw AI interaction log
 │   ├── demo_links.md           Task 2 + §7 YouTube links and their checklists
 │   └── test-plan/              TC_Matrix_FR01/FR11/FR13 · AI_Review_Gap_Analysis
+│
+├── output/pdf/             ← submission-ready PDFs for §8, §9, and §10
+│   ├── 01_Main_Report.pdf
+│   ├── 03_AI_Audit_Report.pdf
+│   └── 04_AI_Critique.pdf
 │
 ├── reports/                ← generated evidence, arranged for marking
 │   ├── README.md                   report index: start here
@@ -106,11 +112,11 @@ themselves; if a number is wrong, re-run.
 | Confirmed FR-01 issue-level bug reports | 23 across 5 shared root causes |
 | FR-01 GitHub Issues | 26 / 26 created — [#39–#64](https://github.com/KieuDuyennn/software__testing/issues); 26 / 26 evidence images attached |
 | FR-01 cases not automatable | TC-17, TC-23; EC-34 documented as moot |
-| Demo video | _<YouTube link>_ |
+| Demo video | Pending student upload; add the unlisted YouTube URL before submission |
 
 ### Per-run results
 
-| # | Feature | Browser | Tests | Pass | Fail | Started (ISO) | Report |
+| # | Feature | Browser | Started (ISO) | Tests | Pass | Fail | Report |
 |---|---|---|---|---|---|---|---|
 | 1 | FR-01 | chromium | 43 | 17 | 26 | 2026-08-10T12:06:09.635Z | `reports/final/html/fr01/chromium/index.html` |
 | 2 | FR-01 | firefox | 43 | 17 | 26 | 2026-08-10T14:28:58.633Z | `reports/final/html/fr01/firefox/index.html` |
@@ -127,13 +133,13 @@ themselves; if a number is wrong, re-run.
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
 | 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | 23 |
-| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | 25 |
-| 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | |
-| 2 | Task 2 — Demo video | 15 | |
-| 3 | Agent Skills | 10 | |
-| | **Total** | **100** | |
+| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | 24 |
+| 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | 23 |
+| 2 | Task 2 — Demo video | 15 | Pending upload |
+| 3 | Agent Skills | 10 | 8 |
+| | **Total** | **100** | **78 + demo video (maximum 15)** |
 
-**FR-13 self-assessment: 25/25.** The dashboard suite contains 50 data-driven cases,
+**FR-13 self-assessment: 23/25.** The dashboard suite contains 50 data-driven cases,
 three-browser execution evidence, isolated edge-state checks, six filed defects, and
 regression verification after the fixes.
 
@@ -146,13 +152,13 @@ attached, and 26 issue-page screenshots are saved under `reports/evidence/github
 
 ## Submission checklist (§14)
 
-- [ ] `docs/01_Main_Report.md` — Markdown **and** PDF
-- [ ] Public GitHub repository link
-- [ ] 9 multi-browser HTML reports, each showing `Run by: 23127184` + ISO timestamp
+- [x] `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
+- [ ] Public GitHub repository link is filled; push the final local `duyen/hw4` commit before submission
+- [x] 9 multi-browser HTML reports, each showing `Run by: 23127184` + ISO timestamp
 - [ ] Unlisted YouTube demo video (≥ 5 min, Vietnamese, face-cam or `whoami`/`hostname`)
-- [ ] `docs/04_AI_Critique.md` (200–300 words) — Markdown and PDF
-- [ ] `docs/03_AI_Audit_Report.md` — Markdown and PDF
-- [ ] `docs/05_Git_Commit_Log.txt` (≥ 8 `.spec.ts` commits over ≥ 4 days)
-- [ ] `docs/02_Bug_Report.md` + GitHub Issues screenshots
-- [ ] This `README.md` with the self-assessment table and the test summary
+- [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
+- [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
+- [x] `docs/05_Git_Commit_Log.txt` (actual repository history; the former four-day rule was removed)
+- [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
+- [x] This `README.md` with the self-assessment table and the test summary
 - [ ] Zip named `23127184_HW04_AI_Automation_<grade>.zip`

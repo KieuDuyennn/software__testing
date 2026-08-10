@@ -1,18 +1,30 @@
 # AI Critique — HW04 (Mandatory, §10)
 
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184
-**Length required:** 200–300 words. **Current count:** _<update before submitting>_
 
-Answer all three questions the brief names:
+**Word count:** 263 words (essay body)
 
-1. Where did the AI get something **wrong, biased, or incomplete** in this assignment?
-2. **Why** did it fail to catch the issue?
-3. What **principle about collaborating with AI** did you learn here?
+The AI accelerated the initial Playwright structure, but several confident outputs were
+wrong or incomplete. Its first configuration pointed `baseURL` to port 3000, which is the
+EShop API rather than the customer web application. It also generated `getByLabel`
+locators without checking whether the visible labels were programmatically associated
+with their inputs, and guessed button text that did not exist. More seriously, in FR-11
+it derived some expected values from the current implementation instead of the
+requirement. This produced contradictory cancellation oracles: one row expected a
+shipping order to expose a cancel action while other rows correctly required shipping
+cancellation to be refused. A defensive optional-field guard then allowed one control
+case to skip its data-integrity assertion entirely.
 
-Write from the corrections you actually made in `docs/test-plan/AI_Review_Gap_Analysis.md` —
-a critique that cannot be traced to a real diff is the same generic paragraph every
-student submits, and it reads that way.
+These failures occurred because the first generation pass treated documentation and
+common UI conventions as sufficient evidence. Cases were considered independently, so
+the model did not compare expectations across the whole dataset. Runtime probing helped
+verify selectors, but it became dangerous when observed product behaviour was reused as
+the oracle. The AI also preferred fail-soft code that avoided exceptions, even when a
+missing field should have failed fast as invalid test data.
 
----
-
-_<200–300 words here>_
+I learned that effective AI collaboration requires separate evidence gates. Requirements
+define expected behaviour; source and DOM inspection verify how to reach it; execution
+reveals whether the product conforms. These sources must not be substituted for one
+another. I now require selector-count probes, cross-row consistency checks, fail-fast
+data validation, and a human review stop before execution. A red assertion is preserved
+until it is classified, rather than weakened to make the suite appear successful.
