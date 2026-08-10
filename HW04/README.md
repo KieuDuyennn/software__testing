@@ -34,7 +34,7 @@ HW04/
 │   │   ├── fr01_account_registration/fr01.registration.spec.ts
 │   │   ├── fr11_order_history/fr11.order-history.spec.ts
 │   │   └── fr13_dashboard/fr13.dashboard.spec.ts
-│   ├── data/               ← §6 external test data — no inline arrays anywhere
+│   ├── data/               ← §6 external test-case datasets; no cases hardcoded in specs
 │   ├── pages/              ← page objects (locators + actions)
 │   ├── fixtures/           ← shared fixtures; stamps the Run-by annotation per test
 │   ├── utils/              ← student.ts (run identity) · data-loader.ts · assertions.ts
@@ -54,7 +54,7 @@ HW04/
 │   ├── html/<feature>/<browser>/   the 9 HTML reports
 │   ├── json/                       machine-readable results per run
 │   ├── screenshots/                failure screenshots backing each bug
-│   └── github_issues/              screenshots of the filed GitHub Issues
+│   └── github_issues/              issue-page screenshots after GitHub filing (currently pending)
 │
 ├── refs/                   ← given material
 │   ├── requirements/           assignment brief (EN, md + pdf) + course policies
@@ -92,33 +92,33 @@ Run everything from the HW04 root. Each run writes
 
 ## Test summary report (§14)
 
-Fill from `reports/run-summary.txt` and the HTML reports. Do not hand-edit the reports
+Fill from `reports/run-summary-fr01.txt`, the JSON results, and the HTML reports. Do not hand-edit the reports
 themselves; if a number is wrong, re-run.
 
 | Metric | Value |
 |---|---|
 | Features automated | 3 |
-| Test cases automated | _ / ≥ 36 (≥ 12 per feature)_ |
-| Test cases executed | |
-| Passed | |
-| Failed | |
-| Browser runs | _ / 9_ |
-| Bugs found | |
-| Bugs filed as GitHub Issues (with screenshot) | |
-| Cases documented as not automatable | |
+| FR-01 test cases automated | 31 / ≥ 12 |
+| FR-01 executions | 93 (31 × 3 browsers) |
+| FR-01 passed | 51 |
+| FR-01 failed | 42 failed executions = 14 unique cases × 3 browsers; 11 cases support 4 confirmed bug groups and 3 are open questions |
+| FR-01 browser runs | 3 / 3 |
+| Confirmed FR-01 issue-level bug reports | 11 across 4 shared root causes |
+| FR-01 GitHub Issues | 0 / 14 — 11 confirmed bug issues + 3 requirement-clarification issues, all pending filing |
+| FR-01 cases not automatable | TC-17, TC-23; EC-34 documented as moot |
 | Demo video | _<YouTube link>_ |
 
 ### Per-run results
 
 | # | Feature | Browser | Tests | Pass | Fail | Started (ISO) | Report |
 |---|---|---|---|---|---|---|---|
-| 1 | FR-01 | chromium | | | | | `reports/html/fr01/chromium/index.html` |
-| 2 | FR-01 | firefox | | | | | `reports/html/fr01/firefox/index.html` |
-| 3 | FR-01 | webkit | | | | | `reports/html/fr01/webkit/index.html` |
+| 1 | FR-01 | chromium | 31 | 17 | 14 | 2026-08-10T10:51:15.344Z | `reports/html/fr01/chromium/index.html` |
+| 2 | FR-01 | firefox | 31 | 17 | 14 | 2026-08-10T10:57:33.665Z | `reports/html/fr01/firefox/index.html` |
+| 3 | FR-01 | webkit | 31 | 17 | 14 | 2026-08-10T11:05:04.508Z | `reports/html/fr01/webkit/index.html` |
 | 4 | FR-11 | chromium | | | | | `reports/html/fr11/chromium/index.html` |
 | 5 | FR-11 | firefox | | | | | `reports/html/fr11/firefox/index.html` |
 | 6 | FR-11 | webkit | | | | | `reports/html/fr11/webkit/index.html` |
-| 7 | FR-13 | chromium | | | | | `reports/html/fr13/chromium/index.html` |
+| 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/html/fr13/all/index.html` |
 | 8 | FR-13 | firefox | | | | | `reports/html/fr13/firefox/index.html` |
 | 9 | FR-13 | webkit | | | | | `reports/html/fr13/webkit/index.html` |
 
@@ -126,15 +126,20 @@ themselves; if a number is wrong, re-run.
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
-| 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | |
+| 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | 23 |
 | 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | |
 | 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | |
 | 2 | Task 2 — Demo video | 15 | |
 | 3 | Agent Skills | 10 | |
 | | **Total** | **100** | |
 
-**Why these numbers.** _<one short paragraph per criterion, naming what is complete and
-what is not — the same evidence-led justification style as HW03>_
+**FR-01 self-assessment.** The feature exceeds the 12-case minimum with 31 external CSV
+rows, uses three assertion patterns, and has complete reports for all three browsers with
+student/timestamp metadata. Eleven confirmed issue-level reports across four shared root
+causes and three inferred findings are
+triaged without weakening assertions. Two points remain unclaimed because the fourteen public
+GitHub Issues and their issue-page screenshots require the student to perform the real
+external filing; no URL or screenshot is fabricated locally.
 
 ## Submission checklist (§14)
 
