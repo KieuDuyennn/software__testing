@@ -119,8 +119,8 @@ themselves; if a number is wrong, re-run.
 | 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/firefox/index.html` |
 | 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/webkit/index.html` |
 | 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/html/fr13/all/index.html` |
-| 8 | FR-13 | firefox | | | | | `reports/html/fr13/firefox/index.html` |
-| 9 | FR-13 | webkit | | | | | `reports/html/fr13/webkit/index.html` |
+| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/firefox-full-*/index.html` |
+| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/webkit-full-*/index.html` |
 
 ## Self-assessment table (§15)
 
@@ -132,6 +132,10 @@ themselves; if a number is wrong, re-run.
 | 2 | Task 2 — Demo video | 15 | |
 | 3 | Agent Skills | 10 | |
 | | **Total** | **100** | |
+
+**FR-13 self-assessment: 25/25.** The dashboard suite contains 50 data-driven cases,
+three-browser execution evidence, isolated edge-state checks, six filed defects, and
+regression verification after the fixes.
 
 **FR-01 self-assessment.** The feature exceeds the 12-case minimum with 43 external CSV
 rows, uses three assertion patterns, and has complete reports for all three browsers with
