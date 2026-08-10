@@ -1,5 +1,5 @@
 # Runs the 9 browser runs required by the brief (3 features x 3 browsers).
-# Each run writes its own HTML report under reports/html/<feature>/<browser>/.
+# Each run writes its own HTML report under reports/final/html/<feature>/<browser>/.
 #
 # Usage:  npm run runs:all
 #    or:  powershell -ExecutionPolicy Bypass -File ./automation/run-all-browsers.ps1
@@ -38,7 +38,7 @@ foreach ($feature in $features) {
             Browser  = $browser
             Started  = $started
             ExitCode = $code
-            Report   = "reports/html/$($feature.Tag)/$browser/index.html"
+            Report   = "reports/final/html/$($feature.Tag)/$browser/index.html"
         }
     }
 }
@@ -50,7 +50,7 @@ Write-Host ""
 Write-Host "=== 9-run summary ===" -ForegroundColor Cyan
 $summary | Format-Table -AutoSize
 
-$logPath = "reports/run-summary.txt"
+$logPath = "reports/final/summaries/all-features.txt"
 $summary | Format-Table -AutoSize | Out-File -FilePath $logPath -Encoding utf8
 Write-Host "Summary written to $logPath"
 Write-Host "Paste these counts into README.md before submitting."

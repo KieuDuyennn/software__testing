@@ -23,7 +23,7 @@
       "Student name": "Le Pham Kieu Duyen",
       "Feature under test": "all",
       "Browser": "all",
-      "Run started (ISO)": "2026-08-10T12:04:32.876Z",
+      "Run started (ISO)": "2026-08-10T16:31:59.593Z",
       "Assignment": "HW04-AI - Automation Testing",
       "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
       "BASE_URL set": true,
@@ -44,7 +44,7 @@
           "Student name": "Le Pham Kieu Duyen",
           "Feature under test": "all",
           "Browser": "all",
-          "Run started (ISO)": "2026-08-10T12:04:32.876Z",
+          "Run started (ISO)": "2026-08-10T16:31:59.593Z",
           "Assignment": "HW04-AI - Automation Testing",
           "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
           "BASE_URL set": true,
@@ -72,7 +72,7 @@
           "Student name": "Le Pham Kieu Duyen",
           "Feature under test": "all",
           "Browser": "all",
-          "Run started (ISO)": "2026-08-10T12:04:32.876Z",
+          "Run started (ISO)": "2026-08-10T16:31:59.593Z",
           "Assignment": "HW04-AI - Automation Testing",
           "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
           "BASE_URL set": true,
@@ -100,7 +100,7 @@
           "Student name": "Le Pham Kieu Duyen",
           "Feature under test": "all",
           "Browser": "all",
-          "Run started (ISO)": "2026-08-10T12:04:32.876Z",
+          "Run started (ISO)": "2026-08-10T16:31:59.593Z",
           "Assignment": "HW04-AI - Automation Testing",
           "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
           "BASE_URL set": true,
@@ -131,7 +131,7 @@
         {
           "open": "never",
           "outputFolder": "reports/html/all/all",
-          "title": "HW04 EShop Automation - ALL - all - Run by: 23127184 - 2026-08-10T12:04:32.876Z"
+          "title": "HW04 EShop Automation - ALL - all - Run by: 23127184 - 2026-08-10T16:31:59.593Z"
         }
       ],
       [
@@ -2754,8 +2754,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-10T12:04:32.901Z",
-    "duration": 605.8389999999999,
+    "startTime": "2026-08-10T16:31:59.610Z",
+    "duration": 200.83900000000017,
     "expected": 0,
     "skipped": 129,
     "unexpected": 0,

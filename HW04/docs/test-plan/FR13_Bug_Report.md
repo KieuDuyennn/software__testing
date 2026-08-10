@@ -15,6 +15,6 @@ into six distinct root-cause defects:
 | BUG-FR13-05 | API-10 | Critical | A signed admin token for a nonexistent user reads global orders. |
 | BUG-FR13-06 | TC-19 | Critical | A normal user can promote their own profile to `admin`. |
 
-Evidence: [full Chromium JSON](../../reports/json/fr13-all.json), [failure grouping](FR13_Failure_Evidence.md),
-and the browser wave reports under `reports/json/fr13-*-wave*.json`. The six IDs are
+Evidence: [full Chromium JSON](../../reports/final/json/fr13-chromium.json), [failure grouping](FR13_Failure_Evidence.md),
+and the browser wave reports under `reports/history/fr13-partial-runs/json/fr13-*-wave*.json`. The six IDs are
 root-cause findings; the 21 failing cases remain separate regression reproductions.
