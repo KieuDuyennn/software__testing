@@ -83,7 +83,14 @@ export async function checkout(
   token: string,
   total_amount: unknown = 1_000_000,
 ): Promise<number> {
-  const response = await checkoutRaw(request, token, total_amount);
+  const response = await request.post(`${API_URL}/api/checkout`, {
+    headers: { Authorization: `Bearer ${token}` },
+    data: {
+      total_amount,
+      items: typeof total_amount === 'number' ? [{ price: total_amount, quantity: 1 }] : undefined,
+      shipping_address: '227 Nguyen Van Cu, Q5, TP.HCM',
+    },
+  });
   if (!response.ok()) {
     throw new Error(`setup: checkout failed - ${await detail(response)}`);
   }
