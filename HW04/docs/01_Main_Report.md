@@ -3,7 +3,7 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public repository:** _<paste the GitHub URL>_
+**Public repository:** https://github.com/KieuDuyennn/software__testing
 **AI declaration:** I use AI tools for the following tasks — see `docs/03_AI_Audit_Report.md`.
 
 ---
@@ -20,7 +20,9 @@ choice and is therefore excluded here, as §5 requires.
 | B | FR-11 Order history view (user) | `HW02/submission/projects/fr11_order_history_view/` | `automation/tests/fr11_order_history/fr11.order-history.spec.ts` | `automation/data/fr11_order_history.json` |
 | C | FR-13 Dashboard | `HW02/submission/projects/fr13_dashboard/` | `automation/tests/fr13_dashboard/fr13.dashboard.spec.ts` | `automation/data/fr13_dashboard.json` |
 
-No duplication with other group members: _<state how this was checked>_
+**Student declaration:** this FR-01 / FR-11 / FR-13 selection was carried forward
+unchanged from the Group 09 HW02 allocation and does not duplicate another member's
+assigned Pool A, B, or C feature.
 
 ---
 
@@ -103,8 +105,9 @@ as state rather than browser-specific prose, and rejected API responses must not
 `id`. A historical Firefox teardown symptom did not reproduce in the two final reruns. No
 assertion was weakened to turn a product divergence green.
 
-Full log: `docs/test-plan/AI_Review_Gap_Analysis.md`. Summarise the headline findings here —
-what the AI got wrong, and **why** it missed it.
+The full correction log is in `docs/test-plan/AI_Review_Gap_Analysis.md`. Its recurring
+causes were unverified UI assumptions, implementation-derived oracles, missing
+cross-row consistency checks, and fail-soft guards that could silently skip assertions.
 
 ### 3.5 Defects found
 
@@ -144,12 +147,12 @@ the FR-01 GitHub delivery contains twenty-six issues.
 
 | Item | Value |
 |---|---|
-| YouTube link (unlisted, ≥ 5 min, Vietnamese narration) | |
-| Feature demonstrated end to end | |
-| Multi-browser run shown | |
-| HTML report shown | |
-| AI fix narrated (which one) | |
-| Authorship evidence | face-cam / terminal `whoami` + `hostname` |
+| YouTube link (unlisted, ≥ 5 min, Vietnamese narration) | **Pending student upload** |
+| Feature demonstrated end to end | Planned: FR-01 Account registration |
+| Multi-browser run shown | Planned: Chromium, Firefox, WebKit |
+| HTML report shown | Planned: final FR-01 report with student ID and ISO timestamp |
+| AI fix narrated (which one) | Planned: replacing guessed locators and separating requirement-valid from implementation-compatible passwords |
+| Authorship evidence | Planned: terminal `whoami` + `hostname` |
 
 ---
 
@@ -158,35 +161,36 @@ the FR-01 GitHub delivery contains twenty-six issues.
 | Item | Value |
 |---|---|
 | Skill name | `playwright-automation` (`.claude/skills/playwright-automation/`) |
-| What it automates | |
-| Features it was used on | |
-| Demo video (YouTube) | |
+| What it automates | A staged workflow for external test data, verified selectors, page objects, three assertion classes, multi-browser runs, report attribution, and failure triage |
+| Features it was used on | Exercised and refined during FR-01; its shared project conventions and report workflow support FR-01, FR-11, and FR-13 |
+| Demo video (YouTube) | Pending student upload |
 
 ---
 
 ## 6. Git commit log (§12)
 
-≥ 8 commits over ≥ 4 days, counting only commits that change test-script files.
-Exported to `docs/05_Git_Commit_Log.txt`.
+The course's former four-day threshold was removed. The submitted log therefore records
+the actual HW04 history without asserting a minimum-day condition. Exported to
+`docs/05_Git_Commit_Log.txt`.
 
 | Metric | Value |
 |---|---|
-| Total commits | |
-| Commits touching `.spec.ts` | |
-| Distinct days | |
-| First / last commit date | |
+| Total HW04 commits before final documentation export | 82 |
+| Commits touching `.spec.ts` | 7 |
+| Distinct `.spec.ts` commit dates | 2 (reported for transparency; no longer a grading threshold) |
+| First / last commit date | 2026-08-06 / 2026-08-11 |
 
 ---
 
 ## 7. Compliance checklist (§14 required contents)
 
-- [ ] Main report — Markdown **and** PDF
-- [ ] Public GitHub repository link (scripts, data files, HTML reports)
-- [ ] Multi-browser HTML reports (9 runs, each showing `Run by: 23127184`)
+- [x] Main report — `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
+- [ ] Public GitHub repository link is filled; push the final local `duyen/hw4` commit before submission
+- [x] Multi-browser HTML reports (9 runs, each showing `Run by: 23127184`)
 - [ ] Unlisted YouTube demo video link (≥ 5 min, Vietnamese)
-- [ ] `docs/04_AI_Critique.md` (200–300 words) — Markdown and PDF
-- [ ] `docs/03_AI_Audit_Report.md` — Markdown and PDF
-- [ ] `docs/05_Git_Commit_Log.txt`
-- [ ] `docs/02_Bug_Report.md` + GitHub Issues screenshots
-- [ ] `README.md` with self-assessment table and test summary
+- [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
+- [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
+- [x] `docs/05_Git_Commit_Log.txt`
+- [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
+- [x] `README.md` with self-assessment table and test summary
 - [ ] Zip named `23127184_HW04_AI_Automation_<grade>.zip`

@@ -20,6 +20,11 @@
 
 ## Curated interaction log
 
+Rows 1–7 are normalised summaries of mixed Vietnamese/English interactions because the
+original verbatim transcripts are not available in the repository. They are labelled as
+summaries rather than reconstructed quotations. Row 8 was recorded during the active
+session and preserves the student's prompt verbatim.
+
 | # | Date & time (UTC+7) | Tool | Prompt summary | AI output | Human review outcome |
 |---|---|---|---|---|---|
 | 1 | 2026-08-06 23:14:51–23:14:53 | Claude Code — Claude Opus 5 | Scaffold HW04 with Playwright, TypeScript, safe environment config, three browsers and attributable reports. | Created base configuration and project rules in seven focused commits. | The student checked the structure against the brief. Runtime URLs remained provisional and were later rejected after SUT verification. |
@@ -29,6 +34,7 @@
 | 5 | 2026-08-09 18:35:33–18:36:15 | Claude Code | Revise the Playwright skill using concrete FR-01 setup failures. | Added environment proof, source inspection, selector probes, case reclassification, diagnostic cases, staged approvals and pitfalls. | The student rejected generic/wrongly ordered guidance. Selector checks now precede data generation; source/DOM override stale assumptions; every major stage stops for approval. |
 | 6 | 2026-08-09 18:36:02 | Claude Code | Harden the audit skill against invented timestamps and altered multilingual prompts. | Added observed-time, no-backfill and original-language rules. | The student required accurate timestamps and preservation of the prompt's original language. |
 | 7 | 2026-08-10 | OpenAI Codex | Review whether FR-01 matched the requirement and was genuinely data-driven; run the SUT, extend server-layer coverage, and publish issue evidence. | Audited traceability, expanded the CSV from 31 to 43 cases with 12 API validation rows, and ran Chromium, Firefox and WebKit. | The student authorised live SUT execution and GitHub issue creation. All engines produced 17 passed / 26 failed / 0 skipped; 23 confirmed findings and 3 requirement questions were filed as issues #39–#64 without weakening assertions. |
+| 8 | 2026-08-11 00:28:34 | OpenAI Codex | “quy định 4 ngày git đã được bỏ, fix các phần còn lại cho mình. video demo mình sẽ up link sau” | Re-audited the submission against the revised rule, completed the mandatory critique and report fields, updated paths and checklists, exported the actual Git log, and generated the required PDFs. | The student explicitly supplied the changed Git rule and retained responsibility for uploading the two YouTube links. No video evidence or URL was invented. |
 ## Human review evidence — HW04 setup
 
 The setup review checked the AI output against the brief, SUT configuration and
@@ -61,8 +67,8 @@ workflow, identified concrete weaknesses and refined it from observed failure mo
 - Automation baseline/review surfaces: `e26c32a` through `7e4cf80`.
 - Skill baseline: `a11d1c0`, `71c8a2a`, `25cfd6c`.
 - Dry-run evidence only: `9262daf`, `0102467`.
-- Human corrections dated 2026-08-09 are currently uncommitted. After student
-  verification, focused commits should preserve the before/after trail.
-- The three final FR-01 browser runs completed on 2026-08-10 (43 tests per browser,
-  17 passed and 26 failed). This statement does not claim completion of the other six
-  FR-11/FR-13 runs; those remain independently evidenced in their own report folders.
+- Human corrections dated 2026-08-09 were preserved in focused commits and remain
+  visible in the repository history.
+- All nine feature/browser combinations have attributable report evidence under
+  `reports/final/`. FR-13 Firefox and WebKit are preserved as three case-group reports
+  (`tc`, `bva`, `api`) per browser rather than falsely merged by hand.

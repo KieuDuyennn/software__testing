@@ -4,7 +4,7 @@
 
 | Requirement | Status |
 |---|---|
-| Unlisted YouTube link | _<paste>_ |
+| Unlisted YouTube link | **Pending student upload before submission** |
 | Length ≥ 5 minutes | ☐ |
 | Narrated in Vietnamese | ☐ |
 | One automation script shown running end to end | ☐ |
@@ -20,5 +20,5 @@ authorship proofs must actually appear on screen.
 
 | Requirement | Status |
 |---|---|
-| YouTube link | _<paste>_ |
+| YouTube link | **Pending student upload before submission** |
 | Shows the skill used end to end on a complete feature | ☐ |

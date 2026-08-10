@@ -127,7 +127,7 @@ $env:FEATURE='fr01'; $env:BROWSER='chromium'
 npx playwright test automation/tests/fr01_account_registration --project=chromium
 ```
 or all nine at once: `npm run runs:all`. Each run writes
-`reports/html/<feature>/<browser>/index.html` showing `Run by: {StudentID}` and an
+`reports/final/html/<feature>/<browser>/index.html` showing `Run by: {StudentID}` and an
 ISO timestamp.
 
 ### Step 8 — Triage failures
