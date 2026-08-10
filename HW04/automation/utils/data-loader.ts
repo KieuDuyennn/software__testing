@@ -30,13 +30,19 @@ export interface TestCaseRow {
 /**
  * Load a CSV data file from `data/`. Empty strings stay empty strings - they are
  * meaningful test input (an empty required field), so they are never coerced.
+ *
+ * `trim` is deliberately OFF. With it on, a whitespace-only value - which FR-01
+ * TC-18 exists specifically to send - would arrive at the test as `''`, silently
+ * turning an "is blank treated as empty?" case into a duplicate of the empty-field
+ * case, and passing for the wrong reason. The cost is that the data files must not
+ * pad their commas; that is a formatting rule, not a data rule.
  */
 export function loadCsv<T extends TestCaseRow = TestCaseRow>(fileName: string): T[] {
   const raw = readFileSync(path.join(DATA_DIR, fileName), 'utf8');
   return parse(raw, {
     columns: true,
     skip_empty_lines: true,
-    trim: true,
+    trim: false,
     bom: true,
   }) as T[];
 }

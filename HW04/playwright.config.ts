@@ -1,3 +1,7 @@
+// Must stay the first import: it loads `.env`, and ES module imports are evaluated
+// before any statement in this file, so a loadDotenv() call in the config body would
+// run after every module below had already read process.env.
+import { BASE_URL, envReadiness } from './automation/utils/env';
 import { defineConfig, devices } from '@playwright/test';
 import { STUDENT_ID, STUDENT_NAME, RUN_STAMP, FEATURE, BROWSER_TAG } from './automation/utils/student';
 
@@ -24,6 +28,8 @@ const reportFolder = `reports/html/${FEATURE}/${BROWSER_TAG}`;
 export default defineConfig({
   testDir: './automation/tests',
   outputDir: './test-results',
+  globalSetup: './automation/global-setup.ts',
+  globalTeardown: './automation/global-teardown.ts',
 
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -40,6 +46,9 @@ export default defineConfig({
     'Run started (ISO)': RUN_STAMP,
     'Assignment': 'HW04-AI - Automation Testing',
     'SUT': 'EShop (https://github.com/ttbhanh/eshop-sut)',
+    // Booleans only. Proves .env was actually loaded for this run - the gap that
+    // blocked FR-11 - without putting a credential into attributable evidence.
+    ...envReadiness(),
   },
 
   reporter: [
@@ -56,7 +65,7 @@ export default defineConfig({
     // The web front-end is the Vite dev server on 5173; :3000 is the backend API
     // (frontend-web posts to http://localhost:3000/api/...), so it must not be the
     // baseURL for page.goto(). Verified against the running SUT.
-    baseURL: process.env.BASE_URL ?? 'http://localhost:5173',
+    baseURL: BASE_URL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
