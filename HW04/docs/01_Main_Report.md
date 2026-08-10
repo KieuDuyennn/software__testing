@@ -76,15 +76,15 @@ Every report below shows `Run by: 23127184` and an ISO timestamp (§6, §11).
 
 | # | Feature | Browser | Started (ISO) | Tests | Pass | Fail | Report path |
 |---|---|---|---|---|---|---|---|
-| 1 | FR-01 | chromium | 2026-08-10T12:06:09.635Z | 43 | 17 | 26 | `reports/html/fr01/chromium/index.html` |
-| 2 | FR-01 | firefox | 2026-08-10T14:28:58.633Z | 43 | 17 | 26 | `reports/html/fr01/firefox/index.html` |
-| 3 | FR-01 | webkit | 2026-08-10T14:55:13.862Z | 43 | 17 | 26 | `reports/html/fr01/webkit/index.html` |
-| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/chromium/index.html` |
-| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/firefox/index.html` |
-| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/webkit/index.html` |
-| 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/html/fr13/all/index.html` |
-| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/firefox-full-*/index.html` |
-| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/webkit-full-*/index.html` |
+| 1 | FR-01 | chromium | 2026-08-10T12:06:09.635Z | 43 | 17 | 26 | `reports/final/html/fr01/chromium/index.html` |
+| 2 | FR-01 | firefox | 2026-08-10T14:28:58.633Z | 43 | 17 | 26 | `reports/final/html/fr01/firefox/index.html` |
+| 3 | FR-01 | webkit | 2026-08-10T14:55:13.862Z | 43 | 17 | 26 | `reports/final/html/fr01/webkit/index.html` |
+| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
+| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
+| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
+| 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/final/html/fr13/chromium/index.html` |
+| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
+| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
 
 The final FR-01 runs used `LOADTEST=1` only to disable the SUT's global 200-request/
 15-minute API limiter while executing 43 independent cases. No SUT source, test data,
@@ -109,19 +109,19 @@ what the AI got wrong, and **why** it missed it.
 ### 3.5 Defects found
 
 Full detail: `docs/02_Bug_Report.md`. FR-01 findings are filed as GitHub Issues #39–#64,
-with issue-page screenshots stored under `reports/github_issues/`. Failure-image
-attachment upload remains pending until the connected GitHub browser session is signed in.
+with issue-page screenshots stored under `reports/evidence/github-issues/fr01/`. All 26 issues have their
+matching failure image attached directly in GitHub.
 
 | Bug ID | Feature | Severity | Revealed by | GitHub Issue | Screenshot |
 |---|---|---|---|---|---|
 | BUG-FR01-01→11 | FR-01 | Major | Original 11 confirmed cases | [#39–#49](https://github.com/KieuDuyennn/software__testing/issues) | See per-issue paths in `docs/02_Bug_Report.md` |
 | BUG-FR01-15→26 | FR-01 | Major | API-01→API-12 | [#53–#64](https://github.com/KieuDuyennn/software__testing/issues) | See per-issue paths in `docs/02_Bug_Report.md` |
-| BUG-FR13-01 | FR-13 | Major | TC-02, BVA, TC-13b, TC-21 | Fixed and tracked in GitHub #15 | `reports/json/fr13-all.json` |
-| BUG-FR13-02 | FR-13 | Major | TC-13 | Fixed and tracked in GitHub #38 | `reports/json/fr13-all.json` |
-| BUG-FR13-03 | FR-13 | Critical | TC-11, API-14–17 | Fixed and tracked in GitHub #34 | `reports/json/fr13-all.json` |
-| BUG-FR13-04 | FR-13 | Critical | TC-04b, API-03/04/06/09 | Fixed and tracked in GitHub #14 | `reports/json/fr13-all.json` |
-| BUG-FR13-05 | FR-13 | Critical | API-10 | Fixed and tracked in GitHub #36 | `reports/json/fr13-all.json` |
-| BUG-FR13-06 | FR-13 | Critical | TC-19 | Fixed and tracked in GitHub #37 | `reports/json/fr13-all.json` |
+| BUG-FR13-01 | FR-13 | Major | TC-02, BVA, TC-13b, TC-21 | Fixed and tracked in GitHub #15 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-02 | FR-13 | Major | TC-13 | Fixed and tracked in GitHub #38 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-03 | FR-13 | Critical | TC-11, API-14–17 | Fixed and tracked in GitHub #34 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-04 | FR-13 | Critical | TC-04b, API-03/04/06/09 | Fixed and tracked in GitHub #14 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-05 | FR-13 | Critical | API-10 | Fixed and tracked in GitHub #36 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-06 | FR-13 | Critical | TC-19 | Fixed and tracked in GitHub #37 | `reports/final/json/fr13-chromium.json` |
 
 ### 3.6 Test cases not automated
 

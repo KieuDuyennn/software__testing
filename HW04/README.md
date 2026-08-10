@@ -50,11 +50,11 @@ HW04/
 │   ├── demo_links.md           Task 2 + §7 YouTube links and their checklists
 │   └── test-plan/              TC_Matrix_FR01/FR11/FR13 · AI_Review_Gap_Analysis
 │
-├── reports/                ← ALL generated evidence (committed — never hand-edited)
-│   ├── html/<feature>/<browser>/   the 9 HTML reports
-│   ├── json/                       machine-readable results per run
-│   ├── screenshots/                failure screenshots backing each bug
-│   └── github_issues/              issue-page screenshots after GitHub filing (currently pending)
+├── reports/                ← generated evidence, arranged for marking
+│   ├── README.md                   report index: start here
+│   ├── final/                      final HTML, JSON, and run summaries
+│   ├── evidence/                   failure and GitHub Issue screenshots
+│   └── history/                    archived runs and raw artefacts
 │
 ├── refs/                   ← given material
 │   ├── requirements/           assignment brief (EN, md + pdf) + course policies
@@ -82,17 +82,17 @@ npx playwright codegen $env:BASE_URL
 $env:FEATURE='fr01'; $env:BROWSER='chromium'
 npx playwright test automation/tests/fr01_account_registration --project=chromium
 
-# 5. run all 9 combinations and write reports/run-summary.txt
+# 5. run all 9 combinations and write reports/final/summaries/all-features.txt
 npm run runs:all
 ```
 
 Run everything from the HW04 root. Each run writes
-`reports/html/<feature>/<browser>/index.html`, whose title and metadata carry
+`reports/final/html/<feature>/<browser>/index.html`, whose title and metadata carry
 `Run by: 23127184` and an ISO timestamp — the §11 evidence requirement.
 
 ## Test summary report (§14)
 
-Fill from `reports/run-summary-fr01.txt`, the JSON results, and the HTML reports. Do not hand-edit the reports
+Fill from `reports/final/summaries/fr01.txt`, the JSON results, and the HTML reports. Do not hand-edit the reports
 themselves; if a number is wrong, re-run.
 
 | Metric | Value |
@@ -104,7 +104,7 @@ themselves; if a number is wrong, re-run.
 | FR-01 failed | 78 failed executions = 26 unique cases × 3 browsers; 23 confirmed bugs and 3 requirement questions |
 | FR-01 browser runs | 3 / 3 |
 | Confirmed FR-01 issue-level bug reports | 23 across 5 shared root causes |
-| FR-01 GitHub Issues | 26 / 26 created — [#39–#64](https://github.com/KieuDuyennn/software__testing/issues); attachment upload pending browser sign-in |
+| FR-01 GitHub Issues | 26 / 26 created — [#39–#64](https://github.com/KieuDuyennn/software__testing/issues); 26 / 26 evidence images attached |
 | FR-01 cases not automatable | TC-17, TC-23; EC-34 documented as moot |
 | Demo video | _<YouTube link>_ |
 
@@ -112,15 +112,15 @@ themselves; if a number is wrong, re-run.
 
 | # | Feature | Browser | Tests | Pass | Fail | Started (ISO) | Report |
 |---|---|---|---|---|---|---|---|
-| 1 | FR-01 | chromium | 43 | 17 | 26 | 2026-08-10T12:06:09.635Z | `reports/html/fr01/chromium/index.html` |
-| 2 | FR-01 | firefox | 43 | 17 | 26 | 2026-08-10T14:28:58.633Z | `reports/html/fr01/firefox/index.html` |
-| 3 | FR-01 | webkit | 43 | 17 | 26 | 2026-08-10T14:55:13.862Z | `reports/html/fr01/webkit/index.html` |
-| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/chromium/index.html` |
-| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/firefox/index.html` |
-| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/webkit/index.html` |
-| 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/html/fr13/all/index.html` |
-| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/firefox-full-*/index.html` |
-| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/html/fr13/webkit-full-*/index.html` |
+| 1 | FR-01 | chromium | 43 | 17 | 26 | 2026-08-10T12:06:09.635Z | `reports/final/html/fr01/chromium/index.html` |
+| 2 | FR-01 | firefox | 43 | 17 | 26 | 2026-08-10T14:28:58.633Z | `reports/final/html/fr01/firefox/index.html` |
+| 3 | FR-01 | webkit | 43 | 17 | 26 | 2026-08-10T14:55:13.862Z | `reports/final/html/fr01/webkit/index.html` |
+| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
+| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
+| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
+| 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/final/html/fr13/chromium/index.html` |
+| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
+| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
 
 ## Self-assessment table (§15)
 
@@ -141,9 +141,8 @@ regression verification after the fixes.
 rows, uses three assertion patterns, and has complete reports for all three browsers with
 student/timestamp metadata. Twenty-three confirmed issue-level reports across five shared
 root causes and three requirement questions are triaged without weakening assertions.
-All 26 public GitHub Issues exist at #39–#64 and 26 issue-page screenshots are saved under
-`reports/github_issues/`. Uploading each local failure image as an attachment inside its
-GitHub issue remains the only FR-01 evidence step not yet complete.
+All 26 public GitHub Issues exist at #39–#64, every issue has its matching failure image
+attached, and 26 issue-page screenshots are saved under `reports/evidence/github-issues/fr01/`.
 
 ## Submission checklist (§14)
 

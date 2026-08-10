@@ -1,16 +1,18 @@
-# FR-01 — final failure evidence (31-case run of 2026-08-10)
+# FR-01 — final failure evidence (43-case run of 2026-08-10)
 
-> **Authoritative run.** The current reports under `reports/html/fr01/` and
-> `reports/json/fr01-*.json` were generated after the final review changes: TC-01b expects
+> **Authoritative run.** The current reports under `reports/final/html/fr01/` and
+> `reports/final/json/fr01-*.json` were generated after the final review changes: TC-01b expects
 > the documented `200`, TC-01a uses a specification-valid password, TC-01c preserves
 > downstream redirect/persistence coverage, and rejected API responses assert that no
-> created-account `id` is returned. Each engine executed all 31 rows: **17 passed / 14
+> created-account `id` is returned. A second, data-driven API wave then added 12 rows
+> for empty values, malformed e-mails, weak passwords and direct duplicate submission.
+> Each engine executed all 43 rows: **17 passed / 26
 > failed / 0 skipped**.
 >
 > An earlier Firefox-only `Browser.removeBrowserContext` teardown error did not reproduce
-> in either of two later Firefox runs. The final Firefox report has the same 14 assertion
+> in later Firefox runs. The final Firefox report has the same 26 assertion
 > failures as Chromium and WebKit and no teardown error. Historical reports are retained
-> under `reports/archive/`; generated HTML/JSON files were never hand-edited.
+> under `reports/history/archived-runs/`; generated HTML/JSON files were never hand-edited.
 >
 > The functional run used the SUT's documented `LOADTEST=1` environment switch to bypass
 > its global 200-requests/15-minutes limiter. Without that isolation, repeated failed tests
@@ -29,33 +31,55 @@ verdict; confirmed groupings appear only in `docs/02_Bug_Report.md`.
 | | |
 |---|---|
 | Run by | 23127184 — Le Pham Kieu Duyen |
-| Spec | `automation/tests/fr01_account_registration/fr01.registration.spec.ts` (31 cases, all rows from `automation/data/fr01_registration.csv`) |
+| Spec | `automation/tests/fr01_account_registration/fr01.registration.spec.ts` (43 cases, all rows from `automation/data/fr01_registration.csv`) |
 | SUT | EShop — backend `node server.js` :3000 with `LOADTEST=1` to isolate FR-01 from the unrelated global limiter; frontend-web vite :5173 |
-| Reports | `reports/html/fr01/chromium/index.html` · `.../firefox/index.html` · `.../webkit/index.html` |
-| JSON | `reports/json/fr01-{chromium,firefox,webkit}.json` (started 10:51:15Z, 10:57:33Z, 11:05:04Z) |
-| Artefacts | Embedded in each HTML report; historical unpacked artefacts remain under `reports/artifacts/fr01/` and `reports/archive/` |
+| Reports | `reports/final/html/fr01/chromium/index.html` · `.../firefox/index.html` · `.../webkit/index.html` |
+| JSON | `reports/final/json/fr01-{chromium,firefox,webkit}.json` (started 12:06:09Z, 14:28:58Z, 14:55:13Z) |
+| Artefacts | Embedded in each HTML report; historical unpacked artefacts remain under `reports/history/raw-artifacts/fr01/` and `reports/history/archived-runs/` |
 
 ## Result
 
 | Browser | Passed | Failed | Total | Duration |
 |---|---|---|---|---|
-| chromium | 17 | 14 | 31 | 6.0m |
-| firefox | 17 | 14 | 31 | 7.3m |
-| webkit | 17 | 14 | 31 | 6.4m |
+| chromium | 17 | 26 | 43 | 8.4m |
+| firefox | 17 | 26 | 43 | 9.2m |
+| webkit | 17 | 26 | 43 | 8.3m |
 
-The **same 14 case IDs** failed on all three engines, with the same assertion messages
+The **same 26 case IDs** failed on all three engines, with the same assertion messages
 and the same received values. No engine-specific behaviour was observed in this feature.
 
 Nothing was changed to reduce the failure count: no assertion softened, no expectation
 edited, no data row removed. The expectations are the specification-derived ones
 recorded in `TC_Matrix_FR01.md`.
 
-## The 14 red cases
+## The 26 red cases
 
-Grouped by the mechanism they share, because several cases fail for one reason and
-should not become one bug each. The **Mechanism** column cites the SUT source line that
-produces the observed behaviour — that is an observation from reading the code, not a
-judgement that it is a defect.
+Grouped by mechanism for technical analysis, while `docs/02_Bug_Report.md` and GitHub
+retain one issue per independently reproducible failing case for grading traceability.
+The **Mechanism** column cites the SUT source line that produces the observed behaviour —
+that is an observation from reading the code, not a judgement that it is a defect.
+
+### Second-wave API findings (API-01→API-12)
+
+All twelve rows expected rejection and no created-account `id`. The exact 4xx status is
+not documented, so the stronger explicit evidence is that every response returned HTTP
+200 with a numeric creation identifier; login also proved persistence wherever the
+submitted e-mail/password pair remained usable.
+
+| TC | Input sent directly to `POST /api/register` | Actual on all three browsers | Persistence signal |
+|---|---|---|---|
+| API-01 | `name: ""` | 200 + numeric `id` | login succeeds |
+| API-02 | `email: ""` | 200 + numeric `id` | not login-observable |
+| API-03 | `password: ""` | 200 + numeric `id` | not login-observable |
+| API-04 | e-mail without `@` | 200 + numeric `id` | login succeeds |
+| API-05 | e-mail without domain | 200 + numeric `id` | login succeeds |
+| API-06 | e-mail without local part | 200 + numeric `id` | login succeeds |
+| API-07 | seven-character password | 200 + numeric `id` | login succeeds |
+| API-08 | password without uppercase | 200 + numeric `id` | login succeeds |
+| API-09 | password without lowercase | 200 + numeric `id` | login succeeds |
+| API-10 | password without digit | 200 + numeric `id` | login succeeds |
+| API-11 | password without special character | 200 + numeric `id` | login succeeds |
+| API-12 | exact seeded duplicate e-mail | 200 + another numeric `id` | seeded login is deliberately non-discriminating |
 
 ### Group A — `POST /api/register` accepts anything and answers 200
 
@@ -197,7 +221,7 @@ build does not render. No case asserts on it, so this run neither confirms nor d
 
 ## Notes on the artefacts
 
-- **The three Group-A raw page screenshots are blank white images.** Those cases never drive a
+- **The 15 failed API-only raw page screenshots are blank white images.** Those cases never drive a
   page; the `page` fixture is created but never navigated, so Playwright captured
   `about:blank`. They are not usable evidence — use the JSON/HTML report entry and the
   trace instead. Attaching a blank PNG to a GitHub Issue would misrepresent the run.
@@ -206,7 +230,7 @@ build does not render. No case asserts on it, so this run neither confirms nor d
   `trace.zip` beside each PNG show the form being filled and submitted, which is the
   fuller reproduction evidence.
 - Full directory names are truncated with `…` above; the prefix is
-  `reports/artifacts/fr01/<browser>/fr01_account_registration-`. The same directory
+  `reports/history/raw-artifacts/fr01/<browser>/fr01_account_registration-`. The same directory
   exists under `firefox/` and `webkit/` with the matching engine suffix.
 
 ## Observed while collecting evidence — outside FR-01's assertions

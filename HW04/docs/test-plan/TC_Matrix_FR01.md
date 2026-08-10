@@ -12,13 +12,11 @@ that these are the same cases, now automated — not a fresh invention.
 + 7 boundary (`04_Boundary_Value_Test_Cases.md`). All 31 were executed in HW02
 (`TC_Checklist.md`: 11 ✅ match, 10 ❌ divergent, 8 ⚠️ conditional, 2 ⛔ not runnable).
 
-**Automated here: 31** = 31 carried over − 2 dropped (TC-17, TC-23, see "Cases
-deliberately NOT automated") + 2 derived (TC-01c, the implementation-path diagnostic,
-and TC-24, the password-rule diagnostic).
-No bulk derivation: the target is 20 per feature and FR-01 is already above it.
-Keeping 31 rather than trimming to 20 — these are already
-designed and already executed, and in a data-driven suite each extra case is one CSV row,
-not new code. Dropping designed cases to hit a round number loses coverage for no gain.
+**Automated here: 43** = 31 carried over − 2 dropped (TC-17, TC-23, see "Cases
+deliberately NOT automated") + 14 derived: TC-01c and TC-24 plus API-01→API-12.
+The twelve-case second wave was added after the first live review exposed that the UI's
+native/client checks could hide whether the server independently enforces the same FR-01
+rules. Each is still one external CSV row using the existing API assertion branch.
 
 ## What the real registration page turned out to be
 
@@ -117,6 +115,18 @@ so they assert on constraint-validation state, not on any message the app render
 | 29 | BVA-04 | edge | Full Name `A` — 1 char → **accepted** | 04 §2 | UI | redirect · **bypass** | 1 + 3 | ☑ | Catches "empty" mis-specified as `length <= 1` |
 | 30 | BVA-05 | edge | Full Name `An` — 2 chars → accepted | 04 §2 | UI | redirect · **bypass** | 1 + 3 | ☑ | |
 | 31 | TC-24 | negative | Password `Password 123` — 12 chars, upper + lower + digit, **whitespace present, no special char** → must be rejected as weak | derived (not in HW02) | UI | banner | 1 + 3 | ☑ | **Diagnostic case**, deliberately *not* bypassed. The password rows (TC-12→TC-16, TC-22, BVA-01→BVA-03, BVA-06, BVA-07) can all be rejected by the L15 regex for reasons unrelated to what each one tests; this row inverts the input so the cause is isolated. A password satisfying the *printed* rule is rejected while one violating it is accepted — the pair pins the fault to the regex rather than to each case |
+| 32 | API-01 | negative | Empty `name` value sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Complements TC-02 native-empty and TC-03 omitted-key; proves server-side required-field enforcement |
+| 33 | API-02 | negative | Empty `email` value sent directly to register API | derived after live review | API | api | 2 | ☑ | Response status and absence of created `id` are observable; persistence is not login-observable with an empty e-mail |
+| 34 | API-03 | negative | Empty `password` value sent directly to register API | derived after live review | API | api | 2 | ☑ | Response status and absence of created `id` are observable; persistence is not login-observable with an empty password |
+| 35 | API-04 | negative | E-mail without `@` sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer pair for TC-06 |
+| 36 | API-05 | negative | E-mail without domain sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer pair for TC-07 |
+| 37 | API-06 | negative | E-mail without local part sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer pair for TC-08 |
+| 38 | API-07 | negative | Seven-character password sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer check of the documented minimum length |
+| 39 | API-08 | negative | Password without uppercase sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer composition check |
+| 40 | API-09 | negative | Password without lowercase sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer composition check |
+| 41 | API-10 | negative | Password without digit sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer composition check |
+| 42 | API-11 | negative | Password without special character sent directly to register API | derived after live review | API | api | 2 + 3 | ☑ | Server-layer composition check |
+| 43 | API-12 | negative | Exact seeded e-mail sent directly to register API | derived after live review | API | api | 2 | ☑ | Status and absence of a new `id` are asserted; login is skipped because the seeded account exists by design |
 
 **Assertion patterns used:** 1 = UI state · 2 = API/contract · 3 = data integrity / persistence.
 At least three distinct patterns must appear across the whole suite (brief §6).

@@ -225,7 +225,7 @@ With the backend in its documented `LOADTEST=1` test-harness mode (to bypass the
 
 The newly added wave alone ran **4 passed / 6 failed**. API-11–13 and TC-24 passed;
 API-09/10 and API-14–17 failed. HTML and JSON evidence are under
-`reports/html/fr13/all/` and `reports/json/fr13-all.json`.
+`reports/final/html/fr13/chromium/` and `reports/final/json/fr13-chromium.json`.
 
 The same 10-case wave produced the identical **4 passed / 6 failed** verdict on Firefox
 and WebKit. Because a long-lived backend child is replaced by this environment after
@@ -233,11 +233,11 @@ roughly a minute, those engines were executed in short attributable batches. Fir
 first 17-API batch contains one environmental `ECONNREFUSED` at API-11; the clean
 one-case rerun passes and supersedes only that result. Evidence:
 
-- Firefox: `fr13-firefox-wave.json`, corrected API-11 in
-  `fr13-firefox-wave-api11.json`, pagination in
+- Firefox history: `reports/history/fr13-partial-runs/json/fr13-firefox-wave.json`,
+  corrected API-11 in `fr13-firefox-wave-api11.json`, and pagination in
   `fr13-firefox-wave-pagination.json`.
-- WebKit: `fr13-webkit-wave-api09.json`, `fr13-webkit-wave-api10-17.json`, and
-  `fr13-webkit-wave-pagination.json`.
+- WebKit history: `reports/history/fr13-partial-runs/json/fr13-webkit-wave-api09.json`,
+  `fr13-webkit-wave-api10-17.json`, and `fr13-webkit-wave-pagination.json`.
 
 No product finding is based on the interrupted full-Firefox attempts or the one
 `ECONNREFUSED`; the six new red cases are supported consistently by all three engines.

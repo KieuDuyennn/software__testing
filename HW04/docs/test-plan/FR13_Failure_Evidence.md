@@ -5,8 +5,8 @@ Execution date: 2026-08-10 (UTC+7). The complete Chromium run contains 50 cases:
 `LOADTEST=1` harness flag so the 200-request global limiter did not turn functional
 assertions into 429 failures.
 
-Evidence bundle: [Chromium HTML report](../../reports/html/fr13/all/index.html) and
-[Chromium JSON report](../../reports/json/fr13-all.json).
+Evidence bundle: [Chromium HTML report](../../reports/final/html/fr13/chromium/index.html) and
+[Chromium JSON report](../../reports/final/json/fr13-chromium.json).
 
 The 21 red assertions represent six implementation mechanisms:
 

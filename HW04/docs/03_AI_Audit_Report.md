@@ -28,7 +28,7 @@
 | 4 | 2026-08-09 18:19:03–18:19:22 | Claude Code | Verify setup against the real SUT and correct proven configuration errors. | Separated customer UI `:5173`, admin UI `:5174` and API `:3000`; corrected Playwright navigation URL. | The student caught a high-impact setup error: generated browser config targeted the API. The correction was grounded in SUT config/runtime and documented beside the setting. |
 | 5 | 2026-08-09 18:35:33–18:36:15 | Claude Code | Revise the Playwright skill using concrete FR-01 setup failures. | Added environment proof, source inspection, selector probes, case reclassification, diagnostic cases, staged approvals and pitfalls. | The student rejected generic/wrongly ordered guidance. Selector checks now precede data generation; source/DOM override stale assumptions; every major stage stops for approval. |
 | 6 | 2026-08-09 18:36:02 | Claude Code | Harden the audit skill against invented timestamps and altered multilingual prompts. | Added observed-time, no-backfill and original-language rules. | The student required accurate timestamps and preservation of the prompt's original language. |
-| 7 | 2026-08-10 | OpenAI Codex | Review whether FR-01 matched the requirement and was genuinely data-driven; then run the SUT and finish the feature evidence. | Audited the CSV/spec traceability, ran 31 cases in Chromium, Firefox and WebKit, isolated a false-green password path, and reconciled the reports, matrix and bug evidence. | The student authorised live SUT execution. Human-verifiable output retains 14 red requirement divergences instead of changing assertions: eleven confirmed issue-level reports map to four shared root causes, while three additional GitHub issue drafts are explicitly labelled requirement clarification. |
+| 7 | 2026-08-10 | OpenAI Codex | Review whether FR-01 matched the requirement and was genuinely data-driven; run the SUT, extend server-layer coverage, and publish issue evidence. | Audited traceability, expanded the CSV from 31 to 43 cases with 12 API validation rows, and ran Chromium, Firefox and WebKit. | The student authorised live SUT execution and GitHub issue creation. All engines produced 17 passed / 26 failed / 0 skipped; 23 confirmed findings and 3 requirement questions were filed as issues #39–#64 without weakening assertions. |
 ## Human review evidence — HW04 setup
 
 The setup review checked the AI output against the brief, SUT configuration and
@@ -63,6 +63,6 @@ workflow, identified concrete weaknesses and refined it from observed failure mo
 - Dry-run evidence only: `9262daf`, `0102467`.
 - Human corrections dated 2026-08-09 are currently uncommitted. After student
   verification, focused commits should preserve the before/after trail.
-- The three final FR-01 browser runs completed on 2026-08-10 (31 tests per browser,
-  17 passed and 14 failed). This statement does not claim completion of the other six
+- The three final FR-01 browser runs completed on 2026-08-10 (43 tests per browser,
+  17 passed and 26 failed). This statement does not claim completion of the other six
   FR-11/FR-13 runs; those remain independently evidenced in their own report folders.
