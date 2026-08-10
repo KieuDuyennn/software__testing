@@ -103,10 +103,11 @@ export function checkoutRaw(
   request: APIRequestContext,
   token: string,
   total_amount: unknown,
+  items?: CartItem[],
 ): Promise<APIResponse> {
   return request.post(`${API_URL}/api/checkout`, {
     headers: { Authorization: `Bearer ${token}` },
-    data: { total_amount, shipping_address: '227 Nguyen Van Cu, Q5, TP.HCM' },
+    data: { total_amount, items, shipping_address: '227 Nguyen Van Cu, Q5, TP.HCM' },
   });
 }
 
