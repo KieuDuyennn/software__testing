@@ -1,0 +1,1927 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr13_dashboard",
+      "--project=webkit",
+      "--grep",
+      "FR13-API-"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-setup.ts",
+    "globalTeardown": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr13",
+      "Browser": "webkit-full-api",
+      "Run started (ISO)": "2026-08-10T14:56:36.610Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-api",
+          "Run started (ISO)": "2026-08-10T14:56:36.610Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-api",
+          "Run started (ISO)": "2026-08-10T14:56:36.610Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-api",
+          "Run started (ISO)": "2026-08-10T14:56:36.610Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr13/webkit-full-api",
+          "title": "HW04 EShop Automation - FR13 - webkit-full-api - Run by: 23127184 - 2026-08-10T14:56:36.610Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr13-webkit-full-api.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr13_dashboard\\fr13.dashboard.spec.ts",
+      "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-13 Dashboard",
+          "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+          "line": 275,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR13-API-01 [negative] GET /api/admin/orders without a token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:10.776Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-02"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "api_specification.md 6 requires a Bearer token on every admin endpoint."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1398,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:10.947Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:10.776Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-02"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "api_specification.md 6 requires a Bearer token on every admin endpoint."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-2978cbfba8d1983d5f43",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-02 [negative] GET /api/admin/orders with a malformed token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:10.776Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-03"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Either code is a correct refusal; the specification does not distinguish them, so the row does not invent precision it never had."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1274,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:12.582Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:10.776Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-03"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Either code is a correct refusal; the specification does not distinguish them, so the row does not invent precision it never had."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-a4ca20e1016760893049",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-03 [negative] GET /api/admin/orders with a valid NON-ADMIN token is refused",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:10.776Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04 / BUG-08"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "api_specification.md 6 L173: 'tài khoản phải có quyền Admin'. authenticateToken verifies the signature and never reads role, so authentication is being used where authorisation is required. HW02 logged this as BUG-08."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1050,
+                      "error": {
+                        "message": "Error: FR13-API-03: non_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: []\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: FR13-API-03: non_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: []\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-API-03: non_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: []\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:13.893Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:10.776Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04 / BUG-08"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "api_specification.md 6 L173: 'tài khoản phải có quyền Admin'. authenticateToken verifies the signature and never reads role, so authentication is being used where authorisation is required. HW02 logged this as BUG-08."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-92d94--NON-ADMIN-token-is-refused-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-92d94--NON-ADMIN-token-is-refused-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-92d94--NON-ADMIN-token-is-refused-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-92d94--NON-ADMIN-token-is-refused-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0a2f842ec0c2e5ab5d12",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-04 [negative] GET /api/admin/users with a valid NON-ADMIN token is refused",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:16.298Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04 (second endpoint)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "A second endpoint behind the same middleware, so a fix that only patches the orders route is still caught. This one also returns every user's e-mail address."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1114,
+                      "error": {
+                        "message": "Error: FR13-API-04: non_admin: http://localhost:3000/api/admin/users answered 200, expected one of [401, 403]. Body: [{\"id\":1,\"name\":\"Admin User\",\"email\":\"admin@eshop.com\",\"role\":\"admin\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":2,\"name\":\"Test User\",\"email\":\"test@eshop.com\",\"role\":\"user\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":3,\"name\":\"Seeded Existing User\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: FR13-API-04: non_admin: http://localhost:3000/api/admin/users answered 200, expected one of [401, 403]. Body: [{\"id\":1,\"name\":\"Admin User\",\"email\":\"admin@eshop.com\",\"role\":\"admin\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":2,\"name\":\"Test User\",\"email\":\"test@eshop.com\",\"role\":\"user\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":3,\"name\":\"Seeded Existing User\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-API-04: non_admin: http://localhost:3000/api/admin/users answered 200, expected one of [401, 403]. Body: [{\"id\":1,\"name\":\"Admin User\",\"email\":\"admin@eshop.com\",\"role\":\"admin\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":2,\"name\":\"Test User\",\"email\":\"test@eshop.com\",\"role\":\"user\",\"login_attempts\":0,\"locked_until\":null,\"shipping_address\":null},{\"id\":3,\"name\":\"Seeded Existing User\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:16.425Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:16.298Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04 (second endpoint)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "A second endpoint behind the same middleware, so a fix that only patches the orders route is still caught. This one also returns every user's e-mail address."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-e589f--NON-ADMIN-token-is-refused-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-e589f--NON-ADMIN-token-is-refused-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-e589f--NON-ADMIN-token-is-refused-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-e589f--NON-ADMIN-token-is-refused-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-f7fc7770d2941f25bbd8",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-05 [positive] GET /api/admin/orders with an admin token returns the order array",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:19.481Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-01 (contract)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "The control row for API-01 to API-04: without it, a server that refused everyone would pass all four refusal rows."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 835,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:19.669Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:19.481Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-01 (contract)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "The control row for API-01 to API-04: without it, a server that refused everyone would pass all four refusal rows."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0d70d15418060fb39f86",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-06 [negative] PUT /api/admin/orders/:id/status with a NON-ADMIN token is refused",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:19.481Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived from TC-04"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Extends the access-control question from reading to WRITING. If a non-admin can drive an order to delivered, they can move the revenue KPI directly. Targets an order this row seeds, so no pre-existing data is mutated."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 989,
+                      "error": {
+                        "message": "Error: FR13-API-06: non_admin writing order status returned 200 {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: FR13-API-06: non_admin writing order status returned 200 {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:646:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 646
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 644 |\u001b[39m             \u001b[32m`${row.tc_id}: ${row.actor} writing order status returned `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 645 |\u001b[39m             \u001b[32m`${response.status()} ${responseBody}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 646 |\u001b[39m           )\u001b[33m.\u001b[39mtoContain(response\u001b[33m.\u001b[39mstatus())\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 647 |\u001b[39m\n \u001b[90m 648 |\u001b[39m           \u001b[90m// A refusal status is not enough: a broken handler could mutate first and\u001b[39m\n \u001b[90m 649 |\u001b[39m           \u001b[90m// reject afterwards. Read through the owner's endpoint and prove the order\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 646
+                          },
+                          "message": "Error: FR13-API-06: non_admin writing order status returned 200 {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n  644 |             `${row.tc_id}: ${row.actor} writing order status returned ` +\n  645 |             `${response.status()} ${responseBody}`,\n> 646 |           ).toContain(response.status());\n      |             ^\n  647 |\n  648 |           // A refusal status is not enough: a broken handler could mutate first and\n  649 |           // reject afterwards. Read through the owner's endpoint and prove the order\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:646:13"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 14,
+                            "line": 655
+                          },
+                          "message": "Error: a refused status write still mutated the order\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"pending\"\u001b[39m\nReceived: \u001b[31m\"confirmed\"\u001b[39m\n\n  653 |           expect(after, `${row.tc_id}: seeded order disappeared after refused write`).toBeTruthy();\n  654 |           expect.soft(after!.status, 'a refused status write still mutated the order')\n> 655 |             .toBe('pending');\n      |              ^\n  656 |           break;\n  657 |         }\n  658 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:655:14"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:20.760Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:19.481Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived from TC-04"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Extends the access-control question from reading to WRITING. If a non-admin can drive an order to delivered, they can move the revenue KPI directly. Targets an order this row seeds, so no pre-existing data is mutated."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-99dc1--NON-ADMIN-token-is-refused-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-99dc1--NON-ADMIN-token-is-refused-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-99dc1--NON-ADMIN-token-is-refused-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-99dc1--NON-ADMIN-token-is-refused-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 646
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ea3ef9dd0f2c22e2f28d",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-07 [negative] an expired token is refused by the admin endpoint",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:23.107Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (TC-03 companion)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "TC-03 covers a token that is structurally invalid; this covers one that is correctly signed but past its expiry, which is a different code path in jwt.verify. The token is minted by the test with an `exp` in the past. NB the SUT issues tokens with NO exp claim at all (server.js:69 calls jwt.sign with no expiresIn), so this row asserts that expiry is honoured when present - it does not claim the SUT expires its own sessions."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1218,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:23.235Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:23.107Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (TC-03 companion)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "TC-03 covers a token that is structurally invalid; this covers one that is correctly signed but past its expiry, which is a different code path in jwt.verify. The token is minted by the test with an `exp` in the past. NB the SUT issues tokens with NO exp claim at all (server.js:69 calls jwt.sign with no expiresIn), so this row asserts that expiry is honoured when present - it does not claim the SUT expires its own sessions."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-c6363d17663ce9062b60",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-08 [positive] the admin orders payload carries the fields the revenue KPI depends on",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:23.107Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (contract under OQ-02/OQ-09)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Every revenue assertion in this suite reads `total_amount` and `status` off this payload, so a rename or a type change there would silently invalidate all of them. Asserts each row has a numeric id, a finite numeric total_amount and a status drawn from the five known values. This is the row that would have caught the scaffold's `order.total` mistake (gap analysis finding 15) at the contract rather than as a confusing revenue mismatch."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1055,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:24.590Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:23.107Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (contract under OQ-02/OQ-09)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Every revenue assertion in this suite reads `total_amount` and `status` off this payload, so a rename or a type change there would silently invalidate all of them. Asserts each row has a numeric id, a finite numeric total_amount and a status drawn from the five known values. This is the row that would have caught the scaffold's `order.total` mistake (gap analysis finding 15) at the contract rather than as a confusing revenue mismatch."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-b7fe87cdeeefcdaf1dc2",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-09 [negative] a correctly signed token with no role cannot read all orders",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:23.107Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04 / BUG-08 (role-claim boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Separates authentication from authorization: a valid HMAC proves who signed the token, but absence of an admin role must still deny the global order feed. Catches middleware that treats jwt.verify success as admin permission."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 999,
+                      "error": {
+                        "message": "Error: FR13-API-09: signed_missing_role: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: FR13-API-09: signed_missing_role: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-API-09: signed_missing_role: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:25.683Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:23.107Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04 / BUG-08 (role-claim boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Separates authentication from authorization: a valid HMAC proves who signed the token, but absence of an admin role must still deny the global order feed. Catches middleware that treats jwt.verify success as admin permission."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-d607c-role-cannot-read-all-orders-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-d607c-role-cannot-read-all-orders-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-d607c-role-cannot-read-all-orders-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-d607c-role-cannot-read-all-orders-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ee285cb45981088521e1",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-10 [negative] an admin-role token for a nonexistent user cannot read all orders",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:27.894Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04 / BUG-08 (authoritative-subject boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "A role claim must not be trusted without resolving an active user in the database. Uses an impossible user id with a valid signature; a 200 means deleted/nonexistent identities retain admin data access."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1059,
+                      "error": {
+                        "message": "Error: FR13-API-10: signed_nonexistent_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: FR13-API-10: signed_nonexistent_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-API-10: signed_nonexistent_admin: http://localhost:3000/api/admin/orders answered 200, expected one of [401, 403]. Body: [{\"id\":2,\"user_id\":8,\"total_amount\":123000,\"status\":\"delivered\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"created_at\":\"2026-08-10 14:57:24\",\"user_name\":\"FR13 FR13-API-08\"},{\"id\":1,\"user_id\":7,\"total_amount\":1000,\"status\":\"confirmed\",\"shipping_address\":\"227 Nguyen Van Cu, Q5, TP.HCM\",\"creat\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:595:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:28.016Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:27.894Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04 / BUG-08 (authoritative-subject boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "A role claim must not be trusted without resolving an active user in the database. Uses an impossible user id with a valid signature; a 200 means deleted/nonexistent identities retain admin data access."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-9bc6b-user-cannot-read-all-orders-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-9bc6b-user-cannot-read-all-orders-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-9bc6b-user-cannot-read-all-orders-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-9bc6b-user-cannot-read-all-orders-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-a04e211e96a5da2cbcaa",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-11 [negative] GET /api/admin/users without a token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:48.672Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-02 (second endpoint)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Checks route-level middleware wiring independently from /admin/orders. The payload contains every user's e-mail and lockout state, so accidental public exposure is materially different from the KPI feed."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1716,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:48.871Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:48.672Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-02 (second endpoint)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Checks route-level middleware wiring independently from /admin/orders. The payload contains every user's e-mail and lockout state, so accidental public exposure is materially different from the KPI feed."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-bf690db2ec6d6bbe4424",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-12 [negative] anonymous status update is refused without mutating the order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:48.672Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived from TC-02 and API-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Covers the no-credential branch on the revenue-moving write endpoint and asserts both the refusal code and that the seeded order remains pending."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1751,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:50.866Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:48.672Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived from TC-02 and API-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Covers the no-credential branch on the revenue-moving write endpoint and asserts both the refusal code and that the seeded order remains pending."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-5e2e7f993321391ed2b6",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-13 [negative] malformed-token status update is refused without mutating the order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:48.672Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived from TC-03 and API-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Exercises jwt.verify failure on a write route, then reads the owner's order back. This catches handlers that mutate before sending an authentication error."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1285,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:52.672Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:48.672Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived from TC-03 and API-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Exercises jwt.verify failure on a write route, then reads the owner's order back. This catches handlers that mutate before sending an authentication error."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-af420de1c261bd5a7688",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-14 [negative] checkout rejects null total and creates no KPI source row",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:57:48.672Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-06 / REQ-15 (data poisoning boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "FR-13 consumes order totals globally, so invalid checkout data is an upstream trust-boundary risk. The case checks both validation and absence of the side-effect row."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1041,
+                      "error": {
+                        "message": "Error: FR13-API-14: invalid total null returned 200 {\"message\":\"Checkout successful\",\"orderId\":5}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: FR13-API-14: invalid total null returned 200 {\"message\":\"Checkout successful\",\"orderId\":5}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 670
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 668 |\u001b[39m             \u001b[32m`${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 669 |\u001b[39m             \u001b[32m`${response.status()} ${responseBody}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 670 |\u001b[39m           )\u001b[33m.\u001b[39mtoContain(response\u001b[33m.\u001b[39mstatus())\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 671 |\u001b[39m           expect\u001b[33m.\u001b[39msoft(\n \u001b[90m 672 |\u001b[39m             after\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m\n \u001b[90m 673 |\u001b[39m             \u001b[32m'invalid checkout created an order and can corrupt the dashboard count/revenue source'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 670
+                          },
+                          "message": "Error: FR13-API-14: invalid total null returned 200 {\"message\":\"Checkout successful\",\"orderId\":5}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  668 |             `${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned ` +\n  669 |             `${response.status()} ${responseBody}`,\n> 670 |           ).toContain(response.status());\n      |             ^\n  671 |           expect.soft(\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 674
+                          },
+                          "message": "Error: invalid checkout created an order and can corrupt the dashboard count/revenue source\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n> 674 |           ).toBe(before.length);\n      |             ^\n  675 |           break;\n  676 |         }\n  677 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:674:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:57:54.010Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:57:48.672Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-06 / REQ-15 (data poisoning boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "FR-13 consumes order totals globally, so invalid checkout data is an upstream trust-boundary risk. The case checks both validation and absence of the side-effect row."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-089a5-d-creates-no-KPI-source-row-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-089a5-d-creates-no-KPI-source-row-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-089a5-d-creates-no-KPI-source-row-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-089a5-d-creates-no-KPI-source-row-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 670
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-d8167bfdbaa570496b3f",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-15 [negative] checkout rejects a nonnumeric total and creates no KPI source row",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:58:29.182Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-06 / REQ-15 (data poisoning boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "A text value can survive SQLite's INTEGER affinity and later make dashboard aggregation display NaN. It must be rejected before an order row exists."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1865,
+                      "error": {
+                        "message": "Error: FR13-API-15: invalid total \"not-a-number\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":6}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: FR13-API-15: invalid total \"not-a-number\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":6}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 670
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 668 |\u001b[39m             \u001b[32m`${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 669 |\u001b[39m             \u001b[32m`${response.status()} ${responseBody}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 670 |\u001b[39m           )\u001b[33m.\u001b[39mtoContain(response\u001b[33m.\u001b[39mstatus())\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 671 |\u001b[39m           expect\u001b[33m.\u001b[39msoft(\n \u001b[90m 672 |\u001b[39m             after\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m\n \u001b[90m 673 |\u001b[39m             \u001b[32m'invalid checkout created an order and can corrupt the dashboard count/revenue source'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 670
+                          },
+                          "message": "Error: FR13-API-15: invalid total \"not-a-number\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":6}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  668 |             `${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned ` +\n  669 |             `${response.status()} ${responseBody}`,\n> 670 |           ).toContain(response.status());\n      |             ^\n  671 |           expect.soft(\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 674
+                          },
+                          "message": "Error: invalid checkout created an order and can corrupt the dashboard count/revenue source\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n> 674 |           ).toBe(before.length);\n      |             ^\n  675 |           break;\n  676 |         }\n  677 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:674:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:58:29.369Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:58:29.182Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-06 / REQ-15 (data poisoning boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "A text value can survive SQLite's INTEGER affinity and later make dashboard aggregation display NaN. It must be rejected before an order row exists."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-8ca27-d-creates-no-KPI-source-row-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-8ca27-d-creates-no-KPI-source-row-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-8ca27-d-creates-no-KPI-source-row-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-8ca27-d-creates-no-KPI-source-row-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 670
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ec9bcfa6023df5af9c2e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-16 [negative] checkout rejects an object total without returning an internal error",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:59:09.452Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-06 / REQ-15 (schema and error-handling boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "An object reaches the database binding path differently from scalar bad values. A controlled 4xx and no order distinguish input validation from an unhandled 500."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 7882,
+                      "error": {
+                        "message": "Error: FR13-API-16: invalid total {\"unexpected\":1} returned 200 {\"message\":\"Checkout successful\",\"orderId\":7}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: FR13-API-16: invalid total {\"unexpected\":1} returned 200 {\"message\":\"Checkout successful\",\"orderId\":7}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 670
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 668 |\u001b[39m             \u001b[32m`${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 669 |\u001b[39m             \u001b[32m`${response.status()} ${responseBody}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 670 |\u001b[39m           )\u001b[33m.\u001b[39mtoContain(response\u001b[33m.\u001b[39mstatus())\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 671 |\u001b[39m           expect\u001b[33m.\u001b[39msoft(\n \u001b[90m 672 |\u001b[39m             after\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m\n \u001b[90m 673 |\u001b[39m             \u001b[32m'invalid checkout created an order and can corrupt the dashboard count/revenue source'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 670
+                          },
+                          "message": "Error: FR13-API-16: invalid total {\"unexpected\":1} returned 200 {\"message\":\"Checkout successful\",\"orderId\":7}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  668 |             `${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned ` +\n  669 |             `${response.status()} ${responseBody}`,\n> 670 |           ).toContain(response.status());\n      |             ^\n  671 |           expect.soft(\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 674
+                          },
+                          "message": "Error: invalid checkout created an order and can corrupt the dashboard count/revenue source\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n> 674 |           ).toBe(before.length);\n      |             ^\n  675 |           break;\n  676 |         }\n  677 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:674:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:59:09.936Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:59:09.452Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-06 / REQ-15 (schema and error-handling boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "An object reaches the database binding path differently from scalar bad values. A controlled 4xx and no order distinguish input validation from an unhandled 500."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-aa244-returning-an-internal-error-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-aa244-returning-an-internal-error-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-aa244-returning-an-internal-error-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-aa244-returning-an-internal-error-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 670
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-68d613d0e11ff3ea19a8",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-17 [negative] checkout rejects a numeric string and creates no KPI source row",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:59:22.474Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-06 / REQ-15 (strict type boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Numeric-looking text often passes loose coercion while changing storage/type semantics. FR-08 requires server recomputation from the cart, not trust in any client total representation."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1908,
+                      "error": {
+                        "message": "Error: FR13-API-17: invalid total \"123456\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":8}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: FR13-API-17: invalid total \"123456\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":8}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 670
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 668 |\u001b[39m             \u001b[32m`${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 669 |\u001b[39m             \u001b[32m`${response.status()} ${responseBody}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 670 |\u001b[39m           )\u001b[33m.\u001b[39mtoContain(response\u001b[33m.\u001b[39mstatus())\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 671 |\u001b[39m           expect\u001b[33m.\u001b[39msoft(\n \u001b[90m 672 |\u001b[39m             after\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m\n \u001b[90m 673 |\u001b[39m             \u001b[32m'invalid checkout created an order and can corrupt the dashboard count/revenue source'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 670
+                          },
+                          "message": "Error: FR13-API-17: invalid total \"123456\" returned 200 {\"message\":\"Checkout successful\",\"orderId\":8}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  668 |             `${row.tc_id}: invalid total ${JSON.stringify(row.raw_total)} returned ` +\n  669 |             `${response.status()} ${responseBody}`,\n> 670 |           ).toContain(response.status());\n      |             ^\n  671 |           expect.soft(\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:670:13"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 674
+                          },
+                          "message": "Error: invalid checkout created an order and can corrupt the dashboard count/revenue source\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  672 |             after.length,\n  673 |             'invalid checkout created an order and can corrupt the dashboard count/revenue source',\n> 674 |           ).toBe(before.length);\n      |             ^\n  675 |           break;\n  676 |         }\n  677 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:674:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:59:22.628Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:59:22.474Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-06 / REQ-15 (strict type boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Numeric-looking text often passes loose coercion while changing storage/type semantics. FR-08 requires server recomputation from the cart, not trust in any client total representation."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-0bbc3-d-creates-no-KPI-source-row-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-0bbc3-d-creates-no-KPI-source-row-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-0bbc3-d-creates-no-KPI-source-row-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-0bbc3-d-creates-no-KPI-source-row-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 670
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-d3ec80f5be3633f3f817",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T14:56:36.622Z",
+    "duration": 168399.285,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}
