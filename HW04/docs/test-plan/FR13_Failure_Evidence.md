@@ -22,3 +22,7 @@ The 21 red assertions represent six implementation mechanisms:
 The ten new cases were also executed in short, clean batches on Firefox and WebKit.
 Each engine produced the same 4-pass/6-fail verdict for the new wave; the interrupted
 long Firefox attempt containing one `ECONNREFUSED` is excluded from product findings.
+
+Full browser coverage was then completed with three non-overlapping batches per engine
+(27 TC + 6 BVA + 17 API = 50 cases). Firefox: 30 passed / 20 failed. WebKit: 30
+passed / 20 failed. All six batch reports had zero skipped cases.
