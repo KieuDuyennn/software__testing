@@ -98,13 +98,13 @@ themselves; if a number is wrong, re-run.
 | Metric | Value |
 |---|---|
 | Features automated | 3 |
-| FR-01 test cases automated | 31 / ≥ 12 |
-| FR-01 executions | 93 (31 × 3 browsers) |
+| FR-01 test cases automated | 43 / ≥ 12 |
+| FR-01 executions | 129 (43 × 3 browsers) |
 | FR-01 passed | 51 |
-| FR-01 failed | 42 failed executions = 14 unique cases × 3 browsers; 11 cases support 4 confirmed bug groups and 3 are open questions |
+| FR-01 failed | 78 failed executions = 26 unique cases × 3 browsers; 23 confirmed bugs and 3 requirement questions |
 | FR-01 browser runs | 3 / 3 |
-| Confirmed FR-01 issue-level bug reports | 11 across 4 shared root causes |
-| FR-01 GitHub Issues | 0 / 14 — 11 confirmed bug issues + 3 requirement-clarification issues, all pending filing |
+| Confirmed FR-01 issue-level bug reports | 23 across 5 shared root causes |
+| FR-01 GitHub Issues | 26 / 26 created — [#39–#64](https://github.com/KieuDuyennn/software__testing/issues); attachment upload pending browser sign-in |
 | FR-01 cases not automatable | TC-17, TC-23; EC-34 documented as moot |
 | Demo video | _<YouTube link>_ |
 
@@ -112,12 +112,12 @@ themselves; if a number is wrong, re-run.
 
 | # | Feature | Browser | Tests | Pass | Fail | Started (ISO) | Report |
 |---|---|---|---|---|---|---|---|
-| 1 | FR-01 | chromium | 31 | 17 | 14 | 2026-08-10T10:51:15.344Z | `reports/html/fr01/chromium/index.html` |
-| 2 | FR-01 | firefox | 31 | 17 | 14 | 2026-08-10T10:57:33.665Z | `reports/html/fr01/firefox/index.html` |
-| 3 | FR-01 | webkit | 31 | 17 | 14 | 2026-08-10T11:05:04.508Z | `reports/html/fr01/webkit/index.html` |
-| 4 | FR-11 | chromium | | | | | `reports/html/fr11/chromium/index.html` |
-| 5 | FR-11 | firefox | | | | | `reports/html/fr11/firefox/index.html` |
-| 6 | FR-11 | webkit | | | | | `reports/html/fr11/webkit/index.html` |
+| 1 | FR-01 | chromium | 43 | 17 | 26 | 2026-08-10T12:06:09.635Z | `reports/html/fr01/chromium/index.html` |
+| 2 | FR-01 | firefox | 43 | 17 | 26 | 2026-08-10T14:28:58.633Z | `reports/html/fr01/firefox/index.html` |
+| 3 | FR-01 | webkit | 43 | 17 | 26 | 2026-08-10T14:55:13.862Z | `reports/html/fr01/webkit/index.html` |
+| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/chromium/index.html` |
+| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/firefox/index.html` |
+| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/html/fr11/webkit/index.html` |
 | 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/html/fr13/all/index.html` |
 | 8 | FR-13 | firefox | | | | | `reports/html/fr13/firefox/index.html` |
 | 9 | FR-13 | webkit | | | | | `reports/html/fr13/webkit/index.html` |
@@ -127,19 +127,19 @@ themselves; if a number is wrong, re-run.
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
 | 1 | Task 1 — Feature A (FR-01 Account registration) | 25 | 23 |
-| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | |
+| 1 | Task 1 — Feature B (FR-11 Order history view) | 25 | 25 |
 | 1 | Task 1 — Feature C (FR-13 Dashboard) | 25 | |
 | 2 | Task 2 — Demo video | 15 | |
 | 3 | Agent Skills | 10 | |
 | | **Total** | **100** | |
 
-**FR-01 self-assessment.** The feature exceeds the 12-case minimum with 31 external CSV
+**FR-01 self-assessment.** The feature exceeds the 12-case minimum with 43 external CSV
 rows, uses three assertion patterns, and has complete reports for all three browsers with
-student/timestamp metadata. Eleven confirmed issue-level reports across four shared root
-causes and three inferred findings are
-triaged without weakening assertions. Two points remain unclaimed because the fourteen public
-GitHub Issues and their issue-page screenshots require the student to perform the real
-external filing; no URL or screenshot is fabricated locally.
+student/timestamp metadata. Twenty-three confirmed issue-level reports across five shared
+root causes and three requirement questions are triaged without weakening assertions.
+All 26 public GitHub Issues exist at #39–#64 and 26 issue-page screenshots are saved under
+`reports/github_issues/`. Uploading each local failure image as an attachment inside its
+GitHub issue remains the only FR-01 evidence step not yet complete.
 
 ## Submission checklist (§14)
 
