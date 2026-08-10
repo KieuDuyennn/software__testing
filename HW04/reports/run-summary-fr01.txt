@@ -1,0 +1,15 @@
+FR-01 authoritative run summary - 2026-08-10
+Student: 23127184
+
+Browser   Started (UTC)                 Total  Passed  Failed  Skipped  Report
+chromium  2026-08-10T10:51:15.344Z     31     17      14      0        reports/html/fr01/chromium/index.html
+firefox   2026-08-10T10:57:33.665Z     31     17      14      0        reports/html/fr01/firefox/index.html
+webkit    2026-08-10T11:05:04.508Z     31     17      14      0        reports/html/fr01/webkit/index.html
+
+Aggregate browser-project executions: 93 total, 51 passed, 42 failed, 0 skipped.
+All three runs expose the same 14 failing case IDs; exit code 1 therefore represents
+preserved product/requirement divergences, not an incomplete test launch.
+
+Execution note: LOADTEST=1 disabled only the SUT's global API rate limiter for the final
+suite. SUT source and test expectations were unchanged, and normal rate limiting was
+restored afterward.
