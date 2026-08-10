@@ -1,0 +1,2418 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "--list"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "all",
+      "Browser": "chromium",
+      "Run started (ISO)": "2026-08-10T10:32:09.016Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "all",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:32:09.016Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "all",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:32:09.016Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "all",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:32:09.016Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/all/chromium",
+          "title": "HW04 EShop Automation - ALL - chromium - Run by: 23127184 - 2026-08-10T10:32:09.016Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/all-chromium.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr01_account_registration\\fr01.registration.spec.ts",
+      "file": "fr01_account_registration/fr01.registration.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-01 Account registration",
+          "file": "fr01_account_registration/fr01.registration.spec.ts",
+          "line": 107,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-e01660784a45851a144b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-069fdd0b1e2a62015899",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2280effbe99078ba5c3d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-efede5cc2af4025df7a5",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3e09efc076b584df3f8d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-da34ce097cbb39b40b9f",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ee9e452b5280419d713e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-de62d37b8d983312409d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-799b51d7b7b9878f51aa",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7d978fcb42f01667b51a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-85489981f439b0a9eb8b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1602e8ba758c34fea55c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-bfb7ea37b0daaf8799ce",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c380aa83ddecf7e99aad",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-56dec3b64c2728e46645",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c6f399e0d8c4b688a835",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3eccd00a73cedc0e8d5c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-902598d5d9684cfcf9bf",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-35a90d1926fecc7c8a13",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-97c186f1c4614d7a75c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-73249691afed482774f4",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1157371d3c4af07d0b1c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2d9d42d97605ef37689c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2f892709a775075ea94b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-df50d114b812742acc71",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-9548db8a936dcf023dd3",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c16aabc84d7d11c0a433",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8ab5553d8447f01377c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-cc53b404e47c257492fd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-21d2a84b448925925591",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "fr11_order_history\\fr11.order-history.spec.ts",
+      "file": "fr11_order_history/fr11.order-history.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-11 Order history view",
+          "file": "fr11_order_history/fr11.order-history.spec.ts",
+          "line": 291,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR11-TC-01 [positive] own orders are listed with all four fields, and another user's order is not",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-6325b35942596dbde6cb",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-02 [positive] a canceled order renders as Đã hủy with the red badge and no cancel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-273cb3e23f86a0501a11",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-08 [positive] a user with zero orders sees the empty state, not an error or a blank panel",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-e4c88264950e7fe51671",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-09 [positive] a pending order renders as Chờ xác nhận with the yellow badge and a cancel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-52d40780c9b553869739",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-10 [positive] a confirmed order renders as Đã xác nhận with the indigo badge and a cancel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-673ff88cb23eebf59452",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-11 [positive] a shipping order renders as Đang giao with the blue badge",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-185c7241c54f2938643e",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-12 [positive] a delivered order renders as Đã giao with the green badge and no cancel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-27306f35018475bf4e34",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-13 [edge] all five statuses on screen at once are mutually distinct in colour",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-5ce22ca849027eae651a",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-14 [edge] cancel is offered only on the two statuses a customer may still cancel",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-b1b3fdf1d3b2fa085106",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-16 [edge] the list is deterministically newest-first",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-21aeb6b0e6d1d986cd82",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-17 [edge] the order date renders as a real date, not Invalid Date or blank",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-4ed14dad44279ca2a022",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-04 [negative] with no session, the order history is not shown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-8f427b799b3262817c13",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-05 [negative] a garbage token is rejected and no order history is shown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-d64dc550f82917d4d172",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-03 [negative] one user must not be able to read another user's order by ID",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-f9d2aea1ab4ee43a4275",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-15 [negative] the order-detail route must also refuse a request with no token",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-9f30d68267102f7b8133",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-06 [negative] a nonexistent order ID is reported as not found",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-ee37713a783bf89fe35c",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-07 [negative] a malformed order ID must not return an order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-b4473a6c954ea8a77cc5",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-BVA-01 [edge] order ID -1, below the lower boundary",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-fe779dec2665942309f3",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-BVA-02 [edge] order ID 0, immediately below the first valid ID",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-66b4244d708d0f302724",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-BVA-03 [edge] order ID 1, the first valid ID, is served",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-3e4501dacef4cf60d05f",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-18 [negative] a non-admin user must not be able to list every order in the system",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-2f246bf4f8f12c786ceb",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-19 [negative] a non-admin user must not be able to change an order's status",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-a884c7ce89f26b5580ef",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-22 [negative] a canceled order must not be transitionable to delivered",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-15455d4aaa49e7e807dc",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-23 [negative] an order the user canceled must never display as Đã giao",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-922260cc73da39511503",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-24 [negative] a status transition that skips the chain is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-9b1cc14693fa692f173c",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-25 [negative] an out-of-set status value is refused, so it can never reach the badge renderer",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-891830100cfe40fdc720",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-26 [negative] cancel must be refused on an order that is already shipping",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-2c7d9088d69b31335b44",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-27 [negative] the cancel endpoint itself must refuse a shipping order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-57e3987cf66e7fa94d9b",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-28 [negative] a user must not be able to cancel another user's order",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-d7784d6f64efbfd7af26",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-29 [negative] cancelling an already-canceled order is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-6e1b3b19bbcd8b6074e8",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-30 [negative] cancelling a delivered order is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-c7d2cff5d285a6fce1ad",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-31 [edge] a non-numeric order total must not render as NaN",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-930e88dfd89f020cfee9",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-32 [edge] an order total of zero renders as a zero amount",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-1344b298e9a11bc09da8",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-33 [edge] a negative order total must not be displayed as a price",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-17104e0929cafd158da4",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-34 [edge] a missing order total must not be silently displayed as 0 ₫",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-f7139f47f8d1ed7b5a93",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-35 [negative] checkout must reject a non-numeric order total",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-26cebc941609d19d58f2",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-36 [negative] a failed order fetch must be reported as an error, not as an empty history",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-3805af1de8e9a9205a2a",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-37 [edge] an unexpected response shape must not break the page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-6d8b1265c6f46395b71b",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-38 [positive] a successful cancel confirms the outcome to the user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-58718e1757eb6049abec",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            },
+            {
+              "title": "FR11-TC-39 [positive] the list reflects the new status without a manual reload",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ed0f6d7fbf09410eef28-4f1cd0303e71da5748b7",
+              "file": "fr11_order_history/fr11.order-history.spec.ts",
+              "line": 298,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "fr13_dashboard\\fr13.dashboard.spec.ts",
+      "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-13 Dashboard",
+          "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+          "line": 259,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR13-TC-01 [positive] admin reaches the dashboard and both KPI cards render a numeric value",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-19d02300e03c5c21869e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-01b [edge] dashboard is the landing view; no navigation is required to reach it",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-40bf05f46a88fb2594e0",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-02 [positive] revenue KPI equals the sum of total_amount over delivered orders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-04d03cea2bf4e92e5e75",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-09 [positive] order-count KPI equals the number of orders the API returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-6f259af20ce9832ffa85",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-12 [edge] revenue is rendered as currency, with a symbol and grouped thousands",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-89d7a821b68da2dc1788",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-05 [negative] a canceled order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-f8f43c847b2f86e211bd",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06a [negative] a pending order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-499f6d6a96f1e572e2bd",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06b [negative] a confirmed order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-b9d58020aeabf9134c45",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06c [negative] a shipping order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-612e9fad4292b195570a",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-02 [edge] a delivered order of 0 changes revenue by 0",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ae33299fca066e99a032",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-03 [edge] a delivered order of 1 increases revenue by exactly 1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-22a0e2c0cc95a60717c6",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-05 [edge] a delivered order of 0.01 increases revenue by 0.01, not by a rounded 0",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-e3c8671d42903f6d12d7",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-01 [edge] a delivered order of -1 decreases revenue by exactly 1, not clamped to 0",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-8773f1e68661bcc697ea",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-04 [edge] a delivered order of -0.01 decreases revenue by exactly 0.01",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-641a2cb06262473bd3e3",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-06 [edge] three delivered orders 1000/2000/3000 increase revenue by exactly 6000",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-77bf92056dd23f0b1898",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-10 [edge] one delivered order of 0 is distinguishable from having no delivered orders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-561930d6ebda2b7451ae",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-13 [negative] a canceled order must not be transitioned to delivered",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ebb9bc0c3b1b526def1e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-13b [edge] revenue is recomputed after a transition into delivered, not cached",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-90a13ba8deb0c6b37df1",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-14 [edge] the order-count KPI keeps counting past a 25-order batch",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-16f952e8459a84cde0f4",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-11 [edge] a client-supplied total_amount is recomputed by the backend, not stored as sent",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-c2ca23db7e712f40bed5",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-04 [negative] a non-admin's credentials are refused at the admin login form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-1e081b11d19ebb8dd7f5",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-16 [negative] empty credentials are refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9a285117ecd38d490292",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-17 [negative] an unknown e-mail is refused without revealing that the account does not exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ad15e890a406f8621445",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-18 [negative] a wrong password is refused for an account that does hold the admin role",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-61af25cb1a968f59fca9",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-02ui [negative] an anonymous visitor sees the login form and no KPI figures",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0f84d077cc436398171d",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-03ui [negative] a malformed token in storage does not render the dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-f30562bb65b92111a02b",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-04b [negative] a valid non-admin token in storage does not render the dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-8d2d4edb4eeb3c8a1ebe",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-20 [positive] logging out clears the stored token and returns to the login form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-e90f757fe101d387f086",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-01 [negative] GET /api/admin/orders without a token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-e0acb262badf4292539e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-02 [negative] GET /api/admin/orders with a malformed token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-5ac217f6c070a40123fd",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-03 [negative] GET /api/admin/orders with a valid NON-ADMIN token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-98ee1933d08aa5d08464",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-04 [negative] GET /api/admin/users with a valid NON-ADMIN token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-3fd40804541d287cc60e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-05 [positive] GET /api/admin/orders with an admin token returns the order array",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-926739e735fa04c50d0e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-06 [negative] PUT /api/admin/orders/:id/status with a NON-ADMIN token is refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-8210472153c1331cd187",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-19 [negative] a user cannot grant themselves the admin role through PUT /api/users/me",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-e2318fb25c2c8266e564",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-21 [edge] a mixed batch of all five statuses moves revenue by the delivered amount only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-c777ca4931c695ed58f5",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-22 [edge] reloading the dashboard twice does not change either KPI",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-a1c4073331a621792db0",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-23 [positive] a valid ADMIN token placed in storage does render the dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-1e375bb5bc49df7ec3da",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-07 [negative] an expired token is refused by the admin endpoint",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-1df15b84f9e9314b59b3",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            },
+            {
+              "title": "FR13-API-08 [positive] the admin orders payload carries the fields the revenue KPI depends on",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-849100f82691da20892d",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 261,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T10:32:09.021Z",
+    "duration": 178.42300000000012,
+    "expected": 0,
+    "skipped": 110,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

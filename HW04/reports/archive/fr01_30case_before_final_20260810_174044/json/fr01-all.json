@@ -1,0 +1,2044 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr01_account_registration",
+      "--list"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr01",
+      "Browser": "all",
+      "Run started (ISO)": "2026-08-10T10:40:28.911Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "all",
+          "Run started (ISO)": "2026-08-10T10:40:28.911Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "all",
+          "Run started (ISO)": "2026-08-10T10:40:28.911Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "all",
+          "Run started (ISO)": "2026-08-10T10:40:28.911Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr01/all",
+          "title": "HW04 EShop Automation - FR01 - all - Run by: 23127184 - 2026-08-10T10:40:28.911Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr01-all.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr01_account_registration\\fr01.registration.spec.ts",
+      "file": "fr01_account_registration/fr01.registration.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-01 Account registration",
+          "file": "fr01_account_registration/fr01.registration.spec.ts",
+          "line": 107,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-e01660784a45851a144b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-069fdd0b1e2a62015899",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01c [diagnostic] diagnostic flow - redirect and persistence reached with a password this build accepts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-daeef42487b70c04f03e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2280effbe99078ba5c3d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-efede5cc2af4025df7a5",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3e09efc076b584df3f8d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-da34ce097cbb39b40b9f",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ee9e452b5280419d713e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-de62d37b8d983312409d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-799b51d7b7b9878f51aa",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7d978fcb42f01667b51a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-85489981f439b0a9eb8b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1602e8ba758c34fea55c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-bfb7ea37b0daaf8799ce",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c380aa83ddecf7e99aad",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-56dec3b64c2728e46645",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c6f399e0d8c4b688a835",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3eccd00a73cedc0e8d5c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-902598d5d9684cfcf9bf",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-35a90d1926fecc7c8a13",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-97c186f1c4614d7a75c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-73249691afed482774f4",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1157371d3c4af07d0b1c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2d9d42d97605ef37689c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2f892709a775075ea94b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-df50d114b812742acc71",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-9548db8a936dcf023dd3",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c16aabc84d7d11c0a433",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8ab5553d8447f01377c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-cc53b404e47c257492fd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-21d2a84b448925925591",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2b5fc709844c080658d3",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-774843de4f1f2f6a34c2",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01c [diagnostic] diagnostic flow - redirect and persistence reached with a password this build accepts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c9f7af0dcde235e834c6",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-4cec500806d6b4ba5e7b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-46b64f760dc7f2cd8e73",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-cb723e38702bff3730d2",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-049fe59b569707877d9b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2c979ed90fcff4d9f2d8",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-410a3c8a822df2043e26",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c643156e12fea49f93d4",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a9e6a3206953e3a18b00",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-fc7e3e4ca9bfbb66d2c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a26469bbcbd1088de42b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ebe8951d61612301a583",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-08cc7c4f8d01e4adf497",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3e0f0830027a3415a0d7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-981902098cff6905d2a2",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-38530d29a41b01935437",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a9c7844c8fee1122fea8",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-b32e67b783286e8cd53b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-977a69a20a0d966d1af4",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c8bebefd7cb694e75b5b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-af2447e4d4d0cf00ae6c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3a9e4822cf12d544187c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c63ea2ae11f6638f3c11",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-fd6133beb9ea67d6654b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-fc330db02f015a9f2e84",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-aacf04801e43fdbcee20",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8a4ebc0d8af833a27924",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-f7c7340024bdc75ad9b2",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-32ea79c88b3f26769dd8",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ea8322d1f37d48acf46b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2e8b09606198bd39f2ab",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01c [diagnostic] diagnostic flow - redirect and persistence reached with a password this build accepts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8100bcb2aac0564e4478",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3cc2d88bb3839c35c367",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-6757aba55d4b4af70746",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5676c5737d88de0c272e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-e1fad927a748c012e6e7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-780390093e4bec63cd37",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7dd0b95d550d0779095a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-53a5b097a6f53436ae58",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-16a6c334da35380bbe6a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-812d2cc02b49a64fd0b1",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ef7f88dfc2db46886470",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c11116d5e5eb0c2885aa",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-15890a787f1befff1228",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7bdd0ea965afd9d498cd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c9452dbb0e67bd36815e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a2325f49768b59808b7a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5e13522f207d1174323d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ed571460d59ad7e520c8",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8c06614dca42f5d7b6a9",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5e07f6e159cb992ccb1f",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-013343e50ea76c116286",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1b75af6b502a35d36939",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-0977d02dca794b6b53bc",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-9958874a0586e775b79a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-757107d83b0673da20d1",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a262bc9d72d1ee8aa81d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-4b36b50cebc98de0a7cd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-6c3b5147af23d9a49b17",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7fee5a110c24aeb65447",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 123,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T10:40:28.926Z",
+    "duration": 152.64200000000005,
+    "expected": 0,
+    "skipped": 93,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
