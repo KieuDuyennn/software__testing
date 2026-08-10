@@ -1,0 +1,311 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr13_dashboard",
+      "--project=firefox",
+      "--grep",
+      "FR13-TC-24"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-setup.ts",
+    "globalTeardown": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr13",
+      "Browser": "firefox-continued-pagination",
+      "Run started (ISO)": "2026-08-10T14:07:14.422Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-continued-pagination",
+          "Run started (ISO)": "2026-08-10T14:07:14.422Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-continued-pagination",
+          "Run started (ISO)": "2026-08-10T14:07:14.422Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-continued-pagination",
+          "Run started (ISO)": "2026-08-10T14:07:14.422Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr13/firefox-continued-pagination",
+          "title": "HW04 EShop Automation - FR13 - firefox-continued-pagination - Run by: 23127184 - 2026-08-10T14:07:14.422Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr13-firefox-continued-pagination.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr13_dashboard\\fr13.dashboard.spec.ts",
+      "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-13 Dashboard",
+          "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+          "line": 275,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR13-TC-24 [edge] order count crosses the 100-row pagination boundary",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:07:16.545Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-12 (second pagination boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "TC-14 catches limits at 10/20/25; this crosses the common 50/100 boundaries. At-least 101 tolerates unrelated concurrent orders in the global KPI while still exposing truncation. Requires the documented LOADTEST=1 harness mode because the SUT's global 200-request limiter is lower than a complete FR-13 run."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 7039,
+                      "error": {
+                        "message": "Error: page.goto: NS_ERROR_CONNECTION_REFUSED\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: NS_ERROR_CONNECTION_REFUSED\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/\", waiting until \"load\"\u001b[22m\n\n    at AdminDashboardPage.goto (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\BasePage.ts:24:21)\n    at AdminDashboardPage.gotoWithTokenAndLoadDashboard (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts:243:16)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:510:36",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\BasePage.ts",
+                          "column": 21,
+                          "line": 24
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\pages\\BasePage.ts:24\n\n\u001b[0m \u001b[90m 22 |\u001b[39m\n \u001b[90m 23 |\u001b[39m   \u001b[36masync\u001b[39m goto()\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[36mvoid\u001b[39m\u001b[33m>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgoto(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpath)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m   }\n \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m   \u001b[90m/** A toast/banner the SUT uses for global success or error messages. */\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\BasePage.ts",
+                            "column": 21,
+                            "line": 24
+                          },
+                          "message": "Error: page.goto: NS_ERROR_CONNECTION_REFUSED\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/\", waiting until \"load\"\u001b[22m\n\n\n   at ..\\pages\\BasePage.ts:24\n\n  22 |\n  23 |   async goto(): Promise<void> {\n> 24 |     await this.page.goto(this.path);\n     |                     ^\n  25 |   }\n  26 |\n  27 |   /** A toast/banner the SUT uses for global success or error messages. */\n    at AdminDashboardPage.goto (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\BasePage.ts:24:21)\n    at AdminDashboardPage.gotoWithTokenAndLoadDashboard (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts:243:16)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:510:36"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:07:16.702Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:07:16.545Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-12 (second pagination boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "TC-14 catches limits at 10/20/25; this crosses the common 50/100 boundaries. At-least 101 tolerates unrelated concurrent orders in the global KPI while still exposing truncation. Requires the documented LOADTEST=1 harness mode because the SUT's global 200-request limiter is lower than a complete FR-13 run."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-f5684-100-row-pagination-boundary-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-f5684-100-row-pagination-boundary-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-f5684-100-row-pagination-boundary-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-f5684-100-row-pagination-boundary-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\BasePage.ts",
+                        "column": 21,
+                        "line": 24
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ec06fe833e12a64e647d",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T14:07:14.462Z",
+    "duration": 12817.676,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
