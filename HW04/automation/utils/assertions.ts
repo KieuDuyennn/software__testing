@@ -72,9 +72,60 @@ export async function expectUiAndApiAgree(
   expect(response.status(), `network status for ${response.url()}`).toBe(expectedStatus);
 }
 
+/**
+ * Assert a response's status is one of an allowed set.
+ *
+ * A set, not a single value, for the cases where the requirement is "this must be
+ * refused" but the exact denial code is an unresolved open question - FR-11's
+ * OQ-06, OQ-07, OQ-12 and OQ-13 all sit there. Asserting membership keeps the
+ * requirement falsifiable (a 200 still fails) without inventing a precision the
+ * design never had. Do NOT widen a set to make a red case green: that turns this
+ * helper into the "made it pass" category the workflow forbids.
+ */
+export async function expectStatusAmong(
+  response: APIResponse,
+  allowed: number[],
+  label: string,
+  options: { soft?: boolean } = {},
+): Promise<void> {
+  const status = response.status();
+  const body = await response.text();
+  const message =
+    `${label}: ${response.url()} answered ${status}, ` +
+    `expected one of [${allowed.join(', ')}]. Body: ${body.slice(0, 300)}`;
+
+  // `soft` for the cases that have a follow-up mutation or disclosure check: a hard
+  // assertion throws on the unexpected status and the report then never learns whether
+  // the refused request changed anything. Soft failures still fail the test.
+  if (options.soft) {
+    expect.soft(allowed, message).toContain(status);
+  } else {
+    expect(allowed, message).toContain(status);
+  }
+}
+
 /* ------------------------------------------------------------------ *
  * Pattern 3 - data-integrity assertion
  * ------------------------------------------------------------------ */
+
+/**
+ * Assert a numeric column is sorted descending.
+ *
+ * FR-11 needs this rather than the date variant below: the order-history date
+ * cell uses `toLocaleDateString()`, which drops the time, and `created_at` has
+ * only second granularity - 16 orders seeded in one run rendered exactly ONE
+ * distinct date string, so the date column cannot witness ordering at all. The
+ * backend sorts `ORDER BY id DESC`, so the Mã ĐH column is the only honest
+ * witness. Verified by probe, not assumed.
+ */
+export function expectSortedDescByNumber(values: number[], label: string): void {
+  expect(
+    values.every(Number.isFinite),
+    `${label}: not all values are numeric - ${JSON.stringify(values)}`,
+  ).toBe(true);
+  const sorted = [...values].sort((a, b) => b - a);
+  expect(values, `${label}: not sorted newest-first`).toEqual(sorted);
+}
 
 /** Assert a table/list is sorted descending by a date column (FR-11 order history). */
 export async function expectSortedDescByDate(values: string[]): Promise<void> {

@@ -1,3 +1,8 @@
+// Side-effect import, and it must stay first: this is what loads `.env` before the
+// reads below happen. See automation/utils/env.ts for why the load lives in a module
+// instead of in a call at the top of playwright.config.ts.
+import './env';
+
 /**
  * Single source of truth for the run identity that the brief requires to be
  * visible in every HTML report ("Run by: {StudentID}" + an ISO timestamp).
