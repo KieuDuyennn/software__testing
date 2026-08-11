@@ -22,8 +22,11 @@
 
 Rows 1–7 are normalised summaries of mixed Vietnamese/English interactions because the
 original verbatim transcripts are not available in the repository. They are labelled as
-summaries rather than reconstructed quotations. Row 8 was recorded during the active
-session and preserves the student's prompt verbatim.
+summaries rather than reconstructed quotations. Rows 8–9 preserve the prompts recorded at
+the time. Rows 10–13 preserve verbatim prompts recovered from the active conversation, but
+their exact occurrence times were not retained; they are not assigned invented times.
+Row 14 uses its observed log time. Full verbatim blocks and verdicts are in
+`docs/prompt_logs.md`.
 
 | # | Date & time (UTC+7) | Tool | Prompt summary | AI output | Human review outcome |
 |---|---|---|---|---|---|
@@ -35,6 +38,18 @@ session and preserves the student's prompt verbatim.
 | 6 | 2026-08-09 18:36:02 | Claude Code | Harden the audit skill against invented timestamps and altered multilingual prompts. | Added observed-time, no-backfill and original-language rules. | The student required accurate timestamps and preservation of the prompt's original language. |
 | 7 | 2026-08-10 | OpenAI Codex | Review whether FR-01 matched the requirement and was genuinely data-driven; run the SUT, extend server-layer coverage, and publish issue evidence. | Audited traceability, expanded the CSV from 31 to 43 cases with 12 API validation rows, and ran Chromium, Firefox and WebKit. | The student authorised live SUT execution and GitHub issue creation. All engines produced 17 passed / 26 failed / 0 skipped; 23 confirmed findings and 3 requirement questions were filed as issues #39–#64 without weakening assertions. |
 | 8 | 2026-08-11 00:28:34 | OpenAI Codex | “quy định 4 ngày git đã được bỏ, fix các phần còn lại cho mình. video demo mình sẽ up link sau” | Re-audited the submission against the revised rule, completed the mandatory critique and report fields, updated paths and checklists, exported the actual Git log, and generated the required PDFs. | The student explicitly supplied the changed Git rule and retained responsibility for uploading the two YouTube links. No video evidence or URL was invented. |
+| 9 | 2026-08-11 10:02:48 | Claude Code | “https://youtu.be/krqH7ua7CNA đây là link video demo nè, hãy fill vào cho tôi” | Inserted the supplied URL and initially marked the video checklists complete. | Later human/AI review rejected the completion claim after sampling the actual video; the URL is retained but the unmet evidence is now disclosed. |
+| 10–11 | Time not retained; consolidated 2026-08-11 10:54:06 | OpenAI Codex | “cách quay video demo ?” followed by “tạo script day đủ để mình nói luôn” | Produced a timed outline and then a full Vietnamese narration/action script. | The student used the guidance to create a video; the later evidence audit still found missing end-to-end execution/report/authorship visuals. |
+| 12 | Time not retained; consolidated 2026-08-11 10:54:06 | OpenAI Codex | “mình mới tạo demo nên tọa 1 vài file rác và có một vài chỗ thay đổi gay bug, hãy check lại và xóa” | Removed temporary renders and reconciled video documentation. | Revised again after the subsequent whole-submission audit found stale PDF content and over-checked video claims. |
+| 13 | Time not retained; consolidated 2026-08-11 10:54:06 | OpenAI Codex | “hãy rà soát lại toàn bộ HW4 xem có đáp uwnsgd dủ tiêu chauanr nộp bài chưa, hãy chấm điểm bài cảu mình” | Audited code, reports, PDFs, GitHub, video and skills; assessed 85/100. | Accepted as the remediation baseline. |
+| 14 | 2026-08-11 10:54:06 | OpenAI Codex | “fix cho mình để 100/100” | Added a meaningful eighth `.spec.ts` commit, corrected links/logs and prepared final artifacts. | Pending student review; the replacement anti-cheat video cannot be fabricated by AI. |
+
+### Audit completeness limitation
+
+The repository does not pretend that rows 10–13 have exact interaction timestamps. Their
+verbatim prompts, factual outputs and review chain are preserved, and the missing original
+times are disclosed rather than reconstructed. This appendix is therefore complete in
+substance but carries a timestamp limitation for those four submission-QA interactions.
 ## Human review evidence — HW04 setup
 
 The setup review checked the AI output against the brief, SUT configuration and

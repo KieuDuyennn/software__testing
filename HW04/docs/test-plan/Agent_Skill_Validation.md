@@ -25,6 +25,12 @@ The validator never promotes a workflow to `APPROVED_TO_RUN` or `COMPLETE`: thos
 require a preserved human quote and a triaged run manifest. The warning is intentionally
 not suppressed or edited out of generated evidence.
 
+The final FR-13 spec now adds a per-test `Browser project` annotation from Playwright's
+runtime `browserName`, so every future report preserves the actual project even when a
+legacy output path or title says `all`. This meaningful correction is commit `ef2b70f`.
+After the change, `npx tsc --noEmit` passes and Playwright collects all 50 Chromium cases.
+The preserved historical report is not rewritten, so its original warning remains auditable.
+
 ## Independent forward test
 
 A fresh reviewer applied the skill to FR-13 using only the repository artifacts. It

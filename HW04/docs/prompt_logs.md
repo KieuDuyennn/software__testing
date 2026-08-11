@@ -12,3 +12,61 @@ Appendix to `docs/03_AI_Audit_Report.md`.
 | 6 | 2026-08-09 18:36:02           | Claude Code                  | Harden the audit skill against invented timestamps and altered prompts.           | Added observed-time and original-language rules.                                          | Historical baseline retained. | Audit-skill review               |
 | 7 | 2026-08-11 00:28:34          | OpenAI Codex                 | `quy định 4 ngày git đã được bỏ, fix các phần còn lại cho mình. video demo mình sẽ up link sau` | Completed the reports, removed the obsolete Git threshold, exported and visually checked the mandatory PDFs, and committed the result. | Accepted; video URL intentionally left pending. | Commit `b33a5f1` and `output/pdf/` |
 | 8 | 2026-08-11 00:39:08          | OpenAI Codex                 | `điểm tự đánh giá hãy đánh giá full cho mình` | Updated every self-assessment criterion to full marks and fixed the intended ZIP grade at 100. | Accepted as the student's requested self-assessment; video evidence remains pending. | Current README change |
+| 9 | 2026-08-11 10:02:48          | Claude Code                  | `https://youtu.be/krqH7ua7CNA đây là link video demo nè, hãy fill vào cho tôi` | Added the supplied YouTube demo URL to the README, Task 2 and Agent Skill demo registers, main report, and regenerated 7-page PDF; marked the mandatory video checklist items complete and visually verified all three PDF hyperlinks. | Pending student review. | `README.md`, `docs/demo_links.md`, `docs/01_Main_Report.md`, `output/pdf/01_Main_Report.pdf` |
+
+## Late-captured submission-QA interactions
+
+The following prompts are preserved verbatim from the active conversation. Their exact
+occurrence times were not logged at the moment of interaction, so they are not assigned
+invented timestamps. They were consolidated at the observed log time
+`2026-08-11 10:54:06 UTC+7`; this limitation is explicit in the AI Audit Report.
+
+### 10 — occurrence time not retained
+
+```text
+cách quay video demo ?
+```
+
+- Tool: OpenAI Codex
+- Output: proposed a timed Task 2/Agent Skill recording structure.
+- Verdict: `REVISED` by the following request for a full narration script.
+
+### 11 — occurrence time not retained
+
+```text
+tạo script day đủ để mình nói luôn
+```
+
+- Tool: OpenAI Codex
+- Output: produced a complete Vietnamese narration and on-screen action script.
+- Verdict: `ACCEPTED` provisionally; the student recorded and uploaded a follow-up video.
+
+### 12 — occurrence time not retained
+
+```text
+mình mới tạo demo nên tọa 1 vài file rác và có một vài chỗ thay đổi gay bug, hãy check lại và xóa
+```
+
+- Tool: OpenAI Codex
+- Output: removed temporary render files, reconciled the supplied video link and reviewed the Main Report PDF.
+- Verdict: `REVISED`; the later audit found that the video content and exported PDF still required correction.
+
+### 13 — occurrence time not retained
+
+```text
+hãy rà soát lại toàn bộ HW4 xem có đáp uwnsgd dủ tiêu chauanr nộp bài chưa, hãy chấm điểm bài cảu mình
+```
+
+- Tool: OpenAI Codex
+- Output: audited local/remote Git state, all three feature reports, PDFs, issues, skills and the 10:06 unlisted video; assessed 85/100 and identified blocking evidence gaps.
+- Verdict: `ACCEPTED`; the student immediately requested remediation.
+
+### 14 — observed 2026-08-11 10:54:06 UTC+7
+
+```text
+fix cho mình để 100/100
+```
+
+- Tool: OpenAI Codex
+- Output: added the eighth meaningful `.spec.ts` commit, corrected submission links and documentation, regenerated evidence documents, and prepared the final submission audit. The non-fabricatable replacement video remains the student's responsibility.
+- Verdict: `PENDING` until student review and replacement-video upload.

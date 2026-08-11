@@ -3,13 +3,13 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public submission branch:** https://github.com/KieuDuyennn/software__testing/tree/duyen/hw4/HW04
+**Public submission folder:** https://github.com/KieuDuyennn/software__testing/tree/main/HW04
 **AI declaration:** I use AI tools for the tasks recorded in `docs/03_AI_Audit_Report.md`.
 
 ## Features under test (§5)
 
-The same web features selected in HW02, one per pool. HW02's FR-06 was that
-assignment's Pool D (mobile) choice and is excluded here, as §5 requires.
+The submission carries forward the three HW02-selected web features FR-01, FR-11 and
+FR-13, one from each of Pools A–C. No Pool D/mobile feature is included.
 
 | Pool | Feature | Spec | Data file |
 |---|---|---|---|
@@ -117,7 +117,7 @@ not hand-edited; incorrect generated values must be corrected by rerunning the s
 | Confirmed FR-01 issue-level bug reports | 23 across 5 shared root causes |
 | FR-01 GitHub Issues | 26 / 26 created — [#39–#64](https://github.com/KieuDuyennn/software__testing/issues); 26 / 26 evidence images attached |
 | FR-01 cases not automatable | TC-17, TC-23; EC-34 documented as moot |
-| Demo video | Pending student upload; add the unlisted YouTube URL before submission |
+| Demo video | [YouTube demo](https://youtu.be/krqH7ua7CNA) |
 
 ### Per-run results
 
@@ -126,12 +126,12 @@ not hand-edited; incorrect generated values must be corrected by rerunning the s
 | 1 | FR-01 | chromium | 2026-08-10T12:06:09.635Z | 43 | 17 | 26 | `reports/final/html/fr01/chromium/index.html` |
 | 2 | FR-01 | firefox | 2026-08-10T14:28:58.633Z | 43 | 17 | 26 | `reports/final/html/fr01/firefox/index.html` |
 | 3 | FR-01 | webkit | 2026-08-10T14:55:13.862Z | 43 | 17 | 26 | `reports/final/html/fr01/webkit/index.html` |
-| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
-| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
-| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
+| 4 | FR-11 | chromium | 2026-08-10T14:10:00.890Z | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
+| 5 | FR-11 | firefox | 2026-08-10T12:01:52.340Z | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
+| 6 | FR-11 | webkit | 2026-08-10T12:13:16.828Z | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
 | 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/final/html/fr13/chromium/index.html` |
-| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
-| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
+| 8 | FR-13 | firefox | 2026-08-10T14:47:41.835Z (first split) | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
+| 9 | FR-13 | webkit | 2026-08-10T14:53:18.599Z (first split) | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
 
 ## Self-assessment table (§15)
 
@@ -144,12 +144,14 @@ not hand-edited; incorrect generated values must be corrected by rerunning the s
 | 3 | Agent Skills | 10 | 10 |
 | | **Total** | **100** | **100*** |
 
-\*The full video score is the student's self-assessment target and remains conditional
-on adding the required unlisted YouTube link before submission.
+\*The full video score is the student's target after replacing the current process-only
+recording with a compliant Task 2 recording that visibly completes the multi-browser run,
+opens the generated HTML report, narrates a fix, and shows authorship evidence.
 
 **FR-13 self-assessment: 25/25.** The dashboard suite contains 50 data-driven cases,
 three-browser execution evidence, isolated edge-state checks, six filed defects, and
-regression verification after the fixes.
+per-test browser attribution in the final spec. Product defects remain red in the final
+reports; the submission does not claim an unrecorded regression pass.
 
 **FR-01 self-assessment.** The feature exceeds the 12-case minimum with 43 external CSV
 rows, uses three assertion patterns, and has complete reports for all three browsers with
@@ -161,12 +163,13 @@ attached, and 26 issue-page screenshots are saved under `reports/evidence/github
 ## Submission checklist (§14)
 
 - [x] `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
-- [x] Public GitHub repository link; `duyen/hw4` is pushed and tracks `origin/duyen/hw4`
+- [x] Public GitHub repository link — `main/HW04` contains the merged submission
 - [x] 9 browser combinations (13 HTML entry points), all showing `Run by: 23127184` + ISO timestamp
-- [ ] Unlisted YouTube demo video (≥ 5 min, Vietnamese, face-cam or `whoami`/`hostname`)
+- [ ] Replace the current [unlisted 10:06 process recording](https://youtu.be/krqH7ua7CNA) with a compliant Task 2 video showing the actual multi-browser run, HTML report, narrated fix, and face-cam or `whoami`/`hostname`
 - [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
 - [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
-- [x] `docs/05_Git_Commit_Log.txt` (actual repository history; the former four-day rule was removed)
+- [x] `docs/05_Git_Commit_Log.txt` (8 meaningful `.spec.ts` commits; former four-day rule removed)
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] This `README.md` with the self-assessment table and the test summary
-- [ ] Zip named `23127184_HW04_AI_Automation_100.zip`
+- [x] Moodle-safe split ZIP prepared as `23127184_HW04_AI_Automation_100.zip.001`
+  through `.003` (19 MB / 19 MB / 12.97 MB); extract starting from part `.001`

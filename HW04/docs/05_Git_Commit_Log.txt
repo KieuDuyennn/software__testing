@@ -1,44 +1,121 @@
 HW04 Git commit log
 Student: Le Pham Kieu Duyen (23127184)
-Repository: https://github.com/KieuDuyennn/software__testing
-Branch at export: duyen/hw4
-Exported: 2026-08-11 00:28:34 UTC+7
+Repository: https://github.com/KieuDuyennn/software__testing/tree/main/HW04
+Branch at export: local duyen/hw4; public submission branch main
+Exported: 2026-08-11 10:58 UTC+7
 
 Summary before the final documentation commit
 ---------------------------------------------
-Total commits affecting HW04: 82
-Commits directly changing .spec.ts files: 7
+Total commits affecting HW04: 87
+Commits directly changing .spec.ts files: 8
 First HW04 commit date: 2026-08-06
-Latest included commit: 72e52b0 (2026-08-11)
+Latest included commit: ef2b70f (2026-08-11)
 
 The course's former four-day Git threshold was removed. This file reports the
 actual repository history and does not alter or backdate commit metadata.
 
 Commits directly changing Playwright spec files
 -----------------------------------------------
-68c1f3b | 2026-08-10 | test(fr13): verify checkout totals from cart items
-b9a3ee0 | 2026-08-10 | test(fr01): expand registration validation coverage
-c078366 | 2026-08-10 | test(fr11): add shared auth and environment setup
-99d9b9f | 2026-08-10 | test(fr11): cover order history UI and API contracts
-9ce554b | 2026-08-06 | test(fr13): add data-driven admin dashboard spec
-1cee595 | 2026-08-06 | test(fr11): add data-driven order history spec
-cc75ad4 | 2026-08-06 | test(fr01): add data-driven account registration spec
+cc75ad4 | 2026-08-06T23:14:57+07:00 | test(fr01): add data-driven account registration spec
+1cee595 | 2026-08-06T23:14:57+07:00 | test(fr11): add data-driven order history spec
+9ce554b | 2026-08-06T23:14:57+07:00 | test(fr13): add data-driven admin dashboard spec
+99d9b9f | 2026-08-10T21:31:56+07:00 | test(fr11): cover order history UI and API contracts
+c078366 | 2026-08-10T21:34:20+07:00 | test(fr11): add shared auth and environment setup
+b9a3ee0 | 2026-08-10T22:13:02+07:00 | test(fr01): expand registration validation coverage
+68c1f3b | 2026-08-10T23:19:01+07:00 | test(fr13): verify checkout totals from cart items
+ef2b70f | 2026-08-11T10:53:24+07:00 | test(fr13): preserve browser attribution per case
 
-Recent completion and evidence commits
---------------------------------------
-72e52b0 | 2026-08-11 | chore(submission): organize final reports and evidence
-f4c2781 | 2026-08-10 | docs(fr13): complete self assessment and report summary
-edaaf3f | 2026-08-10 | docs(fr11): complete self-assessment and run summary
-5bf5a9c | 2026-08-10 | docs(fr11): document linked failure screenshots
-84b295f | 2026-08-10 | test(fr11): add failure evidence screenshots
-034f1af | 2026-08-10 | docs(fr11): link GitHub bug issues
-2c1b704 | 2026-08-10 | chore(reports): preserve cross-browser execution evidence
-a955b8f | 2026-08-10 | docs(fr01): record validation findings and audit evidence
-c56d012 | 2026-08-10 | test(fr13): complete browser matrix evidence
-299bbea | 2026-08-10 | test(fr13): add browser execution evidence
-39d40e3 | 2026-08-10 | test(fr11): preserve browser reports and auth lifecycle
+Complete HW04 commit history (oldest to newest)
+-----------------------------------------------
+ded24a6 | 2026-08-06T23:14:51+07:00 | chore(hw04): ignore node_modules, .env, auth state and raw Playwright artifacts
+6aa68d1 | 2026-08-06T23:14:51+07:00 | chore(hw04): add .env template for SUT URLs, student identity and test accounts
+5a29f40 | 2026-08-06T23:14:51+07:00 | build(hw04): add Playwright and csv-parse deps with per-feature run scripts
+126f6c8 | 2026-08-06T23:14:52+07:00 | build(hw04): lock the dependency tree
+39cdeeb | 2026-08-06T23:14:52+07:00 | build(hw04): add TypeScript config for the automation suite
+f446cd5 | 2026-08-06T23:14:52+07:00 | build(hw04): configure chromium/firefox/webkit projects and HTML+JSON reporters
+3f54b91 | 2026-08-06T23:14:53+07:00 | chore(hw04): add project rules for the AI-assisted automation workflow
+c772ea3 | 2026-08-06T23:14:53+07:00 | docs(hw04): add README with self-assessment table and test summary skeleton
+a77bb5e | 2026-08-06T23:14:53+07:00 | test(hw04): add single source of truth for the Run by identity and ISO run stamp
+562950b | 2026-08-06T23:14:53+07:00 | test(hw04): add CSV and JSON loaders so specs never inline test data
+73e34a1 | 2026-08-06T23:14:54+07:00 | test(hw04): add three distinct assertion patterns (UI, API, data integrity)
+6bb9a3c | 2026-08-06T23:14:54+07:00 | test(hw04): add shared fixtures stamping Run by on every test
+fe31557 | 2026-08-06T23:14:54+07:00 | test(hw04): add BasePage documenting the selector priority policy
+d73465f | 2026-08-06T23:14:54+07:00 | test(hw04): add LoginPage for the FR-11 and FR-13 authenticated sessions
+609d25c | 2026-08-06T23:14:55+07:00 | test(fr01): add RegisterPage object scaffold
+45b308d | 2026-08-06T23:14:55+07:00 | test(fr11): add OrderHistoryPage object scaffold
+1b948c9 | 2026-08-06T23:14:55+07:00 | test(fr13): add AdminDashboardPage object scaffold
+1cfc2a6 | 2026-08-06T23:14:56+07:00 | test(hw04): add runner script for the nine required browser runs
+c6e8d12 | 2026-08-06T23:14:56+07:00 | test(fr01): add external CSV test data for registration cases
+9156eb1 | 2026-08-06T23:14:56+07:00 | test(fr11): add external JSON test data for order history cases
+4070239 | 2026-08-06T23:14:56+07:00 | test(fr13): add external JSON test data for dashboard cases
+cc75ad4 | 2026-08-06T23:14:57+07:00 | test(fr01): add data-driven account registration spec
+1cee595 | 2026-08-06T23:14:57+07:00 | test(fr11): add data-driven order history spec
+9ce554b | 2026-08-06T23:14:57+07:00 | test(fr13): add data-driven admin dashboard spec
+e24773e | 2026-08-06T23:14:57+07:00 | docs(fr01): add test-case matrix tracing cases back to HW02
+3828924 | 2026-08-06T23:14:58+07:00 | docs(fr11): add test-case matrix tracing cases back to HW02
+7cd0af2 | 2026-08-06T23:14:58+07:00 | docs(fr13): add test-case matrix tracing cases back to HW02
+e37da0c | 2026-08-06T23:14:58+07:00 | docs(hw04): add gap-analysis table for corrections made to AI-generated scripts
+7b55c41 | 2026-08-06T23:14:58+07:00 | docs(hw04): add main report skeleton
+9ec4731 | 2026-08-06T23:14:59+07:00 | docs(hw04): add bug report skeleton scoped to assertion-revealed defects
+4156c70 | 2026-08-06T23:14:59+07:00 | docs(hw04): add mandatory AI audit report appendix
+e4807af | 2026-08-06T23:14:59+07:00 | docs(hw04): add AI critique skeleton with the three required questions
+d89fdc5 | 2026-08-06T23:15:00+07:00 | docs(hw04): add commit log placeholder with the regeneration command
+14c9550 | 2026-08-06T23:15:00+07:00 | docs(hw04): add demo video checklist and link placeholders
+317c652 | 2026-08-06T23:15:00+07:00 | docs(hw04): add raw AI interaction log table
+ca73e86 | 2026-08-06T23:15:00+07:00 | chore(hw04): document the two agent skills submitted for section 7
+80fbc0d | 2026-08-06T23:15:01+07:00 | chore(hw04): add playwright-automation agent skill
+260b88a | 2026-08-06T23:15:01+07:00 | chore(hw04): add ai-audit-log agent skill
+d1c5172 | 2026-08-06T23:15:01+07:00 | docs(hw04): add the HW04 brief as handed out
+ca5e653 | 2026-08-06T23:15:01+07:00 | docs(hw04): add Markdown conversion of the HW04 brief
+2553ad9 | 2026-08-06T23:15:02+07:00 | docs(hw04): add the course homework policies reference
+fe9fe4b | 2026-08-06T23:15:02+07:00 | docs(hw04): add the S12 automation testing lecture slides
+ac298ed | 2026-08-06T23:15:02+07:00 | chore(hw04): keep the HTML report output folder
+b2e20bb | 2026-08-06T23:15:02+07:00 | chore(hw04): keep the JSON report output folder
+1d1563d | 2026-08-06T23:15:03+07:00 | chore(hw04): keep the screenshots folder
+7d2bcb1 | 2026-08-06T23:15:03+07:00 | chore(hw04): keep the GitHub issues evidence folder
+b4b4aa9 | 2026-08-06T23:15:03+07:00 | chore(hw04): add FR-01 chromium scaffold listing from playwright test --list
+506281e | 2026-08-06T23:15:03+07:00 | chore(hw04): add FR-01 chromium HTML report for the same --list dry run
+de0feb3 | 2026-08-06T23:18:11+07:00 | chore(hw04): ignore Vietnamese translations of the brief
+6ac996d | 2026-08-09T19:56:04+07:00 | docs(hw04): expand AI prompt log with human review evidence
+dab9636 | 2026-08-09T19:56:59+07:00 | docs(hw04): document AI audit and human review trail
+311a082 | 2026-08-09T20:01:55+07:00 | docs(hw04): derive 9 more FR-11 cases and correct the no-UI premise
+ee8fedb | 2026-08-09T20:01:55+07:00 | docs(hw04): derive 6 more FR-13 dashboard cases to reach 20
+e505370 | 2026-08-09T20:01:55+07:00 | docs(hw04): drop the two confirm-password cases and add the FR-01 diagnostic
+cefc199 | 2026-08-09T20:01:55+07:00 | fix(hw04): point baseURL at the web front-end instead of the API port
+5e81b9b | 2026-08-09T20:01:56+07:00 | docs(hw04): record the verified SUT ports for web, admin and API
+3655a7a | 2026-08-09T20:01:56+07:00 | test(fr01): replace scaffold locators with ones verified on the live page
+6d397bf | 2026-08-09T20:01:56+07:00 | docs(hw04): reorder the automation skill around live-SUT verification
+e7f52c8 | 2026-08-09T20:01:56+07:00 | docs(hw04): tighten audit-log rules on timestamps and backfilling
+24a62d5 | 2026-08-09T20:01:56+07:00 | docs(hw04): log why each skill revision was made
+11c0eac | 2026-08-10T21:31:55+07:00 | test(fr11): expand data-driven order history cases
+9d9ad5b | 2026-08-10T21:31:56+07:00 | test(fr11): harden order history page assertions
+99d9b9f | 2026-08-10T21:31:56+07:00 | test(fr11): cover order history UI and API contracts
+7784012 | 2026-08-10T21:31:56+07:00 | test(fr11): cache authentication tokens across runs
+091c081 | 2026-08-10T21:32:04+07:00 | docs(fr11): update test matrix results
+c078366 | 2026-08-10T21:34:20+07:00 | test(fr11): add shared auth and environment setup
+8547b85 | 2026-08-10T21:34:20+07:00 | docs(fr11): record execution findings and bug assessment
+39d40e3 | 2026-08-10T21:34:41+07:00 | test(fr11): preserve browser reports and auth lifecycle
+299bbea | 2026-08-10T21:36:04+07:00 | test(fr13): add browser execution evidence
+c56d012 | 2026-08-10T21:59:59+07:00 | test(fr13): complete browser matrix evidence
+b9a3ee0 | 2026-08-10T22:13:02+07:00 | test(fr01): expand registration validation coverage
+a955b8f | 2026-08-10T22:13:07+07:00 | docs(fr01): record validation findings and audit evidence
+2c1b704 | 2026-08-10T22:13:24+07:00 | chore(reports): preserve cross-browser execution evidence
+cbb21d6 | 2026-08-10T22:15:22+07:00 | docs(fr13): add manual edge-case execution guide
+034f1af | 2026-08-10T22:29:37+07:00 | docs(fr11): link GitHub bug issues
+84b295f | 2026-08-10T22:38:39+07:00 | test(fr11): add failure evidence screenshots
+5bf5a9c | 2026-08-10T22:40:11+07:00 | docs(fr11): document linked failure screenshots
+68ac8ee | 2026-08-10T23:01:52+07:00 | test(fr13): align checkout fixture with validated cart payload
+68c1f3b | 2026-08-10T23:19:01+07:00 | test(fr13): verify checkout totals from cart items
+edaaf3f | 2026-08-10T23:43:04+07:00 | docs(fr11): complete self-assessment and run summary
+f4c2781 | 2026-08-10T23:46:54+07:00 | docs(fr13): complete self assessment and report summary
+72e52b0 | 2026-08-11T00:12:04+07:00 | chore(submission): organize final reports and evidence
+b33a5f1 | 2026-08-11T00:37:46+07:00 | docs(submission): complete reports and export PDFs
+121e0f5 | 2026-08-11T00:39:29+07:00 | docs(submission): set full self-assessment
+e60fe53 | 2026-08-11T00:58:09+07:00 | docs(evidence): add FR11 and FR13 issue screenshots
+5d2993b | 2026-08-11T09:20:42+07:00 | docs(submission): strengthen human review and agent skill
+ef2b70f | 2026-08-11T10:53:24+07:00 | test(fr13): preserve browser attribution per case
 
 Reproduction commands
 ---------------------
-git log --date=iso --pretty=format:"%h | %ad | %an | %s" -- HW04/
-git log --date=short --pretty=format:"%h | %ad | %s" -- "*.spec.ts"
+git log --reverse --date=iso-strict --pretty=format:"%h | %ad | %s" -- HW04/
+git log --reverse --date=iso-strict --pretty=format:"%h | %ad | %s" -- "automation/**/*.spec.ts"

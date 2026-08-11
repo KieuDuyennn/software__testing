@@ -3,7 +3,7 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public submission branch:** https://github.com/KieuDuyennn/software__testing/tree/duyen/hw4/HW04
+**Public submission folder:** https://github.com/KieuDuyennn/software__testing/tree/main/HW04
 **AI declaration:** I use AI tools for the following tasks — see `docs/03_AI_Audit_Report.md`.
 
 ---
@@ -225,12 +225,12 @@ the FR-01 GitHub delivery contains twenty-six issues.
 
 | Item | Value |
 |---|---|
-| YouTube link (unlisted, ≥ 5 min, Vietnamese narration) | **Pending student upload** |
-| Feature demonstrated end to end | Planned: FR-01 Account registration |
-| Multi-browser run shown | Planned: Chromium, Firefox, WebKit |
-| HTML report shown | Planned: final FR-01 report with student ID and ISO timestamp |
-| AI fix narrated (which one) | Planned: replacing guessed locators and separating requirement-valid from implementation-compatible passwords |
-| Authorship evidence | Planned: terminal `whoami` + `hostname` |
+| YouTube link (unlisted, ≥ 5 min, Vietnamese narration) | [https://youtu.be/krqH7ua7CNA](https://youtu.be/krqH7ua7CNA) |
+| Duration / visibility verified | 10:06; unlisted |
+| What the current recording proves | The reusable Agent Skill, its three-browser command, approval prompts, and an FR-13 agent invocation are visible. |
+| Missing Task 2 evidence | No completed multi-browser execution or opened HTML report is visible before the recording ends. |
+| Authorship evidence | No face-cam or completed `whoami` + `hostname` evidence was observed in the reviewed frames. |
+| Submission decision | **Replace this recording before Moodle submission.** The URL is retained only as an honest process artifact. |
 
 ---
 
@@ -247,7 +247,7 @@ the FR-01 GitHub delivery contains twenty-six issues.
 | Output contract | A Feature Run Manifest records discovered inputs, validation commands/exit codes, approval quote, per-browser counts/paths and every red case's disposition |
 | Features it was used on | Exercised/refined on FR-01; conventions applied and validated on FR-11 and FR-13 |
 | Validation evidence | `docs/test-plan/Agent_Skill_Validation.md`: FR-01/FR-11 validator `PASS`; FR-13 `PASS_WITH_REVIEW_ITEMS`. All remain historically `READY_FOR_REVIEW` because approval quotes/manifests were not retained; no evidence was backfilled. |
-| Demo video (YouTube) | Pending student upload |
+| Demo video (YouTube) | [https://youtu.be/krqH7ua7CNA](https://youtu.be/krqH7ua7CNA) — partial process demonstration; a complete end-to-end replacement is still required |
 
 The revision is based on observed project failures rather than generic advice. In
 particular, the skill now forbids using the live build as the oracle (the cause of the
@@ -256,6 +256,9 @@ collection time (preventing silent skipped assertions), preserves downstream evi
 before a hard status check, and accounts for global request budgets and Playwright worker
 replacement. The audit skill separately preserves prompts in their original language,
 maps every raw interaction ID into the appendix, and marks incomplete logging honestly.
+Commit `ef2b70f` additionally records the actual Playwright `browserName` on every FR-13
+case and corrects a misleading order-ID failure message. TypeScript validation and a
+50-case Chromium collection both pass after this change.
 
 ---
 
@@ -267,8 +270,8 @@ the actual HW04 history without asserting a minimum-day condition. Exported to
 
 | Metric | Value |
 |---|---|
-| Total HW04 commits at pre-commit validation | 85 (the final documentation commit is added after export) |
-| Commits touching `.spec.ts` | 7 |
+| Total HW04 commits at pre-export validation | 87 (the final documentation commit is added after export) |
+| Commits touching `.spec.ts` | 8 |
 | Distinct `.spec.ts` commit dates | 2 (reported for transparency; no longer a grading threshold) |
 | First / last commit date | 2026-08-06 / 2026-08-11 |
 
@@ -277,12 +280,13 @@ the actual HW04 history without asserting a minimum-day condition. Exported to
 ## 7. Compliance checklist (§14 required contents)
 
 - [x] Main report — `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
-- [x] Public submission branch; `duyen/hw4` tracks and is pushed to `origin/duyen/hw4`
+- [x] Public submission folder is merged under `main/HW04`
 - [x] 9 browser combinations (13 HTML entry points), all showing `Run by: 23127184` + ISO timestamp
-- [ ] Unlisted YouTube demo video link (≥ 5 min, Vietnamese)
+- [ ] Replace the current [unlisted 10:06 process recording](https://youtu.be/krqH7ua7CNA) with the complete Task 2 evidence required by §6 and §11
 - [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
 - [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
 - [x] `docs/05_Git_Commit_Log.txt`
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] `README.md` with self-assessment table and test summary
-- [ ] Zip named `23127184_HW04_AI_Automation_100.zip`
+- [x] Moodle-safe split ZIP prepared as `23127184_HW04_AI_Automation_100.zip.001`
+  through `.003` (19 MB / 19 MB / 12.97 MB); extract starting from part `.001`
