@@ -14,6 +14,10 @@ automation/fixtures/.auth/
 
 # Personal working aids (not part of the submission)
 refs/requirements/*_Vi.md
+tmp/
+
+# Moodle split archive is a local submission artifact, not repository history
+23127184_HW04_AI_Automation_100.zip.*
 
 # Logs
 *.log
