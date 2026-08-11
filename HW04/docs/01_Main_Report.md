@@ -288,5 +288,5 @@ the actual HW04 history without asserting a minimum-day condition. Exported to
 - [x] `docs/05_Git_Commit_Log.txt`
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] `README.md` with self-assessment table and test summary
-- [x] Moodle-safe split ZIP prepared as `23127184_HW04_AI_Automation_100.zip.001`
-  through `.003` (19 MB / 19 MB / 12.97 MB); extract starting from part `.001`
+- [x] One Moodle-safe ZIP prepared as `23127184_HW04_AI_Automation_100.zip`
+  (large trace/video attachments are available in the public repository, not duplicated in the ZIP)
