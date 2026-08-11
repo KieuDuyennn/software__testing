@@ -2,11 +2,17 @@
 
 | Skill | Purpose | Used on |
 |---|---|---|
-| `playwright-automation` | Drive the data-driven, multi-browser automation workflow step by step: FR analysis → case derivation → data file → page object → spec → review → 9-run execution | FR-01, FR-11, FR-13 |
+| `playwright-automation` | Drive a contract-based, data-driven workflow with human approval gates, three-browser evidence, deterministic validation and a feature run manifest | Exercised/refined on FR-01; its conventions were applied and validated on FR-11 and FR-13 |
 | `ai-audit-log` | Append each interaction to `docs/prompt_logs.md` and keep `docs/03_AI_Audit_Report.md` in sync | all sessions |
 
 §7 asks for the skill **plus** a YouTube demo showing it used end to end on a complete
 feature. Record the link in `docs/demo_links.md`.
+
+Example invocation: "Use `playwright-automation` for FR-11 with the requirement, HW02
+matrix, customer/API URLs, spec/data paths, three browser projects and student ID
+23127184. Stop at every human gate and return the Feature Run Manifest." The corresponding
+validator is `playwright-automation/scripts/validate-feature.ps1`; its JSON output is part
+of the evidence, not a replacement for human approval or generated reports.
 
 ## Revision history
 

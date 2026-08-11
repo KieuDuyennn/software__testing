@@ -3,16 +3,15 @@
 **Student:** Lê Phạm Kiều Duyên · **Student ID:** 23127184 · **Group:** 09
 **Course:** CS423/CSC13003 — Software Testing (FIT@HCMUS) · **Exercise:** HW04-AI
 **SUT:** EShop — https://github.com/ttbhanh/eshop-sut
-**Public repository:** https://github.com/KieuDuyennn/software__testing
+**Public submission branch:** https://github.com/KieuDuyennn/software__testing/tree/duyen/hw4/HW04
 **AI declaration:** I use AI tools for the following tasks — see `docs/03_AI_Audit_Report.md`.
 
 ---
 
 ## 1. Feature selection (§5)
 
-The three web features are the same ones selected in HW02, one from each of Pools A, B, C.
-HW02's fourth feature, FR-06 Product detail view, was that assignment's **Pool D (mobile)**
-choice and is therefore excluded here, as §5 requires.
+This submission automates the three HW02-selected web features FR-01, FR-11 and FR-13,
+one from each of Pools A–C; no Pool D/mobile feature is included.
 
 | Pool | Feature | HW02 artifact | HW04 spec | Data file |
 |---|---|---|---|---|
@@ -32,7 +31,7 @@ assigned Pool A, B, or C feature.
 |---|---|---|
 | Automation framework | Playwright Test | 1.50.x |
 | Language | TypeScript | 5.7.x |
-| Reporter | Playwright HTML reporter | |
+| Reporter | Playwright HTML reporter | 1.50.x |
 | AI tool(s) | Claude Code; OpenAI Codex | See `docs/03_AI_Audit_Report.md` |
 | Node.js | | v24.4.1 |
 | OS | Windows 11 | |
@@ -55,6 +54,24 @@ feature — the same sequence should be visible in `docs/03_AI_Audit_Report.md`.
 | 4 | Run all browsers, triage red cases against the requirement and API specification. | HTML/JSON reports, screenshots, traces, and `FR01_Failure_Evidence.md`. | Corrected the AI's guessed success status from 201 to documented 200; kept genuine divergences red. |
 | 5 | Re-review the happy path and negative API evidence. | TC-01a now uses `Password123!`; TC-01c isolates downstream plumbing; rejected API responses assert no returned `id`. | Removed the false-green happy-path claim and exposed stronger server-creation evidence. |
 
+#### FR-11 workflow
+
+| Step | AI proposal or task | Human verification | Accepted correction / evidence |
+|---|---|---|---|
+| 1 | Convert the HW02 order-history matrix to JSON and generate UI/API branches. | Traced the customer router, `Profile.jsx`, and backend order contracts before accepting routes or oracles. | Replaced the invented `/orders` route and requirement-conflicting shipping-cancel expectations. |
+| 2 | Generate page-object locators and row helpers. | Counted live DOM matches and deliberately tested overlapping IDs such as `#1` and `#10`. | Added exact order-row lookup, real table-cell scoping, and numeric ID sorting. |
+| 3 | Add data guards and API assertions. | Injected malformed rows, ran collection, and followed genuine red cases past their first failed status. | Moved validation to module load; prevented assertion-free rows; collected mutation/disclosure evidence before soft status assertions. |
+| 4 | Run 46 cases across three engines. | Measured cumulative requests and observed worker replacement after failures rather than trusting `--list` or `beforeAll`. | Moved reusable login to `globalSetup`; ran two explicit ID groups with a disposable backend restart and merged the final evidence without disabling the limiter. |
+
+#### FR-13 workflow
+
+| Step | AI proposal or task | Human verification | Accepted correction / evidence |
+|---|---|---|---|
+| 1 | Generate a dashboard JSON dataset, page object and mixed UI/API spec. | Read the admin entry point and probed the proposed origin, route, controls and locator counts. | Navigated to the absolute admin root on `:5174`; removed invented date/table controls and anchored KPI locators to real headings. |
+| 2 | Cross-check dashboard values with the orders API. | Probed authenticated and unauthenticated endpoints and compared response keys with the server schema. | Sent explicit bearer tokens, read `total_amount`, and separated UI access checks from API authorization checks. |
+| 3 | Generate edge/API oracles. | Reviewed cross-row consistency, injected invalid JSON, and recalculated expected cart totals independently. | Replaced weak inequality/default-value checks with fail-loud schema validation and exact recomputation (`399000`). |
+| 4 | Execute all three engines and triage failures. | Compared KPI deltas with seeded API state and preserved failures that reproduced the same mechanism. | Grouped 21 Chromium failures into six filed root causes while keeping every failing case visible in HTML/JSON evidence. |
+
 ### 3.2 Data-driven design
 
 - Test data lives in `automation/data/`, never inline (§6). Loaders: `automation/utils/data-loader.ts`.
@@ -62,9 +79,15 @@ feature — the same sequence should be visible in `docs/03_AI_Audit_Report.md`.
 
 | # | Pattern | Implemented in | Used by |
 |---|---|---|---|
-| 1 | UI state / web-first assertion | Playwright locators and native validity checks | FR-01 banner text, URL, form visibility, `checkValidity()` |
-| 2 | API / contract assertion | `automation/utils/assertions.ts` and FR-01 spec | FR-01 status, numeric success `id`, absence of rejection `id` |
-| 3 | Data-integrity assertion | FR-01 spec plus `/api/login` probe | FR-01 claimed success must be usable and preserve submitted name/e-mail; observable rejection must leave no usable account |
+| 1 | UI state / web-first assertion | FR-01 spec and `RegisterPage` | Banner text, URL, form visibility, native `checkValidity()` |
+| 2 | API / contract assertion | FR-01 spec and `automation/utils/assertions.ts` | Status, numeric success `id`, absence of rejection `id` |
+| 3 | Data-integrity assertion | FR-01 spec plus `/api/login` probe | Claimed success must create a usable account preserving name/e-mail |
+| 4 | UI state / semantic table assertion | FR-11 spec and order-history page object | Exact row identity, status badge, cancel visibility, localized-date components |
+| 5 | API / authorization contract | FR-11 API branches | Refusal status plus cross-user disclosure and role-boundary checks |
+| 6 | Mutation / persistence integrity | FR-11 API branches | Rejected cancel/status/checkout actions must leave the owning record unchanged |
+| 7 | UI KPI/access assertion | FR-13 spec and `AdminDashboardPage` | Dashboard reachability, real KPI headings and rendered numeric values |
+| 8 | API authorization/schema contract | FR-13 API branches | Token/role boundaries, status sets and required response fields |
+| 9 | Independent recomputation / delta integrity | FR-13 seeded-state branches | Revenue/order deltas and exact server recomputation from `total_amount` |
 
 FR-01 is data-driven in execution, not merely in storage: all 43 rows are loaded from
 `automation/data/fr01_registration.csv`; each row chooses the channel and expected signal,
@@ -81,12 +104,12 @@ Every report below shows `Run by: 23127184` and an ISO timestamp (§6, §11).
 | 1 | FR-01 | chromium | 2026-08-10T12:06:09.635Z | 43 | 17 | 26 | `reports/final/html/fr01/chromium/index.html` |
 | 2 | FR-01 | firefox | 2026-08-10T14:28:58.633Z | 43 | 17 | 26 | `reports/final/html/fr01/firefox/index.html` |
 | 3 | FR-01 | webkit | 2026-08-10T14:55:13.862Z | 43 | 17 | 26 | `reports/final/html/fr01/webkit/index.html` |
-| 4 | FR-11 | chromium | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
-| 5 | FR-11 | firefox | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
-| 6 | FR-11 | webkit | 2026-08-10 | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
+| 4 | FR-11 | chromium | 2026-08-10T14:10:00.890Z | 46 | 30 | 16 | `reports/final/html/fr11/chromium/index.html` |
+| 5 | FR-11 | firefox | 2026-08-10T12:01:52.340Z | 46 | 30 | 16 | `reports/final/html/fr11/firefox/index.html` |
+| 6 | FR-11 | webkit | 2026-08-10T12:13:16.828Z | 46 | 30 | 16 | `reports/final/html/fr11/webkit/index.html` |
 | 7 | FR-13 | chromium | 2026-08-10T11:38:45.582Z | 50 | 29 | 21 | `reports/final/html/fr13/chromium/index.html` |
-| 8 | FR-13 | firefox | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
-| 9 | FR-13 | webkit | 2026-08-10 | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
+| 8 | FR-13 | firefox | 2026-08-10T14:47:41.835Z (first split) | 50 | 30 | 20 | `reports/final/html/fr13/firefox/{tc,bva,api}/index.html` |
+| 9 | FR-13 | webkit | 2026-08-10T14:53:18.599Z (first split) | 50 | 30 | 20 | `reports/final/html/fr13/webkit/{tc,bva,api}/index.html` |
 
 The final FR-01 runs used `LOADTEST=1` only to disable the SUT's global 200-request/
 15-minute API limiter while executing 43 independent cases. No SUT source, test data,
@@ -94,6 +117,13 @@ or expectation was changed; normal rate limiting was restored after the run. Exi
 is expected because the reports preserve product divergences as failed assertions.
 
 ### 3.4 Human review and fixes
+
+For each feature, the AI produced the first scaffold and data-driven branches; my
+acceptance gate was source tracing → live DOM/API probes → type-check and collection →
+three-browser execution → evidence-led correction. The sections below distinguish the
+AI proposal from my human decisions.
+
+#### FR-01 — Account registration
 
 For FR-01, human review corrected the guessed success status from 201 to the documented
 200, replaced fragile label locators after inspecting the actual DOM, and added runtime-
@@ -104,6 +134,54 @@ persistence with the implementation-compatible gate. Native browser validity is 
 as state rather than browser-specific prose, and rejected API responses must not return an
 `id`. A historical Firefox teardown symptom did not reproduce in the two final reruns. No
 assertion was weakened to turn a product divergence green.
+
+#### FR-11 — Order history
+
+The AI first converted the HW02 matrix into external JSON and generated the FR-11
+Playwright scaffold. I did not accept it by inspection alone: I traced the customer
+router and `Profile.jsx`, counted live locator matches, exercised overlapping order IDs,
+injected malformed data, and ran genuine red cases on all three engines. The review found
+an invented `/orders` route, guessed locators, substring row matching (`#1` also matching
+`#10`–`#19`), localized dates parsed with Node `Date.parse`, and contradictory shipping-
+cancel oracles derived from the current build rather than the requirement. Hard status
+assertions also stopped before recording disclosure/mutation evidence, while per-test
+authentication exhausted the SUT's global API limit. A first `beforeAll` repair still
+repeated whenever Playwright replaced a worker after a failed test.
+
+I corrected the route and DOM locators, exact row lookup and numeric ordering; moved JSON
+validation to module load so malformed or assertion-free rows fail collection; compared
+dates using browser-context year/month/day parts; collected state evidence before soft
+status assertions; and moved reusable authentication to `globalSetup`. Because 46 valid
+cases still exceed the limiter, the final workflow executes two explicit ID groups with a
+disposable backend restart and merges their evidence without disabling the limiter. The AI
+missed these points because it reasoned from common SPA conventions and one case at a time,
+not from this SUT's router, DOM, worker lifecycle, cumulative request budget, or accumulated
+database state. Evidence: FR-11 spec; gap-analysis findings 8–11 and 28–39; commits
+`1cee595`, `99d9b9f`, `c078366`; and `reports/final/{html,json}/fr11/`.
+
+#### FR-13 — Admin dashboard
+
+The AI generated a JSON-driven dashboard scaffold with UI/API branches. I reviewed it by
+reading the admin entry point and backend contracts, probing every proposed locator and
+endpoint with and without tokens, injecting invalid data rows, and comparing KPI values
+with independently seeded API state. This exposed an invented `/admin/dashboard` path on
+the customer origin even though the admin app is a route-less root on port 5174; guessed
+landmarks/test IDs and controls that do not exist; use of `total` instead of
+`total_amount`; and an assumption that Playwright's request context inherited browser
+authentication. The scaffold also confused a passing client-side role gate with API
+authorization, used weak negative oracles, keyed behavior to `tc_id`, and trusted a
+volatile JSON file without collection-time validation.
+
+I changed navigation to the absolute admin origin, anchored KPI locators to real headings,
+removed nonexistent controls, sent explicit bearer tokens, and tested authorization at the
+API tier. Defensive `?? 0` defaults became fail-loud schema checks; behavior dispatch now
+uses data columns rather than case IDs; currency matching is anchored; and whole-file
+validation covers IDs, enums, numeric fields, status lists and declared case count. The
+checkout oracle now populates a known cart and requires the exact recomputed total
+`399000`. The AI missed these defects because it modeled a conventional dashboard instead
+of this build and treated defensive defaults/negative assertions as safe. Evidence: FR-13
+spec; gap-analysis findings 12–27; commits `9ce554b`, `c078366`, `68c1f3b`; and
+`reports/final/{html,json}/fr13/`.
 
 The full correction log is in `docs/test-plan/AI_Review_Gap_Analysis.md`. Its recurring
 causes were unverified UI assumptions, implementation-derived oracles, missing
@@ -119,12 +197,12 @@ matching failure image attached directly in GitHub.
 |---|---|---|---|---|---|
 | BUG-FR01-01→11 | FR-01 | Major | Original 11 confirmed cases | [#39–#49](https://github.com/KieuDuyennn/software__testing/issues) | See per-issue paths in `docs/02_Bug_Report.md` |
 | BUG-FR01-15→26 | FR-01 | Major | API-01→API-12 | [#53–#64](https://github.com/KieuDuyennn/software__testing/issues) | See per-issue paths in `docs/02_Bug_Report.md` |
-| BUG-FR13-01 | FR-13 | Major | TC-02, BVA, TC-13b, TC-21 | Fixed and tracked in GitHub #15 | `reports/final/json/fr13-chromium.json` |
-| BUG-FR13-02 | FR-13 | Major | TC-13 | Fixed and tracked in GitHub #38 | `reports/final/json/fr13-chromium.json` |
-| BUG-FR13-03 | FR-13 | Critical | TC-11, API-14–17 | Fixed and tracked in GitHub #34 | `reports/final/json/fr13-chromium.json` |
-| BUG-FR13-04 | FR-13 | Critical | TC-04b, API-03/04/06/09 | Fixed and tracked in GitHub #14 | `reports/final/json/fr13-chromium.json` |
-| BUG-FR13-05 | FR-13 | Critical | API-10 | Fixed and tracked in GitHub #36 | `reports/final/json/fr13-chromium.json` |
-| BUG-FR13-06 | FR-13 | Critical | TC-19 | Fixed and tracked in GitHub #37 | `reports/final/json/fr13-chromium.json` |
+| BUG-FR13-01 | FR-13 | Major | TC-02, BVA, TC-13b, TC-21 | Filed as GitHub #15; reproduced in final run | `reports/evidence/github-issues/fr13/issue-15-BUG-FR13-01.png` |
+| BUG-FR13-02 | FR-13 | Major | TC-13 | Filed as GitHub #38; reproduced in final run | `reports/evidence/github-issues/fr13/issue-38-BUG-FR13-02.png` |
+| BUG-FR13-03 | FR-13 | Critical | TC-11, API-14–17 | Filed as GitHub #34; reproduced in final run | `reports/evidence/github-issues/fr13/issue-34-BUG-FR13-03.png` |
+| BUG-FR13-04 | FR-13 | Critical | TC-04b, API-03/04/06/09 | Filed as GitHub #14; reproduced in final run | `reports/evidence/github-issues/fr13/issue-14-BUG-FR13-04.png` |
+| BUG-FR13-05 | FR-13 | Critical | API-10 | Filed as GitHub #36; reproduced in final run | `reports/evidence/github-issues/fr13/issue-36-BUG-FR13-05.png` |
+| BUG-FR13-06 | FR-13 | Critical | TC-19 | Filed as GitHub #37; reproduced in final run | `reports/evidence/github-issues/fr13/issue-37-BUG-FR13-06.png` |
 
 ### 3.6 Test cases not automated
 
@@ -160,10 +238,24 @@ the FR-01 GitHub delivery contains twenty-six issues.
 
 | Item | Value |
 |---|---|
-| Skill name | `playwright-automation` (`.claude/skills/playwright-automation/`) |
-| What it automates | A staged workflow for external test data, verified selectors, page objects, three assertion classes, multi-browser runs, report attribution, and failure triage |
-| Features it was used on | Exercised and refined during FR-01; its shared project conventions and report workflow support FR-01, FR-11, and FR-13 |
+| Primary skill | `playwright-automation` (`.claude/skills/playwright-automation/`) |
+| Supporting skill | `ai-audit-log` (`.claude/skills/ai-audit-log/`) |
+| Invocation contract | Requires explicit feature/requirement/design paths, application URLs, spec/data paths, browser projects, student ID and report destination; unresolved authoritative input produces `BLOCKED`, never a guessed default |
+| Human gates | `BLOCKED` → `READY_FOR_REVIEW` → quoted human approval → `APPROVED_TO_RUN` → evidence-triaged `COMPLETE` |
+| Oracle discipline | Requirement/API contract defines expected behavior; source/live DOM defines reachability, locators and observed behavior. Current build behavior is never copied into an expected result. |
+| Deterministic validator | `playwright-automation/scripts/validate-feature.ps1` checks ≥12 unique external cases, data loading, fixed waits, report attribution, ISO timestamps and entry points |
+| Output contract | A Feature Run Manifest records discovered inputs, validation commands/exit codes, approval quote, per-browser counts/paths and every red case's disposition |
+| Features it was used on | Exercised/refined on FR-01; conventions applied and validated on FR-11 and FR-13 |
+| Validation evidence | `docs/test-plan/Agent_Skill_Validation.md`: FR-01/FR-11 validator `PASS`; FR-13 `PASS_WITH_REVIEW_ITEMS`. All remain historically `READY_FOR_REVIEW` because approval quotes/manifests were not retained; no evidence was backfilled. |
 | Demo video (YouTube) | Pending student upload |
+
+The revision is based on observed project failures rather than generic advice. In
+particular, the skill now forbids using the live build as the oracle (the cause of the
+contradictory FR-11 shipping-cancel expectations), validates branch-specific data at
+collection time (preventing silent skipped assertions), preserves downstream evidence
+before a hard status check, and accounts for global request budgets and Playwright worker
+replacement. The audit skill separately preserves prompts in their original language,
+maps every raw interaction ID into the appendix, and marks incomplete logging honestly.
 
 ---
 
@@ -175,7 +267,7 @@ the actual HW04 history without asserting a minimum-day condition. Exported to
 
 | Metric | Value |
 |---|---|
-| Total HW04 commits before final documentation export | 82 |
+| Total HW04 commits at pre-commit validation | 85 (the final documentation commit is added after export) |
 | Commits touching `.spec.ts` | 7 |
 | Distinct `.spec.ts` commit dates | 2 (reported for transparency; no longer a grading threshold) |
 | First / last commit date | 2026-08-06 / 2026-08-11 |
@@ -185,12 +277,12 @@ the actual HW04 history without asserting a minimum-day condition. Exported to
 ## 7. Compliance checklist (§14 required contents)
 
 - [x] Main report — `docs/01_Main_Report.md` and `output/pdf/01_Main_Report.pdf`
-- [ ] Public GitHub repository link is filled; push the final local `duyen/hw4` commit before submission
-- [x] Multi-browser HTML reports (9 runs, each showing `Run by: 23127184`)
+- [x] Public submission branch; `duyen/hw4` tracks and is pushed to `origin/duyen/hw4`
+- [x] 9 browser combinations (13 HTML entry points), all showing `Run by: 23127184` + ISO timestamp
 - [ ] Unlisted YouTube demo video link (≥ 5 min, Vietnamese)
 - [x] `docs/04_AI_Critique.md` (263 words) and `output/pdf/04_AI_Critique.pdf`
 - [x] `docs/03_AI_Audit_Report.md` and `output/pdf/03_AI_Audit_Report.pdf`
 - [x] `docs/05_Git_Commit_Log.txt`
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] `README.md` with self-assessment table and test summary
-- [ ] Zip named `23127184_HW04_AI_Automation_<grade>.zip`
+- [ ] Zip named `23127184_HW04_AI_Automation_100.zip`
