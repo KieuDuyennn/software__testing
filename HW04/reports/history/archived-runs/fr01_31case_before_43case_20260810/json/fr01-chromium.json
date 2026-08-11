@@ -1,0 +1,2986 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr01_account_registration",
+      "--project=chromium"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr01",
+      "Browser": "chromium",
+      "Run started (ISO)": "2026-08-10T10:51:15.344Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:51:15.344Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:51:15.344Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "chromium",
+          "Run started (ISO)": "2026-08-10T10:51:15.344Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr01/chromium",
+          "title": "HW04 EShop Automation - FR01 - chromium - Run by: 23127184 - 2026-08-10T10:51:15.344Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr01-chromium.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr01_account_registration\\fr01.registration.spec.ts",
+      "file": "fr01_account_registration/fr01.registration.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-01 Account registration",
+          "file": "fr01_account_registration/fr01.registration.spec.ts",
+          "line": 107,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:17.187Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 12803,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 28,
+                          "line": 295
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 293 |\u001b[39m       \u001b[36mcase\u001b[39m \u001b[32m'redirect'\u001b[39m\u001b[33m:\u001b[39m {\n \u001b[90m 294 |\u001b[39m         \u001b[90m// Pattern 1 - the app's own success signal.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 295 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[36mnew\u001b[39m \u001b[33mRegExp\u001b[39m(\u001b[32m`${row.expect_signal}$`\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 296 |\u001b[39m         \u001b[90m// Not \"the error banner is hidden\": that element belongs to /register and cannot\u001b[39m\n \u001b[90m 297 |\u001b[39m         \u001b[90m// exist here, so such a check could never fail. The falsifiable statement is that\u001b[39m\n \u001b[90m 298 |\u001b[39m         \u001b[90m// the registration form itself is gone - if the app had stayed put and rendered an\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 28,
+                            "line": 295
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n\n  293 |       case 'redirect': {\n  294 |         // Pattern 1 - the app's own success signal.\n> 295 |         await expect(page).toHaveURL(new RegExp(`${row.expect_signal}$`));\n      |                            ^\n  296 |         // Not \"the error banner is hidden\": that element belongs to /register and cannot\n  297 |         // exist here, so such a check could never fail. The falsifiable statement is that\n  298 |         // the registration form itself is gone - if the app had stayed put and rendered an\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:17.308Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:17.187Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 28,
+                        "line": 295
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-e01660784a45851a144b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:34.131Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 806,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:34.252Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:34.131Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-069fdd0b1e2a62015899",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01c [diagnostic] diagnostic flow - redirect and persistence reached with a password this build accepts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:34.131Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1233,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:35.644Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:34.131Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-daeef42487b70c04f03e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:34.131Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2311,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:36.907Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:34.131Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2280effbe99078ba5c3d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:34.131Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 977,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 163
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 161 |\u001b[39m           expect\n \u001b[90m 162 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 164 |\u001b[39m\n \u001b[90m 165 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 163
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  161 |           expect\n  162 |             .soft(response.status(), `${response.url()} status`)\n> 163 |             .toBe(Number(row.expect_signal));\n      |              ^\n  164 |\n  165 |           // A refusal must also not *claim* an account was created. This one is\n  166 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 177
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m7\u001b[39m\n\n  175 |               'the request was rejected, so the response must not return a created-account id',\n  176 |             )\n> 177 |             .toBeUndefined();\n      |              ^\n  178 |         }\n  179 |\n  180 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:177:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 15,
+                            "line": 211
+                          },
+                          "message": "Error: the request was rejected, so fr01.fr01-tc-03.msn42ylzdig@example.com must not have been written\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  209 |               login.ok(),\n  210 |               `the request was rejected, so ${email} must not have been written`,\n> 211 |             ).toBeFalsy();\n      |               ^\n  212 |           }\n  213 |         }\n  214 |         return;\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:211:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:39.252Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:34.131Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 163
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-efede5cc2af4025df7a5",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:45.377Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1537,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:45.523Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:45.377Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3e09efc076b584df3f8d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:45.377Z"
+                    },
+                    {
+                      "type": "Coverage gap",
+                      "description": "omitting email leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 617,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 163
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 161 |\u001b[39m           expect\n \u001b[90m 162 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 164 |\u001b[39m\n \u001b[90m 165 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 163
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  161 |           expect\n  162 |             .soft(response.status(), `${response.url()} status`)\n> 163 |             .toBe(Number(row.expect_signal));\n      |              ^\n  164 |\n  165 |           // A refusal must also not *claim* an account was created. This one is\n  166 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 177
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m10\u001b[39m\n\n  175 |               'the request was rejected, so the response must not return a created-account id',\n  176 |             )\n> 177 |             .toBeUndefined();\n      |              ^\n  178 |         }\n  179 |\n  180 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:177:14"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:47.519Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:45.377Z"
+                        },
+                        {
+                          "type": "Coverage gap",
+                          "description": "omitting email leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 163
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-da34ce097cbb39b40b9f",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:51:50.636Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 34091,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so userdomain.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        },
+                        {
+                          "message": "Error: ENOENT: no such file or directory, open 'D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\.playwright-artifacts-3\\d4b46941fa147213097fc4f66728ee6a.zip'"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:51:50.771Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:51:50.636Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ee9e452b5280419d713e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:52:27.738Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 34355,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so user@ must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:52:27.868Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:52:27.738Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-de62d37b8d983312409d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:53:04.913Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32794,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so @domain.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:53:05.053Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:53:04.913Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-799b51d7b7b9878f51aa",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:53:40.130Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32800,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "message": "Error: ENOENT: no such file or directory, open 'D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\.playwright-artifacts-6\\e35c0b92f74165a5436d5b8d7017a539.zip'"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:53:40.216Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:53:40.130Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7d978fcb42f01667b51a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:15.367Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1380,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:15.483Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:15.367Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-85489981f439b0a9eb8b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:15.367Z"
+                    },
+                    {
+                      "type": "Coverage gap",
+                      "description": "omitting password leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 407,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 163
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 161 |\u001b[39m           expect\n \u001b[90m 162 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 164 |\u001b[39m\n \u001b[90m 165 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 163
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  161 |           expect\n  162 |             .soft(response.status(), `${response.url()} status`)\n> 163 |             .toBe(Number(row.expect_signal));\n      |              ^\n  164 |\n  165 |           // A refusal must also not *claim* an account was created. This one is\n  166 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:163:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 177
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m36\u001b[39m\n\n  175 |               'the request was rejected, so the response must not return a created-account id',\n  176 |             )\n> 177 |             .toBeUndefined();\n      |              ^\n  178 |         }\n  179 |\n  180 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:177:14"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:17.241Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:15.367Z"
+                        },
+                        {
+                          "type": "Coverage gap",
+                          "description": "omitting password leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 163
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1602e8ba758c34fea55c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1231,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:19.220Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-bfb7ea37b0daaf8799ce",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1047,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:20.761Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c380aa83ddecf7e99aad",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 928,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:21.832Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-56dec3b64c2728e46645",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 861,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:22.783Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c6f399e0d8c4b688a835",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 723,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:23.666Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3eccd00a73cedc0e8d5c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:54:19.125Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 33965,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the name field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/họ tên|tên/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the name field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so fr01.fr01-tc-18.msn46hwmghc@example.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:54:24.412Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:54:19.125Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-902598d5d9684cfcf9bf",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:55:00.637Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32834,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so user@domain must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:55:00.762Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:55:00.637Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-35a90d1926fecc7c8a13",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:55:35.782Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 826,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:55:35.851Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:55:35.782Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-97c186f1c4614d7a75c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:55:35.782Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32626,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:55:36.935Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:55:35.782Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-73249691afed482774f4",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:11.345Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 823,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:11.416Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:11.345Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1157371d3c4af07d0b1c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:11.345Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 745,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:12.489Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:11.345Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2d9d42d97605ef37689c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:11.345Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11385,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 28,
+                          "line": 295
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 293 |\u001b[39m       \u001b[36mcase\u001b[39m \u001b[32m'redirect'\u001b[39m\u001b[33m:\u001b[39m {\n \u001b[90m 294 |\u001b[39m         \u001b[90m// Pattern 1 - the app's own success signal.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 295 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[36mnew\u001b[39m \u001b[33mRegExp\u001b[39m(\u001b[32m`${row.expect_signal}$`\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 296 |\u001b[39m         \u001b[90m// Not \"the error banner is hidden\": that element belongs to /register and cannot\u001b[39m\n \u001b[90m 297 |\u001b[39m         \u001b[90m// exist here, so such a check could never fail. The falsifiable statement is that\u001b[39m\n \u001b[90m 298 |\u001b[39m         \u001b[90m// the registration form itself is gone - if the app had stayed put and rendered an\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 28,
+                            "line": 295
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n\n  293 |       case 'redirect': {\n  294 |         // Pattern 1 - the app's own success signal.\n> 295 |         await expect(page).toHaveURL(new RegExp(`${row.expect_signal}$`));\n      |                            ^\n  296 |         // Not \"the error banner is hidden\": that element belongs to /register and cannot\n  297 |         // exist here, so such a check could never fail. The falsifiable statement is that\n  298 |         // the registration form itself is gone - if the app had stayed put and rendered an\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:13.255Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:11.345Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--f8a63-of-exactly-eight-characters-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--f8a63-of-exactly-eight-characters-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--f8a63-of-exactly-eight-characters-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--f8a63-of-exactly-eight-characters-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 28,
+                        "line": 295
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2f892709a775075ea94b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:26.438Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11446,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 28,
+                          "line": 295
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 293 |\u001b[39m       \u001b[36mcase\u001b[39m \u001b[32m'redirect'\u001b[39m\u001b[33m:\u001b[39m {\n \u001b[90m 294 |\u001b[39m         \u001b[90m// Pattern 1 - the app's own success signal.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 295 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[36mnew\u001b[39m \u001b[33mRegExp\u001b[39m(\u001b[32m`${row.expect_signal}$`\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 296 |\u001b[39m         \u001b[90m// Not \"the error banner is hidden\": that element belongs to /register and cannot\u001b[39m\n \u001b[90m 297 |\u001b[39m         \u001b[90m// exist here, so such a check could never fail. The falsifiable statement is that\u001b[39m\n \u001b[90m 298 |\u001b[39m         \u001b[90m// the registration form itself is gone - if the app had stayed put and rendered an\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 28,
+                            "line": 295
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n\n  293 |       case 'redirect': {\n  294 |         // Pattern 1 - the app's own success signal.\n> 295 |         await expect(page).toHaveURL(new RegExp(`${row.expect_signal}$`));\n      |                            ^\n  296 |         // Not \"the error banner is hidden\": that element belongs to /register and cannot\n  297 |         // exist here, so such a check could never fail. The falsifiable statement is that\n  298 |         // the registration form itself is gone - if the app had stayed put and rendered an\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:295:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:26.498Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:26.438Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--efa4b--of-exactly-nine-characters-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--efa4b--of-exactly-nine-characters-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--efa4b--of-exactly-nine-characters-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--efa4b--of-exactly-nine-characters-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 28,
+                        "line": 295
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-df50d114b812742acc71",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:40.011Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 853,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:40.100Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:40.011Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-9548db8a936dcf023dd3",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:40.011Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 755,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:41.184Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:40.011Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c16aabc84d7d11c0a433",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:40.011Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 724,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:41.957Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:40.011Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8ab5553d8447f01377c7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:40.011Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 796,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:42.702Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:40.011Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-cc53b404e47c257492fd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T10:56:40.011Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32635,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 268 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 271 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 272 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 269
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  267 |             'registration was refused, so the reason must be shown to the user',\n  268 |           )\n> 269 |           .toBeVisible();\n      |            ^\n  270 |         await expect\n  271 |           .soft(\n  272 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:269:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 275
+                          },
+                          "message": "Error: the message must name the password field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/mật khẩu/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the password field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  273 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  274 |           )\n> 275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:275:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 276
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  274 |           )\n  275 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 276 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  277 |\n  278 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  279 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:276:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 288
+                          },
+                          "message": "Error: registration was refused, so fr01.fr01-tc-24.msn49imdago@example.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  286 |             login.ok(),\n  287 |             `registration was refused, so ${email} must not be a usable account`,\n> 288 |           ).toBeFalsy();\n      |             ^\n  289 |         }\n  290 |         return;\n  291 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:288:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T10:56:43.520Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T10:56:40.011Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--b6784-ce-and-no-special-character-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--b6784-ce-and-no-special-character-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--b6784-ce-and-no-special-character-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--b6784-ce-and-no-special-character-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-21d2a84b448925925591",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 124,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T10:51:15.363Z",
+    "duration": 361814.97400000005,
+    "expected": 17,
+    "skipped": 0,
+    "unexpected": 14,
+    "flaky": 0
+  }
+}

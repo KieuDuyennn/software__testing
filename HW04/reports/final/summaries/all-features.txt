@@ -1,0 +1,14 @@
+﻿
+Feature Browser  Started                           ExitCode Report                               
+------- -------  -------                           -------- ------                               
+fr01    chromium 2026-08-10T17:30:52.6999230+07:00        1 reports/html/fr01/chromium/index.html
+fr01    firefox  2026-08-10T17:36:21.6890244+07:00        1 reports/html/fr01/firefox/index.html 
+fr01    webkit   2026-08-10T17:36:49.9975013+07:00        1 reports/html/fr01/webkit/index.html  
+fr11    chromium 2026-08-10T17:36:54.8310247+07:00        1 reports/html/fr11/chromium/index.html
+fr11    firefox  2026-08-10T17:38:36.9243868+07:00        1 reports/html/fr11/firefox/index.html 
+fr11    webkit   2026-08-10T17:42:22.6921107+07:00        1 reports/html/fr11/webkit/index.html  
+fr13    chromium 2026-08-10T17:43:48.9605741+07:00        1 reports/html/fr13/chromium/index.html
+fr13    firefox  2026-08-10T17:45:20.9360637+07:00        1 reports/html/fr13/firefox/index.html 
+fr13    webkit   2026-08-10T17:52:22.8912999+07:00        1 reports/html/fr13/webkit/index.html  
+
+

@@ -1,0 +1,2512 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr13_dashboard",
+      "--project=firefox",
+      "--grep",
+      "FR13-TC-"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-setup.ts",
+    "globalTeardown": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr13",
+      "Browser": "firefox-full-tc",
+      "Run started (ISO)": "2026-08-10T14:47:41.835Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-full-tc",
+          "Run started (ISO)": "2026-08-10T14:47:41.835Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-full-tc",
+          "Run started (ISO)": "2026-08-10T14:47:41.835Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "firefox-full-tc",
+          "Run started (ISO)": "2026-08-10T14:47:41.835Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr13/firefox-full-tc",
+          "title": "HW04 EShop Automation - FR13 - firefox-full-tc - Run by: 23127184 - 2026-08-10T14:47:41.835Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr13-firefox-full-tc.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr13_dashboard\\fr13.dashboard.spec.ts",
+      "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-13 Dashboard",
+          "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+          "line": 275,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR13-TC-01 [positive] admin reaches the dashboard and both KPI cards render a numeric value",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-01"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Baseline. Asserts both cards are visible AND parse to a finite number - 'a card exists' would pass against an empty or NaN value."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8105,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:43.721Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-01"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Baseline. Asserts both cards are visible AND parse to a finite number - 'a card exists' would pass against an empty or NaN value."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-eb8201d2eb95b448a25f",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-01b [edge] dashboard is the landing view; no navigation is required to reach it",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-01 (route correction)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Pins the routing fact that invalidated the scaffold's '/admin/dashboard' (gap analysis finding 12). If a router is ever added, this row is what notices."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2023,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:53.362Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-01 (route correction)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Pins the routing fact that invalidated the scaffold's '/admin/dashboard' (gap analysis finding 12). If a router is ever added, this row is what notices."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0ceb8358004e109a2e0c",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-02 [positive] revenue KPI equals the sum of total_amount over delivered orders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-01 / BUG-09"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "The headline assertion, recomputed from GET /api/admin/orders - the same payload the UI derived its figure from, so a mismatch cannot be blamed on a stale fetch. README FR-13 L183 is the source of the rule."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2389,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:55.417Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-01 / BUG-09"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "The headline assertion, recomputed from GET /api/admin/orders - the same payload the UI derived its figure from, so a mismatch cannot be blamed on a stale fetch. README FR-13 L183 is the source of the rule."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-6f1920a9cb5f7a25684e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-09 [positive] order-count KPI equals the number of orders the API returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-02"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Closes OQ-02, which HW02 left open by listing 'all orders' and 'delivered only' as candidates and asserting neither. This row commits to 'all orders' and records the answer either way."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2362,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:57.841Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-02"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Closes OQ-02, which HW02 left open by listing 'all orders' and 'delivered only' as candidates and asserting neither. This row commits to 'all orders' and records the answer either way."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-cf2d54f3bfeae11db1f4",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-12 [edge] revenue is rendered as currency, with a symbol and grouped thousands",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-07 / OQ-09"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Closes OQ-07. Asserts the ₫ symbol and a grouped integer part. NB the grouping character comes from the browser, not the app (toLocaleString with no locale) - the assertion is on structure, not on a literal string."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2120,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:00.241Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-07 / OQ-09"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Closes OQ-07. Asserts the ₫ symbol and a grouped integer part. NB the grouping character comes from the browser, not the app (toLocaleString with no locale) - the assertion is on structure, not on a literal string."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-f677dd6f74b6ac851c9f",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-05 [negative] a canceled order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-05"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "HW02 wrote this as 'revenue = 100' on an empty system; restated as a delta so it survives an accumulating database."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2794,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:02.395Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-05"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "HW02 wrote this as 'revenue = 100' on an empty system; restated as a delta so it survives an accumulating database."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9a8e6775525e7ee38282",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06a [negative] a pending order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "HW02 collapsed the three non-delivered live statuses into one case. Split here because they are three distinct equivalence classes and the exclusion logic is per-status."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2270,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:05.221Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "HW02 collapsed the three non-delivered live statuses into one case. Split here because they are three distinct equivalence classes and the exclusion logic is per-status."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-eb45d26f5417ac072283",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06b [negative] a confirmed order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "See TC-06a."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2670,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:07.523Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "See TC-06a."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-295cf6e5a76cfa416a08",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-06c [negative] a shipping order does not enter revenue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "See TC-06a. This is the status immediately before delivered, so it is the one most likely to be included by an off-by-one in the filter."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2317,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:10.245Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "See TC-06a. This is the status immediately before delivered, so it is the one most likely to be included by an off-by-one in the filter."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-acbe3c0d3fd8eaf45224",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-10 [edge] one delivered order of 0 is distinguishable from having no delivered orders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-18"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Closes OQ-18, which HW02 left open and 'not graded either way'. Revenue alone cannot tell the two states apart; the count KPI must move even though the revenue does not."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3620,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:12.590Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-18"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Closes OQ-18, which HW02 left open and 'not graded either way'. Revenue alone cannot tell the two states apart; the count KPI must move even though the revenue does not."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-4a73b82582b1483ffd5e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-13 [negative] a canceled order must not be transitioned to delivered",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:43.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-13 (restated)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "HW02's TC-13 was 'delivered -> canceled removes the amount', which cannot run: the machine has no rule for a delivered source, so it is refused with 400. Restated onto the transition that IS permitted - server.js:566 explicitly allows canceled -> delivered, which lets a cancelled sale re-enter revenue. Expected value is 'refused'; the specification lists no path back out of canceled."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1187,
+                      "error": {
+                        "message": "Error: FR13-TC-13: canceled -> delivered: http://localhost:3000/api/admin/orders/6/status answered 200, expected one of [400, 409, 422]. Body: {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 409, 422]\u001b[39m",
+                        "stack": "Error: FR13-TC-13: canceled -> delivered: http://localhost:3000/api/admin/orders/6/status answered 200, expected one of [400, 409, 422]. Body: {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 409, 422]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:554:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-TC-13: canceled -> delivered: http://localhost:3000/api/admin/orders/6/status answered 200, expected one of [400, 409, 422]. Body: {\"message\":\"Order status updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 409, 422]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:554:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:16.232Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:43.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-13 (restated)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "HW02's TC-13 was 'delivered -> canceled removes the amount', which cannot run: the machine has no rule for a delivered source, so it is refused with 400. Restated onto the transition that IS permitted - server.js:566 explicitly allows canceled -> delivered, which lets a cancelled sale re-enter revenue. Expected value is 'refused'; the specification lists no path back out of canceled."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-bdd3c-e-transitioned-to-delivered-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-bdd3c-e-transitioned-to-delivered-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-bdd3c-e-transitioned-to-delivered-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-bdd3c-e-transitioned-to-delivered-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-43ceefd9f3019522beac",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-13b [edge] revenue is recomputed after a transition into delivered, not cached",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:19.242Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-13 (recomputation intent)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Carries HW02's real intent for TC-13 - re-read the dashboard AFTER a status transition, which HW02 never did. Expects the FULL amount: FR-13 L183 defines revenue over `status = 'delivered'` with no clause about how the order arrived there, so once the order IS delivered the dashboard must count it. Whether the transition should have been permitted is a separate question, and TC-13 asserts it at the API. An earlier draft expected 0 here, which wrongly encoded TC-13's rule into an FR-13 row and would have made the two cases report the same defect twice."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 7300,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 1554000, after 3108000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m777000\u001b[39m\nReceived: \u001b[31m1554000\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 1554000, after 3108000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m777000\u001b[39m\nReceived: \u001b[31m1554000\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m \u001b[36mfunction\u001b[39m expectDelta(actual\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m expected\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m precision\u001b[33m:\u001b[39m number \u001b[33m|\u001b[39m undefined\u001b[33m,\u001b[39m label\u001b[33m:\u001b[39m string)\u001b[33m:\u001b[39m \u001b[36mvoid\u001b[39m {\n \u001b[90m 268 |\u001b[39m   \u001b[36mif\u001b[39m (precision \u001b[33m===\u001b[39m undefined) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n \u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 269
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 1554000, after 3108000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m777000\u001b[39m\nReceived: \u001b[31m1554000\u001b[39m\n\n  267 | function expectDelta(actual: number, expected: number, precision: number | undefined, label: string): void {\n  268 |   if (precision === undefined) {\n> 269 |     expect(actual, label).toBe(expected);\n      |                           ^\n  270 |   } else {\n  271 |     expect(actual, label).toBeCloseTo(expected, precision);\n  272 |   }\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:19.366Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:19.242Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-13 (recomputation intent)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Carries HW02's real intent for TC-13 - re-read the dashboard AFTER a status transition, which HW02 never did. Expects the FULL amount: FR-13 L183 defines revenue over `status = 'delivered'` with no clause about how the order arrived there, so once the order IS delivered the dashboard must count it. Whether the transition should have been permitted is a separate question, and TC-13 asserts it at the API. An earlier draft expected 0 here, which wrongly encoded TC-13's rule into an FR-13 row and would have made the two cases report the same defect twice."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-90c26-n-into-delivered-not-cached-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-90c26-n-into-delivered-not-cached-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-90c26-n-into-delivered-not-cached-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-90c26-n-into-delivered-not-cached-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0860443fa11f447162c5",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-14 [edge] the order-count KPI keeps counting past a 25-order batch",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:29.388Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-12"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Closes OQ-12. HW02 treated 'confirm all orders are returned' as a manual precondition. A page limit of 10, 20 or 25 would cap the delta below 25. This global KPI uses an at-least delta because another suite sharing the SUT can create an unrelated order during the 25-request seed batch; a clean Chromium run observed exactly that (FR11 order id 101 interleaved between FR13 ids 100 and 102)."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6443,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:29.501Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:29.388Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-12"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Closes OQ-12. HW02 treated 'confirm all orders are returned' as a manual precondition. A page limit of 10, 20 or 25 would cap the delta below 25. This global KPI uses an at-least delta because another suite sharing the SUT can create an unrelated order during the 25-request seed batch; a clean Chromium run observed exactly that (FR11 order id 101 interleaved between FR13 ids 100 and 102)."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0f7eacf59cd44b3ae4c3",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-11 [edge] a client-supplied total_amount is recomputed by the backend, not stored as sent",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:29.388Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-06 / REQ-15"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Closes OQ-06, flagged in HW02 as a concern but never tested. README FR-08 requires the backend to recompute the total from the cart; api_specification.md 4.3 lets the client supply it. The cart is filled through POST /api/cart with known prices, so the correct total is EXACTLY 150000*2 + 99000 = 399000, and the row submits 999999999 instead. Asserting the stored value equals 399000 - rather than merely differing from what was sent - is what makes this falsifiable: a build that stored any other wrong number, or clamped, would pass a not-equal check."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 740,
+                      "error": {
+                        "message": "Error: the stored total must be the cart total 399000, not the client-submitted 999999999\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m399000\u001b[39m\nReceived: \u001b[31m999999999\u001b[39m",
+                        "stack": "Error: the stored total must be the cart total 399000, not the client-submitted 999999999\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m399000\u001b[39m\nReceived: \u001b[31m999999999\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:584:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 13,
+                          "line": 584
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 582 |\u001b[39m             \u001b[32m`the stored total must be the cart total ${row.expect_recomputed_total}, `\u001b[39m \u001b[33m+\u001b[39m\n \u001b[90m 583 |\u001b[39m             \u001b[32m`not the client-submitted ${submitted}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 584 |\u001b[39m           )\u001b[33m.\u001b[39mtoBe(row\u001b[33m.\u001b[39mexpect_recomputed_total)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 585 |\u001b[39m           \u001b[36mbreak\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 586 |\u001b[39m         }\n \u001b[90m 587 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 13,
+                            "line": 584
+                          },
+                          "message": "Error: the stored total must be the cart total 399000, not the client-submitted 999999999\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m399000\u001b[39m\nReceived: \u001b[31m999999999\u001b[39m\n\n  582 |             `the stored total must be the cart total ${row.expect_recomputed_total}, ` +\n  583 |             `not the client-submitted ${submitted}`,\n> 584 |           ).toBe(row.expect_recomputed_total);\n      |             ^\n  585 |           break;\n  586 |         }\n  587 |\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:584:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:36.706Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:29.388Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-06 / REQ-15"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Closes OQ-06, flagged in HW02 as a concern but never tested. README FR-08 requires the backend to recompute the total from the cart; api_specification.md 4.3 lets the client supply it. The cart is filled through POST /api/cart with known prices, so the correct total is EXACTLY 150000*2 + 99000 = 399000, and the row submits 999999999 instead. Asserting the stored value equals 399000 - rather than merely differing from what was sent - is what makes this falsifiable: a build that stored any other wrong number, or clamped, would pass a not-equal check."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-a604c--backend-not-stored-as-sent-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-a604c--backend-not-stored-as-sent-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-a604c--backend-not-stored-as-sent-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-a604c--backend-not-stored-as-sent-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 13,
+                        "line": 584
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-eb3718c4515d989ecf92",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-04 [negative] a non-admin's credentials are refused at the admin login form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "The app's own string, raised via alert(); Playwright auto-dismisses dialogs unless a handler is installed, so without one this row could only observe 'still on the form' and not why."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6134,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:39.445Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "The app's own string, raised via alert(); Playwright auto-dismisses dialogs unless a handler is installed, so without one this row could only observe 'still on the form' and not why."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-72c51d51b7d501af0320",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-16 [negative] empty credentials are refused",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (input validation)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Empty string is a legitimate input, not a missing value. The form has no required attribute, so the request is actually sent."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1543,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:46.499Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (input validation)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Empty string is a legitimate input, not a missing value. The form has no required attribute, so the request is actually sent."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-288d3be5e701fe29436a",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-17 [negative] an unknown e-mail is refused without revealing that the account does not exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (README FR-02 L42)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "README FR-02 L42 requires the refusal not to disclose the cause. Same message as a wrong password, so the two are indistinguishable to a caller - which is what the requirement asks for."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2249,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:48.066Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (README FR-02 L42)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "README FR-02 L42 requires the refusal not to disclose the cause. Same message as a wrong password, so the two are indistinguishable to a caller - which is what the requirement asks for."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9241e10451a8878a992e",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-18 [negative] a wrong password is refused for an account that does hold the admin role",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (TC-04 companion)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Separates 'wrong password' from 'not an admin', which TC-04 alone cannot. Deliberately NOT run against admin@eshop.com: one failure sets login_attempts to 2 and a second locks the account for 3 minutes, which would fail every later row in the run."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2402,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:50.349Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (TC-04 companion)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Separates 'wrong password' from 'not an admin', which TC-04 alone cannot. Deliberately NOT run against admin@eshop.com: one failure sets login_attempts to 2 and a second locks the account for 3 minutes, which would fail every later row in the run."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-02a00883ed579b8dd323",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-02ui [negative] an anonymous visitor sees the login form and no KPI figures",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-02"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Asserts the revenue figure is absent, not merely that the login form is present - a dashboard rendered behind a modal would satisfy the weaker check."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1512,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:52.790Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-02"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Asserts the revenue figure is absent, not merely that the login form is present - a dashboard rendered behind a modal would satisfy the weaker check."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-1004daf6c74648f06939",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-03ui [negative] a malformed token in storage does not render the dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-03"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "The app trusts localStorage on load and only clears the token if a request comes back 401/403. This row checks that recovery path works."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1966,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:54.336Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-03"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "The app trusts localStorage on load and only clears the token if a request comes back 401/403. This row checks that recovery path works."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-2ae45ce98f923ca2c055",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-04b [negative] a valid non-admin token in storage does not render the dashboard",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:48:39.348Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-04 / BUG-08 at the UI layer"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "The row TC-04 cannot reach. The admin check lives ONLY in handleLogin, so a token that never passes through the form skips it entirely; the app then calls the admin endpoints, which accept a non-admin token. TC-04 passing while this fails is the whole point - it shows the gate is cosmetic."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11919,
+                      "error": {
+                        "message": "Error: a session that never passed the admin check rendered the revenue figure\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeHidden\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\nExpected: hidden\nReceived: visible\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - a session that never passed the admin check rendered the revenue figure with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\u001b[22m\n\u001b[2m    22 × locator resolved to <p class=\"text-3xl font-bold text-green-600\">3,108,000 ₫</p>\u001b[22m\n\u001b[2m       - unexpected value \"visible\"\u001b[22m\n",
+                        "stack": "Error: a session that never passed the admin check rendered the revenue figure\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeHidden\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\nExpected: hidden\nReceived: visible\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - a session that never passed the admin check rendered the revenue figure with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\u001b[22m\n\u001b[2m    22 × locator resolved to <p class=\"text-3xl font-bold text-green-600\">3,108,000 ₫</p>\u001b[22m\n\u001b[2m       - unexpected value \"visible\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:466:15",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 15,
+                          "line": 466
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 464 |\u001b[39m               adminDashboardPage\u001b[33m.\u001b[39mrevenueValue\u001b[33m,\u001b[39m\n \u001b[90m 465 |\u001b[39m               \u001b[32m'a session that never passed the admin check rendered the revenue figure'\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 466 |\u001b[39m             )\u001b[33m.\u001b[39mtoBeHidden()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 467 |\u001b[39m             \u001b[36mawait\u001b[39m expect(adminDashboardPage\u001b[33m.\u001b[39mloginHeading)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 468 |\u001b[39m           }\n \u001b[90m 469 |\u001b[39m           \u001b[36mbreak\u001b[39m\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 15,
+                            "line": 466
+                          },
+                          "message": "Error: a session that never passed the admin check rendered the revenue figure\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeHidden\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\nExpected: hidden\nReceived: visible\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - a session that never passed the admin check rendered the revenue figure with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Tổng doanh thu (Delivered)' }).locator('xpath=following-sibling::p[1]')\u001b[22m\n\u001b[2m    22 × locator resolved to <p class=\"text-3xl font-bold text-green-600\">3,108,000 ₫</p>\u001b[22m\n\u001b[2m       - unexpected value \"visible\"\u001b[22m\n\n\n  464 |               adminDashboardPage.revenueValue,\n  465 |               'a session that never passed the admin check rendered the revenue figure',\n> 466 |             ).toBeHidden();\n      |               ^\n  467 |             await expect(adminDashboardPage.loginHeading).toBeVisible();\n  468 |           }\n  469 |           break;\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:466:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:48:56.336Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:48:39.348Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-04 / BUG-08 at the UI layer"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "The row TC-04 cannot reach. The admin check lives ONLY in handleLogin, so a token that never passes through the form skips it entirely; the app then calls the admin endpoints, which accept a non-admin token. TC-04 passing while this fails is the whole point - it shows the gate is cosmetic."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-3fb4f-es-not-render-the-dashboard-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-3fb4f-es-not-render-the-dashboard-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-3fb4f-es-not-render-the-dashboard-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-3fb4f-es-not-render-the-dashboard-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 15,
+                        "line": 466
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-334cd0152f7b5a479381",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-20 [positive] logging out clears the stored token and returns to the login form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:09.967Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (session lifecycle)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Asserts the token is gone from storage, not just that the form reappeared - a logout that only resets React state leaves a reusable token behind."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7522,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:10.100Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:09.967Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (session lifecycle)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Asserts the token is gone from storage, not just that the form reappeared - a logout that only resets React state leaves a reusable token behind."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-0a2e1985748a2a110090",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-19 [negative] a user cannot grant themselves the admin role through PUT /api/users/me",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:09.967Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (defeats TC-04's premise)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "server.js:137-145 reads `role` from the request body of the self-update endpoint and writes it. If this succeeds, every other access-control row in this suite is moot: any user can become an admin and then log in through the admin form legitimately. Runs on a throwaway account, so no shared fixture is promoted."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1068,
+                      "error": {
+                        "message": "Error: FR13-TC-19: self-promotion to admin: http://localhost:3000/api/users/me answered 200, expected one of [400, 401, 403]. Body: {\"message\":\"Profile updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 401, 403]\u001b[39m",
+                        "stack": "Error: FR13-TC-19: self-promotion to admin: http://localhost:3000/api/users/me answered 200, expected one of [400, 401, 403]. Body: {\"message\":\"Profile updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 401, 403]\u001b[39m\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:684:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                          "column": 30,
+                          "line": 103
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\utils\\assertions.ts:103\n\n\u001b[0m \u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m     expect(allowed\u001b[33m,\u001b[39m message)\u001b[33m.\u001b[39mtoContain(status)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   }\n \u001b[90m 105 |\u001b[39m }\n \u001b[90m 106 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                            "column": 30,
+                            "line": 103
+                          },
+                          "message": "Error: FR13-TC-19: self-promotion to admin: http://localhost:3000/api/users/me answered 200, expected one of [400, 401, 403]. Body: {\"message\":\"Profile updated\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 401, 403]\u001b[39m\n\n   at ..\\utils\\assertions.ts:103\n\n  101 |     expect.soft(allowed, message).toContain(status);\n  102 |   } else {\n> 103 |     expect(allowed, message).toContain(status);\n      |                              ^\n  104 |   }\n  105 | }\n  106 |\n    at expectStatusAmong (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts:103:30)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:684:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:18.661Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:09.967Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (defeats TC-04's premise)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "server.js:137-145 reads `role` from the request body of the self-update endpoint and writes it. If this succeeds, every other access-control row in this suite is moot: any user can become an admin and then log in through the admin form legitimately. Runs on a throwaway account, so no shared fixture is promoted."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-03c99-le-through-PUT-api-users-me-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-03c99-le-through-PUT-api-users-me-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-03c99-le-through-PUT-api-users-me-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-03c99-le-through-PUT-api-users-me-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\utils\\assertions.ts",
+                        "column": 30,
+                        "line": 103
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-69c9bca8769d48f5ca09",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-21 [edge] a mixed batch of all five statuses moves revenue by the delivered amount only",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:22.018Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "TC-01 (mixed set, atomic)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "HW02's TC-01 set-up ('5 orders, one per status') as a single atomic case, which the four separate exclusion rows cannot express: each amount is distinct, so if the wrong status leaked in, the delta identifies WHICH one by its value rather than just reporting 'not 44000'. Also the only row where inclusion and exclusion are exercised in one measurement."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5685,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 3108000, after 3196000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m44000\u001b[39m\nReceived: \u001b[31m88000\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 3108000, after 3196000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m44000\u001b[39m\nReceived: \u001b[31m88000\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m \u001b[36mfunction\u001b[39m expectDelta(actual\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m expected\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m precision\u001b[33m:\u001b[39m number \u001b[33m|\u001b[39m undefined\u001b[33m,\u001b[39m label\u001b[33m:\u001b[39m string)\u001b[33m:\u001b[39m \u001b[36mvoid\u001b[39m {\n \u001b[90m 268 |\u001b[39m   \u001b[36mif\u001b[39m (precision \u001b[33m===\u001b[39m undefined) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n \u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 269
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 3108000, after 3196000)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m44000\u001b[39m\nReceived: \u001b[31m88000\u001b[39m\n\n  267 | function expectDelta(actual: number, expected: number, precision: number | undefined, label: string): void {\n  268 |   if (precision === undefined) {\n> 269 |     expect(actual, label).toBe(expected);\n      |                           ^\n  270 |   } else {\n  271 |     expect(actual, label).toBeCloseTo(expected, precision);\n  272 |   }\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:22.180Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:22.018Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "TC-01 (mixed set, atomic)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "HW02's TC-01 set-up ('5 orders, one per status') as a single atomic case, which the four separate exclusion rows cannot express: each amount is distinct, so if the wrong status leaked in, the delta identifies WHICH one by its value rather than just reporting 'not 44000'. Also the only row where inclusion and exclusion are exercised in one measurement."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-6069e-y-the-delivered-amount-only-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-6069e-y-the-delivered-amount-only-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-6069e-y-the-delivered-amount-only-firefox\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-6069e-y-the-delivered-amount-only-firefox\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ab2754818f2e427a977f",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-22 [edge] reloading the dashboard twice does not change either KPI",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:30.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "derived (recomputation, companion to TC-13b)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Guards against a KPI that accumulates per fetch rather than being recomputed - the failure mode that would make every delta row above read correctly on the first measurement and drift on the second. Nothing is seeded, so both deltas must be exactly 0."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6079,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:30.579Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:30.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "derived (recomputation, companion to TC-13b)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Guards against a KPI that accumulates per fetch rather than being recomputed - the failure mode that would make every delta row above read correctly on the first measurement and drift on the second. Nothing is seeded, so both deltas must be exactly 0."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-741e801c6917673e0aa6",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-23 [positive] a valid ADMIN token placed in storage does render the dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:30.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "control row for TC-04b"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "CONTROL ROW. Without it, TC-04b ('a non-admin token must not render the dashboard') could pass for the wrong reason - because token injection does not work at all, rather than because the role is checked. This row proves the injection mechanism itself is sound, which is what gives TC-04b's result meaning."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1676,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:37.422Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:30.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "control row for TC-04b"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "CONTROL ROW. Without it, TC-04b ('a non-admin token must not render the dashboard') could pass for the wrong reason - because token injection does not work at all, rather than because the role is checked. This row proves the injection mechanism itself is sound, which is what gives TC-04b's result meaning."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9b826c40dd9325c68c75",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-TC-24 [edge] order count crosses the 100-row pagination boundary",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:49:30.501Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "OQ-12 (second pagination boundary)"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "TC-14 catches limits at 10/20/25; this crosses the common 50/100 boundaries. At-least 101 tolerates unrelated concurrent orders in the global KPI while still exposing truncation. Requires the documented LOADTEST=1 harness mode because the SUT's global 200-request limiter is lower than a complete FR-13 run."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4008,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:49:39.135Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:49:30.501Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "OQ-12 (second pagination boundary)"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "TC-14 catches limits at 10/20/25; this crosses the common 50/100 boundaries. At-least 101 tolerates unrelated concurrent orders in the global KPI while still exposing truncation. Requires the documented LOADTEST=1 harness mode because the SUT's global 200-request limiter is lower than a complete FR-13 run."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-ec06fe833e12a64e647d",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T14:47:41.841Z",
+    "duration": 122062.262,
+    "expected": 21,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

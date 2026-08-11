@@ -1,0 +1,2999 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr01_account_registration/fr01.registration.spec.ts",
+      "--project=webkit"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-setup.ts",
+    "globalTeardown": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr01",
+      "Browser": "webkit",
+      "Run started (ISO)": "2026-08-10T14:39:13.594Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "webkit",
+          "Run started (ISO)": "2026-08-10T14:39:13.594Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "webkit",
+          "Run started (ISO)": "2026-08-10T14:39:13.594Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr01",
+          "Browser": "webkit",
+          "Run started (ISO)": "2026-08-10T14:39:13.594Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr01/webkit",
+          "title": "HW04 EShop Automation - FR01 - webkit - Run by: 23127184 - 2026-08-10T14:39:13.594Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr01-webkit.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr01_account_registration\\fr01.registration.spec.ts",
+      "file": "fr01_account_registration/fr01.registration.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-01 Account registration",
+          "file": "fr01_account_registration/fr01.registration.spec.ts",
+          "line": 108,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR01-TC-01a [positive] all three fields valid so the account is created",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:15.053Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15069,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:306:28",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 28,
+                          "line": 306
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 304 |\u001b[39m       \u001b[36mcase\u001b[39m \u001b[32m'redirect'\u001b[39m\u001b[33m:\u001b[39m {\n \u001b[90m 305 |\u001b[39m         \u001b[90m// Pattern 1 - the app's own success signal.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 306 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[36mnew\u001b[39m \u001b[33mRegExp\u001b[39m(\u001b[32m`${row.expect_signal}$`\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 307 |\u001b[39m         \u001b[90m// Not \"the error banner is hidden\": that element belongs to /register and cannot\u001b[39m\n \u001b[90m 308 |\u001b[39m         \u001b[90m// exist here, so such a check could never fail. The falsifiable statement is that\u001b[39m\n \u001b[90m 309 |\u001b[39m         \u001b[90m// the registration form itself is gone - if the app had stayed put and rendered an\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 28,
+                            "line": 306
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/login$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/register\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    23 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/register\"\u001b[22m\n\n\n  304 |       case 'redirect': {\n  305 |         // Pattern 1 - the app's own success signal.\n> 306 |         await expect(page).toHaveURL(new RegExp(`${row.expect_signal}$`));\n      |                            ^\n  307 |         // Not \"the error banner is hidden\": that element belongs to /register and cannot\n  308 |         // exist here, so such a check could never fail. The falsifiable statement is that\n  309 |         // the registration form itself is gone - if the app had stayed put and rendered an\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:306:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:15.211Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:15.053Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d7b44-d-so-the-account-is-created-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 28,
+                        "line": 306
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ea8322d1f37d48acf46b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01b [positive] register endpoint returns a created account",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:32.049Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1308,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:32.245Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:32.049Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-2e8b09606198bd39f2ab",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-01c [diagnostic] diagnostic flow - redirect and persistence reached with a password this build accepts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:32.049Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10717,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:33.930Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:32.049Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8100bcb2aac0564e4478",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-02 [negative] full name left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:32.049Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3080,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:44.688Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:32.049Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3cc2d88bb3839c35c367",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-03 [negative] name key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:32.049Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1324,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 164
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 162 |\u001b[39m           expect\n \u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 164 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 165 |\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 167 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 164
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  162 |           expect\n  163 |             .soft(response.status(), `${response.url()} status`)\n> 164 |             .toBe(Number(row.expect_signal));\n      |              ^\n  165 |\n  166 |           // A refusal must also not *claim* an account was created. This one is\n  167 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 178
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m7\u001b[39m\n\n  176 |               'the request was rejected, so the response must not return a created-account id',\n  177 |             )\n> 178 |             .toBeUndefined();\n      |              ^\n  179 |         }\n  180 |\n  181 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:178:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 15,
+                            "line": 222
+                          },
+                          "message": "Error: the request was rejected, so fr01.fr01-tc-03.msnc84kyh10@example.com must not have been written\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  220 |               login.ok(),\n  221 |               `the request was rejected, so ${email} must not have been written`,\n> 222 |             ).toBeFalsy();\n      |               ^\n  223 |           }\n  224 |         }\n  225 |         return;\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:222:15"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:47.818Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:32.049Z"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--83002-ssing-from-the-request-body-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 164
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-6757aba55d4b4af70746",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-04 [negative] email left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:50.526Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10110,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:39:50.685Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:50.526Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5676c5737d88de0c272e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-05 [negative] email key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:39:50.526Z"
+                    },
+                    {
+                      "type": "Coverage gap",
+                      "description": "omitting email leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5198,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 164
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 162 |\u001b[39m           expect\n \u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 164 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 165 |\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 167 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 164
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  162 |           expect\n  163 |             .soft(response.status(), `${response.url()} status`)\n> 164 |             .toBe(Number(row.expect_signal));\n      |              ^\n  165 |\n  166 |           // A refusal must also not *claim* an account was created. This one is\n  167 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 178
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m9\u001b[39m\n\n  176 |               'the request was rejected, so the response must not return a created-account id',\n  177 |             )\n> 178 |             .toBeUndefined();\n      |              ^\n  179 |         }\n  180 |\n  181 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:178:14"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:40:01.234Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:39:50.526Z"
+                        },
+                        {
+                          "type": "Coverage gap",
+                          "description": "omitting email leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--86696-ssing-from-the-request-body-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 164
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-e1fad927a748c012e6e7",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-06 [negative] email has no at sign",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:40:09.220Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 43436,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    19 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 299
+                          },
+                          "message": "Error: registration was refused, so userdomain.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  297 |             login.ok(),\n  298 |             `registration was refused, so ${email} must not be a usable account`,\n> 299 |           ).toBeFalsy();\n      |             ^\n  300 |         }\n  301 |         return;\n  302 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:299:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:40:09.522Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:40:09.220Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--55d40-gative-email-has-no-at-sign-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-780390093e4bec63cd37",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-07 [negative] email has no domain part",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:40:55.608Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 35611,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    22 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:40:55.779Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:40:55.608Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--3523a-ve-email-has-no-domain-part-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7dd0b95d550d0779095a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-08 [negative] email has no local part",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:41:32.852Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 51149,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    16 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 299
+                          },
+                          "message": "Error: registration was refused, so @domain.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  297 |             login.ok(),\n  298 |             `registration was refused, so ${email} must not be a usable account`,\n> 299 |           ).toBeFalsy();\n      |             ^\n  300 |         }\n  301 |         return;\n  302 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:299:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:41:33.034Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:41:32.852Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--592b1-ive-email-has-no-local-part-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-53a5b097a6f53436ae58",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-09 [negative] email already belongs to an account",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:42:29.365Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 70936,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    15 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:42:29.889Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:42:29.365Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0f6e2-ready-belongs-to-an-account-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-16a6c334da35380bbe6a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-10 [negative] password left empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:43:47.318Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5250,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:43:47.536Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:43:47.318Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-812d2cc02b49a64fd0b1",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-11 [negative] password key missing from the request body",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:43:47.318Z"
+                    },
+                    {
+                      "type": "Coverage gap",
+                      "description": "omitting password leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 4268,
+                      "error": {
+                        "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m",
+                        "stack": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 14,
+                          "line": 164
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 162 |\u001b[39m           expect\n \u001b[90m 163 |\u001b[39m             \u001b[33m.\u001b[39msoft(response\u001b[33m.\u001b[39mstatus()\u001b[33m,\u001b[39m \u001b[32m`${response.url()} status`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 164 |\u001b[39m             \u001b[33m.\u001b[39mtoBe(\u001b[33mNumber\u001b[39m(row\u001b[33m.\u001b[39mexpect_signal))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 165 |\u001b[39m\n \u001b[90m 166 |\u001b[39m           \u001b[90m// A refusal must also not *claim* an account was created. This one is\u001b[39m\n \u001b[90m 167 |\u001b[39m           \u001b[90m// answerable from the response itself, so unlike the login probe below it\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 164
+                          },
+                          "message": "Error: http://localhost:3000/api/register status\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m\n\n  162 |           expect\n  163 |             .soft(response.status(), `${response.url()} status`)\n> 164 |             .toBe(Number(row.expect_signal));\n      |              ^\n  165 |\n  166 |           // A refusal must also not *claim* an account was created. This one is\n  167 |           // answerable from the response itself, so unlike the login probe below it\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:164:14"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 14,
+                            "line": 178
+                          },
+                          "message": "Error: the request was rejected, so the response must not return a created-account id\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeUndefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m15\u001b[39m\n\n  176 |               'the request was rejected, so the response must not return a created-account id',\n  177 |             )\n> 178 |             .toBeUndefined();\n      |              ^\n  179 |         }\n  180 |\n  181 |         // Pattern 3 - the status code is a claim; whether the row was written is the fact.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:178:14"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:43:53.273Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:43:47.318Z"
+                        },
+                        {
+                          "type": "Coverage gap",
+                          "description": "omitting password leaves no automated way to observe whether a row was written; only the response contract is asserted for this row"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--8241f-ssing-from-the-request-body-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 14,
+                        "line": 164
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ef7f88dfc2db46886470",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-12 [negative] password of six characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5366,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:03.259Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c11116d5e5eb0c2885aa",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-13 [negative] password with no uppercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12236,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:09.242Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-15890a787f1befff1228",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-14 [negative] password with no lowercase letter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9820,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:21.526Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7bdd0ea965afd9d498cd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-15 [negative] password with no digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5747,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:31.393Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c9452dbb0e67bd36815e",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-16 [negative] password with no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12913,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:37.200Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a2325f49768b59808b7a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-18 [edge] full name is whitespace only",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:44:02.800Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 67258,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the name field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/họ tên|tên/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the name field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    17 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 299
+                          },
+                          "message": "Error: registration was refused, so fr01.fr01-tc-18.msncdxogjbw@example.com must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  297 |             login.ok(),\n  298 |             `registration was refused, so ${email} must not be a usable account`,\n> 299 |           ).toBeFalsy();\n      |             ^\n  300 |         }\n  301 |         return;\n  302 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:299:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:44:50.197Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:44:02.800Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--d6cb9-ull-name-is-whitespace-only-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5e13522f207d1174323d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-19 [edge] email has no top level domain",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:46:08.731Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 47135,
+                      "error": {
+                        "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n",
+                        "stack": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 280
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 278 |\u001b[39m             \u001b[32m'registration was refused, so the reason must be shown to the user'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 279 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 280 |\u001b[39m           \u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 281 |\u001b[39m         \u001b[36mawait\u001b[39m expect\n \u001b[90m 282 |\u001b[39m           \u001b[33m.\u001b[39msoft(\n \u001b[90m 283 |\u001b[39m             registerPage\u001b[33m.\u001b[39merrorBanner\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 280
+                          },
+                          "message": "Error: registration was refused, so the reason must be shown to the user\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - registration was refused, so the reason must be shown to the user with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  278 |             'registration was refused, so the reason must be shown to the user',\n  279 |           )\n> 280 |           .toBeVisible();\n      |            ^\n  281 |         await expect\n  282 |           .soft(\n  283 |             registerPage.errorBanner,\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:280:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 33,
+                            "line": 287
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/register$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/login\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"soft toHaveURL\" with timeout 10000ms\u001b[22m\n\u001b[2m    19 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:5173/login\"\u001b[22m\n\n\n  285 |           )\n  286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n> 287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n      |                                 ^\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n  290 |         // Skipped for the two rows aimed at the seeded account, which exists by design.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:287:33"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 13,
+                            "line": 299
+                          },
+                          "message": "Error: registration was refused, so user@domain must not be a usable account\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n  297 |             login.ok(),\n  298 |             `registration was refused, so ${email} must not be a usable account`,\n> 299 |           ).toBeFalsy();\n      |             ^\n  300 |         }\n  301 |         return;\n  302 |       }\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:299:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:46:09.962Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:46:08.731Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--c7a71-ail-has-no-top-level-domain-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 280
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-ed571460d59ad7e520c8",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-20 [edge] email uses plus addressing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:02.245Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3359,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:02.359Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:02.245Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-8c06614dca42f5d7b6a9",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-21 [edge] email differs from an existing one only by case",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:47:02.245Z"
+                    },
+                    {
+                      "type": "Data note",
+                      "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18002,
+                      "error": {
+                        "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nReceived string:  \u001b[31m\"Đăng ký thất bại.\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\u001b[2m    23 × locator resolved to <div class=\"bg-red-100 text-red-700 p-3 mb-4 rounded\">Đăng ký thất bại.</div>\u001b[22m\n\u001b[2m       - unexpected value \"Đăng ký thất bại.\"\u001b[22m\n",
+                        "stack": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nReceived string:  \u001b[31m\"Đăng ký thất bại.\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\u001b[2m    23 × locator resolved to <div class=\"bg-red-100 text-red-700 p-3 mb-4 rounded\">Đăng ký thất bại.</div>\u001b[22m\n\u001b[2m       - unexpected value \"Đăng ký thất bại.\"\u001b[22m\n\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                          "column": 12,
+                          "line": 286
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 284 |\u001b[39m             \u001b[32m`the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 285 |\u001b[39m           )\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 286 |\u001b[39m           \u001b[33m.\u001b[39mtoHaveText(keywordFor(row\u001b[33m.\u001b[39mexpect_signal\u001b[33m,\u001b[39m row\u001b[33m.\u001b[39mtc_id))\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 287 |\u001b[39m         \u001b[36mawait\u001b[39m expect\u001b[33m.\u001b[39msoft(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[35m/\\/register$/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 288 |\u001b[39m\n \u001b[90m 289 |\u001b[39m         \u001b[90m// Pattern 3 - a refused registration must not have written an account anyway.\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                            "column": 12,
+                            "line": 286
+                          },
+                          "message": "Error: the message must name the email field, otherwise the user cannot act on it\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('div.bg-red-100')\nExpected pattern: \u001b[32m/email/i\u001b[39m\nReceived string:  \u001b[31m\"Đăng ký thất bại.\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - the message must name the email field, otherwise the user cannot act on it with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('div.bg-red-100')\u001b[22m\n\u001b[2m    23 × locator resolved to <div class=\"bg-red-100 text-red-700 p-3 mb-4 rounded\">Đăng ký thất bại.</div>\u001b[22m\n\u001b[2m       - unexpected value \"Đăng ký thất bại.\"\u001b[22m\n\n\n  284 |             `the message must name the ${row.expect_signal} field, otherwise the user cannot act on it`,\n  285 |           )\n> 286 |           .toHaveText(keywordFor(row.expect_signal, row.tc_id));\n      |            ^\n  287 |         await expect.soft(page).toHaveURL(/\\/register$/);\n  288 |\n  289 |         // Pattern 3 - a refused registration must not have written an account anyway.\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:286:12"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:06.031Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:47:02.245Z"
+                        },
+                        {
+                          "type": "Data note",
+                          "description": "carries a password that satisfies the client-side gate, so the case can reach the rule it was written for (see TC_Matrix_FR01.md, bypass column)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--0776a-n-existing-one-only-by-case-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts",
+                        "column": 12,
+                        "line": 286
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-5e07f6e159cb992ccb1f",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-22 [edge] password uses a special character outside the documented set",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 0,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → POST http://localhost:3000/api/register\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 101\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → POST http://localhost:3000/api/register\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 101\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3000\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:112:30",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3000,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3000,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → POST http://localhost:3000/api/register\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 101\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3000\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr01_account_registration\\fr01.registration.spec.ts:112:30"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:25.816Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--43826--outside-the-documented-set-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr01_account_registration--43826--outside-the-documented-set-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3000,
+                        "line": 1
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-013343e50ea76c116286",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-01 [edge] password of exactly seven characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.320Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1b75af6b502a35d36939",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-02 [edge] password of exactly eight characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.322Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-0977d02dca794b6b53bc",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-03 [edge] password of exactly nine characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.322Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-9958874a0586e775b79a",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-06 [edge] password of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.322Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-757107d83b0673da20d1",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-07 [edge] password of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.322Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a262bc9d72d1ee8aa81d",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-04 [edge] full name of a single character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.323Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-4b36b50cebc98de0a7cd",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-BVA-05 [edge] full name of two characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.323Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-6c3b5147af23d9a49b17",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-TC-24 [negative] password holding a space and no special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.323Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-7fee5a110c24aeb65447",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-01 [negative] register API accepts an empty name",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.324Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-50c9fe86cb238ef6788b",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-02 [negative] register API accepts an empty email",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.324Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-1caa3dfe3bab5127d464",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-03 [negative] register API accepts an empty password",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.327Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a80b54406a83d0a8388c",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-04 [negative] register API accepts email without at sign",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.327Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-3f5954805da05a8d05b3",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-05 [negative] register API accepts email without domain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.327Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-babab359ca44517e6dbf",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-06 [negative] register API accepts email without local part",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.327Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-979ea91a3745226812c0",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-07 [negative] register API accepts a seven character password",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.327Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-4afe1996235b404b2bbf",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-08 [negative] register API accepts password without uppercase",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.328Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-88237334f5d4c164e4da",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-09 [negative] register API accepts password without lowercase",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.328Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-856817f9701f7af8c781",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-10 [negative] register API accepts password without digit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.328Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-a641a2943093beaee9ad",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-11 [negative] register API accepts password without special character",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.328Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-c4b23f8d7ca2ccf67071",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            },
+            {
+              "title": "FR01-API-12 [negative] register API accepts an exact duplicate email",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:47:26.328Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dd1d5557a4ce4b2e9ac1-50e3d3574a6dfa89ae50",
+              "file": "fr01_account_registration/fr01.registration.spec.ts",
+              "line": 125,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T14:39:13.612Z",
+    "duration": 492798.38200000004,
+    "expected": 11,
+    "skipped": 20,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}
