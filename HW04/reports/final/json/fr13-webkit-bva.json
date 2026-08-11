@@ -1,0 +1,871 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "automation/tests/fr13_dashboard",
+      "--project=webkit",
+      "--grep",
+      "FR13-BVA-"
+    ],
+    "configFile": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\playwright.config.ts",
+    "rootDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-setup.ts",
+    "globalTeardown": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "Run by": "23127184",
+      "Student name": "Le Pham Kieu Duyen",
+      "Feature under test": "fr13",
+      "Browser": "webkit-full-bva",
+      "Run started (ISO)": "2026-08-10T14:54:55.944Z",
+      "Assignment": "HW04-AI - Automation Testing",
+      "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+      "BASE_URL set": true,
+      "API_URL set": true,
+      "USER_EMAIL set": true,
+      "USER_PASSWORD set": true,
+      "ADMIN_EMAIL set": true,
+      "ADMIN_PASSWORD set": true,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-bva",
+          "Run started (ISO)": "2026-08-10T14:54:55.944Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-bva",
+          "Run started (ISO)": "2026-08-10T14:54:55.944Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "Run by": "23127184",
+          "Student name": "Le Pham Kieu Duyen",
+          "Feature under test": "fr13",
+          "Browser": "webkit-full-bva",
+          "Run started (ISO)": "2026-08-10T14:54:55.944Z",
+          "Assignment": "HW04-AI - Automation Testing",
+          "SUT": "EShop (https://github.com/ttbhanh/eshop-sut)",
+          "BASE_URL set": true,
+          "API_URL set": true,
+          "USER_EMAIL set": true,
+          "USER_PASSWORD set": true,
+          "ADMIN_EMAIL set": true,
+          "ADMIN_PASSWORD set": true,
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/Sem_9_25_26/Kiem_Thu_Phan_Mem/homework/software__testing/HW04/automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr13/webkit-full-bva",
+          "title": "HW04 EShop Automation - FR13 - webkit-full-bva - Run by: 23127184 - 2026-08-10T14:54:55.944Z"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/json/fr13-webkit-full-bva.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr13_dashboard\\fr13.dashboard.spec.ts",
+      "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-13 Dashboard",
+          "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+          "line": 275,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FR13-BVA-02 [edge] a delivered order of 0 changes revenue by 0",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:54:57.523Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-02"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "DIAGNOSTIC ROW. 0 is the one delivered amount a doubling fault cannot distort (0*2 = 0). If this row is green while BVA-03/05/06 are red, the fault is multiplicative rather than a wrong status filter or a double-counted row - one reading instead of a wall of red."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8329,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:54:57.706Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:54:57.523Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-02"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "DIAGNOSTIC ROW. 0 is the one delivered amount a doubling fault cannot distort (0*2 = 0). If this row is green while BVA-03/05/06 are red, the fault is multiplicative rather than a wrong status filter or a double-counted row - one reading instead of a wall of red."
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9cff83fd22797b366608",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-03 [edge] a delivered order of 1 increases revenue by exactly 1",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:54:57.523Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-03"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Smallest positive integer amount. The minimal input that separates 'counted once' from 'counted twice'."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 6682,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m \u001b[36mfunction\u001b[39m expectDelta(actual\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m expected\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m precision\u001b[33m:\u001b[39m number \u001b[33m|\u001b[39m undefined\u001b[33m,\u001b[39m label\u001b[33m:\u001b[39m string)\u001b[33m:\u001b[39m \u001b[36mvoid\u001b[39m {\n \u001b[90m 268 |\u001b[39m   \u001b[36mif\u001b[39m (precision \u001b[33m===\u001b[39m undefined) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n \u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 269
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n  267 | function expectDelta(actual: number, expected: number, precision: number | undefined, label: string): void {\n  268 |   if (precision === undefined) {\n> 269 |     expect(actual, label).toBe(expected);\n      |                           ^\n  270 |   } else {\n  271 |     expect(actual, label).toBeCloseTo(expected, precision);\n  272 |   }\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:55:06.234Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:54:57.523Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-03"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Smallest positive integer amount. The minimal input that separates 'counted once' from 'counted twice'."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-676b5-reases-revenue-by-exactly-1-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-676b5-reases-revenue-by-exactly-1-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-676b5-reases-revenue-by-exactly-1-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-676b5-reases-revenue-by-exactly-1-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-9207a7ccb84e93bb4eb9",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-05 [edge] a delivered order of 0.01 increases revenue by 0.01, not by a rounded 0",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:55:15.916Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-05 / OQ-09"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Sub-unit amount. Two separate sources of imprecision, neither of which may be widened to hide the doubling: the column stores 0.01 as 0.009999999776482582 (single-precision float, ~2e-10 error), and the UI renders through toLocaleString(), which caps at 3 fraction digits. 3 decimal places is therefore the tightest the RENDERED figure can be asserted to - not a chosen tolerance but a ceiling the display imposes. It still separates 0.01 from 0.02."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19857,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 0, after 0.02)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m0.01\u001b[39m\nReceived: \u001b[31m0.02\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 0, after 0.02)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m0.01\u001b[39m\nReceived: \u001b[31m0.02\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:271:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 271
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\n \u001b[90m 273 |\u001b[39m }\n \u001b[90m 274 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 271
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 0, after 0.02)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m0.01\u001b[39m\nReceived: \u001b[31m0.02\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m\n\n  269 |     expect(actual, label).toBe(expected);\n  270 |   } else {\n> 271 |     expect(actual, label).toBeCloseTo(expected, precision);\n      |                           ^\n  272 |   }\n  273 | }\n  274 |\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:271:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:55:16.213Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:55:15.916Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-05 / OQ-09"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Sub-unit amount. Two separate sources of imprecision, neither of which may be widened to hide the doubling: the column stores 0.01 as 0.009999999776482582 (single-precision float, ~2e-10 error), and the UI renders through toLocaleString(), which caps at 3 fraction digits. 3 decimal places is therefore the tightest the RENDERED figure can be asserted to - not a chosen tolerance but a ceiling the display imposes. It still separates 0.01 from 0.02."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-855c6--by-0-01-not-by-a-rounded-0-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-855c6--by-0-01-not-by-a-rounded-0-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-855c6--by-0-01-not-by-a-rounded-0-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-855c6--by-0-01-not-by-a-rounded-0-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 271
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-c4392ed18e4f04e72714",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-01 [edge] a delivered order of -1 decreases revenue by exactly 1, not clamped to 0",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:55:39.978Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-01 / OQ-16"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Settles OQ-16, which HW02 flagged as possibly unreachable: POST /api/checkout accepts a negative total_amount and stores it, verified. Whether a negative order SHOULD be creatable is a separate question for FR-08, not for this row."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11385,
+                      "error": {
+                        "message": "Error: response.json: Protocol error (Network.getResponseBody): Missing content of resource for given requestId\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.",
+                        "stack": "Error: response.json: Protocol error (Network.getResponseBody): Missing content of resource for given requestId\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.\n    at AdminDashboardPage.gotoWithTokenAndLoadDashboard (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts:249:47)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:510:11",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts",
+                          "column": 47,
+                          "line": 249
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\pages\\AdminDashboardPage.ts:249\n\n\u001b[0m \u001b[90m 247 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 248 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mreload()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 249 |\u001b[39m     \u001b[36mconst\u001b[39m body \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m (\u001b[36mawait\u001b[39m ordersResponse)\u001b[33m.\u001b[39mjson()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 250 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[33mArray\u001b[39m\u001b[33m.\u001b[39misArray(body) \u001b[33m?\u001b[39m body \u001b[33m:\u001b[39m (body\u001b[33m.\u001b[39mdata \u001b[33m?\u001b[39m\u001b[33m?\u001b[39m [])\u001b[33m;\u001b[39m\n \u001b[90m 251 |\u001b[39m   }\n \u001b[90m 252 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts",
+                            "column": 47,
+                            "line": 249
+                          },
+                          "message": "Error: response.json: Protocol error (Network.getResponseBody): Missing content of resource for given requestId\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.\n\n   at ..\\pages\\AdminDashboardPage.ts:249\n\n  247 |     );\n  248 |     await this.page.reload();\n> 249 |     const body = await (await ordersResponse).json();\n      |                                               ^\n  250 |     return Array.isArray(body) ? body : (body.data ?? []);\n  251 |   }\n  252 |\n    at AdminDashboardPage.gotoWithTokenAndLoadDashboard (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts:249:47)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:510:11"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:55:40.250Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:55:39.978Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-01 / OQ-16"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Settles OQ-16, which HW02 flagged as possibly unreachable: POST /api/checkout accepts a negative total_amount and stores it, verified. Whether a negative order SHOULD be creatable is a separate question for FR-08, not for this row."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de0b8--exactly-1-not-clamped-to-0-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de0b8--exactly-1-not-clamped-to-0-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de0b8--exactly-1-not-clamped-to-0-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de0b8--exactly-1-not-clamped-to-0-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\pages\\AdminDashboardPage.ts",
+                        "column": 47,
+                        "line": 249
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-6decc8d87d4785af4ce4",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-04 [edge] a delivered order of -0.01 decreases revenue by exactly 0.01",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:55:55.588Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-04 / OQ-16"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Negative sub-unit: the corner where a sign error and a rounding error would look alike. Same 3-decimal rendering ceiling as BVA-05."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 14254,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m-0.01\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m-0.01\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:271:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 271
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\n \u001b[90m 273 |\u001b[39m }\n \u001b[90m 274 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 271
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m-0.01\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\nExpected precision:    3\nExpected difference: < \u001b[32m0.0005\u001b[39m\nReceived difference:   \u001b[31m0.01\u001b[39m\n\n  269 |     expect(actual, label).toBe(expected);\n  270 |   } else {\n> 271 |     expect(actual, label).toBeCloseTo(expected, precision);\n      |                           ^\n  272 |   }\n  273 | }\n  274 |\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:271:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:55:55.877Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:55:55.588Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-04 / OQ-16"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Negative sub-unit: the corner where a sign error and a rounding error would look alike. Same 3-decimal rendering ceiling as BVA-05."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de623-ses-revenue-by-exactly-0-01-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de623-ses-revenue-by-exactly-0-01-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de623-ses-revenue-by-exactly-0-01-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-de623-ses-revenue-by-exactly-0-01-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 271
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-4ec454d37383df8e4453",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            },
+            {
+              "title": "FR13-BVA-06 [edge] three delivered orders 1000/2000/3000 increase revenue by exactly 6000",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "Run by",
+                      "description": "Run by: 23127184"
+                    },
+                    {
+                      "type": "Student",
+                      "description": "Le Pham Kieu Duyen"
+                    },
+                    {
+                      "type": "Run started",
+                      "description": "2026-08-10T14:56:13.036Z"
+                    },
+                    {
+                      "type": "HW02 origin",
+                      "description": "BVA-06"
+                    },
+                    {
+                      "type": "Why this case",
+                      "description": "Multi-row aggregation: distinguishes 'each row doubled' from 'one row counted twice', which a single-order case cannot."
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 7403,
+                      "error": {
+                        "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m6000\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
+                        "stack": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m6000\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13",
+                        "location": {
+                          "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                          "column": 27,
+                          "line": 269
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 267 |\u001b[39m \u001b[36mfunction\u001b[39m expectDelta(actual\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m expected\u001b[33m:\u001b[39m number\u001b[33m,\u001b[39m precision\u001b[33m:\u001b[39m number \u001b[33m|\u001b[39m undefined\u001b[33m,\u001b[39m label\u001b[33m:\u001b[39m string)\u001b[33m:\u001b[39m \u001b[36mvoid\u001b[39m {\n \u001b[90m 268 |\u001b[39m   \u001b[36mif\u001b[39m (precision \u001b[33m===\u001b[39m undefined) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 269 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBe(expected)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 270 |\u001b[39m   } \u001b[36melse\u001b[39m {\n \u001b[90m 271 |\u001b[39m     expect(actual\u001b[33m,\u001b[39m label)\u001b[33m.\u001b[39mtoBeCloseTo(expected\u001b[33m,\u001b[39m precision)\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m   }\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                            "column": 27,
+                            "line": 269
+                          },
+                          "message": "Error: revenue moved by the wrong amount (before 0, after 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m6000\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n  267 | function expectDelta(actual: number, expected: number, precision: number | undefined, label: string): void {\n  268 |   if (precision === undefined) {\n> 269 |     expect(actual, label).toBe(expected);\n      |                           ^\n  270 |   } else {\n  271 |     expect(actual, label).toBeCloseTo(expected, precision);\n  272 |   }\n    at expectDelta (D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:269:27)\n    at D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts:524:13"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-10T14:56:13.226Z",
+                      "annotations": [
+                        {
+                          "type": "Run by",
+                          "description": "Run by: 23127184"
+                        },
+                        {
+                          "type": "Student",
+                          "description": "Le Pham Kieu Duyen"
+                        },
+                        {
+                          "type": "Run started",
+                          "description": "2026-08-10T14:56:13.036Z"
+                        },
+                        {
+                          "type": "HW02 origin",
+                          "description": "BVA-06"
+                        },
+                        {
+                          "type": "Why this case",
+                          "description": "Multi-row aggregation: distinguishes 'each row doubled' from 'one row counted twice', which a single-order case cannot."
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-4b475-ase-revenue-by-exactly-6000-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-4b475-ase-revenue-by-exactly-6000-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-4b475-ase-revenue-by-exactly-6000-webkit\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\test-results\\fr13_dashboard-fr13.dashbo-4b475-ase-revenue-by-exactly-6000-webkit\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Sem_9_25_26\\Kiem_Thu_Phan_Mem\\homework\\software__testing\\HW04\\automation\\tests\\fr13_dashboard\\fr13.dashboard.spec.ts",
+                        "column": 27,
+                        "line": 269
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "23cee810c2719a2d8f6f-32a2736937dd35d25a12",
+              "file": "fr13_dashboard/fr13.dashboard.spec.ts",
+              "line": 277,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-10T14:54:55.957Z",
+    "duration": 85636.696,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}
