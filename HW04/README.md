@@ -171,5 +171,5 @@ attached, and 26 issue-page screenshots are saved under `reports/evidence/github
 - [x] `docs/05_Git_Commit_Log.txt` (8 meaningful `.spec.ts` commits; former four-day rule removed)
 - [x] `docs/02_Bug_Report.md` + GitHub Issues screenshots
 - [x] This `README.md` with the self-assessment table and the test summary
-- [x] Moodle-safe split ZIP prepared as `23127184_HW04_AI_Automation_100.zip.001`
-  through `.003` (19 MB / 19 MB / 12.97 MB); extract starting from part `.001`
+- [x] One Moodle-safe ZIP prepared as `23127184_HW04_AI_Automation_100.zip`
+  (large trace/video attachments are available in the public repository, not duplicated in the ZIP)
