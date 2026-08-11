@@ -8,6 +8,22 @@ description: Generate, review and run data-driven Playwright test suites across 
 Convert a feature's designed test cases into a Playwright suite that runs on three
 browser engines and produces attributable HTML reports.
 
+## Invocation contract
+
+Establish these inputs before generation: feature ID/name, requirement and prior-design
+paths, application/API URLs actually needed by the feature, spec path, external-data path,
+browser projects, student ID, and report destination. Discover missing values from the
+project and label the run `BLOCKED` if an authoritative value cannot be established; do
+not silently substitute EShop-specific defaults.
+
+Use only these workflow states:
+
+- `BLOCKED` — an input, environment dependency, or oracle is unresolved.
+- `READY_FOR_REVIEW` — artifacts exist and static validation passed; execution is forbidden.
+- `APPROVED_TO_RUN` — the human's approval is quoted in the run manifest.
+- `COMPLETE` — three-browser evidence exists and every failure is classified. Red product
+  findings may still be complete.
+
 ## When to use
 
 - Converting HW02-style designed test cases into `.spec.ts` files.
@@ -25,9 +41,16 @@ browser engines and produces attributable HTML reports.
    If a number is wrong, re-run; do not fix the file.
 5. **Never weaken an assertion to make a suite green.** A failing assertion is a
    finding until a human decides otherwise.
-6. **The running SUT outranks the design documents.** Where a prior artifact and the
-   live app disagree, the app is the fact and the document is the error. Record the
-   correction; never quietly test the document's version of reality.
+6. **Keep evidence authorities separate.** The requirement/API contract defines expected
+   behaviour. Source and the live DOM define reachability, routes, locators and observed
+   behaviour. Never derive an oracle from the current build. Record disagreements as a
+   product defect or an open requirement question instead of calibrating a test to pass.
+7. **No assertion-free branch.** Branch-specific required fields must be validated at
+   collection time. A missing optional value must never silently skip the only meaningful
+   assertion in a case.
+8. **Preserve downstream evidence.** When a status failure would prevent mutation,
+   disclosure or persistence checks, collect the downstream fact first and use a soft
+   status assertion. Soft does not mean ignored: the test remains red.
 
 ## Workflow — one feature at a time
 
@@ -35,14 +58,14 @@ browser engines and produces attributable HTML reports.
 Nothing below is meaningful against an app that is not running. Do this first, every
 time — it is short, and skipping it costs an hour of misdiagnosed failures.
 
-- Start each tier and note the **actual** port from its own output, not from memory:
-  backend, customer web app, admin app. Read the ports out of the SUT's own config
-  (a Vite `server.port`, a `setup_guide`), then confirm with a request.
+- Start only the tiers the selected feature needs. Note each actual port from its own
+  output, not from memory. Read URLs from project configuration, then confirm each with a
+  request.
 - Check `node_modules` exists in each front-end you will drive; a fresh clone has none.
 - Check the browser binaries are installed — all three engines, not just the default.
-- **Confirm `baseURL` points at the front-end, not the API.** These are different
-  ports on this SUT and the mistake is silent: pages 404 and every case fails
-  identically, which reads like a broken suite rather than a config typo.
+- Confirm each page object targets the correct application origin rather than assuming
+  one `baseURL` represents a multi-application SUT. A wrong origin often makes every case
+  fail identically and can be mistaken for a broken suite.
 
 → Record the verified ports somewhere the suite reads them (`.env.example`), so the
 next feature does not rediscover them.
@@ -86,7 +109,9 @@ the design assumed is present may simply not be there, and those cases have to m
 the "not automatable" list rather than be written and thrown away.
 
 Write a throwaway probe script — not a spec, not evidence — that loads the page and,
-for each candidate locator, prints `count()`. Require exactly 1. Also probe the
+for each candidate locator, prints `count()`. Require exactly 1 for a single control at
+the moment it is used; require the data-derived cardinality for collections; allow 0 only
+when verifying an explicit empty/absent state. Also probe the
 locators you expect to **fail** and keep those numbers: they are the written
 justification for dropping to CSS. A useful probe reports:
 
@@ -105,14 +130,19 @@ validation messages differ per engine, so assert on the boolean state, not the s
 → Stop. Get approval on the locator set and on any case the DOM has invalidated.
 
 ### Step 4 — Write the data file
-Emit `automation/data/<feature>.csv` or `.json`, one row per case, columns typed and named so a
-reader can tell input from expectation. Empty string is a legitimate input — never
-coerce it away. Drop any column the real page has no field for.
+Emit an external CSV or JSON file, one row per case, with typed columns that distinguish
+setup, input, action, and expectation. Empty string is a legitimate input — never coerce
+it away. Remove invented UI-input columns, but retain setup, API and integrity-oracle
+columns even when they do not correspond to a visible field.
 → Stop. Get approval on the data file.
 
 ### Step 5 — Write the page object, then the spec
 Page object holds locators and actions; the spec holds cases and assertions. The
 spec iterates the loaded data and imports `test` from `automation/fixtures/test-fixtures.ts`.
+
+Validate the entire dataset at module load: unique `tc_id`, declared case count, enums,
+finite numeric values, non-empty arrays, and branch-specific required fields. Aggregate
+all data errors in one failure so the human can repair the file in one pass.
 → Stop. Present the spec for human review; do not run it.
 
 ### Step 6 — Human review pass
@@ -121,19 +151,52 @@ than meaning, missing edge cases, `waitForTimeout`, and data that collides acros
 repeated runs. Every correction gets a row in `docs/test-plan/AI_Review_Gap_Analysis.md`
 with **what** was wrong and **why** the AI missed it.
 
+Run static gates and attach their output to the review:
+
+```powershell
+npx tsc --noEmit
+npx playwright test <spec-path> --list
+```
+
+Quote the human's approval in the feature run manifest. Without that quote, remain
+`READY_FOR_REVIEW`.
+
 ### Step 7 — Run all three browsers
+```powershell
+foreach ($project in 'chromium','firefox','webkit') {
+  npx playwright test <spec-path> --project=$project
+}
 ```
-$env:FEATURE='fr01'; $env:BROWSER='chromium'
-npx playwright test automation/tests/fr01_account_registration --project=chromium
-```
-or all nine at once: `npm run runs:all`. Each run writes
+
+Use `npm run runs:all` only when the whole repository's matrix is intentionally in scope.
+Each run writes
 `reports/final/html/<feature>/<browser>/index.html` showing `Run by: {StudentID}` and an
 ISO timestamp.
+
+After execution, run `scripts/validate-feature.ps1` with explicit spec, data, student ID
+and JSON report paths. Treat warnings as human-review items and failures as `BLOCKED`.
 
 ### Step 8 — Triage failures
 For each failure, decide: test defect (fix the test, log the correction) or product
 defect (write it up in `docs/02_Bug_Report.md`, file a GitHub Issue with a screenshot).
 Never let a third category — "made it pass" — exist.
+
+## Output contract: Feature Run Manifest
+
+Return one manifest per feature containing:
+
+- discovered inputs and their source paths;
+- case count and unique `tc_id` count;
+- exact static-validation commands and exit codes;
+- the human approval quote and time observed;
+- for every browser: command, start ISO time, exit code, pass/fail/skip counts, HTML and
+  JSON paths;
+- every red case's disposition: test defect, product defect, or open requirement question;
+- non-automatable cases and reasons;
+- validator output and final workflow state.
+
+Checkboxes may be ticked only when the manifest contains a path, command or quoted decision
+that proves the item.
 
 ## Output checklist per feature
 
@@ -142,9 +205,10 @@ Never let a third category — "made it pass" — exist.
 - [ ] ≥ 12 cases, all sourced from an external data file
 - [ ] ≥ 3 distinct assertion patterns across the suite
 - [ ] every locator verified against the live SUT, with the rejected alternatives' counts kept
-- [ ] 3 browser runs, 3 HTML reports, each stamped `Run by: {StudentID}` + ISO time
+- [ ] 3 browser combinations, with every HTML entry point stamped `Run by: {StudentID}` + ISO time
 - [ ] every AI correction logged with its cause
 - [ ] non-automatable cases listed with reasons
+- [ ] feature run manifest and `validate-feature.ps1` output preserved
 
 ## Pitfalls this workflow was rewritten to avoid
 
