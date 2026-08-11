@@ -277,12 +277,16 @@ test.describe('FR-13 Dashboard', () => {
     test(caseTitle(row), async ({
       page,
       request,
+      browserName,
       adminDashboardPage,
       adminToken,
       userToken,
     }) => {
       test.info().annotations.push({ type: 'HW02 origin', description: row.hw02_ref });
       test.info().annotations.push({ type: 'Why this case', description: row.note });
+      // Preserve the actual Playwright project on every row. This remains reliable
+      // even when a legacy run-level BROWSER tag is broad (for example, "all").
+      test.info().annotations.push({ type: 'Browser project', description: browserName });
 
       /**
        * A fresh account per CASE and per run. The email carries the tc_id because
@@ -574,7 +578,7 @@ test.describe('FR-13 Dashboard', () => {
             Record<string, unknown>
           >;
           const stored = orders.find((order) => Number(order.id) === createdOrderId);
-          expect(stored, `${row.tc_id}: seeded order ${orderId} not found`).toBeTruthy();
+          expect(stored, `${row.tc_id}: seeded order ${createdOrderId} not found`).toBeTruthy();
 
           // README FR-08 requires the backend to recompute the total FROM THE CART. The
           // exact figure is asserted, not merely "different from what was sent": a build
