@@ -1,0 +1,56 @@
+[
+  {
+    "screen": "D1",
+    "persistent": [
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/calendar",
+      "https://prod-dev.ems-fitus.cloud/my-favorites",
+      "https://prod-dev.ems-fitus.cloud/manual",
+      "https://prod-dev.ems-fitus.cloud/dashboard/admin"
+    ],
+    "after_avatar": [
+      "https://prod-dev.ems-fitus.cloud/complaints",
+      "https://prod-dev.ems-fitus.cloud/complaints"
+    ],
+    "verdict": "FAIL"
+  },
+  {
+    "screen": "D2",
+    "persistent": [
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/calendar",
+      "https://prod-dev.ems-fitus.cloud/my-favorites",
+      "https://prod-dev.ems-fitus.cloud/manual",
+      "https://prod-dev.ems-fitus.cloud/dashboard/admin"
+    ],
+    "after_avatar": [
+      "https://prod-dev.ems-fitus.cloud/complaints/new",
+      "https://prod-dev.ems-fitus.cloud/complaints/66",
+      "https://prod-dev.ems-fitus.cloud/complaints/63",
+      "https://prod-dev.ems-fitus.cloud/complaints/53",
+      "https://prod-dev.ems-fitus.cloud/complaints/40",
+      "https://prod-dev.ems-fitus.cloud/complaints/39",
+      "https://prod-dev.ems-fitus.cloud/complaints/37",
+      "https://prod-dev.ems-fitus.cloud/complaints/34",
+      "https://prod-dev.ems-fitus.cloud/complaints/32",
+      "https://prod-dev.ems-fitus.cloud/complaints/31",
+      "https://prod-dev.ems-fitus.cloud/complaints/12"
+    ],
+    "verdict": "FAIL"
+  },
+  {
+    "screen": "D5",
+    "persistent": [
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/dashboard",
+      "https://prod-dev.ems-fitus.cloud/calendar",
+      "https://prod-dev.ems-fitus.cloud/my-favorites",
+      "https://prod-dev.ems-fitus.cloud/manual",
+      "https://prod-dev.ems-fitus.cloud/dashboard/admin"
+    ],
+    "after_avatar": [],
+    "verdict": "REVIEW"
+  }
+]
