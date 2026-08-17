@@ -1,0 +1,47 @@
+[
+  {
+    "name": "01 login",
+    "method": "POST",
+    "path": "/api/login",
+    "body": {
+      "email": "perf001@eshop.local",
+      "password": "Perf001!Aa"
+    },
+    "capture": {
+      "token": "token"
+    }
+  },
+  {
+    "name": "02 search products",
+    "method": "GET",
+    "path": "/api/products?search=iPhone"
+  },
+  {
+    "name": "03 product detail",
+    "method": "GET",
+    "path": "/api/products/1"
+  },
+  {
+    "name": "04 add to cart",
+    "method": "POST",
+    "path": "/api/cart",
+    "auth": true,
+    "body": {
+      "id": 1,
+      "name": "iPhone 15 Pro Max",
+      "price": 30000000,
+      "quantity": 1
+    }
+  },
+  {
+    "name": "05 checkout",
+    "method": "POST",
+    "path": "/api/checkout",
+    "auth": true,
+    "body": {
+      "total_amount": 30000000,
+      "shipping_address": "1 Nguyen Van Cu, District 5, HCMC"
+    }
+  }
+]
+

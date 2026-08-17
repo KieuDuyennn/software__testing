@@ -12,3 +12,4 @@ __pycache__/
 evidence/sut-logs/*.log
 
 /jmeter.log
+eshop/backend/database.sqlite
