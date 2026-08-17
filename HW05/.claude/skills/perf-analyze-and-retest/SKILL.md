@@ -22,7 +22,10 @@ Before forming any opinion:
 
 ```bash
 python <skill-dir>/scripts/analyze-jtl.py results/<run>/result.jtl --bucket 30 \
-    --p95 500 --error-rate 1.0 --out docs/phases/04_analysis.md
+    --p95 500 --error-rate 1.0 \
+    --journey-label "01 login" --journey-label "02 search products" \
+    --journey-label "03 product detail" --journey-label "04 add to cart" \
+    --journey-label "05 checkout" --out docs/phases/04_analysis.md
 ```
 
 It reports, from the raw samples: overall throughput, error rate, mean and
@@ -30,10 +33,12 @@ p50/p90/p95/p99/max, bandwidth, a per-label breakdown, failures by response code
 a bucketed timeline, target CPU and memory from `resources.csv`, and a
 pass/fail verdict against the thresholds given.
 
-It also handles two things that quietly corrupt hand-rolled analyses: it parses
-the `.jtl` as real CSV (quoted fields contain commas), and it separates
+It also handles three things that quietly corrupt hand-rolled analyses: it parses
+the `.jtl` as real CSV (quoted fields contain commas), separates
 transaction-controller rows from request samples instead of counting the same
-work twice.
+work twice, and compares the count of every required journey label. That last
+check prevents a scheduler-stopped partial iteration from being reported as a
+successful complete transaction merely because JMeter emitted a controller row.
 
 ## Read the results
 

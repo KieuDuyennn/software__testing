@@ -55,3 +55,23 @@ This Markdown log records the prompts and material outputs/actions. Export or
 screenshot the original Codex conversation too if the instructor requires every
 assistant message verbatim rather than an attributable audit summary.
 
+
+## Interaction 05 — Plan and design
+
+| Field | Value |
+|---|---|
+| Tool | OpenAI Codex |
+| Date and time | 2026-08-17, Phase 2 session (Asia/Saigon) |
+| Prompt context | Continue the confirmed HW05 workflow toward a 100/100-quality submission. |
+| Output | Applied Little's Law to the measured 30.4 ms workflow and a disclosed 2.5 s compressed think time. Replaced inherited defaults with Load 34 VU, four-stage Stress to 132 VU, Spike 168 burst VU plus a 17 VU baseline, and Soak 27 VU; documented data recycling, metrics, listeners, reset/evidence gates and a human critique of the AI plan. |
+| Human review required | Confirm the calculations and do not execute official runs until free RAM and same-frame video evidence are ready. |
+
+## Interaction 06 — Plan generation and pilot review
+
+| Field | Value |
+|---|---|
+| Tool | OpenAI Codex |
+| Date and time | 2026-08-17, implementation/pilot session (Asia/Saigon) |
+| Prompt context | Implement and verify the approved HW05 performance plan without fabricating official evidence. |
+| Output | Generated the four official JMX plans dated 20260817 and corrected stale sizing comments. Reset/reseeded the backend, ran a 2 VU/30 s diagnostic pilot with JTL, HTML and resource sampling, then recomputed the raw JTL. Human review found that 23 successful controller rows represented only 22 endpoint-complete journeys because the scheduler stopped an iteration at the tail. The analyzer and skill documentation were corrected to require all five journey labels and expose tail/ambiguous rows. |
+| Human review required | Treat the pilot only as implementation validation; record free RAM and same-frame video before official runs. |

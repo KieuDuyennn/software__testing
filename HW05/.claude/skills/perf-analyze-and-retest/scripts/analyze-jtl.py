@@ -145,6 +145,8 @@ def main():
     ap.add_argument("--p95", type=float, default=None, help="p95 threshold in ms")
     ap.add_argument("--error-rate", type=float, default=None,
                     help="error-rate threshold in percent")
+    ap.add_argument("--journey-label", action="append", default=[],
+                    help="required request label in a complete journey; repeat for every step")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -181,16 +183,40 @@ def main():
         tx = summarise(transactions)
         out.append("## Transactions passed/failed")
         out.append("")
-        out.append(f"- Transactions: **{tx['count']}**, "
-                   f"passed **{tx['count'] - tx['errors']}** "
-                   f"({100 - tx['error_rate']:.2f}%), failed **{tx['errors']}**")
-        out.append(f"- Transactions/second: **{tx['throughput']:.2f}**")
-        out.append(f"- End-to-end journey time: mean **{tx['mean']:.1f} ms**, "
+        out.append(f"- Controller rows: **{tx['count']}**, "
+                   f"reported passed **{tx['count'] - tx['errors']}**, failed **{tx['errors']}**")
+
+        if args.journey_label:
+            label_counts = {
+                label: sum(1 for sample in requests if sample["label"] == label)
+                for label in args.journey_label
+            }
+            complete = min([tx["count"], *label_counts.values()])
+            ambiguous = max(tx["count"] - complete, 0)
+            conservative_failed = min(tx["errors"], complete)
+            conservative_passed = complete - conservative_failed
+            complete_rate = complete / tx["window_s"]
+            out.append("- Required-label counts: " + ", ".join(
+                f"`{label}`={count}" for label, count in label_counts.items()
+            ))
+            out.append(f"- Endpoint-complete journey lower bound: **{complete}**; "
+                       f"conservative passed **{conservative_passed}**, "
+                       f"failed **{conservative_failed}**, tail/ambiguous **{ambiguous}**")
+            out.append(f"- Complete journeys/second: **{complete_rate:.2f}**")
+            if ambiguous:
+                out.append("> The scheduler ended with a partial iteration. JMeter emitted "
+                           "a successful controller row even though not every required label "
+                           "completed; the raw controller pass rate is therefore not used.")
+        else:
+            out.append(f"- Transactions/second: **{tx['throughput']:.2f}**")
+            out.append("> Journey completeness was not checked. Repeat `--journey-label` "
+                       "for every required request label before using controller pass rate.")
+
+        out.append(f"- Controller time: mean **{tx['mean']:.1f} ms**, "
                    f"p95 **{tx['p95']:.0f} ms**, max {tx['max']:.0f}")
         out.append("")
-        out.append("Counted separately from request samples: a transaction row is an "
-                   "aggregate of its children, so adding the two together would count "
-                   "the same work twice.")
+        out.append("Controller rows are counted separately from request samples: adding "
+                   "them would count the same work twice.")
         out.append("")
 
     by_label = defaultdict(list)
