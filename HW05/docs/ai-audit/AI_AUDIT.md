@@ -85,3 +85,13 @@ assistant message verbatim rather than an attributable audit summary.
 | Prompt | `mình xác nhận k trùng` |
 | Output | Recorded the student's confirmation that Login → Search → Detail → Cart → Checkout is not duplicated. Rechecked the host and found only 0.36 GB free RAM, so official execution was withheld. Added a scenario-by-scenario checklist for reset, same-frame recording, genuine artifacts, invalid-run handling, analysis and submission gates. |
 | Human review required | Close unnecessary applications, verify at least 2 GB free RAM, capture the hardware screenshot and start screen recording before authorising the first official Load run. |
+
+## Interaction 08 — Official execution, raw analysis and report completion
+
+| Field | Value |
+|---|---|
+| Tool | OpenAI Codex |
+| Date and time | 2026-08-17 to 2026-08-18 (Asia/Saigon) |
+| Prompts | `bạn tự làm mấy việc đó lun đi`, `hw của mình đã tới đâu rồi`, and `commit trạng thái hiện tại và tiếp tục làm những việc chưa làm` |
+| Output | Closed restartable background applications, captured genuine dxdiag and same-frame JMeter/Task Manager screenshots, reset/reseeded the SUT before each scenario, and executed Load, Stress, Spike and Soak. Preserved four complete JTL/HTML/resource/log/run-record sets and committed them as `98462cf`. Recomputed per-label and complete-journey statistics, corrected controller-tail overcounting, found no Stress knee through 132 VU, measured Spike recovery within 30 seconds and demonstrated a 54.5 req/s Soak threshold with a 172.0 MB memory ceiling. Drafted the main report, 272-word critique, recommendation review and continuous-performance proposal. |
+| Human review required | Review the critique in the student's own voice, record/upload the required Vietnamese-narrated video, add both video links to README, and run the prepared 198-VU retest only when free RAM is at least 2 GB. |
