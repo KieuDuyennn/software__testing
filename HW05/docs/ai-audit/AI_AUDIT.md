@@ -75,3 +75,13 @@ assistant message verbatim rather than an attributable audit summary.
 | Prompt context | Implement and verify the approved HW05 performance plan without fabricating official evidence. |
 | Output | Generated the four official JMX plans dated 20260817 and corrected stale sizing comments. Reset/reseeded the backend, ran a 2 VU/30 s diagnostic pilot with JTL, HTML and resource sampling, then recomputed the raw JTL. Human review found that 23 successful controller rows represented only 22 endpoint-complete journeys because the scheduler stopped an iteration at the tail. The analyzer and skill documentation were corrected to require all five journey labels and expose tail/ambiguous rows. |
 | Human review required | Treat the pilot only as implementation validation; record free RAM and same-frame video before official runs. |
+
+## Interaction 07 — Uniqueness confirmation and official-run gate
+
+| Field | Value |
+|---|---|
+| Tool | OpenAI Codex |
+| Date and time | 2026-08-17, pre-execution review (Asia/Saigon) |
+| Prompt | `mình xác nhận k trùng` |
+| Output | Recorded the student's confirmation that Login → Search → Detail → Cart → Checkout is not duplicated. Rechecked the host and found only 0.36 GB free RAM, so official execution was withheld. Added a scenario-by-scenario checklist for reset, same-frame recording, genuine artifacts, invalid-run handling, analysis and submission gates. |
+| Human review required | Close unnecessary applications, verify at least 2 GB free RAM, capture the hardware screenshot and start screen recording before authorising the first official Load run. |
