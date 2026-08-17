@@ -130,6 +130,35 @@ if ($Threads -gt 0)         { $profile.Threads = $Threads }
 if ($RampSeconds -gt 0)     { $profile.Ramp = $RampSeconds }
 if ($DurationSeconds -gt 0) { $profile.Duration = $DurationSeconds }
 
+# Recompute the human-readable sizing note after applying overrides. Frozen
+# comments that still say "200 VU" beside a 168-thread plan undermine both the
+# audit trail and human review even when the executable XML is correct.
+$capacityForComment = if ($BaselineIterPerSec -gt 0) { $BaselineIterPerSec } else { $exampleIterPerSec }
+$serviceSeconds = 1.0 / $capacityForComment
+$meanThinkPerSamplerSeconds = ($profile.ThinkBase + ($profile.ThinkRange / 2.0)) / 1000.0
+$iterationSeconds = $serviceSeconds + (5 * $meanThinkPerSamplerSeconds)
+$estimatedRate = $profile.Threads / $iterationSeconds
+switch ($Scenario) {
+    "Load" {
+        $profile.Comment = ("{0} VU; estimated {1:N1} iterations/s ({2:N0}% of sizing capacity)." -f `
+            $profile.Threads, $estimatedRate, ($estimatedRate / $capacityForComment * 100))
+    }
+    "Stress" {
+        $profile.Comment = ("Four-stage staircase to {0} VU; estimated peak {1:N1} iterations/s ({2:N0}% of sizing capacity)." -f `
+            $profile.Threads, $estimatedRate, ($estimatedRate / $capacityForComment * 100))
+    }
+    "Spike" {
+        $baselineForComment = [math]::Max(10, [int]($profile.Threads / 10))
+        $combinedRate = ($profile.Threads + $baselineForComment) / $iterationSeconds
+        $profile.Comment = ("{0} VU baseline plus {1} VU burst; estimated combined peak {2:N1} iterations/s ({3:N0}% of sizing capacity)." -f `
+            $baselineForComment, $profile.Threads, $combinedRate, ($combinedRate / $capacityForComment * 100))
+    }
+    "Soak" {
+        $profile.Comment = ("{0} VU; estimated {1:N1} iterations/s ({2:N0}% of sizing capacity) for endurance observation." -f `
+            $profile.Threads, $estimatedRate, ($estimatedRate / $capacityForComment * 100))
+    }
+}
+
 <#
     Read and write UTF-8 explicitly.
 
