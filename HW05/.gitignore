@@ -1,0 +1,14 @@
+eshop/backend/node_modules/
+eshop/frontend-admin/node_modules/
+eshop/frontend-mobile/node_modules/
+eshop/frontend-web/node_modules/
+
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# Runtime-only process logs. Raw JMeter evidence under results/ is retained.
+evidence/sut-logs/*.log
+
+/jmeter.log
