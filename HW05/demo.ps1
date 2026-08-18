@@ -4,9 +4,12 @@
     Safe default (no new load is generated):
         powershell -ExecutionPolicy Bypass -File .\demo.ps1
 
+    Show the recording script without running checks:
+        powershell -ExecutionPolicy Bypass -File .\demo.ps1 -GuideOnly
+
     Live 60-second demonstration with genuine evidence capture:
         powershell -ExecutionPolicy Bypass -File .\demo.ps1 `
-          -RunLive -BackendProcessId <PID>
+          -RunLive -BackendProcessId <PID> -PauseBetweenSteps
 
     Keep JMeter and Task Manager visible in the same frame while -RunLive runs.
     Demo artifacts are separate from the official result sets.
@@ -15,6 +18,10 @@
 [CmdletBinding()]
 param(
     [switch]$RunLive,
+
+    [switch]$GuideOnly,
+
+    [switch]$PauseBetweenSteps,
 
     [int]$BackendProcessId = 0,
 
@@ -47,11 +54,77 @@ function Write-Step([int]$Number, [string]$Text) {
     Write-Host "`n[$Number/5] $Text" -ForegroundColor Cyan
 }
 
+function Write-Cue([string]$Text) {
+    Write-Host "PRESENTER: $Text" -ForegroundColor Yellow
+    if ($PauseBetweenSteps) {
+        Read-Host 'Press Enter when this explanation is complete' | Out-Null
+    }
+}
+
+function Show-DemoGuide {
+    Write-Host @'
+
+==================== HUONG DAN QUAY DEMO 6-7 PHUT ====================
+
+Truoc khi quay:
+  1. Start backend moi voi LOADTEST=1 va ghi lai PID chinh xac.
+  2. Dat terminal/JMeter ben trai, Task Manager ben phai trong cung khung hinh.
+  3. Hien MSSV 23127184, hostname KIEUDUYEN va nhanh Git hw5.
+  4. Khong goi demo run la official run; evidence demo nam rieng.
+
+0:00-0:40 - Gioi thieu
+  Noi: "Em la sinh vien 23127184. Workflow gom login, search, product
+  detail, add to cart va checkout; no phu auth-heavy, read-heavy va
+  transactional endpoints."
+
+0:40-1:20 - Agent Skill
+  Mo .claude/skills/performance-testing/SKILL.md. Chi ra 4 phase skill:
+  environment/criteria, plan/design, implement/run, analyze/retest.
+
+1:20-2:20 - Data-driven plan
+  Chay script safe mode. Khi buoc 1-2 hien ra, noi ve 3 CSV 240 dong,
+  JWT correlation, 5 endpoint labels, content assertions va listener.
+
+2:20-3:35 - Phan tich raw evidence
+  O buoc 3, chi ra 42,810 request rows, p95 10 ms, error 0%, va 8,547
+  complete journeys. Giai thich controller rows khong duoc cong vao request
+  samples va partial tail khong duoc tinh la journey hoan chinh.
+
+3:35-4:20 - Human review
+  O buoc 4, noi: "AI output chi la gia thuyet. Em doi chieu raw JTL,
+  tach request/controller, kiem tra phase va source code truoc khi ket luan."
+
+4:20-5:45 - Live run co monitor
+  Chay -RunLive voi backend PID that. Giu terminal/JMeter va Task Manager
+  cung khung hinh. Noi ro day la demo 2 VU ngan, khong thay the official run.
+
+5:45-6:30 - Evidence va ket luan
+  Mo evidence/demo-runs/<run>/ va chi ra result.jtl, report/, resources.csv,
+  jmeter.log, run.md. Xac nhan student tu review ket qua truoc khi trich dan.
+
+Lenh:
+  Xem huong dan:
+    powershell -ExecutionPolicy Bypass -File .\demo.ps1 -GuideOnly
+
+  Preflight + recompute official Load:
+    powershell -ExecutionPolicy Bypass -File .\demo.ps1 -PauseBetweenSteps
+
+  Live demo:
+    powershell -ExecutionPolicy Bypass -File .\demo.ps1 -RunLive `
+      -BackendProcessId <PID> -PauseBetweenSteps
+
+======================================================================
+'@ -ForegroundColor Green
+}
+
 function Require-File([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
         throw "Missing demo dependency: $Path"
     }
 }
+
+Show-DemoGuide
+if ($GuideOnly) { return }
 
 foreach ($path in @($officialPlan, $validator, $generator, $runner, $analyzer)) {
     Require-File $path
@@ -63,9 +136,11 @@ try {
     Write-Host 'Workflow: login -> search -> product detail -> add to cart -> checkout'
 
     Write-Step 1 'Validate the three data-driven CSV pools'
+    Write-Cue 'Explain why 240 unique credentials avoid shared-user state and why every CSV is validated before execution.'
     & $validator -DataDir $dataDir -ExpectedMaxThreads $Threads
 
     Write-Step 2 'Inspect the reviewed JMeter workflow and listener'
+    Write-Cue 'Show JWT extraction, five endpoint labels, content assertions and the distinct listener assigned to Load.'
     [xml]$planXml = Get-Content -Raw -Encoding UTF8 $officialPlan
     $samplers = @($planXml.SelectNodes('//HTTPSamplerProxy') | ForEach-Object { $_.testname })
     $requiredSamplers = @('01 login', '02 search products', '03 product detail', '04 add to cart', '05 checkout')
@@ -77,6 +152,7 @@ try {
     Write-Host "Listener: $($listeners -join ', ')"
 
     Write-Step 3 'Recompute the official Load result from raw JTL evidence'
+    Write-Cue 'State that raw JTL is ground truth; request samples and Transaction Controller rows must be counted separately.'
     $loadRun = Get-ChildItem (Join-Path $root 'results') -Directory |
         Where-Object { $_.Name -like '23127184_Load_20260817_*' } |
         Sort-Object Name -Descending |
@@ -99,6 +175,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Raw JTL analysis failed.' }
 
     Write-Step 4 'Human-review checkpoint'
+    Write-Cue 'Explain one AI mistake, the corrected raw value, and why the student owns the final interpretation.'
     Write-Host 'Verify that request rows are separated from controller rows.'
     Write-Host 'Confirm p95/error values against the report before accepting the conclusion.'
     Write-Host 'Capacity and leak claims remain student decisions based on measured evidence.'
@@ -111,6 +188,7 @@ try {
     }
 
     Write-Step 5 'Generate and execute a short live plan with evidence capture'
+    Write-Cue 'Put JMeter or this terminal beside Task Manager in the same frame and say that this short run is demo evidence only.'
     if ($BackendProcessId -le 0) {
         throw '-BackendProcessId is required with -RunLive; do not guess the monitored process.'
     }
