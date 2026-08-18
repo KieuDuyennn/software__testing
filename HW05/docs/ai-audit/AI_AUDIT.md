@@ -95,3 +95,13 @@ assistant message verbatim rather than an attributable audit summary.
 | Prompts | `bạn tự làm mấy việc đó lun đi`, `hw của mình đã tới đâu rồi`, and `commit trạng thái hiện tại và tiếp tục làm những việc chưa làm` |
 | Output | Closed restartable background applications, captured genuine dxdiag and same-frame JMeter/Task Manager screenshots, reset/reseeded the SUT before each scenario, and executed Load, Stress, Spike and Soak. Preserved four complete JTL/HTML/resource/log/run-record sets and committed them as `98462cf`. Recomputed per-label and complete-journey statistics, corrected controller-tail overcounting, found no Stress knee through 132 VU, measured Spike recovery within 30 seconds and demonstrated a 54.5 req/s Soak threshold with a 172.0 MB memory ceiling. Drafted the main report, 272-word critique, recommendation review and continuous-performance proposal. |
 | Human review required | Review the critique in the student's own voice, record/upload the required Vietnamese-narrated video, add both video links to README, and run the prepared 198-VU retest only when free RAM is at least 2 GB. |
+
+## Interaction 09 — Submission audit and finalisation
+
+| Field | Value |
+|---|---|
+| Tool | OpenAI Codex |
+| Date and time | 2026-08-18, finalisation session (Asia/Saigon) |
+| Prompt | `hi, hww05 cuar mình làm tới đâu rồi và còn thiếu gì làm nốt cho mình để mín sắp tới hạn nộp bài` |
+| Output | Audited the repository against the official rubric and the HW05 evidence contract; confirmed all four JMX plans, four raw JTL/HTML/resource result sets and genuine screenshots; rebuilt and visually checked the eight-page main PDF and three-page AI Audit PDF; verified that the public repository exists but the local `hw5` branch was not yet on the remote; prepared the final submission checklist, Vietnamese video runbook and a fail-closed packaging script. No video URL or student narration was fabricated. |
+| Human review required | Record/upload the genuine unlisted video, confirm the critique in the student's own voice, provide the URL and open the generated ZIP once before Moodle upload. |
