@@ -20,10 +20,9 @@ not measurements of this target.
 | Process selection could choose the wrong Node process | Require explicit backend PID | Process name alone cannot distinguish backend from frontend tooling |
 | Status-only success could accept empty product bodies | Assert token, product `id` and checkout `orderId` | HTTP 200 is not sufficient for functional success |
 
-## Remaining human responsibility
+## Human review boundary
 
 The calculations make the plan defensible, not automatically correct. The real
-capacity is the measured Stress knee. The student must review GUI screenshots,
-raw JTL rows, resource trends, reset evidence and narration, and must not change
-criteria after seeing an inconvenient failure.
-
+capacity is the measured Stress knee. Final validation uses GUI screenshots,
+raw JTL rows, resource trends, reset evidence and unchanged pre-registered
+criteria.

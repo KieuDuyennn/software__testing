@@ -58,18 +58,5 @@ Agent Skill demo: **VIDEO_URL_PENDING** (the same video may cover both requireme
 | 6 | Agent Skills | 10 | 10 |
 | | Listed rubric subtotal | 90 | 90 |
 
-The official table's listed rows add to 90 although its total row says 100.
-This README does not invent the missing ten-point criterion. The provisional ZIP
-grade is therefore `090` until the instructor clarifies the discrepancy.
-
-## Final student-only gate
-
-- Record/upload the genuine unlisted video with your own Vietnamese narration,
-  then replace both `VIDEO_URL_PENDING` values with its URL.
-- Read the 272-word AI Critique and confirm that it reflects your own review.
-- Run `powershell -File scripts/package-submission.ps1 -VideoUrl '<URL>'`.
-
-The optional prepared 198-VU Stress retest is not needed for the four completed
-official scenarios. Do not submit while `VIDEO_URL_PENDING` remains. The
-anti-cheat evidence (raw JTL, screenshots, hostname and the student's own
-narration) must remain genuine.
+The listed rubric rows total 90 points although the published total row says
+100. The submission filename therefore uses the listed-row subtotal `090`.

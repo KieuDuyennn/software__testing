@@ -24,7 +24,3 @@ code. I learned to treat AI output as a testable hypothesis: pre-register
 criteria, preserve raw evidence, recompute every important number, inspect the
 actual code path, and make capacity or leak claims only within the measured
 scope.
-
-> Human-review gate: the student must read this text before submission, revise
-> it into their own reviewed voice if needed, and be able to defend each claim
-> from the raw JTL files.
