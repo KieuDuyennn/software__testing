@@ -13,3 +13,7 @@ evidence/sut-logs/*.log
 
 /jmeter.log
 eshop/backend/database.sqlite
+/tmp/
+/output/*contact*.png
+/output/submission-staging/
+/output/*.zip
