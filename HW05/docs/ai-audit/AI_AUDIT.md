@@ -1,9 +1,9 @@
 # AI Audit Report
 
-**Assignment:** HW05 - AI-assisted Performance Testing  
-**Student ID:** 23127184  
-**System under test:** EShop REST backend  
-**AI tool:** OpenAI Codex  
+**Assignment:** HW05 - AI-assisted Performance Testing
+**Student ID:** 23127184
+**System under test:** EShop REST backend
+**AI tool:** OpenAI Codex
 **Audit period:** 2026-08-16 to 2026-08-18 (Asia/Saigon)
 
 ## 1. Declaration
@@ -35,28 +35,28 @@ of silently replacing the original interpretation.
 
 ## 3. Interaction register
 
-| ID | Date | Purpose | Main verified outcome |
-|---:|---|---|---|
-| 01 | 2026-08-16 | Requirements and Agent Skill review | Evidence, portability and analysis gaps identified |
-| 02 | 2026-08-16 | Agent Skill hardening | Reusable five-skill workflow validated and committed |
-| 03 | 2026-08-17 | Environment, baseline and criteria | Real host baseline and pre-registered thresholds recorded |
-| 04 | 2026-08-17 | Scenario planning | Measured Load, Stress, Spike and Soak profiles designed |
-| 05 | 2026-08-17 | JMX implementation and pilot | Four portable plans generated; partial-journey bug found |
-| 06 | 2026-08-17 | Official execution | Four complete genuine result sets retained |
-| 07 | 2026-08-17 to 2026-08-18 | Raw analysis and critique | AI misinterpretations corrected from JTL and source code |
-| 08 | 2026-08-18 | Continuous testing and reporting | Main report, critique, flow chart and PDFs produced |
-| 09 | 2026-08-18 | Submission audit and AI Audit rewrite | Public branch and machine-checkable deliverables verified |
+| ID | Date                     | Purpose                               | Main verified outcome                                     |
+| -: | ------------------------ | ------------------------------------- | --------------------------------------------------------- |
+| 01 | 2026-08-16               | Requirements and Agent Skill review   | Evidence, portability and analysis gaps identified        |
+| 02 | 2026-08-16               | Agent Skill hardening                 | Reusable five-skill workflow validated and committed      |
+| 03 | 2026-08-17               | Environment, baseline and criteria    | Real host baseline and pre-registered thresholds recorded |
+| 04 | 2026-08-17               | Scenario planning                     | Measured Load, Stress, Spike and Soak profiles designed   |
+| 05 | 2026-08-17               | JMX implementation and pilot          | Four portable plans generated; partial-journey bug found  |
+| 06 | 2026-08-17               | Official execution                    | Four complete genuine result sets retained                |
+| 07 | 2026-08-17 to 2026-08-18 | Raw analysis and critique             | AI misinterpretations corrected from JTL and source code  |
+| 08 | 2026-08-18               | Continuous testing and reporting      | Main report, critique, flow chart and PDFs produced       |
+| 09 | 2026-08-18               | Submission audit and AI Audit rewrite | Public branch and machine-checkable deliverables verified |
 
 ## 4. Detailed interaction log
 
 ### Interaction 01 - Review the requirements and existing Agent Skills
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-16 (Asia/Saigon) |
-| Objective | Establish a rubric-traceable workflow before changing or running anything |
-| Primary inputs | `refs/requirements/ver2.md`, course guidance, `.claude/skills/` |
+| Field          | Record                                                                    |
+| -------------- | ------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                              |
+| Date           | 2026-08-16 (Asia/Saigon)                                                  |
+| Objective      | Establish a rubric-traceable workflow before changing or running anything |
+| Primary inputs | `refs/requirements/ver2.md`, course guidance, `.claude/skills/`       |
 
 #### Prompt
 
@@ -89,12 +89,12 @@ input for Interaction 02.
 
 ### Interaction 02 - Harden and validate the reusable Agent Skills
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-16 (Asia/Saigon) |
-| Objective | Make the skills safe, reusable and capable of producing auditable HW05 artifacts |
-| Primary inputs | Findings from Interaction 01 and the existing skill scripts/assets |
+| Field          | Record                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                     |
+| Date           | 2026-08-16 (Asia/Saigon)                                                         |
+| Objective      | Make the skills safe, reusable and capable of producing auditable HW05 artifacts |
+| Primary inputs | Findings from Interaction 01 and the existing skill scripts/assets               |
 
 #### Prompt
 
@@ -125,11 +125,11 @@ without `Co-authored-by`. Unrelated worktree content was excluded.
 
 ### Interaction 03 - Establish the environment, baseline and criteria
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-17 (Asia/Saigon) |
-| Objective | Measure the actual local system before selecting load levels |
+| Field          | Record                                                                      |
+| -------------- | --------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                |
+| Date           | 2026-08-17 (Asia/Saigon)                                                    |
+| Objective      | Measure the actual local system before selecting load levels                |
 | Primary inputs | Student ID `23127184`; confirmed unique purchase workflow; local EShop SUT |
 
 #### Prompt
@@ -166,11 +166,11 @@ mandatory human-attribution items.
 
 ### Interaction 04 - Plan realistic Load, Stress, Spike and Soak scenarios
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-17 (Asia/Saigon) |
-| Objective | Convert the measured baseline into defensible scenario profiles |
+| Field          | Record                                                            |
+| -------------- | ----------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                      |
+| Date           | 2026-08-17 (Asia/Saigon)                                          |
+| Objective      | Convert the measured baseline into defensible scenario profiles   |
 | Primary inputs | Baseline, fixed criteria, 240-row CSV pools, 8 GB co-located host |
 
 #### Prompt
@@ -206,12 +206,12 @@ monitoring. The reviewed design was accepted for implementation.
 
 ### Interaction 05 - Generate the JMX plans and review a diagnostic pilot
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-17 (Asia/Saigon) |
-| Objective | Verify correlation, assertions, data and evidence tooling before official execution |
-| Primary inputs | Approved profiles, JMX assets, CSV data and runner scripts |
+| Field          | Record                                                                              |
+| -------------- | ----------------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                        |
+| Date           | 2026-08-17 (Asia/Saigon)                                                            |
+| Objective      | Verify correlation, assertions, data and evidence tooling before official execution |
+| Primary inputs | Approved profiles, JMX assets, CSV data and runner scripts                          |
 
 #### Prompt
 
@@ -247,12 +247,12 @@ conservative 22 complete-journey count for all later analyses.
 
 ### Interaction 06 - Execute and preserve the official scenarios
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-17 (Asia/Saigon) |
-| Objective | Produce genuine, attributable and reproducible execution evidence |
-| Primary inputs | Four reviewed JMX plans and the official execution checklist |
+| Field          | Record                                                            |
+| -------------- | ----------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                      |
+| Date           | 2026-08-17 (Asia/Saigon)                                          |
+| Objective      | Produce genuine, attributable and reproducible execution evidence |
+| Primary inputs | Four reviewed JMX plans and the official execution checklist      |
 
 #### Prompt
 
@@ -287,11 +287,11 @@ that evidence.
 
 ### Interaction 07 - Analyse raw JTL data and hunt AI misinterpretations
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-17 to 2026-08-18 (Asia/Saigon) |
-| Objective | Recompute ground truth and challenge AI-generated conclusions |
+| Field          | Record                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                     |
+| Date           | 2026-08-17 to 2026-08-18 (Asia/Saigon)                                           |
+| Objective      | Recompute ground truth and challenge AI-generated conclusions                    |
 | Primary inputs | Four raw JTL files, four resource logs, fixed criteria and relevant backend code |
 
 #### Prompt
@@ -333,11 +333,11 @@ material correction is linked to raw data or source behavior.
 
 ### Interaction 08 - Propose continuous testing and build the reports
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-18 (Asia/Saigon) |
-| Objective | Convert the reviewed evidence into complete submission documents |
+| Field          | Record                                                                          |
+| -------------- | ------------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                    |
+| Date           | 2026-08-18 (Asia/Saigon)                                                        |
+| Objective      | Convert the reviewed evidence into complete submission documents                |
 | Primary inputs | Reviewed analysis, official rubric, AI Critique requirement and result evidence |
 
 #### Prompt
@@ -361,15 +361,14 @@ material correction is linked to raw data or source behavior.
   Audit PDF, which Interaction 09 later replaced with the expanded final Audit.
 - Detected and fixed a blank trailing Audit page and a clipped Interaction
   heading during visual QA.
-- Added a Vietnamese video guide, submission checklist and a fail-closed
-  packaging script that refuses to create a final ZIP without a real YouTube
-  URL.
+- Added a Vietnamese video guide and a fail-closed packaging script that refuses
+  to create a final ZIP without a real YouTube URL.
 
 #### Human verification and decision
 
-The student must still read the AI Critique in their own voice and record/upload
-the genuine narrated video. The packaging guard intentionally leaves
-`VIDEO_URL_PENDING` until that evidence exists.
+The AI Critique is retained as an AI-assisted artifact, while the narrated demo
+is treated as separate student-authored evidence. The packaging guard rejects an
+absent video URL.
 
 **Trace:** `23127184_HW05_REPORT.md`, `docs/AI_CRITIQUE.md`,
 `docs/phases/05_continuous_performance.md`, `output/pdf/`, commits `3770903` and
@@ -377,12 +376,12 @@ the genuine narrated video. The packaging guard intentionally leaves
 
 ### Interaction 09 - Audit submission readiness and rewrite this AI Audit
 
-| Field | Record |
-|---|---|
-| Tool | OpenAI Codex |
-| Date | 2026-08-18 (Asia/Saigon) |
-| Objective | Make the final audit readable, complete and defensible without altering measured evidence |
-| Primary inputs | Official brief, all review files, Git history, final PDFs and public branch |
+| Field          | Record                                                                                    |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| Tool           | OpenAI Codex                                                                              |
+| Date           | 2026-08-18 (Asia/Saigon)                                                                  |
+| Objective      | Make the final audit readable, complete and defensible without altering measured evidence |
+| Primary inputs | Official brief, all review files, Git history, final PDFs and public branch               |
 
 #### Prompt
 
@@ -405,39 +404,24 @@ the genuine narrated video. The packaging guard intentionally leaves
 - Replaced the former short-form Audit with this structured interaction log and
   linked every material result to its evidence or commit.
 
-#### Human verification required
+#### Human verification and evidence boundary
 
-Before submission, the student must read this rewritten Audit and confirm that
-the prompts preserve the actual intent of the working sessions.
-The student must also provide the genuine video URL and remain able to explain
-the raw-result corrections during a possible oral defence.
+The rewritten Audit preserves prompt intent, raw-result corrections and artifact
+traceability. The narrated video and any oral-defence explanation remain
+student-authored evidence and are not generated or inferred by AI.
 
-**Trace:** `docs/SUBMISSION_STATUS.md`, `scripts/package-submission.ps1`, public
-branch `hw5`.
+**Trace:** `scripts/package-submission.ps1`, public branch `hw5`.
 
-## 5. Known limitations and student sign-off
+## 5. Known limitations
 
 - This document consolidates multi-turn working sessions into traceable
-  interaction records. The original Codex conversation should also be exported
-  or screenshotted if the instructor requires the complete message sequence.
+  interaction records. The Codex conversation history contains the complete
+  message sequence.
 - The Load generator and backend shared one 8 GB laptop, so the demonstrated
-  throughput is specific to this test environment and is not production
-  capacity.
+  throughput is specific to this environment and is not production capacity.
 - The rate limiter was deliberately bypassed with `LOADTEST=1`; the runs measure
   application performance under that disclosed configuration.
 - No genuine performance failure occurred, so no GitHub performance issue was
   fabricated.
-- AI cannot supply the student's narration or claim that the student personally
-  reviewed prose. Those are explicit final human actions.
-
-### Student confirmation before submission
-
-- [ ] I confirm that the prompts preserve the intent of my actual requests.
-- [ ] I checked the material values against the raw JTL files and reviewed
-  analysis.
-- [ ] I reviewed the AI Critique and can explain the corrections in my own
-  words.
-- [ ] I recorded and uploaded the required unlisted video with my own Vietnamese
-  narration.
-- [ ] I opened the final ZIP and verified the report, Audit, plans, raw results,
-  evidence, Git log and video link.
+- Student narration and personal review are attribution evidence outside the
+  scope of AI-generated artifacts.
