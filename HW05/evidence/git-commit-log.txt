@@ -1,0 +1,12 @@
+HW05 branch commit log
+Generated: 2026-08-18 (Asia/Saigon)
+Range: origin/main..hw5
+
+e385ad7 | 2026-08-16T22:51:33+07:00 | feat(hw05): harden performance testing skills
+a408f72 | 2026-08-17T21:17:10+07:00 | chore(hw05): add SUT and assignment references
+c18293b | 2026-08-17T21:20:59+07:00 | test(hw05): establish performance baseline and criteria
+8087833 | 2026-08-17T22:14:16+07:00 | test(hw05): design and validate performance scenarios
+acdfd1f | 2026-08-17T22:19:51+07:00 | docs(hw05): add official execution checklist
+98462cf | 2026-08-17T23:22:21+07:00 | test(hw05): capture official performance results
+7327273 | 2026-08-18T01:04:57+07:00 | docs(hw05): add reviewed performance analysis
+3770903 | 2026-08-18T10:19:27+07:00 | docs(hw05): finalize submission package
