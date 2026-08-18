@@ -31,8 +31,8 @@ a proven leak or GitHub performance issue.
 Observed bug/performance-issue count: **0**. Code-supported risks requiring a
 longer confirmation test: **1** (cart state retained after checkout).
 
-Demo video (unlisted, at least six minutes): **VIDEO_URL_PENDING**
-Agent Skill demo: **VIDEO_URL_PENDING** (the same video may cover both requirements).
+Demo video (unlisted, at least six minutes): **https://youtu.be/rqd1hnmPHEM**
+Agent Skill demo: **https://youtu.be/rqd1hnmPHEM** (the same video may cover both requirements).
 
 ## Deliverables
 
@@ -57,7 +57,9 @@ Agent Skill demo: **VIDEO_URL_PENDING** (the same video may cover both requireme
 | 4 | Task 2 - AI analysis and misinterpretation hunt | 10 | 10 |
 | 5 | Task 3 - Continuous Performance Testing proposal | 10 | 10 |
 | 6 | Agent Skills | 10 | 10 |
-| | Listed rubric subtotal | 90 | 90 |
+| | **Total** | **100** | **100** |
 
-The listed rubric rows total 90 points although the published total row says
-100. The submission filename therefore uses the listed-row subtotal `090`.
+Every listed criterion is self-assessed at its maximum, so the submission
+filename uses the assessment template's total of `100`. The six listed rows add
+up to 90 while the template's published total row is 100; the printed total row
+is the one used.
