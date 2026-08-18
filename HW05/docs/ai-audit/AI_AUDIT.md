@@ -4,7 +4,7 @@
 **Student ID:** 23127184
 **System under test:** EShop REST backend
 **AI tool:** OpenAI Codex
-**Audit period:** 2026-08-16 to 2026-08-18 (Asia/Saigon)
+**Audit period:** 2026-08-16 22:51:33 to 2026-08-18 10:55:32 (Asia/Saigon)
 
 ## 1. Declaration
 
@@ -35,17 +35,17 @@ of silently replacing the original interpretation.
 
 ## 3. Interaction register
 
-| ID | Date                     | Purpose                               | Main verified outcome                                     |
-| -: | ------------------------ | ------------------------------------- | --------------------------------------------------------- |
-| 01 | 2026-08-16               | Requirements and Agent Skill review   | Evidence, portability and analysis gaps identified        |
-| 02 | 2026-08-16               | Agent Skill hardening                 | Reusable five-skill workflow validated and committed      |
-| 03 | 2026-08-17               | Environment, baseline and criteria    | Real host baseline and pre-registered thresholds recorded |
-| 04 | 2026-08-17               | Scenario planning                     | Measured Load, Stress, Spike and Soak profiles designed   |
-| 05 | 2026-08-17               | JMX implementation and pilot          | Four portable plans generated; partial-journey bug found  |
-| 06 | 2026-08-17               | Official execution                    | Four complete genuine result sets retained                |
-| 07 | 2026-08-17 to 2026-08-18 | Raw analysis and critique             | AI misinterpretations corrected from JTL and source code  |
-| 08 | 2026-08-18               | Continuous testing and reporting      | Main report, critique, flow chart and PDFs produced       |
-| 09 | 2026-08-18               | Submission audit and AI Audit rewrite | Public branch and machine-checkable deliverables verified |
+| ID | Completion time (Asia/Saigon) | Purpose                               | Main verified outcome                                     |
+| -: | ----------------------------- | ------------------------------------- | --------------------------------------------------------- |
+| 01 | 2026-08-16 22:51:33           | Requirements and Agent Skill review   | Evidence, portability and analysis gaps identified        |
+| 02 | 2026-08-16 22:51:33           | Agent Skill hardening                 | Reusable five-skill workflow validated and committed      |
+| 03 | 2026-08-17 21:20:59           | Environment, baseline and criteria    | Real host baseline and pre-registered thresholds recorded |
+| 04 | 2026-08-17 22:14:16           | Scenario planning                     | Measured Load, Stress, Spike and Soak profiles designed   |
+| 05 | 2026-08-17 22:14:16           | JMX implementation and pilot          | Four portable plans generated; partial-journey bug found  |
+| 06 | 2026-08-17 23:22:21           | Official execution                    | Four complete genuine result sets retained                |
+| 07 | 2026-08-18 01:04:57           | Raw analysis and critique             | AI misinterpretations corrected from JTL and source code  |
+| 08 | 2026-08-18 10:22:38           | Continuous testing and reporting      | Main report, critique, flow chart and PDFs produced       |
+| 09 | 2026-08-18 10:55:32           | Submission audit and AI Audit rewrite | Public branch and machine-checkable deliverables verified |
 
 ## 4. Detailed interaction log
 
@@ -54,7 +54,7 @@ of silently replacing the original interpretation.
 | Field          | Record                                                                    |
 | -------------- | ------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                              |
-| Date           | 2026-08-16 (Asia/Saigon)                                                  |
+| Date and time  | 2026-08-16 22:51:33 (Asia/Saigon)                                         |
 | Objective      | Establish a rubric-traceable workflow before changing or running anything |
 | Primary inputs | `refs/requirements/ver2.md`, course guidance, `.claude/skills/`       |
 
@@ -66,7 +66,9 @@ of silently replacing the original interpretation.
 > concrete artifacts. Identify missing evidence gates, unsafe assumptions,
 > portability problems and analysis errors. Do not execute an official test or
 > fabricate any screenshot, log, timestamp or measured value. Return a
-> prioritized correction list with the files that should change.
+> prioritized correction list with the files that should change. Treat the list
+> as a review proposal: the student must compare every finding with the brief
+> and repository before accepting or implementing it.
 
 #### Condensed AI output and actions
 
@@ -92,7 +94,7 @@ input for Interaction 02.
 | Field          | Record                                                                           |
 | -------------- | -------------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                     |
-| Date           | 2026-08-16 (Asia/Saigon)                                                         |
+| Date and time  | 2026-08-16 22:51:33 (Asia/Saigon)                                                |
 | Objective      | Make the skills safe, reusable and capable of producing auditable HW05 artifacts |
 | Primary inputs | Findings from Interaction 01 and the existing skill scripts/assets               |
 
@@ -105,7 +107,9 @@ input for Interaction 02.
 > rather than calling growth a leak. Add an HW05 evidence contract that forbids
 > fabricated evidence. Validate all skill files and scripts, perform only a
 > technical smoke check where appropriate, and commit the scoped changes with a
-> Conventional Commit message and no co-author trailer.
+> Conventional Commit message and no co-author trailer. Present the changed
+> files, validation results and remaining limitations for student review; the
+> student decides whether the revised skills are acceptable.
 
 #### Condensed AI output and actions
 
@@ -128,9 +132,9 @@ without `Co-authored-by`. Unrelated worktree content was excluded.
 | Field          | Record                                                                      |
 | -------------- | --------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                |
-| Date           | 2026-08-17 (Asia/Saigon)                                                    |
+| Date and time  | 2026-08-17 21:20:59 (Asia/Saigon)                                           |
 | Objective      | Measure the actual local system before selecting load levels                |
-| Primary inputs | Student ID `23127184`; confirmed unique purchase workflow; local EShop SUT |
+| Primary inputs | Student ID`23127184`; confirmed unique purchase workflow; local EShop SUT |
 
 #### Prompt
 
@@ -141,7 +145,9 @@ without `Co-authored-by`. Unrelated worktree content was excluded.
 > data through the live API, validate every CSV row, and measure a repeatable
 > single-user baseline. Propose label-specific p95, error and journey-completion
 > criteria before any official run. Clearly separate measured facts from sizing
-> assumptions and preserve the commands and evidence paths.
+> assumptions and preserve the commands and evidence paths. Submit the proposed
+> criteria to the student for review and approval before using them to judge any
+> official result.
 
 #### Condensed AI output and actions
 
@@ -169,7 +175,7 @@ mandatory human-attribution items.
 | Field          | Record                                                            |
 | -------------- | ----------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                      |
-| Date           | 2026-08-17 (Asia/Saigon)                                          |
+| Date and time  | 2026-08-17 22:14:16 (Asia/Saigon)                                 |
 | Objective      | Convert the measured baseline into defensible scenario profiles   |
 | Primary inputs | Baseline, fixed criteria, 240-row CSV pools, 8 GB co-located host |
 
@@ -183,7 +189,9 @@ mandatory human-attribution items.
 > different listener types across Load, Stress and Spike. Explain data recycling,
 > account-lockout handling, reset requirements and the limitations of running
 > JMeter beside the backend. Include a separate human review of what the initial
-> AI defaults got wrong and why.
+> AI defaults got wrong and why. Do not finalize any profile until the student
+> has checked its assumptions, evidence requirements and feasibility on the
+> actual machine.
 
 #### Condensed AI output and actions
 
@@ -209,7 +217,7 @@ monitoring. The reviewed design was accepted for implementation.
 | Field          | Record                                                                              |
 | -------------- | ----------------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                        |
-| Date           | 2026-08-17 (Asia/Saigon)                                                            |
+| Date and time  | 2026-08-17 22:14:16 (Asia/Saigon)                                                   |
 | Objective      | Verify correlation, assertions, data and evidence tooling before official execution |
 | Primary inputs | Approved profiles, JMX assets, CSV data and runner scripts                          |
 
@@ -222,7 +230,9 @@ monitoring. The reviewed design was accepted for implementation.
 > diagnostic pilot only, preserving its JTL, HTML report, JMeter log, run record
 > and backend resource samples. Analyse the pilot from raw CSV-form JTL, compare
 > controller rows with all five endpoint-label counts, document every correction
-> and do not present pilot numbers as official results.
+> and do not present pilot numbers as official results. Return the plan and pilot
+> findings for student review; only the student's accepted corrections may be
+> carried into official execution.
 
 #### Condensed AI output and actions
 
@@ -250,7 +260,7 @@ conservative 22 complete-journey count for all later analyses.
 | Field          | Record                                                            |
 | -------------- | ----------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                      |
-| Date           | 2026-08-17 (Asia/Saigon)                                          |
+| Date and time  | 2026-08-17 23:22:21 (Asia/Saigon)                                 |
 | Objective      | Produce genuine, attributable and reproducible execution evidence |
 | Primary inputs | Four reviewed JMX plans and the official execution checklist      |
 
@@ -263,7 +273,9 @@ conservative 22 complete-journey count for all later analyses.
 > timestamped `result.jtl`, HTML report, `resources.csv`, `jmeter.log` and
 > `run.md`. Capture genuine same-frame JMeter and Task Manager screenshots. Stop
 > and retain a run as invalid if preflight, monitoring or evidence capture fails.
-> Never edit raw results or infer evidence that was not captured.
+> Never edit raw results or infer evidence that was not captured. After each
+> scenario, provide an evidence checklist for the student to verify before the
+> run is accepted as official.
 
 #### Condensed AI output and actions
 
@@ -290,7 +302,7 @@ that evidence.
 | Field          | Record                                                                           |
 | -------------- | -------------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                     |
-| Date           | 2026-08-17 to 2026-08-18 (Asia/Saigon)                                           |
+| Date and time  | 2026-08-18 01:04:57 (Asia/Saigon)                                                |
 | Objective      | Recompute ground truth and challenge AI-generated conclusions                    |
 | Primary inputs | Four raw JTL files, four resource logs, fixed criteria and relevant backend code |
 
@@ -304,7 +316,9 @@ that evidence.
 > recovery separately. Treat Soak memory as a trend, not automatic proof of a
 > leak. Then review the AI analysis line by line, cite corrected raw values and
 > classify each optimization as supported, plausible but unverified, or
-> unfounded after checking the source code.
+> unfounded after checking the source code. Present all calculations and
+> classifications for line-by-line student review; the student makes the final
+> capacity, leak and optimization judgements.
 
 #### Condensed AI output and actions
 
@@ -336,7 +350,7 @@ material correction is linked to raw data or source behavior.
 | Field          | Record                                                                          |
 | -------------- | ------------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                    |
-| Date           | 2026-08-18 (Asia/Saigon)                                                        |
+| Date and time  | 2026-08-18 10:22:38 (Asia/Saigon)                                               |
 | Objective      | Convert the reviewed evidence into complete submission documents                |
 | Primary inputs | Reviewed analysis, official rubric, AI Critique requirement and result evidence |
 
@@ -351,7 +365,9 @@ material correction is linked to raw data or source behavior.
 > false positives and false negatives, and include a flow chart. Write a
 > 200-300-word AI Critique, update the AI Audit, render the main report and Audit
 > as polished PDFs, and visually inspect every page for clipping, blank pages and
-> unreadable tables.
+> unreadable tables. Deliver all documents as review drafts: the student must
+> verify the reported values, revise the Critique into their reviewed voice and
+> approve the final interpretation before submission.
 
 #### Condensed AI output and actions
 
@@ -379,7 +395,7 @@ absent video URL.
 | Field          | Record                                                                                    |
 | -------------- | ----------------------------------------------------------------------------------------- |
 | Tool           | OpenAI Codex                                                                              |
-| Date           | 2026-08-18 (Asia/Saigon)                                                                  |
+| Date and time  | 2026-08-18 10:55:32 (Asia/Saigon)                                                         |
 | Objective      | Make the final audit readable, complete and defensible without altering measured evidence |
 | Primary inputs | Official brief, all review files, Git history, final PDFs and public branch               |
 
@@ -392,7 +408,9 @@ absent video URL.
 > report. Rewrite the working prompts so they are clear, specific and technically
 > correct. Preserve the true chronology, AI mistakes, human corrections,
 > artifact paths and commit traceability. Do not fabricate the missing video,
-> student narration, issue report or any measured result.
+> student narration, issue report or any measured result. Report every mismatch
+> for student verification and leave the final submission decision to the
+> student.
 
 #### Condensed AI output and actions
 
@@ -401,8 +419,9 @@ absent video URL.
 - Confirmed three 240-row CSV pools, four raw JTL/HTML/resource result sets and
   recomputed 0% error with p95 values matching the reviewed report.
 - Verified public branch `hw5` and synchronized local/remote commit state.
-- Replaced the former short-form Audit with this structured interaction log and
-  linked every material result to its evidence or commit.
+- Replaced the former short-form Audit with a structured, visually verified log
+  using evidence-backed completion times, explicit student-review decisions and
+  traceable evidence or commits.
 
 #### Human verification and evidence boundary
 
