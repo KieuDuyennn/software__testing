@@ -92,6 +92,17 @@ def styles():
             spaceAfter=1.5 * mm,
             keepWithNext=True,
         ),
+        "h4": ParagraphStyle(
+            "H4",
+            parent=base["Heading4"],
+            fontName="HWArial-Bold",
+            fontSize=9.8,
+            leading=12.5,
+            textColor=colors.HexColor("#334E5C"),
+            spaceBefore=2.5 * mm,
+            spaceAfter=1.2 * mm,
+            keepWithNext=True,
+        ),
         "body": ParagraphStyle(
             "Body",
             parent=base["BodyText"],
@@ -261,7 +272,7 @@ def parse_markdown(source: Path, page_width: float):
             i += 1
             continue
 
-        heading = re.match(r"^(#{1,3})\s+(.+)$", stripped)
+        heading = re.match(r"^(#{1,4})\s+(.+)$", stripped)
         if heading:
             flush_paragraph()
             level = len(heading.group(1))
@@ -278,8 +289,11 @@ def parse_markdown(source: Path, page_width: float):
 
         if stripped.startswith(">"):
             flush_paragraph()
-            story.append(Paragraph(inline(stripped.lstrip("> ")), st["quote"]))
-            i += 1
+            quote_lines = []
+            while i < len(lines) and lines[i].strip().startswith(">"):
+                quote_lines.append(lines[i].strip().lstrip("> ").strip())
+                i += 1
+            story.append(Paragraph(inline(" ".join(quote_lines)), st["quote"]))
             continue
 
         bullet = re.match(r"^[-*]\s+(.+)$", stripped)
