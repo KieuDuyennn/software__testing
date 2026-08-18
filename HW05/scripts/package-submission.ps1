@@ -6,7 +6,7 @@ param(
 
     [Parameter()]
     [ValidatePattern('^[0-9]{3}$')]
-    [string]$Grade = '090',
+    [string]$Grade = '100',
 
     [switch]$PreflightOnly
 )
@@ -111,17 +111,29 @@ New-Item -ItemType Directory -Path $pdfDestination -Force | Out-Null
 Get-ChildItem -LiteralPath (Join-Path $root 'output/pdf') -File | Copy-Item -Destination $pdfDestination -Force
 
 if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-[System.IO.Compression.ZipFile]::CreateFromDirectory(
-    $staging,
-    $zipPath,
-    [System.IO.Compression.CompressionLevel]::Optimal,
-    $false
-)
+# .NET Framework's CreateFromDirectory writes backslash entry names. Those are not
+# ZIP-spec conformant and unpack as one literal filename on Linux/macOS, so entries
+# are added explicitly with forward slashes instead.
+$stagingPrefix = $staging.TrimEnd('\') + '\'
+$writer = [System.IO.Compression.ZipFile]::Open($zipPath, [System.IO.Compression.ZipArchiveMode]::Create)
+try {
+    foreach ($file in Get-ChildItem -LiteralPath $staging -Recurse -File -Force) {
+        $entryName = $file.FullName.Substring($stagingPrefix.Length).Replace('\', '/')
+        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(
+            $writer,
+            $file.FullName,
+            $entryName,
+            [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+    }
+} finally {
+    $writer.Dispose()
+}
 
 $archive = [System.IO.Compression.ZipFile]::OpenRead($zipPath)
 try {
-    $entries = $archive.Entries.FullName
+    $entries = @($archive.Entries.FullName | ForEach-Object { $_.Replace('\', '/') })
     foreach ($entry in @(
         'README.md',
         '23127184_HW05_REPORT.md',
