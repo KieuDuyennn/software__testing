@@ -1,21 +1,258 @@
-HW05 branch commit log
-Generated: 2026-08-18 (Asia/Saigon)
-Range: origin/main..hw5
-
-e385ad7 | 2026-08-16T22:51:33+07:00 | feat(hw05): harden performance testing skills
-a408f72 | 2026-08-17T21:17:10+07:00 | chore(hw05): add SUT and assignment references
-c18293b | 2026-08-17T21:20:59+07:00 | test(hw05): establish performance baseline and criteria
-8087833 | 2026-08-17T22:14:16+07:00 | test(hw05): design and validate performance scenarios
-acdfd1f | 2026-08-17T22:19:51+07:00 | docs(hw05): add official execution checklist
-98462cf | 2026-08-17T23:22:21+07:00 | test(hw05): capture official performance results
-7327273 | 2026-08-18T01:04:57+07:00 | docs(hw05): add reviewed performance analysis
-3770903 | 2026-08-18T10:19:27+07:00 | docs(hw05): finalize submission package
-bb25e14 | 2026-08-18T10:19:37+07:00 | chore(hw05): export assignment commit log
-287b4ab | 2026-08-18T10:21:17+07:00 | docs(hw05): record public branch verification
-b9229a1 | 2026-08-18T10:22:38+07:00 | docs(hw05): refresh audited submission PDFs
-74550e0 | 2026-08-18T10:28:54+07:00 | docs(hw05): rewrite AI audit prompts
-e1cd61c | 2026-08-18T10:37:16+07:00 | docs(hw05): remove internal submission notes
-d7cb00f | 2026-08-18T10:48:51+07:00 | docs(hw05): make AI critique more natural
-5cda92b | 2026-08-18T10:57:08+07:00 | docs(hw05): strengthen human review audit trail
-65dde00 | 2026-08-18T10:57:28+07:00 | chore(hw05): refresh assignment commit log
-d82c61e | 2026-08-18T11:06:45+07:00 | feat(hw05): add submission demo workflow
+﻿0d2dc6a 2026-08-18T11:09:18+07:00 docs(hw05): embed guided demo walkthrough
+1282ccb 2026-08-18T11:07:04+07:00 chore(hw05): update final commit log
+d82c61e 2026-08-18T11:06:45+07:00 feat(hw05): add submission demo workflow
+65dde00 2026-08-18T10:57:28+07:00 chore(hw05): refresh assignment commit log
+5cda92b 2026-08-18T10:57:08+07:00 docs(hw05): strengthen human review audit trail
+d7cb00f 2026-08-18T10:48:51+07:00 docs(hw05): make AI critique more natural
+e1cd61c 2026-08-18T10:37:16+07:00 docs(hw05): remove internal submission notes
+74550e0 2026-08-18T10:28:54+07:00 docs(hw05): rewrite AI audit prompts
+b9229a1 2026-08-18T10:22:38+07:00 docs(hw05): refresh audited submission PDFs
+287b4ab 2026-08-18T10:21:17+07:00 docs(hw05): record public branch verification
+bb25e14 2026-08-18T10:19:37+07:00 chore(hw05): export assignment commit log
+3770903 2026-08-18T10:19:27+07:00 docs(hw05): finalize submission package
+7327273 2026-08-18T01:04:57+07:00 docs(hw05): add reviewed performance analysis
+98462cf 2026-08-17T23:22:21+07:00 test(hw05): capture official performance results
+acdfd1f 2026-08-17T22:19:51+07:00 docs(hw05): add official execution checklist
+8087833 2026-08-17T22:14:16+07:00 test(hw05): design and validate performance scenarios
+c18293b 2026-08-17T21:20:59+07:00 test(hw05): establish performance baseline and criteria
+a408f72 2026-08-17T21:17:10+07:00 chore(hw05): add SUT and assignment references
+e385ad7 2026-08-16T22:51:33+07:00 feat(hw05): harden performance testing skills
+813c515 2026-08-04T14:15:48+07:00 Merge pull request #17 from KieuDuyennn/duyen/hw3
+d026db9 2026-08-04T00:52:39+07:00 docs(hw03): refresh final commit log
+6ab9d98 2026-08-04T00:52:25+07:00 finalize(hw03): complete evidence, reports, demo, and submission package
+8bdee46 2026-08-03T20:25:49+07:00 docs(hw03): cut Interaction 23 to a minimal declaration
+206f428 2026-08-03T20:14:29+07:00 test(hw03): evidence the last two ranked findings, and record D-028 as submitted
+f2ce3d1 2026-08-03T19:47:30+07:00 docs(hw03): English glosses on every prompt, redact a password, declare what stays in the log
+d6ef665 2026-08-03T14:53:25+07:00 test(hw03): enter the measured timings, and log D-028 found while verifying them
+465f198 2026-08-03T14:31:45+07:00 test(hw03): write up Pilot-01 after verifying the sixth recording is genuine
+5788efd 2026-08-03T14:13:02+07:00 test(hw03): count the 7 error episodes the participants described; time on task stays uncollected
+b0edbdb 2026-08-03T14:03:28+07:00 docs(hw03): all 24 findings submitted; log and form now agree
+9b38254 2026-08-03T13:58:44+07:00 fix(hw03): swap in the real session recordings, audit Task 2 line by line
+98bbcfa 2026-08-03T13:19:30+07:00 feat(hw03): Task 2 analysed and written up from the five real sessions
+b6a2d6b 2026-08-03T10:20:53+07:00 docs(hw03): resync README to the real counts, lead with evidence quality
+8a2cc26 2026-08-02T23:01:07+07:00 test(hw03): re-verify the IA02-13 Fail on a click that can be proved, rebuild PDFs
+beb6095 2026-08-02T22:49:53+07:00 test(hw03): attach the IA04-17 capture the cell was scored from
+a441b5b 2026-08-02T22:49:24+07:00 test(hw03): clear 3 more 1B cells, add D-023, build the CDP network harness
+44e44f0 2026-08-02T22:26:54+07:00 test(hw03): clear 6 more 1B cells, and correct a wrong instrument diagnosis
+e6baa1e 2026-08-02T21:11:12+07:00 test(hw03): clear 2 more D4 cells, and pin down why keyboard tests kept failing
+64ec7a3 2026-08-02T21:05:25+07:00 fix(hw03): repair the Task 2 instruments before any real session runs
+a6b4c24 2026-08-02T21:05:24+07:00 test(hw03): clear 2 more Task 1B cells on D4, one of them a new Fail
+576d11c 2026-08-02T20:49:35+07:00 test(hw03): clear 2 of the 28 unexecuted Task 1B cells on D3
+a98a256 2026-08-02T20:39:17+07:00 docs(hw03): file IA03-16 under pillar 3 and close out the v2.0 pillar note
+d03764d 2026-08-02T20:33:37+07:00 feat(hw03): checklist v2.0 — two items from execution experience (60 -> 62)
+71c7b7e 2026-08-02T20:02:49+07:00 docs(hw03): record the 19 Google Form submissions and close §7
+3debb17 2026-08-02T19:04:15+07:00 docs(hw03): regenerate the §13 commit log
+f6f4748 2026-08-02T19:03:34+07:00 build(hw03): regenerate the §15 PDF exports from the corrected Markdown
+30d2a61 2026-08-02T19:03:26+07:00 docs(hw03): record the Task 3 results and fix the conformance gaps they exposed
+f49661a 2026-08-02T19:03:04+07:00 test(hw03): add the Task 3 cross-platform captures and their stamping tool
+32fc06d 2026-08-01T02:09:25+07:00 docs(hw03): add a human-review sign-off section to the AI audit report
+750e3b2 2026-08-01T01:54:51+07:00 docs(hw03): regenerate the §13 commit log
+0356bc4 2026-08-01T01:54:25+07:00 build(hw03): add the §15 PDF exports and their build script
+86a72e7 2026-08-01T01:54:25+07:00 docs(hw03): close §9/§10/§15 gaps in the audit report and README
+b11eadf 2026-08-01T01:54:24+07:00 fix(hw03): repair conformance defects found by independent audit
+b6e8e54 2026-08-01T01:53:33+07:00 feat(hw03): plan Task 3 as a 24-cell matrix, one row above the floor
+6d11b35 2026-08-01T01:53:33+07:00 feat(hw03): complete the Task 2 Phase-1 instruments
+f4148dc 2026-08-01T01:53:14+07:00 chore(hw03): regroup flat root into docs/, reports/, refs/
+3ab2caf 2026-07-31T18:14:03+07:00 chore(hw03): add Google Form reference screenshot, ignore personal working aids
+4882639 2026-07-31T16:54:15+07:00 docs(hw03): regenerate commit log after hedged-verdict cleanup
+b6fe8fe 2026-07-31T16:54:08+07:00 fix(hw03): normalize all hedged Result cells to bare Pass/Fail/N/A/Not executed
+5bdc270 2026-07-31T16:39:32+07:00 docs(hw03): regenerate commit log after second conformance pass
+bedb5f4 2026-07-31T16:36:55+07:00 fix(hw03): revert D3's IA04-11 substitution, matching D6's own correction
+e85fa5b 2026-07-31T16:30:45+07:00 fix(hw03): correct README's stale 16-interaction count to 17
+4b233bc 2026-07-31T16:30:24+07:00 fix(hw03): correct stale item IDs and evidence-gap claim in Task 1A files
+d5cbfc1 2026-07-31T16:26:09+07:00 docs(hw03): fix commit log path filter, regenerate with full history
+30b5c77 2026-07-31T16:21:28+07:00 docs(hw03): regenerate commit log after committing evidence and scaffolds
+91516a1 2026-07-31T16:21:19+07:00 chore(hw03): remove unused .vscode/extensions.json
+a2c64ac 2026-07-31T16:19:07+07:00 scaffold(hw03): add Task 2 and Task 3 templates for Scenario D
+0db5e49 2026-07-31T16:18:27+07:00 test(hw03): add Task 1B evidence screenshots for Scenario D
+830f7ac 2026-07-31T16:18:21+07:00 docs(hw03): de-AI-ify Task 1A checklist support files
+240bfc7 2026-07-31T16:17:24+07:00 docs(hw03): regenerate commit log after final conformance/reconciliation pass
+474a953 2026-07-31T16:15:58+07:00 fix(hw03): close evidence gaps and small correctness issues from audit
+41059dd 2026-07-31T16:04:21+07:00 fix(hw03): close checklist gaps found on final conformance audit
+9aa9b7a 2026-07-31T16:02:22+07:00 docs(hw03): reconcile README, AI audit report and critique to 16 findings
+5eb0710 2026-07-31T15:56:08+07:00 fix(hw03): reconcile execution report with live re-verification findings
+9b9452e 2026-07-30T21:55:54+07:00 feat(hw03): first live Task 1B pass on scenario D (D1-D4) + findings log
+d2e1420 2026-07-30T20:21:11+07:00 docs(hw03): log AI audit interaction 12 (full slide-deck completeness check)
+c528c18 2026-07-30T20:21:10+07:00 docs(hw03): add slide-by-slide coverage disposition table (§2d) and sync to v1.9
+5550842 2026-07-30T20:21:10+07:00 feat(hw03): add IA04-17 after full 55-slide completeness check (v1.9)
+e18839e 2026-07-30T20:15:18+07:00 docs(hw03): log AI audit interaction 11 (scenario-specific gap audit)
+d78562b 2026-07-30T20:15:18+07:00 docs(hw03): sync reference sources and prompt log to checklist v1.8
+f771b6f 2026-07-30T20:15:18+07:00 feat(hw03): add 6 scenario-specific checklist items for D and B (v1.8)
+a093f0a 2026-07-30T19:59:17+07:00 feat(hw03): add ai-audit-log skill
+15c17e0 2026-07-30T19:59:16+07:00 feat(hw03): add findings log validator script
+07ce287 2026-07-30T19:59:16+07:00 feat(hw03): add findings-log skill
+28d4fcd 2026-07-30T19:59:16+07:00 feat(hw03): add cross-platform coverage validator script
+a8b9abc 2026-07-30T19:59:16+07:00 feat(hw03): add cross-platform-matrix skill
+7749078 2026-07-30T19:59:16+07:00 feat(hw03): add SUS/UEQ-S scoring script
+5bb14f6 2026-07-30T19:59:16+07:00 feat(hw03): add usability-test-study skill
+d23e494 2026-07-30T19:59:16+07:00 feat(hw03): vendor evidence-discipline reference into gui-checklist-execution
+d518f0d 2026-07-30T19:59:16+07:00 feat(hw03): add gui-checklist-execution skill
+3d51ed2 2026-07-30T19:59:15+07:00 feat(hw03): add checklist validator script (ID/citation/evidence checks)
+91ae4bf 2026-07-30T19:59:15+07:00 feat(hw03): add gui-checklist-design skill
+74975b4 2026-07-30T19:59:15+07:00 feat(hw03): add evidence-discipline reference for web-ui-survey
+03d76e8 2026-07-30T19:59:15+07:00 feat(hw03): add web-ui-survey skill
+51ef96d 2026-07-30T19:59:15+07:00 feat(hw03): add Agent Skill suite README and design principles
+5bb7279 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — support request detail and response
+fbe1579 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — create support request form
+124dcf8 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — post-event star review
+611f6e2 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — my ticket / registration
+a776b74 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — event registration form
+816da7e 2026-07-30T19:59:04+07:00 docs(hw03): add EMS screenshot — event detail banner and register button
+228ea13 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — public home header and i18n toggle
+5c0ef5e 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin support request management
+79d799d 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin user edit dialog
+bef658a 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin users list
+66bd4a2 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin participants & reviews
+14af778 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin add/edit event form
+e452f16 2026-07-30T19:59:03+07:00 docs(hw03): add EMS screenshot — admin events list
+09578f6 2026-07-30T19:59:02+07:00 docs(hw03): add EMS screenshot — admin dashboard KPIs
+52f4a07 2026-07-30T19:59:02+07:00 docs(hw03): add AI audit report appendix (Task 1A interactions)
+0bec669 2026-07-30T19:59:02+07:00 docs(hw03): add reference sources and AI prompt log for the checklist
+ec94f12 2026-07-30T19:59:02+07:00 docs(hw03): add live EMS widget-inventory survey notes
+e5e4d7a 2026-07-30T19:59:02+07:00 feat(hw03): add shared GUI checklist v1.7 (Task 1A, 53 items)
+ba65167 2026-07-30T19:56:04+07:00 docs(hw03): add GUI applications testing reference
+0a69141 2026-07-30T19:56:04+07:00 docs(hw03): add supplementary usability testing reference
+48d5a08 2026-07-30T19:56:03+07:00 docs(hw03): add usability testing method reference
+9deb397 2026-07-30T19:56:03+07:00 docs(hw03): add course slides on GUI and usability testing
+94aba30 2026-07-30T19:56:03+07:00 docs(hw03): add admin E2E test-flow scenario reference
+91a6b1b 2026-07-30T19:56:03+07:00 docs(hw03): add EMS system introduction reference
+4d7cc48 2026-07-30T19:56:03+07:00 docs(hw03): add assignment requirements (English, PDF)
+5691075 2026-07-30T19:56:03+07:00 docs(hw03): add assignment requirements (English, markdown)
+078b9ad 2026-07-30T19:56:03+07:00 docs(hw03): add assignment requirements (Vietnamese, PDF)
+b94513d 2026-07-30T19:56:02+07:00 docs(hw03): add assignment requirements (Vietnamese, markdown)
+6d3782b 2026-07-30T19:56:02+07:00 chore(hw03): recommend VS Code extensions
+239c466 2026-07-30T19:56:02+07:00 chore(hw03): ignore Python bytecode caches
+fe8f81b 2026-07-07T12:05:31+07:00 Merge pull request #16 from KieuDuyennn/duyen
+1d5ac45 2026-07-07T10:48:39+07:00 docs(hw02): update logs
+895d376 2026-07-07T10:48:09+07:00 chore(hw02): update git commit log
+a5e0439 2026-07-07T10:38:36+07:00 docs(hw02): update logs
+e9f472e 2026-07-07T10:38:36+07:00 chore(hw02): update git commit log
+496b6d8 2026-07-07T10:30:52+07:00 docs(hw02): update logs
+a166585 2026-07-07T10:30:31+07:00 style(hw02): fix formatting and wording in reports
+fbe81f9 2026-07-07T10:30:31+07:00 style(fr13): fix formatting and wording in artifacts
+f7f951e 2026-07-07T10:30:30+07:00 style(fr11): fix formatting and wording in artifacts
+893fc71 2026-07-07T10:30:30+07:00 style(fr06): fix formatting and wording in artifacts
+f1d497a 2026-07-07T10:30:30+07:00 style(fr01): fix formatting and wording in artifacts
+a6d7222 2026-07-07T10:16:58+07:00 docs(hw02): fix FR-06 pool label and wording
+b56cb47 2026-07-07T10:10:17+07:00 docs(hw02): update logs
+c868a03 2026-07-07T10:09:37+07:00 docs(hw02): update logs
+6ee4f0d 2026-07-07T10:09:17+07:00 feat(skills): domain-testing-bva script update_state.py
+4f6b971 2026-07-07T10:09:17+07:00 feat(skills): domain-testing-bva script init_project.py
+d6aaeec 2026-07-07T10:09:17+07:00 docs(skills): domain-testing-bva reference self_check_criteria
+64f5b0d 2026-07-07T10:09:17+07:00 docs(skills): domain-testing-bva reference equivalence_partitioning_heuristics
+c34077b 2026-07-07T10:09:16+07:00 docs(skills): domain-testing-bva reference domain_test_heuristics
+ab2c7d0 2026-07-07T10:09:16+07:00 docs(skills): domain-testing-bva reference boundary_value_heuristics
+1300388 2026-07-07T10:09:16+07:00 feat(skills): domain-testing-bva skill
+0cfebf9 2026-07-07T10:09:16+07:00 feat(skills): audit-log skill
+04cdffd 2026-07-07T10:09:15+07:00 docs(skills): project rules (CLAUDE.md)
+e6d22e4 2026-07-07T10:09:15+07:00 docs(hw02): raw test execution transcript (both passes)
+2cd74ee 2026-07-07T10:09:15+07:00 docs(hw02): test execution log (readable summary)
+b900d41 2026-07-07T10:09:14+07:00 docs(hw02): screenshot fr13_orders_table_context
+36fe893 2026-07-07T10:09:14+07:00 docs(hw02): screenshot fr13_TC05_dashboard_revenue_doubled
+80da49b 2026-07-07T10:09:14+07:00 docs(hw02): screenshot fr11_order_by_id_no_auth
+9465394 2026-07-07T10:09:14+07:00 docs(hw02): screenshot fr06_product_2_even_id
+6fe6891 2026-07-07T10:09:13+07:00 docs(hw02): screenshot fr06_nonexistent_product
+4812392 2026-07-07T10:09:13+07:00 docs(hw02): screenshot fr06_TC13_null_category
+c9c9604 2026-07-07T10:09:13+07:00 docs(hw02): screenshot fr06_TC12_empty_description
+9ba1c0f 2026-07-07T10:09:13+07:00 docs(hw02): screenshot fr06_TC11_null_price_oddid
+947a194 2026-07-07T10:09:12+07:00 docs(hw02): screenshot fr06_TC11_null_price_evenid_crash
+55c6419 2026-07-07T10:09:12+07:00 docs(hw02): screenshot fr06_TC10_empty_name
+f078897 2026-07-07T10:09:12+07:00 docs(hw02): screenshot fr06_TC09_empty_image
+6b09fca 2026-07-07T10:09:12+07:00 docs(hw02): screenshot fr06_TC05_quantity_negative
+a6edfe6 2026-07-07T10:09:11+07:00 docs(hw02): screenshot fr06_TC02_edge_fixture
+7380f91 2026-07-07T10:09:11+07:00 docs(hw02): screenshot fr01_weak_pw_with_space_accepted
+077ef24 2026-07-07T10:09:11+07:00 docs(hw02): screenshot fr01_TC01a_valid_pw_rejected
+555421f 2026-07-07T10:09:11+07:00 docs(hw02): screenshot fr01_BVA02_valid_pw8_rejected
+2a58f2f 2026-07-07T10:09:10+07:00 docs(hw02): screenshots index
+2aa7a97 2026-07-07T10:09:10+07:00 docs(hw02): prompt logs (audit appendix)
+b7fc4bf 2026-07-07T10:09:10+07:00 docs(hw02): test-case checklist
+a6758a7 2026-07-07T10:09:09+07:00 docs(hw02): main report (domain testing + BVA)
+f688ba1 2026-07-07T10:09:09+07:00 docs(hw02): bug report
+b34b04e 2026-07-07T10:09:09+07:00 docs(hw02): critique
+daf7b90 2026-07-07T10:09:09+07:00 docs(hw02): audit report
+cd497f2 2026-07-07T10:09:08+07:00 chore(fr13): workflow state
+52d6d34 2026-07-07T10:09:08+07:00 test(fr13): phase 4 boundary value analysis
+fbab6c7 2026-07-07T10:09:08+07:00 test(fr13): phase 3 domain test cases
+cc3d9f9 2026-07-07T10:09:08+07:00 test(fr13): phase 2 equivalence partitioning
+52b4478 2026-07-07T10:09:07+07:00 test(fr13): phase 1 requirements breakdown
+9e6ac79 2026-07-07T10:09:07+07:00 docs(fr13): input functional requirement
+5a1afc2 2026-07-07T10:09:07+07:00 docs(fr13): gap notes (self-critique trail)
+2b5b19a 2026-07-07T10:09:07+07:00 chore(fr11): workflow state
+2ca802e 2026-07-07T10:09:06+07:00 test(fr11): phase 4 boundary value analysis
+e835935 2026-07-07T10:09:06+07:00 test(fr11): phase 3 domain test cases
+db3685a 2026-07-07T10:09:06+07:00 test(fr11): phase 2 equivalence partitioning
+d628a8e 2026-07-07T10:09:06+07:00 test(fr11): phase 1 requirements breakdown
+2e71651 2026-07-07T10:09:05+07:00 docs(fr11): input functional requirement
+3d85f2f 2026-07-07T10:09:05+07:00 docs(fr11): gap notes (self-critique trail)
+5608868 2026-07-07T10:09:05+07:00 chore(fr06): workflow state
+d2c6c7e 2026-07-07T10:09:04+07:00 test(fr06): phase 4 boundary value analysis
+f35fb58 2026-07-07T10:09:04+07:00 test(fr06): phase 3 domain test cases
+751bd86 2026-07-07T10:09:04+07:00 test(fr06): phase 2 equivalence partitioning
+8648d02 2026-07-07T10:09:04+07:00 test(fr06): phase 1 requirements breakdown
+1655e27 2026-07-07T10:09:03+07:00 docs(fr06): input functional requirement
+b104b4d 2026-07-07T10:09:03+07:00 docs(fr06): gap notes (self-critique trail)
+1351580 2026-07-07T10:09:03+07:00 chore(fr01): workflow state
+697f76a 2026-07-07T10:09:03+07:00 test(fr01): phase 4 boundary value analysis
+6988a72 2026-07-07T10:09:02+07:00 test(fr01): phase 3 domain test cases
+ef40985 2026-07-07T10:09:02+07:00 test(fr01): phase 2 equivalence partitioning
+432e049 2026-07-07T10:09:02+07:00 test(fr01): phase 1 requirements breakdown
+fd4b23f 2026-07-07T10:09:02+07:00 docs(fr01): input functional requirement
+a1e08ef 2026-07-07T10:09:01+07:00 docs(fr01): gap notes (self-critique trail)
+be8b38b 2026-07-07T10:09:01+07:00 chore(hw02): git commit log
+e8f647f 2026-07-07T10:09:01+07:00 docs(hw02): submission README (self-assessment + test summary)
+355555c 2026-07-07T00:14:47+07:00 Merge pull request #5 from KieuDuyennn/duyen
+46492c9 2026-07-07T00:13:08+07:00 test(fr06): phase 4 boundary value analysis
+18487b5 2026-07-06T23:56:41+07:00 test(fr06): phase 3 domain test design
+3b85876 2026-07-06T23:41:47+07:00 test(fr06): phase 2 equivalence partitioning
+0b75afe 2026-07-06T23:25:05+07:00 test(fr06): phase 1 requirements breakdown
+2a9db48 2026-07-06T22:49:02+07:00 test(fr13): phase 4 boundary value analysis
+0fed2c0 2026-07-06T21:52:40+07:00 test(fr13): phase 3 domain test design
+34538fa 2026-07-06T21:22:21+07:00 test(fr13): phase 2 equivalence partitioning
+22b5c68 2026-07-06T18:30:14+07:00 test(fr13): phase 1 approve — verdict INCOMPLETE + audit log
+445d173 2026-07-06T18:29:42+07:00 test(fr13): phase 1 add OQ-13 no-token vs invalid-token (P1-G06)
+93b1ab8 2026-07-06T18:28:42+07:00 test(fr13): phase 1 fix REQ-15 quote/analysis separation + REQ-02 note (P1-G04, P1-G05)
+ee9cce0 2026-07-06T18:28:19+07:00 test(fr13): phase 1 fix citation error REQ-08/09 (P1-G03)
+4f45529 2026-07-06T18:28:03+07:00 test(fr13): phase 1 fix access-control atomicity (P1-G01, P1-G02)
+e46f8f3 2026-07-06T18:26:56+07:00 test(fr13): phase 1 self-critique gap notes
+0dea2bd 2026-07-06T18:26:39+07:00 test(fr13): phase 1 requirement analysis — draft artifact
+c3b2d3a 2026-07-06T17:54:48+07:00 update(FR13): Functional_Requirements.md
+3871310 2026-07-06T17:45:28+07:00 Merge pull request #4 from KieuDuyennn/duyen
+ca82332 2026-07-06T17:43:10+07:00 test(fr11): phase 4 boundary value analysis
+595bfc5 2026-07-06T17:27:45+07:00 test(fr11): phase 3 domain test design
+0fc7801 2026-07-06T17:04:01+07:00 test(fr11): phase 2 equivalence partitioning
+d2a1b3d 2026-07-06T16:40:37+07:00 test(fr11): phase 1 requirement analysis
+09570ce 2026-07-06T13:56:04+07:00 update(fr11): Functional_Requirment.md
+e800199 2026-07-06T13:21:12+07:00 test(fr01): phase 4 boundary value analysis
+ec123a3 2026-07-06T10:29:11+07:00 test(fr01): phase 3 domain test cases
+5a6657d 2026-07-06T00:17:11+07:00 Merge pull request #3 from KieuDuyennn/duyen
+63d3234 2026-07-05T23:57:57+07:00 test(fr01): phase 2 equivalence partitioning
+2758047 2026-07-05T23:31:26+07:00 test(fr01): phase 1 requirement analysis
+4269e05 2026-07-05T22:56:25+07:00 skills: add CLAUDE.md file
+59f8ec9 2026-07-04T09:22:40+07:00 Merge pull request #2 from KieuDuyennn/duyen
+6db8776 2026-07-04T09:20:55+07:00 skills(update) update file SKILL.md
+0d90978 2026-07-04T09:19:39+07:00 skill(update): equivalance_partitioning_heuristics.md
+86bb5cd 2026-07-04T09:18:50+07:00 skills(update): boundary_value_heuristics.md
+fd1cfe4 2026-07-03T20:49:15+07:00 feat: add state.json
+9cc99bf 2026-07-03T20:25:50+07:00 docs(FRs): add functional requirments  01, 06, 11, 13, 14
+55724e1 2026-07-03T15:27:11+07:00 docs(skill): adopt Kaner/Bach 4-views framework for equivalence partitioning
+622c16f 2026-07-03T15:26:34+07:00 docs(skill): add error-type rationale and known blind spots to BVA reference
+bb1dbfa 2026-07-03T15:25:33+07:00 docs(skill): rewrite domain test rule as combine-valid vs isolate-invalid
+ae0a699 2026-07-03T15:24:36+07:00 docs(skill): require grounding test design in source code, clarify state-update flow
+110330a 2026-07-03T13:05:11+07:00 feat(agent): add custom Claude skills for domain testing and audit logging
+7d9a153 2026-07-02T14:41:08+07:00 refactor(hw01): refactor structure
+5091c52 2026-06-02T11:05:26+07:00 Merge pull request #1 from KieuDuyennn/duyen
+997ec4a 2026-06-02T11:01:38+07:00 format report
+434a131 2026-06-02T11:00:08+07:00 add video demo link
+1492cb4 2026-06-02T10:41:15+07:00 add prompt_logs.md
+79858ca 2026-06-02T10:40:19+07:00 add student card into rp
+09027b0 2026-06-02T10:38:22+07:00 add mindmap_fixed.png
+36f9c43 2026-06-02T10:37:58+07:00 add mindmap.png
+049fe61 2026-06-02T10:36:25+07:00 add artifact03.md
+0e052b2 2026-06-02T10:35:41+07:00 add artifact02.md
+3161ffe 2026-06-02T10:35:06+07:00 add artifact01_fixed/.md
+578a490 2026-06-02T10:34:27+07:00 add artifact01.md
+5053b42 2026-06-02T10:32:42+07:00 add checklist for requirment 3
+51c2b76 2026-06-02T10:31:39+07:00 add AI-05_privacy_Checklist
+164b3c5 2026-06-02T10:30:54+07:00 add AI-03_disclosure_form
+6d7794f 2026-06-02T10:28:36+07:00 AI-02_audit-report
+6b05b48 2026-06-02T10:26:27+07:00 add report.md
