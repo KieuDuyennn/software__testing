@@ -43,6 +43,7 @@ Agent Skill demo: **VIDEO_URL_PENDING** (the same video may cover both requireme
 - Raw JTL, HTML dashboards and resource logs: `results/`
 - Hardware, reset and screenshot evidence: `evidence/`
 - Reusable Agent Skills: `.claude/skills/`
+- One-command Agent Skill demonstration: `demo.ps1`
 - AI audit: `docs/ai-audit/AI_AUDIT.md`
 - AI critique: `docs/AI_CRITIQUE.md`
 
