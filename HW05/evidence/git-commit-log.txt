@@ -17,3 +17,5 @@ b9229a1 | 2026-08-18T10:22:38+07:00 | docs(hw05): refresh audited submission PDF
 e1cd61c | 2026-08-18T10:37:16+07:00 | docs(hw05): remove internal submission notes
 d7cb00f | 2026-08-18T10:48:51+07:00 | docs(hw05): make AI critique more natural
 5cda92b | 2026-08-18T10:57:08+07:00 | docs(hw05): strengthen human review audit trail
+65dde00 | 2026-08-18T10:57:28+07:00 | chore(hw05): refresh assignment commit log
+d82c61e | 2026-08-18T11:06:45+07:00 | feat(hw05): add submission demo workflow
