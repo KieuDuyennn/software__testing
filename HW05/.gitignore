@@ -17,3 +17,8 @@ eshop/backend/database.sqlite
 /output/*contact*.png
 /output/submission-staging/
 /output/*.zip
+
+# Demo-run scratch (demo.ps1 regenerates these; not part of the submission)
+evidence/demo/
+evidence/demo-runs/
+/output/demo/
