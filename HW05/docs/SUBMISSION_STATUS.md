@@ -21,7 +21,7 @@ HW05 evidence contract.
 - Reusable Agent Skills.
 - Main Markdown report, 272-word AI Critique and AI Audit Markdown.
 - Rendered and visually checked main-report and AI-Audit PDFs.
-- Public GitHub repository verified.
+- Public GitHub repository verified; branch `hw5` pushed and the raw HW05 README was readable without authentication.
 
 ## Must be done by the student
 
