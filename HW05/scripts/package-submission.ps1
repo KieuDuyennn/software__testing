@@ -27,6 +27,7 @@ function Require-Path([string]$RelativePath) {
 $required = @(
     'README.md',
     '23127184_HW05_REPORT.md',
+    'demo.ps1',
     'docs/AI_CRITIQUE.md',
     'docs/ai-audit/AI_AUDIT.md',
     'docs/phases/05_continuous_performance.md',
@@ -72,16 +73,12 @@ if ([string]::IsNullOrWhiteSpace($VideoUrl)) {
     throw 'VideoUrl is required. Do not package with VIDEO_URL_PENDING.'
 }
 
-foreach ($path in @($readmePath, $reportPath)) {
-    $content = Get-Content -Raw -Encoding UTF8 $path
-    if ($content -notmatch 'VIDEO_URL_PENDING') {
-        if ($content -notmatch [regex]::Escape($VideoUrl)) {
-            throw "No pending video marker or matching URL in $path"
-        }
-    } else {
-        $content = $content.Replace('VIDEO_URL_PENDING', $VideoUrl)
-        Set-Content -LiteralPath $path -Value $content -Encoding UTF8
-    }
+$readmeContent = Get-Content -Raw -Encoding UTF8 $readmePath
+if ($readmeContent -match 'VIDEO_URL_PENDING') {
+    $readmeContent = $readmeContent.Replace('VIDEO_URL_PENDING', $VideoUrl)
+    Set-Content -LiteralPath $readmePath -Value $readmeContent -Encoding UTF8
+} elseif ($readmeContent -notmatch [regex]::Escape($VideoUrl)) {
+    throw 'README contains neither the pending video marker nor the supplied URL.'
 }
 
 & python (Join-Path $root 'scripts/build-pdfs.py')
@@ -108,7 +105,7 @@ foreach ($directory in $directories) {
     New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
     Copy-Item -LiteralPath $source -Destination $destination -Recurse -Force
 }
-Copy-Item -LiteralPath $readmePath,$reportPath -Destination $staging
+Copy-Item -LiteralPath $readmePath,$reportPath,(Join-Path $root 'demo.ps1') -Destination $staging
 $pdfDestination = Join-Path $staging 'output/pdf'
 New-Item -ItemType Directory -Path $pdfDestination -Force | Out-Null
 Get-ChildItem -LiteralPath (Join-Path $root 'output/pdf') -File | Copy-Item -Destination $pdfDestination -Force
@@ -128,6 +125,7 @@ try {
     foreach ($entry in @(
         'README.md',
         '23127184_HW05_REPORT.md',
+        'demo.ps1',
         'output/pdf/23127184_HW05_AI_Performance_Report.pdf',
         'output/pdf/23127184_HW05_AI_Audit_Report.pdf',
         'evidence/git-commit-log.txt'

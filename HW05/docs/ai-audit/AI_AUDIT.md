@@ -4,7 +4,7 @@
 **Student ID:** 23127184
 **System under test:** EShop REST backend
 **AI tool:** OpenAI Codex
-**Audit period:** 2026-08-16 22:51:33 to 2026-08-18 10:55:32 (Asia/Saigon)
+**Audit period:** 2026-08-16 22:51:33 to 2026-08-18 11:05:54 (Asia/Saigon)
 
 ## 1. Declaration
 
@@ -46,6 +46,7 @@ of silently replacing the original interpretation.
 | 07 | 2026-08-18 01:04:57           | Raw analysis and critique             | AI misinterpretations corrected from JTL and source code  |
 | 08 | 2026-08-18 10:22:38           | Continuous testing and reporting      | Main report, critique, flow chart and PDFs produced       |
 | 09 | 2026-08-18 10:55:32           | Submission audit and AI Audit rewrite | Public branch and machine-checkable deliverables verified |
+| 10 | 2026-08-18 11:05:54           | Submission cleanup and demo script    | Temporary QA files removed; reproducible demo added       |
 
 ## 4. Detailed interaction log
 
@@ -430,6 +431,49 @@ traceability. The narrated video and any oral-defence explanation remain
 student-authored evidence and are not generated or inferred by AI.
 
 **Trace:** `scripts/package-submission.ps1`, public branch `hw5`.
+
+### Interaction 10 - Clean the submission workspace and add a demo script
+
+| Field          | Record                                                                               |
+| -------------- | ------------------------------------------------------------------------------------ |
+| Tool           | OpenAI Codex                                                                         |
+| Date and time  | 2026-08-18 11:05:54 (Asia/Saigon)                                                    |
+| Objective      | Remove reproducible clutter and provide a safe, reviewable Agent Skill demonstration |
+| Primary inputs | Existing skills, official Load evidence, packaging script and video guide            |
+
+#### Prompt
+
+> Prepare the HW05 workspace for submission without deleting raw JTL, HTML
+> reports, screenshots, hardware records, pilot/retest material or other
+> traceability evidence. Remove only reproducible temporary QA files. Create a
+> root-level PowerShell demo that validates the CSV pools and five-step JMX
+> workflow, recomputes the official Load result from raw evidence, pauses for a
+> human-review checkpoint, and optionally runs a short live test only when the
+> student supplies the exact backend PID. Keep live demo artifacts separate from
+> official results, include the script in the final ZIP and verify the safe mode.
+
+#### AI output and actions
+
+- Removed 25 generated QA images under `tmp/` while preserving every tracked
+  execution and attribution artifact.
+- Added `demo.ps1`; its safe mode validated three 240-row CSV pools, five
+  correlated endpoint steps and the Load Summary Report listener.
+- Recomputed 42,810 Load requests, p95 10 ms, 0% error and 8,547
+  endpoint-complete journeys from the retained JTL.
+- Added an explicit human-review checkpoint and a PID-gated `-RunLive` mode that
+  generates separate demo JTL, HTML, resource, log and run-record evidence.
+- Updated the packaging script to require and include `demo.ps1`, and corrected
+  video-URL replacement so the absent marker in the main report does not block
+  packaging.
+
+#### Human verification and decision
+
+Safe mode creates no new load evidence and completed successfully. A live demo
+remains valid only when the student starts the intended backend, supplies its
+exact PID, records JMeter and Task Manager together, and reviews the resulting
+artifacts before citing them.
+
+**Trace:** `demo.ps1`, `scripts/package-submission.ps1`, `README.md`.
 
 ## 5. Known limitations
 
