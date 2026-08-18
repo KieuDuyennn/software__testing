@@ -1,4 +1,4 @@
-# AI Critique (student review draft)
+# AI Critique (272 words)
 
 The AI was useful for generating a repeatable JMeter workflow, but several of
 its early conclusions were too confident. First, it treated the single-user
@@ -25,5 +25,6 @@ criteria, preserve raw evidence, recompute every important number, inspect the
 actual code path, and make capacity or leak claims only within the measured
 scope.
 
-> Student action before submission: read this draft, revise it into your own
-> reviewed voice if needed, and record that approval in the AI Audit Report.
+> Human-review gate: the student must read this text before submission, revise
+> it into their own reviewed voice if needed, and be able to defend each claim
+> from the raw JTL files.
