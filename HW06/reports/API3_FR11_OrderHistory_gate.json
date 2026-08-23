@@ -1,11 +1,11 @@
 {
   "collection": {
     "_": {
-      "postman_id": "e5f9f5d3-8a49-4542-a064-50a55e0a0965"
+      "postman_id": "44750fa2-73db-4390-83b7-f5f8998cbeee"
     },
     "item": [
       {
-        "id": "1f276158-455a-41ec-b77c-d7c365464737",
+        "id": "ec0f232d-7426-4ebd-8812-b98c05651daf",
         "name": "00 - Setup",
         "description": {
           "content": "Builds the two-user fixture that ownership and IDOR cases depend on.",
@@ -13,7 +13,7 @@
         },
         "item": [
           {
-            "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+            "id": "f1bbf644-a1e6-45a1-ab38-21ea8f5d5f08",
             "name": "SETUP-001 | Log in as the primary user",
             "request": {
               "description": {
@@ -53,7 +53,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "a045ec96-8476-46a4-84dd-695031d25e04",
+                  "id": "d6ddd2fc-1253-40d5-9dd6-25299324a710",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Login succeeded\", function () {",
@@ -68,13 +68,13 @@
                     "    pm.environment.set(\"user_token_role\", body.user.role);",
                     "}"
                   ],
-                  "_lastExecutionId": "9f1b26e9-52ac-40a5-bce9-30eeb64d9a4b"
+                  "_lastExecutionId": "7dddced1-d16d-450c-8c77-f4d5cf1333be"
                 }
               }
             ]
           },
           {
-            "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+            "id": "d04dedb0-4862-4c7c-9195-84254df55711",
             "name": "SETUP-002 | Create an order owned by the primary user",
             "request": {
               "url": {
@@ -114,7 +114,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "4bbd6c16-2bd0-4b84-82e5-3def6fc6d7da",
+                  "id": "b626fa6c-09cb-431b-92fb-bc54bda67d9d",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Checkout created an order\", function () {",
@@ -123,13 +123,13 @@
                     "});",
                     "pm.environment.set(\"own_order_id\", pm.response.json().orderId);"
                   ],
-                  "_lastExecutionId": "f9fe424a-99e1-43f3-a024-54428e99f01e"
+                  "_lastExecutionId": "3c0ffe68-fbb6-49a7-bcd7-5c8f14b5855e"
                 }
               }
             ]
           },
           {
-            "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+            "id": "5beb26d0-5d00-4eda-9706-6e5add120e50",
             "name": "SETUP-003 | Register + log in a second user (the victim)",
             "request": {
               "url": {
@@ -165,7 +165,7 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                  "id": "df738eba-bca4-42fe-aa2d-e58b6acbe6ed",
                   "type": "text/javascript",
                   "exec": [
                     "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
@@ -180,26 +180,26 @@
                     "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
                     "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
                   ],
-                  "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+                  "_lastExecutionId": "9e8d6c40-65d1-4f5f-8a34-a50f8fa538eb"
                 }
               },
               {
                 "listen": "test",
                 "script": {
-                  "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                  "id": "83830929-064f-4b73-8194-b1aa344954d0",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
                     "pm.environment.set(\"victim_token\", pm.response.json().token);",
                     "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
                   ],
-                  "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+                  "_lastExecutionId": "6c74d5cb-c780-41f0-a9fc-dcc751d20cb9"
                 }
               }
             ]
           },
           {
-            "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+            "id": "5ed767d8-252d-4b99-8291-c5cd74363d7f",
             "name": "SETUP-004 | Create an order owned by the victim",
             "request": {
               "url": {
@@ -239,13 +239,13 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "1733f608-29ed-4bfa-8a01-dd48700924f9",
+                  "id": "0a0267f0-54dd-43d4-bd2b-d87d1ab5d29d",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Victim order created\", () => pm.response.to.have.status(200));",
                     "pm.environment.set(\"victim_order_id\", pm.response.json().orderId);"
                   ],
-                  "_lastExecutionId": "f713ba21-dfdc-461b-8d1b-1b83495f4a87"
+                  "_lastExecutionId": "6e89c168-33e6-4609-a9cf-f260acdcb32a"
                 }
               }
             ]
@@ -254,7 +254,7 @@
         "event": []
       },
       {
-        "id": "8f5e3dcc-0b5e-40ff-9dd2-3c605f3baba8",
+        "id": "71e28e6b-c45e-4c04-8463-2f00aa1bea99",
         "name": "01 - Domain partitions",
         "description": {
           "content": "",
@@ -262,7 +262,7 @@
         },
         "item": [
           {
-            "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+            "id": "8b47a498-9a53-4bf4-9903-0bee76ac91af",
             "name": "DP-001 | Authenticated user receives their own order list",
             "request": {
               "url": {
@@ -290,7 +290,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "103b7e4a-91aa-4e14-b33c-5f4d8a476b82",
+                  "id": "4d73b0c4-2d7a-49c4-881c-af2f45cc8823",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
@@ -304,13 +304,13 @@
                     "    });",
                     "});"
                   ],
-                  "_lastExecutionId": "f5cf553d-b21c-4162-91bd-55eb231aad94"
+                  "_lastExecutionId": "8ad36fa6-a727-4ede-bbb9-bfcd60ec3968"
                 }
               }
             ]
           },
           {
-            "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+            "id": "d226432e-55d0-4c0a-9010-d38ce914da31",
             "name": "DP-002 | Missing token is rejected",
             "request": {
               "url": {
@@ -332,14 +332,14 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8d3d878f-9732-4446-9dee-d59e9886ac99",
+                  "id": "4763d0dc-a507-4260-8655-b3d3bbe2e861",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Unauthenticated request returns 401\", function () {",
                     "    pm.response.to.have.status(401);",
                     "});"
                   ],
-                  "_lastExecutionId": "8f431d78-0613-4732-a80a-adfb3d27aada"
+                  "_lastExecutionId": "0c4cf306-2152-40e6-94bf-452a7c535f34"
                 }
               }
             ]
@@ -348,7 +348,7 @@
         "event": []
       },
       {
-        "id": "b68616b0-2ab6-4373-8a60-5c79ccb94785",
+        "id": "e204ae2e-98e7-4faa-9e41-5672a119622a",
         "name": "02 - State transitions (FR-10)",
         "description": {
           "content": "pending -> confirmed -> shipping -> delivered plus cancellation rules, observed through order history.",
@@ -356,7 +356,7 @@
         },
         "item": [
           {
-            "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+            "id": "820092b5-61b4-486b-bb38-17cd59912505",
             "name": "ST-001 | A new order appears in history as 'pending'",
             "request": {
               "url": {
@@ -384,7 +384,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "3966b7c5-47e8-49fa-8dc7-7e7ec0714ef3",
+                  "id": "5a5caf5e-4e12-47b9-b62f-dfe07156635e",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"The order created in setup is listed as pending\", function () {",
@@ -394,13 +394,13 @@
                     "    pm.expect(found.status).to.eql(\"pending\");",
                     "});"
                   ],
-                  "_lastExecutionId": "fa66fdbe-47ca-4350-8fc3-075af73d659c"
+                  "_lastExecutionId": "0af3a247-fa4f-40f5-83c7-c44de347139a"
                 }
               }
             ]
           },
           {
-            "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+            "id": "0e20647f-947e-41a4-84a9-84fcfb315b90",
             "name": "ST-002 | Cancelling a pending order is reflected in history",
             "request": {
               "url": {
@@ -429,12 +429,12 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "aeca1ccd-5dac-49fb-9d16-aa92c4b273a1",
+                  "id": "fbd2b776-e1b1-450f-b7e4-9bb9de734ed7",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Cancel from 'pending' is allowed\", () => pm.response.to.have.status(200));"
                   ],
-                  "_lastExecutionId": "e665fdfd-6009-40a4-b904-4bdaeac3d68c"
+                  "_lastExecutionId": "5a4ff5e0-e745-430a-bcb6-cd0f9e6ca416"
                 }
               }
             ]
@@ -443,7 +443,7 @@
         "event": []
       },
       {
-        "id": "f3d4bacb-8380-41fd-81b1-1b5cd118db87",
+        "id": "d2f7bad2-13d0-492b-9a80-1f43abf06750",
         "name": "03 - Security (SEC-01..SEC-07)",
         "description": {
           "content": "",
@@ -451,7 +451,7 @@
         },
         "item": [
           {
-            "id": "17e7733d-fca0-4b10-a1c1-c89f22ab8370",
+            "id": "ee2e2671-1be7-4088-ab7d-954163848ffa",
             "name": "SEC-02 | Reading another user's order requires authentication (IDOR)",
             "request": {
               "url": {
@@ -473,7 +473,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "7b7c74c2-3f09-48d1-897b-f03eba93c667",
+                  "id": "89fd271d-f51f-4bfd-914e-7a05119cb57b",
                   "type": "text/javascript",
                   "exec": [
                     "// SEC-02: security-relevant APIs require a valid JWT.",
@@ -487,7 +487,7 @@
             ]
           },
           {
-            "id": "6a49ce1e-443f-4671-a275-dda9e5dcfc30",
+            "id": "25a7bf83-1b64-4e56-8522-377f6921cf57",
             "name": "SEC-02b | User A cannot read user B's order with their own token",
             "request": {
               "url": {
@@ -515,7 +515,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "5a9de64f-4954-4b73-90a2-cfebc49cd96b",
+                  "id": "f4bf1bba-d5d6-4a48-a6ff-d47a091aac01",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Cross-user order read is refused\", function () {",
@@ -530,7 +530,7 @@
         "event": []
       },
       {
-        "id": "10af8c52-50a7-496b-9e20-5879d6bd9e77",
+        "id": "67ebae61-dd39-4068-8cac-218669a88852",
         "name": "04 - Schema validation",
         "description": {
           "content": "",
@@ -538,7 +538,7 @@
         },
         "item": [
           {
-            "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+            "id": "0f8660ed-441e-45ce-834e-180865818bfe",
             "name": "SCH-001 | Order-history entries match the orders schema",
             "request": {
               "url": {
@@ -566,7 +566,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "d412de1a-a103-45d0-98d7-867c86e0191e",
+                  "id": "8ff8f315-5881-41c0-8d9a-31d0902e8407",
                   "type": "text/javascript",
                   "exec": [
                     "const schema = {",
@@ -590,7 +590,7 @@
                     "    pm.response.to.have.jsonSchema(schema);",
                     "});"
                   ],
-                  "_lastExecutionId": "37c40838-7577-4731-b415-fa51337872cc"
+                  "_lastExecutionId": "8ff8e77a-fc1c-4cf0-bb0c-c8b0821f4c6b"
                 }
               }
             ]
@@ -603,7 +603,7 @@
       {
         "listen": "prerequest",
         "script": {
-          "id": "7fdb4a59-03e7-407f-a3db-657136507cf1",
+          "id": "c0afa636-27f7-417c-9f59-147d02023665",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -626,13 +626,13 @@
             "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
             ");"
           ],
-          "_lastExecutionId": "b9de5ac9-824c-4a49-a8a5-b3b441b7da95"
+          "_lastExecutionId": "2c48e86b-5e61-49ae-9dd5-09e1c390ab34"
         }
       },
       {
         "listen": "test",
         "script": {
-          "id": "9aa54efa-e4da-49fe-ac3b-42103fedab3a",
+          "id": "10289f36-3d7c-4798-b164-a87d8a6f0290",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -656,13 +656,13 @@
             "    pm.expect(pm.response.responseTime).to.be.below(2000);",
             "});"
           ],
-          "_lastExecutionId": "afd005e4-3997-40c2-abc7-9da62a68c308"
+          "_lastExecutionId": "72a45f1a-4d73-4e73-86b1-6df68e546204"
         }
       }
     ],
     "variable": [],
     "info": {
-      "_postman_id": "e5f9f5d3-8a49-4542-a064-50a55e0a0965",
+      "_postman_id": "44750fa2-73db-4390-83b7-f5f8998cbeee",
       "name": "API3 - FR-11 Order History (GET /api/orders/my-orders)",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
       "description": {
@@ -716,12 +716,12 @@
       },
       {
         "type": "any",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ",
         "key": "user_token"
       },
       {
         "type": "any",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.fy0fw172wlQGV0tiqf4GwOUY5KGqzPuwLyfxWgwidT8",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg3NDk3MjY1fQ.C7DhogZdUNdkNijiIGrVDTgJVDkz84BnsOZTC0iglcA",
         "key": "victim_token"
       },
       {
@@ -736,7 +736,7 @@
       },
       {
         "type": "any",
-        "value": "run-1787495968527",
+        "value": "run-1787497265502",
         "key": "run_tag"
       },
       {
@@ -751,7 +751,7 @@
       },
       {
         "type": "any",
-        "value": "0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com",
+        "value": "8aae0ee4-62d3-435c-9769-ce667b6cc8df@victim.com",
         "key": "victim_email"
       },
       {
@@ -761,13 +761,13 @@
       },
       {
         "type": "any",
-        "value": 5,
+        "value": 70,
         "key": "victim_user_id"
       }
     ]
   },
   "globals": {
-    "id": "ef735683-401b-4a84-97f7-815aff2a4d29",
+    "id": "cfea236a-57f1-40a3-9184-c5a88820b62f",
     "values": []
   },
   "run": {
@@ -819,10 +819,10 @@
       }
     },
     "timings": {
-      "responseAverage": 11.3,
+      "responseAverage": 6.9,
       "responseMin": 3,
-      "responseMax": 24,
-      "responseSd": 5.762811813689563,
+      "responseMax": 10,
+      "responseSd": 2.3430749027719964,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -831,8 +831,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1787495968513,
-      "completed": 1787495969552
+      "started": 1787497265469,
+      "completed": 1787497266431
     },
     "executions": [
       {
@@ -845,11 +845,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "d84d406c-1a8c-4849-8caf-2d3ba2bc1aa7",
-          "httpRequestId": "220acf74-65b2-4416-890d-72199cbeb191"
+          "ref": "3fb974df-1b7b-4b03-8572-9ea389454e5e",
+          "httpRequestId": "9b436d30-f959-4a3c-a4ee-270dd360f509"
         },
         "item": {
-          "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+          "id": "f1bbf644-a1e6-45a1-ab38-21ea8f5d5f08",
           "name": "SETUP-001 | Log in as the primary user",
           "request": {
             "description": {
@@ -889,7 +889,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a045ec96-8476-46a4-84dd-695031d25e04",
+                "id": "d6ddd2fc-1253-40d5-9dd6-25299324a710",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Login succeeded\", function () {",
@@ -904,7 +904,7 @@
                   "    pm.environment.set(\"user_token_role\", body.user.role);",
                   "}"
                 ],
-                "_lastExecutionId": "9f1b26e9-52ac-40a5-bce9-30eeb64d9a4b"
+                "_lastExecutionId": "7dddced1-d16d-450c-8c77-f4d5cf1333be"
               }
             }
           ]
@@ -953,7 +953,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "99b8a8c2-5832-47f7-9627-97dca9994e92",
+              "value": "8f4608af-8b8e-44cc-a258-b9bf4164cf74",
               "system": true
             },
             {
@@ -989,7 +989,7 @@
           }
         },
         "response": {
-          "id": "25ce693c-42c3-4601-a976-8ba8d43d5542",
+          "id": "bb57b19e-23b7-41e8-b9c3-01d96e85a945",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1011,11 +1011,11 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"16e-iaz2e1/jyzCFVuCsw4BKsltJVeQ\""
+              "value": "W/\"16e-rYbQf1bc95T08VqDpzKX3yUZ+R8\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -1151,55 +1151,55 @@
               48,
               79,
               84,
-              85,
-              53,
+              99,
+              121,
               78,
               106,
-              104,
+              86,
               57,
               46,
-              72,
-              121,
-              76,
-              98,
-              50,
-              86,
-              109,
-              90,
-              81,
-              54,
-              100,
-              106,
-              51,
-              90,
-              112,
-              103,
-              45,
-              81,
-              111,
-              65,
-              66,
-              67,
-              120,
-              111,
-              52,
-              49,
-              104,
-              116,
-              109,
-              73,
-              95,
-              103,
-              65,
-              76,
-              66,
-              122,
-              118,
+              99,
               68,
-              107,
-              84,
+              106,
+              55,
+              65,
+              80,
               98,
+              76,
+              45,
+              83,
+              83,
+              45,
+              100,
+              54,
+              65,
+              85,
+              45,
+              85,
+              89,
+              74,
+              119,
+              122,
+              89,
+              104,
+              120,
+              88,
+              66,
               69,
+              53,
+              80,
+              51,
+              97,
+              100,
+              67,
+              74,
+              121,
+              48,
+              84,
+              88,
+              55,
+              114,
+              85,
               81,
               34,
               44,
@@ -1398,10 +1398,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 24,
+          "responseTime": 7,
           "responseSize": 366
         },
-        "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+        "id": "f1bbf644-a1e6-45a1-ab38-21ea8f5d5f08",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1423,15 +1423,15 @@
       },
       {
         "cursor": {
-          "ref": "58832b59-e159-4f33-abbe-86d0e2bc0a87",
+          "ref": "9aa85257-e32f-4941-9a07-258cd7546763",
           "length": 9,
           "cycles": 1,
           "position": 1,
           "iteration": 0,
-          "httpRequestId": "92314455-90f1-49ab-b2d3-6ccfe0371adb"
+          "httpRequestId": "42952e37-1829-4694-bef1-a5cf1aebc4eb"
         },
         "item": {
-          "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+          "id": "d04dedb0-4862-4c7c-9195-84254df55711",
           "name": "SETUP-002 | Create an order owned by the primary user",
           "request": {
             "url": {
@@ -1471,7 +1471,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4bbd6c16-2bd0-4b84-82e5-3def6fc6d7da",
+                "id": "b626fa6c-09cb-431b-92fb-bc54bda67d9d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Checkout created an order\", function () {",
@@ -1480,7 +1480,7 @@
                   "});",
                   "pm.environment.set(\"own_order_id\", pm.response.json().orderId);"
                 ],
-                "_lastExecutionId": "f9fe424a-99e1-43f3-a024-54428e99f01e"
+                "_lastExecutionId": "3c0ffe68-fbb6-49a7-bcd7-5c8f14b5855e"
               }
             }
           ]
@@ -1506,7 +1506,7 @@
             },
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ"
             },
             {
               "key": "X-Student-Id",
@@ -1529,7 +1529,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "68a0bad1-2c2e-4515-ad3f-d5c5bfeafa0d",
+              "value": "6dfeba67-c574-4ad4-89e9-1ca21a5ea9d9",
               "system": true
             },
             {
@@ -1565,7 +1565,7 @@
           }
         },
         "response": {
-          "id": "0bdf09a7-c97d-42af-89be-a954885d898d",
+          "id": "8ea0dda3-2f3b-4de1-9963-dd05ec2be20f",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1591,7 +1591,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -1653,10 +1653,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 12,
+          "responseTime": 8,
           "responseSize": 45
         },
-        "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+        "id": "d04dedb0-4862-4c7c-9195-84254df55711",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1678,15 +1678,15 @@
       },
       {
         "cursor": {
-          "ref": "5024ea6b-bca3-4ff9-ab5f-cfd0826d7389",
+          "ref": "1993e188-3ea7-44d0-8c1e-3a53326d9ff5",
           "length": 9,
           "cycles": 1,
           "position": 2,
           "iteration": 0,
-          "httpRequestId": "88fe29f7-85d3-4134-8f2a-1402bc2bed38"
+          "httpRequestId": "5e364f7f-1666-4ac8-b9c9-1ea42db0b4f5"
         },
         "item": {
-          "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+          "id": "5beb26d0-5d00-4eda-9706-6e5add120e50",
           "name": "SETUP-003 | Register + log in a second user (the victim)",
           "request": {
             "url": {
@@ -1722,7 +1722,7 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                "id": "df738eba-bca4-42fe-aa2d-e58b6acbe6ed",
                 "type": "text/javascript",
                 "exec": [
                   "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
@@ -1737,20 +1737,20 @@
                   "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
                   "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
                 ],
-                "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+                "_lastExecutionId": "9e8d6c40-65d1-4f5f-8a34-a50f8fa538eb"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                "id": "83830929-064f-4b73-8194-b1aa344954d0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
                   "pm.environment.set(\"victim_token\", pm.response.json().token);",
                   "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
                 ],
-                "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+                "_lastExecutionId": "6c74d5cb-c780-41f0-a9fc-dcc751d20cb9"
               }
             }
           ]
@@ -1795,7 +1795,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "afa097c3-a41c-4aeb-8c8a-ab66b1dff4f0",
+              "value": "196850bd-3df5-4548-8fab-0c2781d31dae",
               "system": true
             },
             {
@@ -1822,7 +1822,7 @@
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\n  \"email\": \"0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com\",\n  \"password\": \"Victim123!\"\n}",
+            "raw": "{\n  \"email\": \"8aae0ee4-62d3-435c-9769-ce667b6cc8df@victim.com\",\n  \"password\": \"Victim123!\"\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -1831,7 +1831,7 @@
           }
         },
         "response": {
-          "id": "2239fa80-582c-4343-9799-7c8997e11e10",
+          "id": "198002e8-f131-45c4-851d-12ee7177ca8d",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1849,15 +1849,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "397"
+              "value": "400"
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-z3Hh6JmG6oCGlCnMKnwiosW58WU\""
+              "value": "W/\"190-GFG8Rdfot4q+dKJZU6S6fzvmvdY\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -1956,93 +1956,95 @@
               73,
               54,
               78,
-              83,
-              119,
-              105,
-              99,
-              109,
-              57,
+              122,
+              65,
               115,
-              90,
-              83,
-              73,
-              54,
               73,
               110,
+              74,
+              118,
+              98,
+              71,
+              85,
+              105,
+              79,
+              105,
+              74,
+              49,
+              99,
+              50,
               86,
-              122,
-              90,
-              88,
+              121,
               73,
               105,
-              76,
-              67,
-              74,
-              112,
-              89,
-              88,
-              81,
+              119,
               105,
-              79,
-              106,
-              69,
-              51,
-              79,
-              68,
-              99,
-              48,
-              79,
-              84,
-              85,
-              53,
-              78,
-              106,
-              104,
-              57,
-              46,
-              102,
-              121,
-              48,
-              102,
-              119,
-              49,
-              55,
-              50,
-              119,
-              108,
-              81,
-              71,
-              86,
-              48,
-              116,
-              105,
-              113,
-              102,
-              52,
-              71,
-              119,
-              79,
-              85,
-              89,
-              53,
-              75,
-              71,
-              113,
-              122,
-              80,
-              117,
-              119,
-              76,
-              121,
-              102,
-              120,
+              97,
               87,
+              70,
+              48,
+              73,
+              106,
+              111,
+              120,
+              78,
+              122,
               103,
-              119,
-              105,
+              51,
+              78,
+              68,
+              107,
+              51,
+              77,
+              106,
+              89,
+              49,
+              102,
+              81,
+              46,
+              67,
+              55,
+              68,
+              104,
+              111,
+              103,
+              90,
               100,
+              85,
+              78,
+              100,
+              107,
+              78,
+              105,
+              106,
+              105,
+              73,
+              71,
+              114,
+              86,
+              68,
               84,
+              103,
+              74,
+              86,
+              68,
+              107,
+              122,
               56,
+              52,
+              66,
+              110,
+              115,
+              79,
+              90,
+              84,
+              67,
+              48,
+              105,
+              103,
+              108,
+              99,
+              65,
               34,
               44,
               34,
@@ -2058,7 +2060,8 @@
               100,
               34,
               58,
-              53,
+              55,
+              48,
               44,
               34,
               110,
@@ -2085,41 +2088,41 @@
               34,
               58,
               34,
+              56,
+              97,
+              97,
+              101,
               48,
               101,
               101,
-              98,
-              51,
-              100,
-              57,
-              98,
+              52,
               45,
-              102,
-              49,
-              57,
-              57,
+              54,
+              50,
+              100,
+              51,
               45,
               52,
-              48,
-              97,
-              50,
+              51,
+              53,
+              99,
               45,
+              57,
+              55,
+              54,
+              57,
+              45,
+              99,
+              101,
+              54,
+              54,
+              55,
+              98,
+              54,
+              99,
+              99,
               56,
               100,
-              48,
-              57,
-              45,
-              55,
-              51,
-              102,
-              51,
-              54,
-              48,
-              57,
-              50,
-              102,
-              99,
-              51,
               102,
               64,
               118,
@@ -2271,10 +2274,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
-          "responseSize": 397
+          "responseTime": 4,
+          "responseSize": 400
         },
-        "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+        "id": "5beb26d0-5d00-4eda-9706-6e5add120e50",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -2296,15 +2299,15 @@
       },
       {
         "cursor": {
-          "ref": "5024ea6b-bca3-4ff9-ab5f-cfd0826d7389",
+          "ref": "1993e188-3ea7-44d0-8c1e-3a53326d9ff5",
           "length": 9,
           "cycles": 1,
           "position": 2,
           "iteration": 0,
-          "httpRequestId": "88fe29f7-85d3-4134-8f2a-1402bc2bed38"
+          "httpRequestId": "5e364f7f-1666-4ac8-b9c9-1ea42db0b4f5"
         },
         "item": {
-          "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+          "id": "5beb26d0-5d00-4eda-9706-6e5add120e50",
           "name": "SETUP-003 | Register + log in a second user (the victim)",
           "request": {
             "url": {
@@ -2340,7 +2343,7 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                "id": "df738eba-bca4-42fe-aa2d-e58b6acbe6ed",
                 "type": "text/javascript",
                 "exec": [
                   "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
@@ -2355,20 +2358,20 @@
                   "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
                   "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
                 ],
-                "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+                "_lastExecutionId": "9e8d6c40-65d1-4f5f-8a34-a50f8fa538eb"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                "id": "83830929-064f-4b73-8194-b1aa344954d0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
                   "pm.environment.set(\"victim_token\", pm.response.json().token);",
                   "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
                 ],
-                "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+                "_lastExecutionId": "6c74d5cb-c780-41f0-a9fc-dcc751d20cb9"
               }
             }
           ]
@@ -2413,7 +2416,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "afa097c3-a41c-4aeb-8c8a-ab66b1dff4f0",
+              "value": "196850bd-3df5-4548-8fab-0c2781d31dae",
               "system": true
             },
             {
@@ -2440,7 +2443,7 @@
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\n  \"email\": \"0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com\",\n  \"password\": \"Victim123!\"\n}",
+            "raw": "{\n  \"email\": \"8aae0ee4-62d3-435c-9769-ce667b6cc8df@victim.com\",\n  \"password\": \"Victim123!\"\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -2449,7 +2452,7 @@
           }
         },
         "response": {
-          "id": "2239fa80-582c-4343-9799-7c8997e11e10",
+          "id": "198002e8-f131-45c4-851d-12ee7177ca8d",
           "status": "OK",
           "code": 200,
           "header": [
@@ -2467,15 +2470,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "397"
+              "value": "400"
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-z3Hh6JmG6oCGlCnMKnwiosW58WU\""
+              "value": "W/\"190-GFG8Rdfot4q+dKJZU6S6fzvmvdY\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -2574,93 +2577,95 @@
               73,
               54,
               78,
-              83,
-              119,
-              105,
-              99,
-              109,
-              57,
+              122,
+              65,
               115,
-              90,
-              83,
-              73,
-              54,
               73,
               110,
+              74,
+              118,
+              98,
+              71,
+              85,
+              105,
+              79,
+              105,
+              74,
+              49,
+              99,
+              50,
               86,
-              122,
-              90,
-              88,
+              121,
               73,
               105,
-              76,
-              67,
-              74,
-              112,
-              89,
-              88,
-              81,
+              119,
               105,
-              79,
-              106,
-              69,
-              51,
-              79,
-              68,
-              99,
-              48,
-              79,
-              84,
-              85,
-              53,
-              78,
-              106,
-              104,
-              57,
-              46,
-              102,
-              121,
-              48,
-              102,
-              119,
-              49,
-              55,
-              50,
-              119,
-              108,
-              81,
-              71,
-              86,
-              48,
-              116,
-              105,
-              113,
-              102,
-              52,
-              71,
-              119,
-              79,
-              85,
-              89,
-              53,
-              75,
-              71,
-              113,
-              122,
-              80,
-              117,
-              119,
-              76,
-              121,
-              102,
-              120,
+              97,
               87,
+              70,
+              48,
+              73,
+              106,
+              111,
+              120,
+              78,
+              122,
               103,
-              119,
-              105,
+              51,
+              78,
+              68,
+              107,
+              51,
+              77,
+              106,
+              89,
+              49,
+              102,
+              81,
+              46,
+              67,
+              55,
+              68,
+              104,
+              111,
+              103,
+              90,
               100,
+              85,
+              78,
+              100,
+              107,
+              78,
+              105,
+              106,
+              105,
+              73,
+              71,
+              114,
+              86,
+              68,
               84,
+              103,
+              74,
+              86,
+              68,
+              107,
+              122,
               56,
+              52,
+              66,
+              110,
+              115,
+              79,
+              90,
+              84,
+              67,
+              48,
+              105,
+              103,
+              108,
+              99,
+              65,
               34,
               44,
               34,
@@ -2676,7 +2681,8 @@
               100,
               34,
               58,
-              53,
+              55,
+              48,
               44,
               34,
               110,
@@ -2703,41 +2709,41 @@
               34,
               58,
               34,
+              56,
+              97,
+              97,
+              101,
               48,
               101,
               101,
-              98,
-              51,
-              100,
-              57,
-              98,
+              52,
               45,
-              102,
-              49,
-              57,
-              57,
+              54,
+              50,
+              100,
+              51,
               45,
               52,
-              48,
-              97,
-              50,
+              51,
+              53,
+              99,
               45,
+              57,
+              55,
+              54,
+              57,
+              45,
+              99,
+              101,
+              54,
+              54,
+              55,
+              98,
+              54,
+              99,
+              99,
               56,
               100,
-              48,
-              57,
-              45,
-              55,
-              51,
-              102,
-              51,
-              54,
-              48,
-              57,
-              50,
-              102,
-              99,
-              51,
               102,
               64,
               118,
@@ -2889,10 +2895,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
-          "responseSize": 397
+          "responseTime": 4,
+          "responseSize": 400
         },
-        "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+        "id": "5beb26d0-5d00-4eda-9706-6e5add120e50",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -2914,15 +2920,15 @@
       },
       {
         "cursor": {
-          "ref": "7d729787-3b04-4604-a9e4-0b8862dbbb52",
+          "ref": "019f1e48-4f52-4cef-9436-d1ef68be8170",
           "length": 9,
           "cycles": 1,
           "position": 3,
           "iteration": 0,
-          "httpRequestId": "62596db6-f619-4a50-a267-f7794a11ca59"
+          "httpRequestId": "5a66c60d-fe8c-44ac-898a-9a3d6846cb96"
         },
         "item": {
-          "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+          "id": "5ed767d8-252d-4b99-8291-c5cd74363d7f",
           "name": "SETUP-004 | Create an order owned by the victim",
           "request": {
             "url": {
@@ -2962,13 +2968,13 @@
             {
               "listen": "test",
               "script": {
-                "id": "1733f608-29ed-4bfa-8a01-dd48700924f9",
+                "id": "0a0267f0-54dd-43d4-bd2b-d87d1ab5d29d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Victim order created\", () => pm.response.to.have.status(200));",
                   "pm.environment.set(\"victim_order_id\", pm.response.json().orderId);"
                 ],
-                "_lastExecutionId": "f713ba21-dfdc-461b-8d1b-1b83495f4a87"
+                "_lastExecutionId": "6e89c168-33e6-4609-a9cf-f260acdcb32a"
               }
             }
           ]
@@ -2994,7 +3000,7 @@
             },
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.fy0fw172wlQGV0tiqf4GwOUY5KGqzPuwLyfxWgwidT8"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg3NDk3MjY1fQ.C7DhogZdUNdkNijiIGrVDTgJVDkz84BnsOZTC0iglcA"
             },
             {
               "key": "X-Student-Id",
@@ -3017,7 +3023,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "6c6a69c7-7dfd-4b30-a869-50637049321c",
+              "value": "d4bf7fc6-ccec-4e89-a69a-efc36b27c8fe",
               "system": true
             },
             {
@@ -3053,7 +3059,7 @@
           }
         },
         "response": {
-          "id": "319cf2e6-a9c8-45db-8bc2-666b4329d3fe",
+          "id": "66e2f714-5832-4121-85e5-6de1b0a0946b",
           "status": "OK",
           "code": 200,
           "header": [
@@ -3079,7 +3085,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -3141,10 +3147,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 17,
+          "responseTime": 10,
           "responseSize": 45
         },
-        "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+        "id": "5ed767d8-252d-4b99-8291-c5cd74363d7f",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -3166,15 +3172,15 @@
       },
       {
         "cursor": {
-          "ref": "f22474c4-c172-46e1-b38a-3f75599bb460",
+          "ref": "5ff1f08a-f732-4ebf-a936-bfc423ef4e2f",
           "length": 9,
           "cycles": 1,
           "position": 4,
           "iteration": 0,
-          "httpRequestId": "8020b67b-a401-46e9-89f4-8ac54f75eace"
+          "httpRequestId": "7c074d0d-6286-4910-bfb3-801e5b30408a"
         },
         "item": {
-          "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+          "id": "8b47a498-9a53-4bf4-9903-0bee76ac91af",
           "name": "DP-001 | Authenticated user receives their own order list",
           "request": {
             "url": {
@@ -3202,7 +3208,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "103b7e4a-91aa-4e14-b33c-5f4d8a476b82",
+                "id": "4d73b0c4-2d7a-49c4-881c-af2f45cc8823",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
@@ -3216,7 +3222,7 @@
                   "    });",
                   "});"
                 ],
-                "_lastExecutionId": "f5cf553d-b21c-4162-91bd-55eb231aad94"
+                "_lastExecutionId": "8ad36fa6-a727-4ede-bbb9-bfcd60ec3968"
               }
             }
           ]
@@ -3239,7 +3245,7 @@
           "header": [
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ"
             },
             {
               "key": "X-Student-Id",
@@ -3262,7 +3268,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "eec1b546-0668-4c80-8dcf-a9d62e5f4e6a",
+              "value": "bf2a60b5-5df4-4493-ade3-258bd77ebed8",
               "system": true
             },
             {
@@ -3284,7 +3290,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "674e7a1e-d0c2-467f-964a-10ad0f63174d",
+          "id": "5c90cf6e-ff1a-431d-8737-363292aaa6ce",
           "status": "OK",
           "code": 200,
           "header": [
@@ -3306,11 +3312,11 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"8e-PDaMzINX8xPKIzMMxBG2aGiA6WI\""
+              "value": "W/\"8e-zle4LhX6Tk7o4pih6lS/3fHzRVU\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -3456,13 +3462,13 @@
               51,
               32,
               49,
-              52,
+              53,
               58,
-              51,
-              57,
+              48,
+              49,
               58,
-              50,
-              56,
+              48,
+              53,
               34,
               125,
               93
@@ -3472,7 +3478,7 @@
           "responseTime": 8,
           "responseSize": 142
         },
-        "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+        "id": "8b47a498-9a53-4bf4-9903-0bee76ac91af",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -3502,15 +3508,15 @@
       },
       {
         "cursor": {
-          "ref": "e773bc10-94b4-48af-8b8b-f34cfc21f439",
+          "ref": "73e8c92a-b394-4a21-8db2-c17c4e393d69",
           "length": 9,
           "cycles": 1,
           "position": 5,
           "iteration": 0,
-          "httpRequestId": "8b7c04af-b059-4f0b-8194-4cfb10e4b419"
+          "httpRequestId": "ab3a8769-865d-4d70-8d3d-0d975694bbe7"
         },
         "item": {
-          "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+          "id": "d226432e-55d0-4c0a-9010-d38ce914da31",
           "name": "DP-002 | Missing token is rejected",
           "request": {
             "url": {
@@ -3532,14 +3538,14 @@
             {
               "listen": "test",
               "script": {
-                "id": "8d3d878f-9732-4446-9dee-d59e9886ac99",
+                "id": "4763d0dc-a507-4260-8655-b3d3bbe2e861",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Unauthenticated request returns 401\", function () {",
                   "    pm.response.to.have.status(401);",
                   "});"
                 ],
-                "_lastExecutionId": "8f431d78-0613-4732-a80a-adfb3d27aada"
+                "_lastExecutionId": "0c4cf306-2152-40e6-94bf-452a7c535f34"
               }
             }
           ]
@@ -3581,7 +3587,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "f2064a5a-f984-4c4d-ac15-00b2b93c1c84",
+              "value": "6c23d414-82c8-455c-93f4-a23c5bc75d36",
               "system": true
             },
             {
@@ -3603,7 +3609,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "66aa74f8-b3e7-4656-b98e-d07826ee1a21",
+          "id": "78ed6983-6cfe-40f0-8c21-5ed9b6e4bf72",
           "status": "Unauthorized",
           "code": 401,
           "header": [
@@ -3629,7 +3635,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:06 GMT"
             },
             {
               "key": "Connection",
@@ -3673,7 +3679,7 @@
           "responseTime": 3,
           "responseSize": 24
         },
-        "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+        "id": "d226432e-55d0-4c0a-9010-d38ce914da31",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -3695,15 +3701,15 @@
       },
       {
         "cursor": {
-          "ref": "10523644-be7c-42ee-a501-4716b4a7c0d7",
+          "ref": "281d60a1-c9cb-4240-bd8d-052ee70ed1e9",
           "length": 9,
           "cycles": 1,
           "position": 6,
           "iteration": 0,
-          "httpRequestId": "85ea2251-87a6-4ed5-b6b7-ded477beb984"
+          "httpRequestId": "06001885-f57c-40e5-9bba-4a6925fcb775"
         },
         "item": {
-          "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+          "id": "820092b5-61b4-486b-bb38-17cd59912505",
           "name": "ST-001 | A new order appears in history as 'pending'",
           "request": {
             "url": {
@@ -3731,7 +3737,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "3966b7c5-47e8-49fa-8dc7-7e7ec0714ef3",
+                "id": "5a5caf5e-4e12-47b9-b62f-dfe07156635e",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"The order created in setup is listed as pending\", function () {",
@@ -3741,7 +3747,7 @@
                   "    pm.expect(found.status).to.eql(\"pending\");",
                   "});"
                 ],
-                "_lastExecutionId": "fa66fdbe-47ca-4350-8fc3-075af73d659c"
+                "_lastExecutionId": "0af3a247-fa4f-40f5-83c7-c44de347139a"
               }
             }
           ]
@@ -3764,7 +3770,7 @@
           "header": [
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ"
             },
             {
               "key": "X-Student-Id",
@@ -3787,7 +3793,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "10d233cb-1f02-45de-ba06-6ee177dfc2bd",
+              "value": "d0799e8c-f530-4633-9339-f09d94cfa7de",
               "system": true
             },
             {
@@ -3809,7 +3815,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "70e8f4e7-8dc7-4396-afc3-00ff3c9392a8",
+          "id": "b4348364-e3be-439c-8ddf-f54004bf45bc",
           "status": "OK",
           "code": 200,
           "header": [
@@ -3831,11 +3837,11 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"8e-PDaMzINX8xPKIzMMxBG2aGiA6WI\""
+              "value": "W/\"8e-zle4LhX6Tk7o4pih6lS/3fHzRVU\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:06 GMT"
             },
             {
               "key": "Connection",
@@ -3981,23 +3987,23 @@
               51,
               32,
               49,
-              52,
+              53,
               58,
-              51,
-              57,
+              48,
+              49,
               58,
-              50,
-              56,
+              48,
+              53,
               34,
               125,
               93
             ]
           },
           "cookie": [],
-          "responseTime": 8,
+          "responseTime": 10,
           "responseSize": 142
         },
-        "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+        "id": "820092b5-61b4-486b-bb38-17cd59912505",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -4019,15 +4025,15 @@
       },
       {
         "cursor": {
-          "ref": "1ae39fbf-6467-4268-89a8-42307652e4bf",
+          "ref": "dcfd9f14-6cb7-40a9-8ad9-0165cc371cc1",
           "length": 9,
           "cycles": 1,
           "position": 7,
           "iteration": 0,
-          "httpRequestId": "447819c1-7298-453f-90ad-388e0c03cedb"
+          "httpRequestId": "d00d59df-71d5-4752-a7f3-e95d61da18d9"
         },
         "item": {
-          "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+          "id": "0e20647f-947e-41a4-84a9-84fcfb315b90",
           "name": "ST-002 | Cancelling a pending order is reflected in history",
           "request": {
             "url": {
@@ -4056,12 +4062,12 @@
             {
               "listen": "test",
               "script": {
-                "id": "aeca1ccd-5dac-49fb-9d16-aa92c4b273a1",
+                "id": "fbd2b776-e1b1-450f-b7e4-9bb9de734ed7",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Cancel from 'pending' is allowed\", () => pm.response.to.have.status(200));"
                 ],
-                "_lastExecutionId": "e665fdfd-6009-40a4-b904-4bdaeac3d68c"
+                "_lastExecutionId": "5a4ff5e0-e745-430a-bcb6-cd0f9e6ca416"
               }
             }
           ]
@@ -4085,7 +4091,7 @@
           "header": [
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ"
             },
             {
               "key": "X-Student-Id",
@@ -4108,7 +4114,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "f0fd933a-5834-4e54-bb0a-ee6b74a517c6",
+              "value": "65af26af-c32d-4c45-bb39-0ac138da5b02",
               "system": true
             },
             {
@@ -4135,7 +4141,7 @@
           "method": "PUT"
         },
         "response": {
-          "id": "c596b9fc-856a-4032-b603-1c9f08dca235",
+          "id": "c537e05f-ead6-4dc7-ac24-938e9ed38c91",
           "status": "OK",
           "code": 200,
           "header": [
@@ -4161,7 +4167,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:06 GMT"
             },
             {
               "key": "Connection",
@@ -4219,10 +4225,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 13,
+          "responseTime": 8,
           "responseSize": 41
         },
-        "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+        "id": "0e20647f-947e-41a4-84a9-84fcfb315b90",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -4244,15 +4250,15 @@
       },
       {
         "cursor": {
-          "ref": "02a250fe-7004-4561-a252-31318edb4921",
+          "ref": "755dfb9f-96bf-4fbb-8308-04ec4e1a729d",
           "length": 9,
           "cycles": 1,
           "position": 8,
           "iteration": 0,
-          "httpRequestId": "4429524d-b48a-47e3-af0a-3855bc3b762c"
+          "httpRequestId": "d04c8952-0ff2-43af-97a3-c673fe16de88"
         },
         "item": {
-          "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+          "id": "0f8660ed-441e-45ce-834e-180865818bfe",
           "name": "SCH-001 | Order-history entries match the orders schema",
           "request": {
             "url": {
@@ -4280,7 +4286,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d412de1a-a103-45d0-98d7-867c86e0191e",
+                "id": "8ff8f315-5881-41c0-8d9a-31d0902e8407",
                 "type": "text/javascript",
                 "exec": [
                   "const schema = {",
@@ -4304,7 +4310,7 @@
                   "    pm.response.to.have.jsonSchema(schema);",
                   "});"
                 ],
-                "_lastExecutionId": "37c40838-7577-4731-b415-fa51337872cc"
+                "_lastExecutionId": "8ff8e77a-fc1c-4cf0-bb0c-c8b0821f4c6b"
               }
             }
           ]
@@ -4327,7 +4333,7 @@
           "header": [
             {
               "key": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTcyNjV9.cDj7APbL-SS-d6AU-UYJwzYhxXBE5P3adCJy0TX7rUQ"
             },
             {
               "key": "X-Student-Id",
@@ -4350,7 +4356,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "3feebf80-ff39-4edb-a2cc-ba4298deee86",
+              "value": "456da62e-7379-401e-9422-bcd5611cb945",
               "system": true
             },
             {
@@ -4372,7 +4378,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "25638db0-4b46-4384-8b4a-57200eb67472",
+          "id": "78ca32a8-0146-4792-8386-f9531ec441c8",
           "status": "OK",
           "code": 200,
           "header": [
@@ -4394,11 +4400,11 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"8f-T60RiUq+IF1ybzBRmxgwKPRzjfA\""
+              "value": "W/\"8f-PlSIng5IRRxc0DmcYlUWPk070SI\""
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:06 GMT"
             },
             {
               "key": "Connection",
@@ -4545,23 +4551,23 @@
               51,
               32,
               49,
-              52,
+              53,
               58,
-              51,
-              57,
+              48,
+              49,
               58,
-              50,
-              56,
+              48,
+              53,
               34,
               125,
               93
             ]
           },
           "cookie": [],
-          "responseTime": 5,
+          "responseTime": 4,
           "responseSize": 143
         },
-        "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+        "id": "0f8660ed-441e-45ce-834e-180865818bfe",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -4583,7 +4589,7 @@
       }
     ],
     "transfers": {
-      "responseTotal": 1394
+      "responseTotal": 1398
     },
     "failures": [],
     "error": null

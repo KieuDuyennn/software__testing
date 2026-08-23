@@ -1,11 +1,11 @@
 {
   "collection": {
     "_": {
-      "postman_id": "4047477e-e4ef-4cce-b69c-2bf83cad3840"
+      "postman_id": "0d5b2a06-30cb-40ec-8d57-0afc57d291d3"
     },
     "item": [
       {
-        "id": "80e91abc-0b84-4838-a9c2-481317632cee",
+        "id": "57862ada-72fb-40ad-9486-27f01f16fae6",
         "name": "00 - Setup",
         "description": {
           "content": "",
@@ -13,7 +13,7 @@
         },
         "item": [
           {
-            "id": "a316f96c-91dc-433f-8633-75103fca9655",
+            "id": "a235fa50-2dc2-4a45-b80e-631bc80308df",
             "name": "SETUP-001 | Capture a known-good product id",
             "request": {
               "url": {
@@ -34,7 +34,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "80a00ba9-c585-4857-80a4-e1421a164d72",
+                  "id": "fe117f11-0e5e-4690-b845-06a7a25af9ce",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Product list is available\", () => pm.response.to.have.status(200));",
@@ -44,7 +44,7 @@
                     "    pm.environment.set(\"max_product_id\", list[list.length - 1].id);",
                     "}"
                   ],
-                  "_lastExecutionId": "c435af4a-de7a-4d09-8f45-90f5cec90ab4"
+                  "_lastExecutionId": "b1406f7e-50af-4716-b036-601138287780"
                 }
               }
             ]
@@ -53,7 +53,7 @@
         "event": []
       },
       {
-        "id": "41773210-9be9-4ad1-b201-60157430b660",
+        "id": "46f2afd2-2ba5-4264-a4bf-9da52fef94e2",
         "name": "01 - Domain partitions",
         "description": {
           "content": "Partitions on :id - valid / non-existent / zero / negative / non-numeric / overflow / injection.",
@@ -61,7 +61,7 @@
         },
         "item": [
           {
-            "id": "a5323d64-2ff0-4d25-9aaf-261585d36e91",
+            "id": "5b6b527c-9212-481c-9764-6e5349985bca",
             "name": "DP-001 | Existing id returns that product",
             "request": {
               "url": {
@@ -83,7 +83,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "c53a7a9c-1bd7-419a-8331-755229761445",
+                  "id": "cf2a74c5-0ed6-4e4a-afa8-d67ccf2103a1",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
@@ -98,7 +98,7 @@
             ]
           },
           {
-            "id": "c8c4ecf0-9f09-40bd-83d5-179ebe3ed60d",
+            "id": "22ee8c32-2ee3-496b-b4e2-a58a761c3b52",
             "name": "DP-002 | Non-existent id returns 404",
             "request": {
               "url": {
@@ -120,7 +120,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "a941dbeb-bb94-4232-b0bd-18cc81d64ae7",
+                  "id": "4092bca0-3074-4062-ad4c-00589bfcaeef",
                   "type": "text/javascript",
                   "exec": [
                     "// Spec/REST contract: an unknown resource is 404, not 200 with an empty body.",
@@ -133,7 +133,7 @@
             ]
           },
           {
-            "id": "c5aab5d5-9c79-4af1-8b9e-fd0d4c5cfca9",
+            "id": "620caa6e-0307-4378-8a51-a784da3d5fe4",
             "name": "DP-003 | Non-numeric id is rejected",
             "request": {
               "url": {
@@ -155,7 +155,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8685c692-d27f-4b94-a39a-47ca69849a91",
+                  "id": "eaf96774-7034-4846-9836-f3a29c75ba89",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Non-numeric id yields a 4xx, never a 500\", function () {",
@@ -170,7 +170,7 @@
         "event": []
       },
       {
-        "id": "e8eefa4a-aa0b-4a7b-8c55-28042294f158",
+        "id": "27251ee7-0947-4220-92e2-510462992614",
         "name": "02 - State transitions",
         "description": {
           "content": "Existence states of a product: present -> deleted -> absent.",
@@ -178,7 +178,7 @@
         },
         "item": [
           {
-            "id": "74c513d3-3f16-4b1d-8d58-3743264ac432",
+            "id": "af8ef58e-7a30-4c8e-bfc6-95cc2d38ca55",
             "name": "ST-001 | Deleted product is no longer retrievable",
             "request": {
               "url": {
@@ -200,7 +200,7 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "78115892-2018-4ea7-983c-51e5f7f2ed23",
+                  "id": "8ec5ff59-c6f9-41f6-8431-bd9e0ccac4fe",
                   "type": "text/javascript",
                   "exec": [
                     "// Create then delete a product so this request observes the post-delete state.",
@@ -233,7 +233,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "5c0a93dd-5a4d-4d8d-818c-79f855868d1b",
+                  "id": "60a29565-d644-43f8-81b4-6a6bdc44dfd7",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"A deleted product returns 404\", function () {",
@@ -248,7 +248,7 @@
         "event": []
       },
       {
-        "id": "6d322d43-68a6-43f1-a31d-b8a079a7c8ae",
+        "id": "26cc2841-fa94-4149-8a2d-d380b396a50a",
         "name": "03 - Security (SEC-01..SEC-07)",
         "description": {
           "content": "",
@@ -256,7 +256,7 @@
         },
         "item": [
           {
-            "id": "93c53439-7ce2-4fde-a778-cbeca8fee698",
+            "id": "3a11f33b-215e-4536-9bc0-82301695b4df",
             "name": "SEC-05 | SQL injection through the :id path parameter",
             "request": {
               "url": {
@@ -278,7 +278,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "1ae70ea8-af8e-431a-b59e-183ca30f7476",
+                  "id": "93ea5446-c090-4df7-aa39-cd322049922c",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"Injection does not return the whole table\", function () {",
@@ -290,7 +290,7 @@
                     "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
                     "});"
                   ],
-                  "_lastExecutionId": "865f3512-fa04-47c6-91be-5c658fe76f86"
+                  "_lastExecutionId": "5380c3ce-3ccb-4c83-ae86-6c6851a5d26d"
                 }
               }
             ]
@@ -299,7 +299,7 @@
         "event": []
       },
       {
-        "id": "d84489d7-6a66-42dd-a547-a9b5d346e7ee",
+        "id": "130d15d4-22e4-4642-a460-f396721e1bc9",
         "name": "04 - Schema validation",
         "description": {
           "content": "Run the same schema assertions across every id partition - type drift is id-dependent here.",
@@ -307,7 +307,7 @@
         },
         "item": [
           {
-            "id": "787705a1-45c7-4b49-8a15-c760156e5563",
+            "id": "0e3182fe-bc98-489e-8018-0788e9197f7b",
             "name": "SCH-001 | Product schema holds for an odd id",
             "request": {
               "url": {
@@ -329,7 +329,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "53c0dd00-04eb-4654-80ff-5248eadd73dc",
+                  "id": "182e66a7-5e23-4bf8-98dd-b26afa3a3f9e",
                   "type": "text/javascript",
                   "exec": [
                     "const schema = {",
@@ -358,7 +358,7 @@
             ]
           },
           {
-            "id": "efd04d32-6a39-461a-b01a-66c95296dcae",
+            "id": "41c731dc-6198-41f0-b7be-c0b906817cbc",
             "name": "SCH-002 | Product schema holds for an even id",
             "request": {
               "url": {
@@ -380,7 +380,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "84e993f2-bcb2-47ef-909b-88000433dd18",
+                  "id": "c14b5edb-7359-4f60-8b19-46d5d42694c1",
                   "type": "text/javascript",
                   "exec": [
                     "const schema = {",
@@ -417,7 +417,7 @@
       {
         "listen": "prerequest",
         "script": {
-          "id": "dde256f0-ea98-4c99-8250-f9ac1655bbf6",
+          "id": "3dcd1c77-97a1-4870-a7a1-e2b06228f020",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -440,13 +440,13 @@
             "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
             ");"
           ],
-          "_lastExecutionId": "fd456ae4-e316-4276-987b-bbd4e28e2d38"
+          "_lastExecutionId": "0c8adb93-1fae-4975-8360-0bd0a38eea2d"
         }
       },
       {
         "listen": "test",
         "script": {
-          "id": "b076591d-a63d-4013-9e5d-4e3858dd0a40",
+          "id": "10e0f98d-f6a3-485e-acc4-b2daa0df02cd",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -470,13 +470,13 @@
             "    pm.expect(pm.response.responseTime).to.be.below(2000);",
             "});"
           ],
-          "_lastExecutionId": "9e6b5e28-fbe1-43d0-9642-797ddf4eec8e"
+          "_lastExecutionId": "656aaacd-049f-43b7-8e32-65f0172b24bf"
         }
       }
     ],
     "variable": [],
     "info": {
-      "_postman_id": "4047477e-e4ef-4cce-b69c-2bf83cad3840",
+      "_postman_id": "0d5b2a06-30cb-40ec-8d57-0afc57d291d3",
       "name": "API2 - FR-06 Product Detail (GET /api/products/:id)",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
       "description": {
@@ -550,7 +550,7 @@
       },
       {
         "type": "any",
-        "value": "run-1787495968024",
+        "value": "run-1787497265085",
         "key": "run_tag"
       },
       {
@@ -566,7 +566,7 @@
     ]
   },
   "globals": {
-    "id": "e5bfdac1-b930-415d-8b18-c66bb52d1b5e",
+    "id": "e9e5ea92-15fd-4cd7-abe4-68db3d829301",
     "values": []
   },
   "run": {
@@ -618,10 +618,10 @@
       }
     },
     "timings": {
-      "responseAverage": 5.5,
-      "responseMin": 5,
-      "responseMax": 6,
-      "responseSd": 0.5,
+      "responseAverage": 4,
+      "responseMin": 3,
+      "responseMax": 5,
+      "responseSd": 1,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -630,8 +630,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1787495967990,
-      "completed": 1787495968230
+      "started": 1787497265065,
+      "completed": 1787497265261
     },
     "executions": [
       {
@@ -644,11 +644,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "3f5b2b1c-89f1-4c60-b2c3-a811778445cb",
-          "httpRequestId": "2d1b8c01-1c46-4852-bf01-ee1f096737fa"
+          "ref": "082f2550-c8b7-420a-ae02-a8b1f5ae00a0",
+          "httpRequestId": "4d90e1e3-be25-4c03-a41c-536b9f6296fc"
         },
         "item": {
-          "id": "a316f96c-91dc-433f-8633-75103fca9655",
+          "id": "a235fa50-2dc2-4a45-b80e-631bc80308df",
           "name": "SETUP-001 | Capture a known-good product id",
           "request": {
             "url": {
@@ -669,7 +669,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "80a00ba9-c585-4857-80a4-e1421a164d72",
+                "id": "fe117f11-0e5e-4690-b845-06a7a25af9ce",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Product list is available\", () => pm.response.to.have.status(200));",
@@ -679,7 +679,7 @@
                   "    pm.environment.set(\"max_product_id\", list[list.length - 1].id);",
                   "}"
                 ],
-                "_lastExecutionId": "c435af4a-de7a-4d09-8f45-90f5cec90ab4"
+                "_lastExecutionId": "b1406f7e-50af-4716-b036-601138287780"
               }
             }
           ]
@@ -720,7 +720,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "b0c9fb5f-fbe6-4a12-8ece-89a45b40db28",
+              "value": "b35a75b4-fc5c-4a73-a8eb-cabe5f333365",
               "system": true
             },
             {
@@ -742,7 +742,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "ae9ca454-10b2-4bed-86d7-513c1f249a2f",
+          "id": "493e0c07-d977-4e35-baf9-eea03f738f99",
           "status": "OK",
           "code": 200,
           "header": [
@@ -768,7 +768,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -1754,10 +1754,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 6,
+          "responseTime": 5,
           "responseSize": 969
         },
-        "id": "a316f96c-91dc-433f-8633-75103fca9655",
+        "id": "a235fa50-2dc2-4a45-b80e-631bc80308df",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1779,15 +1779,15 @@
       },
       {
         "cursor": {
-          "ref": "44bada0f-32dc-4d94-ade2-713a297e8394",
+          "ref": "d7380b7a-b960-439d-a8a9-1ec9c606f289",
           "length": 2,
           "cycles": 1,
           "position": 1,
           "iteration": 0,
-          "httpRequestId": "e5db3225-1a5c-45c0-a8a4-a5e68ce5754e"
+          "httpRequestId": "0c6cebef-f78c-4683-a71a-d89363b74f10"
         },
         "item": {
-          "id": "93c53439-7ce2-4fde-a778-cbeca8fee698",
+          "id": "3a11f33b-215e-4536-9bc0-82301695b4df",
           "name": "SEC-05 | SQL injection through the :id path parameter",
           "request": {
             "url": {
@@ -1809,7 +1809,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "1ae70ea8-af8e-431a-b59e-183ca30f7476",
+                "id": "93ea5446-c090-4df7-aa39-cd322049922c",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Injection does not return the whole table\", function () {",
@@ -1821,7 +1821,7 @@
                   "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
                   "});"
                 ],
-                "_lastExecutionId": "865f3512-fa04-47c6-91be-5c658fe76f86"
+                "_lastExecutionId": "5380c3ce-3ccb-4c83-ae86-6c6851a5d26d"
               }
             }
           ]
@@ -1863,7 +1863,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "e59e3edb-4da3-4f86-9ca8-15a507223ac8",
+              "value": "48872079-d682-437b-8ff5-4710eceead42",
               "system": true
             },
             {
@@ -1885,7 +1885,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "44033d88-340c-4fef-ae08-e31c58346ab8",
+          "id": "01f1087b-4b4d-4557-ba62-7ebb8e41f151",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1911,7 +1911,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+              "value": "Sun, 23 Aug 2026 15:01:05 GMT"
             },
             {
               "key": "Connection",
@@ -1930,10 +1930,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 5,
+          "responseTime": 3,
           "responseSize": 2
         },
-        "id": "93c53439-7ce2-4fde-a778-cbeca8fee698",
+        "id": "3a11f33b-215e-4536-9bc0-82301695b4df",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",

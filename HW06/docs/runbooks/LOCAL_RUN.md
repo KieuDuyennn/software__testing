@@ -78,3 +78,24 @@ re-running the builder would discard your work.
 ```powershell
 .\scripts\Export-GitLog.ps1            # -> evidence/git-commit-log.txt
 ```
+
+## Working with the API 1 case specification
+
+API 1's collection is **generated**, not hand-edited. The source of truth is
+`scripts/cases/api1_fr01_register.py`, which holds all 121 cases.
+
+```powershell
+# Re-render the collection, Excel sheet, JSON export and coverage tally
+python scripts/render-cases.py --api 1
+
+# After a full run: rebuild the CI gate from what actually passed
+.\scripts\Invoke-ApiTests.ps1 -Api 1
+python scripts/render-cases.py --api 1 --refresh-gate
+```
+
+Edit cases in the Python module, never in the exported collection JSON —
+re-rendering overwrites the collection. `scripts/build-collections.py`
+deliberately no longer writes API 1 for the same reason.
+
+The renderer fails loudly on a duplicate case ID, and on any case that would
+fall outside every folder filter, so a case can never be silently dropped.

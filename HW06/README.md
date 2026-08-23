@@ -24,6 +24,10 @@ pool and the fourth is additional coverage.
 *Update these numbers from `testcases/23127184_HW06_TestCases.xlsx` before
 submitting. They must match the workbook and the main report exactly.*
 
+**Progress: API 1 has completed phase 1 (generate).** Its row below is filled
+from the verified run; APIs 2-4 have only the scaffold's exemplar cases so far,
+and the audit and extend phases have not run for any API.
+
 | Metric | Value |
 |---|---|
 | APIs tested | 4 |
@@ -40,7 +44,7 @@ submitting. They must match the workbook and the main report exactly.*
 
 | API | Generated | Added | Total | Executed | Passed | Failed | Bugs |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| API1 — FR-01 Register | | | | | | | |
+| API1 — FR-01 Register | 121 | _extend phase_ | 121 | 121 | 68 | 53 | 6 |
 | API2 — FR-06 Product detail | | | | | | | |
 | API3 — FR-11 Order history | | | | | | | |
 | API4 — FR-13 Admin dashboard | | | | | | | |

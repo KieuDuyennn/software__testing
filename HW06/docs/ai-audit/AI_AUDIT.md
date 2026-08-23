@@ -44,7 +44,37 @@ AI output. Keep them in order. Long outputs go in
   seeded from a verified smoke run.
 - **My review:** *(record what you checked and what you changed)*
 
-### AI-002 |
+### AI-002 | Generating the test cases for API 1 (FR-01, `POST /api/register`)
+
+- **Tool:** Claude Code (Opus 5)
+- **Date/time:** 2026-08-23
+- **Prompt:** "bắt đầu generate test cases cho API 1, càng nhiều càng tốt, x2
+  yêu cầu đề bài" (start generating test cases for API 1, as many as possible,
+  2x the assignment's requirement).
+- **Step decomposition:** the AI was not given that instruction as a single
+  prompt to act on. It was driven through the five stages defined in the
+  `api-test-generator` skill - contract restatement, domain partitions per
+  parameter, state transitions, security per SEC id, schema validation - with
+  each stage's output feeding the next. The per-stage goals and outputs are
+  recorded in `docs/phases/api1-fr01-register/01-generate.md` §2.
+- **Standing constraint imposed on the AI:** every expected result must be
+  derived from `api_specification.md` and the FR-01 / SEC-01..07 rules, never
+  from the SUT's observed responses.
+- **Output:** 121 test cases (3.5x the brief's minimum of 35) - 79 domain
+  partition, 10 state transition, 20 security, 12 schema - expressed as a case
+  specification in `scripts/cases/api1_fr01_register.py` and rendered into the
+  Postman collection, the Excel sheet and a coverage tally. 11 cases carry an
+  explicit specification-gap flag instead of an invented expectation.
+- **Verification performed before accepting the output:** all 121 cases were
+  executed against the seeded SUT. 68 passed, 53 failed, and every failure was
+  inspected to confirm it came from the SUT rather than from a broken fixture.
+  Two defects not previously known were found this way (HTTP 500 on a non-JSON
+  `Content-Type`; an HTML stack-trace page on malformed JSON).
+- **Issue already identified in the AI's output:** `A1-SEC-013` fails for a
+  different reason than its title claims - see `01-generate.md` §7 item 1.
+- **My review:** *(phase 2 - to be completed in `02-audit.md`)*
+
+### AI-003 |
 
 - **Tool:**
 - **Date/time:**
