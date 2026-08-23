@@ -3,8 +3,9 @@
 Student ID: **23127184**  
 Captured: **2026-08-23**
 
-Only screenshots taken from the real signed-in GitHub and Postman sessions are
-listed as complete. No placeholder or generated UI image is included.
+Completed items below come from real signed-in GitHub/Postman sessions or are
+clearly labelled renderings of verbatim fields retained in raw Newman JSON.
+No placeholder or simulated application UI is included.
 
 ## Completed evidence
 
@@ -12,6 +13,9 @@ listed as complete. No placeholder or generated UI image is included.
 |---|---|---|
 | GitHub Actions green run | `screenshots/github-actions-green-summary.png` | Repository, branch `hw6`, commit `66c151a`, Success status, green regression/full jobs |
 | GitHub Actions red run | `screenshots/github-actions-red-summary.png` | Repository, branch `hw6`, commit `3c34519`, Failure status, red regression job |
+| GitHub Issue #7 | `screenshots/github-issue-7-malformed-email-newman.png` | Raw Newman fields for `A1-DP-019`: request, `X-Student-Id: 23127184`, expected 4xx, actual 200 and failed assertion |
+| GitHub Issue #14 | `screenshots/github-issue-14-admin-role-newman.png` | Raw Newman fields for `A4-SEC-001`: request, student header, expected 401-403, actual 200 and failed assertion |
+| GitHub Issue #38 | `screenshots/github-issue-38-terminal-transition-newman.png` | Raw Newman fields for `A4-ST-016`: request, student header, expected 4xx, actual 200 and failed assertion |
 | GitHub Issue #66 | `screenshots/github-issue-66-plaintext-password.png` | Signed-in account, issue title/number, reproduction steps and `X-Student-Id: 23127184` |
 | GitHub Issue #67 | `screenshots/github-issue-67-confirm-password.png` | Signed-in account, issue title/number and student header |
 | GitHub Issue #68 | `screenshots/github-issue-68-text-plain-http500.png` | Signed-in account, issue title/number, request and student header |
@@ -26,8 +30,11 @@ Cloud URLs:
 
 - Green CI: <https://github.com/KieuDuyennn/software__testing/actions/runs/32650162410>
 - Red CI: <https://github.com/KieuDuyennn/software__testing/actions/runs/32649883960>
-- Issues: <https://github.com/KieuDuyennn/software__testing/issues/66> through
-  <https://github.com/KieuDuyennn/software__testing/issues/70>
+- Issues with attached evidence: [#7](https://github.com/KieuDuyennn/software__testing/issues/7),
+  [#14](https://github.com/KieuDuyennn/software__testing/issues/14),
+  [#38](https://github.com/KieuDuyennn/software__testing/issues/38), and
+  [#66](https://github.com/KieuDuyennn/software__testing/issues/66) through
+  [#70](https://github.com/KieuDuyennn/software__testing/issues/70)
 
 ## Still requires the student/device
 
