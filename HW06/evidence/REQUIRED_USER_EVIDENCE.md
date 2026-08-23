@@ -3,18 +3,11 @@
 This file contains the remaining actions that must be performed by student
 23127184. Do not replace them with generated screenshots or invented URLs.
 
-## 1. Postman Console - mandatory anti-cheat evidence
+## 1. Postman Console - complete
 
-1. Open Postman Desktop and import the four files in `collections/` plus
-   `config/eshop-local.postman_environment.json`.
-2. Select the local environment and start the SUT with `npm run sut:start`.
-3. Open **View -> Show Postman Console**.
-4. Run one request from any collection.
-5. Capture one screenshot containing all of:
-   - `[HW06] X-Student-Id=23127184`
-   - request method and `http://localhost:3000/...` URL
-   - Postman UI/Console chrome showing this is a real Postman run.
-6. Save as `evidence/screenshots/postman-console-x-student-id.png`.
+Completed on 2026-08-23 in Postman Desktop 12.24.6. The image
+`evidence/screenshots/postman-console-x-student-id.png` visibly contains the
+localhost URL, HTTP 200 result and `[HW06] X-Student-Id=23127184` console line.
 
 ## 2. Postman cloud features
 
@@ -28,7 +21,7 @@ have been captured. Remaining cloud features are listed below:
 | Imported local environment | `evidence/postman-cloud/environment.png` (complete) |
 | Collection Runner summary | `evidence/postman-cloud/runner.png` |
 | Completed Monitor run | `evidence/postman-cloud/monitor.png` |
-| Mock Server response | `evidence/postman-cloud/mock-server.png` |
+| Mock Server call log | `evidence/postman-cloud/mock-server.png` (server complete; successful example response pending) |
 
 For the mock comparison, use product 2: the contract/mock should return numeric
 `price`, while the real SUT returns a string (BUG-04).

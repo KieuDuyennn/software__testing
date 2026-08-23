@@ -1,6 +1,7 @@
 # HW06 - AI Audit Report (Mandatory Appendix)
 
-Student ID: **23127184** · Assignment: **HW06 - API Testing** · AI policy: **Open**
+Student: **Lê Phạm Kiều Duyên** · Student ID: **23127184** · Assignment:
+**HW06 - API Testing** · AI policy: **Open**
 
 ## Declaration
 
