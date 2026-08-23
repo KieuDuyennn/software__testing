@@ -1,47 +1,20 @@
-# API 3 - FR-11 Order History (user) - Phase 3: Extend
+# API3 - FR-11 Order History (GET /api/orders/my-orders) - Phase 3: Extend
 
-> Pipeline step 3 of 4. At least five test cases of your own that the AI missed,
-> weighted towards security and state transitions, each with an explanation of
-> *why* the AI missed it.
-
-| Field | Value |
-|---|---|
-| Endpoint | `GET /api/orders/my-orders  (+ GET /api/orders/:id)` |
-| Requirement | FR-11 (with FR-10) |
-| Cases added | (>= 5) |
+> Five independently designed cases added after the human audit. They target omitted encodings, post-conditions, metamorphic consistency, and atomicity rather than inflating boundary counts.
 
 ## Added test cases
 
-### EXT-01 |
+| ID | Dimension | Title | Why the AI missed it | Expected | Final run | Bug |
+|---|---|---|---|---|---|---|
+| A3-HR-001 | State | A refused shipping cancellation leaves the order in shipping | The AI checked the rejection status but did not verify that a failed transition is atomic and leaves state unchanged. | the order remains shipping after the forbidden request | FAIL - expected 'canceled' to deeply equal 'shipping' | BUG-15 |
+| A3-HR-002 | Security | A cross-user cancellation attempt cannot mutate the victim order | The AI tested cross-user cancellation response codes but did not assert the protected resource's post-state. | 200 for the owner and status remains pending | PASS | - |
+| A3-HR-003 | Schema | Order detail and history expose the same values for one order | The AI validated each route independently but omitted a metamorphic consistency oracle across the two FR-11 views. | id, user_id, total_amount, status and shipping_address match | PASS | - |
+| A3-HR-004 | Security | An oversized cancellation id is rejected safely | The AI covered oversized ids on GET detail but not on the state-changing cancellation route. | clean 4xx, no 5xx and no database detail | PASS | - |
+| A3-HR-005 | Security | An anonymous cancellation attempt cannot mutate an order | The AI asserted 401 for the anonymous request but did not independently verify non-mutation. | the order remains pending | PASS | - |
 
-- **Dimension:** security / state transition / domain / schema
-- **Requirement or SEC id:**
-- **Precondition:**
-- **Steps:**
-- **Expected result:**
-- **Actual result:**
-- **Why the AI missed it:** prompt quality / model limitation / a property of
-  the API that is not visible in the specification (be specific - "the spec
-  documents the happy path only, so nothing in the text hints that the detail
-  route has no auth middleware" is a real reason; "the AI was lazy" is not)
+## Extension quality check
 
-### EXT-02 |
-
-### EXT-03 |
-
-### EXT-04 |
-
-### EXT-05 |
-
-## Why these gaps existed
-
-Group the five reasons into causes. The three that usually appear:
-
-1. **The spec does not describe it.** The AI reads `api_specification.md`; a
-   missing auth middleware or a wrong comparison operator is invisible there.
-   Only the requirement document, or the implementation, exposes it.
-2. **The prompt framed the endpoint in isolation.** Cross-resource attacks
-   (IDOR, privilege escalation, ownership) need a second actor, which a
-   single-endpoint prompt never introduces.
-3. **The AI asserts observed behaviour.** Asked what a response looks like, it
-   describes what the SUT returns - which cannot, by construction, find a bug.
+- Exactly five cases are marked `Student-designed`; they are not included in the AI-generated count.
+- Every added case is executable in the same Postman collection and inherits the mandatory `X-Student-Id` harness.
+- Each rationale identifies a concrete generation blind spot, not the generic claim that 'AI missed it'.
+- Failures are linked to an existing root-cause bug where appropriate, preventing duplicate issue inflation.
