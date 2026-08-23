@@ -1,47 +1,20 @@
-# API 2 - FR-06 Product Detail - Phase 3: Extend
+# API2 - FR-06 Product Detail (GET /api/products/:id) - Phase 3: Extend
 
-> Pipeline step 3 of 4. At least five test cases of your own that the AI missed,
-> weighted towards security and state transitions, each with an explanation of
-> *why* the AI missed it.
-
-| Field | Value |
-|---|---|
-| Endpoint | `GET /api/products/:id` |
-| Requirement | FR-06 |
-| Cases added | (>= 5) |
+> Five independently designed cases added after the human audit. They target omitted encodings, post-conditions, metamorphic consistency, and atomicity rather than inflating boundary counts.
 
 ## Added test cases
 
-### EXT-01 |
+| ID | Dimension | Title | Why the AI missed it | Expected | Final run | Bug |
+|---|---|---|---|---|---|---|
+| A2-HR-001 | Domain | A percent-encoded product id returns the same resource | The AI tested whitespace encoding but not a valid id represented through URL encoding. | 200 with product 1 | PASS | - |
+| A2-HR-002 | Security | A query-string id cannot override the product path id | The generated suite did not test precedence when the same logical identifier appears in path and query. | 200 with product 1, not product 2 | PASS | - |
+| A2-HR-003 | Schema | An explicit Accept: application/json request returns JSON | The AI asserted the response media type but did not exercise explicit content negotiation. | 200 with application/json | PASS | - |
+| A2-HR-004 | Security | A double-encoded SQL payload is neutralised | The AI covered plain SQL payloads but missed a second decoding layer used to bypass filters. | clean 4xx, never a query expansion or server error | FAIL - status code: expected 200 to be within 400..499 | BUG-03 |
+| A2-HR-005 | Domain | A full-width Unicode digit is not confused with an ASCII id | The AI's malformed-id set was ASCII-only and omitted Unicode confusable characters. | 400 or 404, never product 1 and never a 5xx | FAIL - status code: expected 200 to be within 400..499 | BUG-03 |
 
-- **Dimension:** security / state transition / domain / schema
-- **Requirement or SEC id:**
-- **Precondition:**
-- **Steps:**
-- **Expected result:**
-- **Actual result:**
-- **Why the AI missed it:** prompt quality / model limitation / a property of
-  the API that is not visible in the specification (be specific - "the spec
-  documents the happy path only, so nothing in the text hints that the detail
-  route has no auth middleware" is a real reason; "the AI was lazy" is not)
+## Extension quality check
 
-### EXT-02 |
-
-### EXT-03 |
-
-### EXT-04 |
-
-### EXT-05 |
-
-## Why these gaps existed
-
-Group the five reasons into causes. The three that usually appear:
-
-1. **The spec does not describe it.** The AI reads `api_specification.md`; a
-   missing auth middleware or a wrong comparison operator is invisible there.
-   Only the requirement document, or the implementation, exposes it.
-2. **The prompt framed the endpoint in isolation.** Cross-resource attacks
-   (IDOR, privilege escalation, ownership) need a second actor, which a
-   single-endpoint prompt never introduces.
-3. **The AI asserts observed behaviour.** Asked what a response looks like, it
-   describes what the SUT returns - which cannot, by construction, find a bug.
+- Exactly five cases are marked `Student-designed`; they are not included in the AI-generated count.
+- Every added case is executable in the same Postman collection and inherits the mandatory `X-Student-Id` harness.
+- Each rationale identifies a concrete generation blind spot, not the generic claim that 'AI missed it'.
+- Failures are linked to an existing root-cause bug where appropriate, preventing duplicate issue inflation.

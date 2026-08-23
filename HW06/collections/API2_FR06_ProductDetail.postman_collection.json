@@ -1,190 +1,1449 @@
 {
   "info": {
-    "_postman_id": "0d5b2a06-30cb-40ec-8d57-0afc57d291d3",
+    "_postman_id": "ae640d3c-2661-5dd6-b8e5-809f79e4b672",
     "name": "API2 - FR-06 Product Detail (GET /api/products/:id)",
-    "description": "HW06 / Pool A / FR-06.\n\nSpec: GET /api/products/:id -> the product record.\n\nThis collection is the main carrier of schema-validation evidence: the response type of `price` and the not-found behaviour are both worth checking against the spec on every id partition.",
+    "description": "HW06 / Pool A / FR-06 - Product detail.\n\nSpec: GET /api/products/:id -> the product record.\n\nGenerated from scripts/cases/api2_fr06_product_detail.py. This is the collection carrying the schema-validation evidence: the strict schema and the price-type assertions are repeated across every seeded product id, because type drift here is data-dependent and a single representative id would miss it.\n\nFixtures always create their own throwaway products - the five seeded products are never modified or deleted, so no case can disturb another.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "00 - Setup",
-      "item": [
-        {
-          "name": "SETUP-001 | Capture a known-good product id",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Product list is available\", () => pm.response.to.have.status(200));",
-                  "const list = pm.response.json();",
-                  "if (Array.isArray(list) && list.length) {",
-                  "    pm.environment.set(\"existing_product_id\", list[0].id);",
-                  "    pm.environment.set(\"max_product_id\", list[list.length - 1].id);",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products"
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "description": ""
-    },
-    {
       "name": "01 - Domain partitions",
       "item": [
         {
-          "name": "DP-001 | Existing id returns that product",
-          "event": [
+          "name": "id",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Returned product is the one requested\", function () {",
-                  "    pm.expect(String(pm.response.json().id)).to.eql(",
-                  "        String(pm.environment.get(\"existing_product_id\"))",
-                  "    );",
-                  "});"
-                ]
-              }
+              "name": "A2-DP-001 | Product 1 (iPhone 15 Pro Max) is retrievable",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(1);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ]
+                },
+                "description": "**A2-DP-001** - Product 1 (iPhone 15 Pro Max) is retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: seeded product id 1 (odd) |\n| Requirement | FR-06 |\n| Expected | 200 with product 1 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-002 | Product 2 (Samsung Galaxy S24 Ultra) is retrievable",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(2);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/2",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "2"
+                  ]
+                },
+                "description": "**A2-DP-002** - Product 2 (Samsung Galaxy S24 Ultra) is retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: seeded product id 2 (even) |\n| Requirement | FR-06 |\n| Expected | 200 with product 2 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-003 | Product 3 (MacBook Pro M3) is retrievable",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(3);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "3"
+                  ]
+                },
+                "description": "**A2-DP-003** - Product 3 (MacBook Pro M3) is retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: seeded product id 3 (odd) |\n| Requirement | FR-06 |\n| Expected | 200 with product 3 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-004 | Product 4 (Tai nghe AirPods Pro 2) is retrievable",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(4);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "4"
+                  ]
+                },
+                "description": "**A2-DP-004** - Product 4 (Tai nghe AirPods Pro 2) is retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: seeded product id 4 (even) |\n| Requirement | FR-06 |\n| Expected | 200 with product 4 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-005 | Product 5 (Bàn phím cơ Keychron Q1) is retrievable",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(5);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "5"
+                  ]
+                },
+                "description": "**A2-DP-005** - Product 5 (Bàn phím cơ Keychron Q1) is retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: seeded product id 5 (odd) |\n| Requirement | FR-06 |\n| Expected | 200 with product 5 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-006 | A percent-encoded digit resolves to the same product id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(5);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/%35",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "%35"
+                  ]
+                },
+                "description": "**A2-DP-006** - A percent-encoded digit resolves to the same product id\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | encoding boundary: percent-encoded decimal digit |\n| Requirement | FR-06 |\n| Expected | 200 with product 5 after URL decoding |\n| Origin | AI-generated |\n| Audit | INVALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-007 | Id 6, one past the seeded range, returns 404",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Unknown product returns 404\", function () {",
+                      "    pm.response.to.have.status(404);",
+                      "});",
+                      "pm.test(\"Response is not an empty object served as success\", function () {",
+                      "    const b = pm.response.json();",
+                      "    const isEmptyObject = b && typeof b === \"object\" &&",
+                      "                          !Array.isArray(b) && Object.keys(b).length === 0;",
+                      "    pm.expect(isEmptyObject,",
+                      "        \"200 with {} makes \\\"missing\\\" indistinguishable from \\\"blank\\\"\"",
+                      "    ).to.be.false;",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/6",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "6"
+                  ]
+                },
+                "description": "**A2-DP-007** - Id 6, one past the seeded range, returns 404\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | boundary: first id beyond the seeded range |\n| Requirement | FR-06 |\n| Expected | 404 - no such product |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-008 | A far out-of-range id returns 404",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Unknown product returns 404\", function () {",
+                      "    pm.response.to.have.status(404);",
+                      "});",
+                      "pm.test(\"Response is not an empty object served as success\", function () {",
+                      "    const b = pm.response.json();",
+                      "    const isEmptyObject = b && typeof b === \"object\" &&",
+                      "                          !Array.isArray(b) && Object.keys(b).length === 0;",
+                      "    pm.expect(isEmptyObject,",
+                      "        \"200 with {} makes \\\"missing\\\" indistinguishable from \\\"blank\\\"\"",
+                      "    ).to.be.false;",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/999999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "999999"
+                  ]
+                },
+                "description": "**A2-DP-008** - A far out-of-range id returns 404\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: far out of range |\n| Requirement | FR-06 |\n| Expected | 404 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-009 | Id 0 returns 404",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Unknown product returns 404\", function () {",
+                      "    pm.response.to.have.status(404);",
+                      "});",
+                      "pm.test(\"Response is not an empty object served as success\", function () {",
+                      "    const b = pm.response.json();",
+                      "    const isEmptyObject = b && typeof b === \"object\" &&",
+                      "                          !Array.isArray(b) && Object.keys(b).length === 0;",
+                      "    pm.expect(isEmptyObject,",
+                      "        \"200 with {} makes \\\"missing\\\" indistinguishable from \\\"blank\\\"\"",
+                      "    ).to.be.false;",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/0",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "0"
+                  ]
+                },
+                "description": "**A2-DP-009** - Id 0 returns 404\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | boundary: zero |\n| Requirement | FR-06 |\n| Expected | 404 - ids are AUTOINCREMENT and start at 1 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-010 | A negative id is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids cannot be negative)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/-1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "-1"
+                  ]
+                },
+                "description": "**A2-DP-010** - A negative id is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: negative |\n| Requirement | FR-06 |\n| Expected | 400 or 404 - never 200 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-011 | Id '-0' is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 ('-0' is not a valid id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/-0",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "-0"
+                  ]
+                },
+                "description": "**A2-DP-011** - Id '-0' is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: negative zero |\n| Requirement | FR-06 |\n| Expected | 400 or 404 |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-012 | An id beyond 2^31 returns 404 rather than erroring",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Unknown product returns 404\", function () {",
+                      "    pm.response.to.have.status(404);",
+                      "});",
+                      "pm.test(\"Response is not an empty object served as success\", function () {",
+                      "    const b = pm.response.json();",
+                      "    const isEmptyObject = b && typeof b === \"object\" &&",
+                      "                          !Array.isArray(b) && Object.keys(b).length === 0;",
+                      "    pm.expect(isEmptyObject,",
+                      "        \"200 with {} makes \\\"missing\\\" indistinguishable from \\\"blank\\\"\"",
+                      "    ).to.be.false;",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/2147483648",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "2147483648"
+                  ]
+                },
+                "description": "**A2-DP-012** - An id beyond 2^31 returns 404 rather than erroring\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | boundary: 32-bit integer overflow |\n| Requirement | FR-06 |\n| Expected | 404, never a 5xx |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-013 | A 22-digit id is handled without a server error",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});",
+                      "pm.test(\"No database internals leak to the client\", function () {",
+                      "    const t = pm.response.text().toLowerCase();",
+                      "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                      "        .forEach(function (needle) {",
+                      "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                      "                .to.not.include(needle);",
+                      "        });",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/9999999999999999999999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "9999999999999999999999"
+                  ]
+                },
+                "description": "**A2-DP-013** - A 22-digit id is handled without a server error\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | boundary: beyond 64-bit range |\n| Requirement | FR-06 |\n| Expected | 404 or 400, never a 5xx |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-014 | Id 'abc' (alphabetic) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (an id must be numeric)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/abc",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "abc"
+                  ]
+                },
+                "description": "**A2-DP-014** - Id 'abc' (alphabetic) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: alphabetic |\n| Requirement | FR-06 |\n| Expected | 400 - an id must be numeric |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-015 | Id '1.5' (decimal) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids are integers)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1.5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1.5"
+                  ]
+                },
+                "description": "**A2-DP-015** - Id '1.5' (decimal) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: decimal |\n| Requirement | FR-06 |\n| Expected | 400 - ids are integers |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-016 | Id '1e0' (scientific notation) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids are plain integers)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1e0",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1e0"
+                  ]
+                },
+                "description": "**A2-DP-016** - Id '1e0' (scientific notation) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: scientific notation |\n| Requirement | FR-06 |\n| Expected | 400 - ids are plain integers |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-017 | Id '0x1' (hexadecimal literal) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids are decimal integers)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/0x1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "0x1"
+                  ]
+                },
+                "description": "**A2-DP-017** - Id '0x1' (hexadecimal literal) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: hexadecimal literal |\n| Requirement | FR-06 |\n| Expected | 400 - ids are decimal integers |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-018 | Id '+1' (explicit plus sign) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids carry no sign)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/+1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "+1"
+                  ]
+                },
+                "description": "**A2-DP-018** - Id '+1' (explicit plus sign) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: explicit plus sign |\n| Requirement | FR-06 |\n| Expected | 400 - ids carry no sign |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-019 | Id 'null' (the literal string 'null') is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a numeric id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/null",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "null"
+                  ]
+                },
+                "description": "**A2-DP-019** - Id 'null' (the literal string 'null') is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: the literal string 'null' |\n| Requirement | FR-06 |\n| Expected | 400 - not a numeric id |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-020 | Id 'undefined' (the literal string 'undefined') is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a numeric id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/undefined",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "undefined"
+                  ]
+                },
+                "description": "**A2-DP-020** - Id 'undefined' (the literal string 'undefined') is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: the literal string 'undefined' |\n| Requirement | FR-06 |\n| Expected | 400 - not a numeric id |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-021 | Id 'true' (a boolean literal) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a numeric id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "true"
+                  ]
+                },
+                "description": "**A2-DP-021** - Id 'true' (a boolean literal) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: a boolean literal |\n| Requirement | FR-06 |\n| Expected | 400 - not a numeric id |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-022 | Id 'NaN' (NaN) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a numeric id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/NaN",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "NaN"
+                  ]
+                },
+                "description": "**A2-DP-022** - Id 'NaN' (NaN) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: NaN |\n| Requirement | FR-06 |\n| Expected | 400 - not a numeric id |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-023 | Id 'Infinity' (Infinity) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a numeric id)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/Infinity",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "Infinity"
+                  ]
+                },
+                "description": "**A2-DP-023** - Id 'Infinity' (Infinity) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: Infinity |\n| Requirement | FR-06 |\n| Expected | 400 - not a numeric id |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-024 | Id '1abc' (digits followed by letters) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a well-formed integer)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1abc",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1abc"
+                  ]
+                },
+                "description": "**A2-DP-024** - Id '1abc' (digits followed by letters) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: digits followed by letters |\n| Requirement | FR-06 |\n| Expected | 400 - not a well-formed integer |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-025 | Id 'abc1' (letters followed by digits) is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (not a well-formed integer)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/abc1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "abc1"
+                  ]
+                },
+                "description": "**A2-DP-025** - Id 'abc1' (letters followed by digits) is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: letters followed by digits |\n| Requirement | FR-06 |\n| Expected | 400 - not a well-formed integer |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-026 | Id '01' resolves to product 1 or is rejected, but never 404s silently",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/01",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "01"
+                  ]
+                },
+                "description": "**A2-DP-026** - Id '01' resolves to product 1 or is rejected, but never 404s silently\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: leading zeros |\n| Requirement | FR-06 |\n| Expected | 200 for product 1, or a 400; not a 404 for a product that exists |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** The spec does not say whether ids are normalised before lookup."
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-027 | Id ' 1' with a leading space is rejected or trimmed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/%201",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "%201"
+                  ]
+                },
+                "description": "**A2-DP-027** - Id ' 1' with a leading space is rejected or trimmed\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: leading whitespace |\n| Requirement | FR-06 |\n| Expected | 400, or 200 for product 1 - never a 5xx |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** Trimming behaviour is unspecified."
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-028 | An id consisting solely of an encoded space is rejected",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});",
+                      "pm.test(\"No database internals leak to the client\", function () {",
+                      "    const t = pm.response.text().toLowerCase();",
+                      "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                      "        .forEach(function (needle) {",
+                      "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                      "                .to.not.include(needle);",
+                      "        });",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/%20",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "%20"
+                  ]
+                },
+                "description": "**A2-DP-028** - An id consisting solely of an encoded space is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: percent-encoded space only |\n| Requirement | FR-06 |\n| Expected | 400 or 404 |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-029 | A 300-digit id does not crash the server",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});",
+                      "pm.test(\"No database internals leak to the client\", function () {",
+                      "    const t = pm.response.text().toLowerCase();",
+                      "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                      "        .forEach(function (needle) {",
+                      "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                      "                .to.not.include(needle);",
+                      "        });",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+                  ]
+                },
+                "description": "**A2-DP-029** - A 300-digit id does not crash the server\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: very long numeric id |\n| Requirement | FR-06 |\n| Expected | 404 or 400, never a 5xx |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-030 | An extra path segment is not routed to product detail",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is one of [404, 405]\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([404, 405]);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1/2",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1",
+                    "2"
+                  ]
+                },
+                "description": "**A2-DP-030** - An extra path segment is not routed to product detail\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: extra path segment |\n| Requirement | FR-06 |\n| Expected | 404 - /api/products/1/2 is not a documented route |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-031 | A trailing slash falls through to the product list, not to detail",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"An empty id lands on the list route, returning an array\", function () {",
+                      "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ]
+                },
+                "description": "**A2-DP-031** - A trailing slash falls through to the product list, not to detail\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | edge: empty id (trailing slash) |\n| Requirement | FR-06 |\n| Expected | 200 with an ARRAY - this is the list route, not a product |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** Documents routing behaviour the spec does not describe."
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-035 | Reading the same product twice returns an identical payload",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.sendRequest({",
+                      "    url: pm.environment.get(\"base_url\") + \"/api/products/3\",",
+                      "    method: \"GET\",",
+                      "    header: { \"X-Student-Id\": pm.environment.get(\"student_id\") }",
+                      "}, function (err, res) {",
+                      "    if (res) { pm.variables.set(\"firstRead\", res.text()); }",
+                      "});"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"GET is idempotent for an unchanged product\", function () {",
+                      "    pm.expect(pm.response.text()).to.eql(pm.variables.get(\"firstRead\"));",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "3"
+                  ]
+                },
+                "description": "**A2-DP-035** - Reading the same product twice returns an identical payload\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: repeated read is stable |\n| Requirement | FR-06 |\n| Expected | the second read is byte-identical to the first |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-HR-001 | A percent-encoded product id returns the same resource",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"A product object is returned\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.be.an(\"object\");",
+                      "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                      "});",
+                      "pm.test(\"Returned product is the one requested\", function () {",
+                      "    pm.expect(Number(pm.response.json().id)).to.eql(1);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/%31",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "%31"
+                  ]
+                },
+                "description": "**A2-HR-001** - A percent-encoded product id returns the same resource\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | valid: percent-encoded digit in the path segment |\n| Requirement | FR-06 |\n| Expected | 200 with product 1 |\n| Origin | Student-designed |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-HR-005 | A full-width Unicode digit is not confused with an ASCII id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 400-499 (ids use ASCII decimal digits)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                      "});",
+                      "pm.test(\"Server does not fail with a 5xx\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/%EF%BC%91",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "%EF%BC%91"
+                  ]
+                },
+                "description": "**A2-HR-005** - A full-width Unicode digit is not confused with an ASCII id\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | id |\n| Partition | invalid: full-width Unicode digit |\n| Requirement | FR-06 / SEC-04 |\n| Expected | 400 or 404, never product 1 and never a 5xx |\n| Origin | Student-designed |\n| Audit | VALID |"
+              },
+              "response": []
             }
           ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products/{{existing_product_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products",
-                "{{existing_product_id}}"
-              ]
-            }
-          },
-          "response": []
+          "description": "34 case(s) on `id`."
         },
         {
-          "name": "DP-002 | Non-existent id returns 404",
-          "event": [
+          "name": "http method",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "// Spec/REST contract: an unknown resource is 404, not 200 with an empty body.",
-                  "pm.test(\"Unknown product id returns 404\", function () {",
-                  "    pm.response.to.have.status(404);",
-                  "});"
-                ]
-              }
+              "name": "A2-DP-032 | POST /api/products/:id is not routed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is one of [404, 405]\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([404, 405]);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ]
+                },
+                "description": "**A2-DP-032** - POST /api/products/:id is not routed\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | http method |\n| Partition | invalid: POST on the detail route |\n| Requirement | spec conformance |\n| Expected | 404 or 405 - the spec documents GET, PUT and DELETE only |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-033 | PATCH /api/products/:id is not routed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is one of [404, 405]\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([404, 405]);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ]
+                },
+                "description": "**A2-DP-033** - PATCH /api/products/:id is not routed\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | http method |\n| Partition | invalid: PATCH on the detail route |\n| Requirement | spec conformance |\n| Expected | 404 or 405 - the spec documents GET, PUT and DELETE only |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
+            },
+            {
+              "name": "A2-DP-034 | HEAD /api/products/1 succeeds without a body",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "HEAD",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ]
+                },
+                "description": "**A2-DP-034** - HEAD /api/products/1 succeeds without a body\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | http method |\n| Partition | valid: HEAD mirrors GET |\n| Requirement | spec conformance |\n| Expected | 200 - HEAD is GET without the payload |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
             }
           ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products/999999",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products",
-                "999999"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DP-003 | Non-numeric id is rejected",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Non-numeric id yields a 4xx, never a 500\", function () {",
-                  "    pm.expect(pm.response.code).to.be.within(400, 499);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products/abc",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products",
-                "abc"
-              ]
-            }
-          },
-          "response": []
+          "description": "3 case(s) on `http method`."
         }
       ],
-      "description": "Partitions on :id - valid / non-existent / zero / negative / non-numeric / overflow / injection."
+      "description": "Equivalence classes and boundaries on the :id path parameter, plus the HTTP methods the route does and does not accept."
     },
     {
       "name": "02 - State transitions",
       "item": [
         {
-          "name": "ST-001 | Deleted product is no longer retrievable",
+          "name": "A2-ST-001 | A newly created product is immediately retrievable by id",
           "event": [
             {
               "listen": "prerequest",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Create then delete a product so this request observes the post-delete state.",
-                  "// NOTE: POST/DELETE /api/products currently need no token - that itself is a",
-                  "// finding for the security folder.",
-                  "const base = pm.environment.get(\"base_url\");",
-                  "const sid = pm.environment.get(\"student_id\");",
                   "pm.sendRequest({",
-                  "    url: base + \"/api/products\",",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
                   "    method: \"POST\",",
-                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": sid },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({",
-                  "        name: \"HW06 transient\", price: 1000, description: \"state fixture\",",
-                  "        imageUrl: \"\", category_id: 1 }) }",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
                   "}, function (err, res) {",
-                  "    if (err || !res) { return; }",
-                  "    const id = res.json().id;",
-                  "    pm.environment.set(\"transient_product_id\", id);",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
                   "    pm.sendRequest({",
-                  "        url: base + \"/api/products/\" + id,",
-                  "        method: \"DELETE\",",
-                  "        header: { \"X-Student-Id\": sid }",
-                  "    }, function () {",
-                  "        console.log(\"[HW06] ST-001 fixture created+deleted product \" + id);",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-001 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
                   "    });",
                   "});"
                 ]
@@ -195,8 +1454,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"A deleted product returns 404\", function () {",
-                  "    pm.response.to.have.status(404);",
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"The created product is returned\", function () {",
+                  "    pm.expect(String(pm.response.json().id))",
+                  "      .to.eql(String(pm.variables.get(\"prodId\")));",
                   "});"
                 ]
               }
@@ -206,145 +1467,346 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/products/{{transient_product_id}}",
+              "raw": "{{base_url}}/api/products/{{prodId}}",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "products",
-                "{{transient_product_id}}"
+                "{{prodId}}"
               ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "description": "Existence states of a product: present -> deleted -> absent."
-    },
-    {
-      "name": "03 - Security (SEC-01..SEC-07)",
-      "item": [
-        {
-          "name": "SEC-05 | SQL injection through the :id path parameter",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Injection does not return the whole table\", function () {",
-                  "    const b = pm.response.json();",
-                  "    pm.expect(Array.isArray(b), \"response must not be a list of all products\").to.be.false;",
-                  "});",
-                  "pm.test(\"No 500 / SQL error leak\", function () {",
-                  "    pm.expect(pm.response.code).to.not.eql(500);",
-                  "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products/1 OR 1=1",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products",
-                "1 OR 1=1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "description": ""
-    },
-    {
-      "name": "04 - Schema validation",
-      "item": [
-        {
-          "name": "SCH-001 | Product schema holds for an odd id",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const schema = {",
-                  "    type: \"object\",",
-                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
-                  "    properties: {",
-                  "        id: { type: \"integer\" },",
-                  "        name: { type: \"string\" },",
-                  "        price: { type: \"number\" },",
-                  "        description: { type: \"string\" },",
-                  "        imageUrl: { type: \"string\" },",
-                  "        category_id: { type: \"integer\" }",
-                  "    }",
-                  "};",
-                  "",
-                  "pm.test(\"Response conforms to the product schema\", function () {",
-                  "    pm.response.to.have.jsonSchema(schema);",
-                  "});",
-                  "",
-                  "pm.test(\"price is a JSON number, not a string\", function () {",
-                  "    pm.expect(pm.response.json().price).to.be.a(\"number\");",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/products/1",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "products",
-                "1"
-              ]
-            }
+            },
+            "description": "**A2-ST-001** - A newly created product is immediately retrievable by id\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: absent -> created |\n| Requirement | FR-06 |\n| Expected | 200 with the product just created |\n| Origin | AI-generated |\n| Audit | VALID |"
           },
           "response": []
         },
         {
-          "name": "SCH-002 | Product schema holds for an even id",
+          "name": "A2-ST-002 | A renamed product's detail reflects the new name",
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-002 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products/\" + pm.variables.get(\"prodId\"),",
+                  "            method: \"PUT\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ name: \"Renamed \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "        }, function (err, res) {",
+                  "",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const schema = {",
-                  "    type: \"object\",",
-                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
-                  "    properties: {",
-                  "        id: { type: \"integer\" },",
-                  "        name: { type: \"string\" },",
-                  "        price: { type: \"number\" },",
-                  "        description: { type: \"string\" },",
-                  "        imageUrl: { type: \"string\" },",
-                  "        category_id: { type: \"integer\" }",
+                  "pm.test(\"Detail reflects the rename\", function () {",
+                  "    pm.expect(String(pm.response.json().name))",
+                  "      .to.include(\"Renamed \" + pm.variables.get(\"uniq\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-002** - A renamed product's detail reflects the new name\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: created -> renamed |\n| Requirement | FR-06 |\n| Expected | the detail payload carries the updated name |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-003 | A repriced product's detail reflects the new price, still as a number",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
                   "    }",
-                  "};",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-003 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products/\" + pm.variables.get(\"prodId\"),",
+                  "            method: \"PUT\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ name: \"Repriced\", price: 222000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "        }, function (err, res) {",
                   "",
-                  "// Same contract must hold regardless of the id's parity.",
-                  "pm.test(\"Response conforms to the product schema\", function () {",
-                  "    pm.response.to.have.jsonSchema(schema);",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Detail reflects the new price\", function () {",
+                  "    pm.expect(Number(pm.response.json().price)).to.eql(222000);",
                   "});",
-                  "",
-                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "pm.test(\"price is still a number after an update\", function () {",
                   "    pm.expect(pm.response.json().price).to.be.a(\"number\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-003** - A repriced product's detail reflects the new price, still as a number\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: created -> repriced |\n| Requirement | FR-06 |\n| Expected | price === 222000 as a JSON number |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-004 | A deleted product is no longer retrievable",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-004 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products/\" + pm.variables.get(\"prodId\"),",
+                  "            method: \"DELETE\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") }",
+                  "        }, function (err, res) {",
+                  "",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Unknown product returns 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Response is not an empty object served as success\", function () {",
+                  "    const b = pm.response.json();",
+                  "    const isEmptyObject = b && typeof b === \"object\" &&",
+                  "                          !Array.isArray(b) && Object.keys(b).length === 0;",
+                  "    pm.expect(isEmptyObject,",
+                  "        \"200 with {} makes \\\"missing\\\" indistinguishable from \\\"blank\\\"\"",
+                  "    ).to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-004** - A deleted product is no longer retrievable\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: created -> deleted |\n| Requirement | FR-06 |\n| Expected | 404 - the product no longer exists |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-005 | Recreating a deleted product yields a different id",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-005a \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products/\" + pm.variables.get(\"prodId\"),",
+                  "            method: \"DELETE\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") }",
+                  "        }, function (err, res) {",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-005b \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "            }, function (err, res) {",
+                  "                if (res && res.json()) { pm.variables.set(\"prodId2\", res.json().id); }",
+                  "",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"The recreated product has a new identity\", function () {",
+                  "    pm.expect(String(pm.response.json().id))",
+                  "      .to.not.eql(String(pm.variables.get(\"prodId\")));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId2}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId2}}"
+              ]
+            },
+            "description": "**A2-ST-005** - Recreating a deleted product yields a different id\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: deleted -> recreated gets a fresh identity |\n| Requirement | FR-06 |\n| Expected | 200, and the new id differs from the deleted one |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-006 | The detail payload matches the product's entry in the list",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "    method: \"GET\",",
+                  "    header: { \"X-Student-Id\": pm.environment.get(\"student_id\") }",
+                  "}, function (err, res) {",
+                  "    if (res && Array.isArray(res.json())) {",
+                  "        const match = res.json().find(function (p) { return Number(p.id) === 2; });",
+                  "        if (match) { pm.variables.set(\"listEntry\", JSON.stringify(match)); }",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const fromList = JSON.parse(pm.variables.get(\"listEntry\"));",
+                  "const fromDetail = pm.response.json();",
+                  "pm.test(\"Detail and list agree on the product's fields\", function () {",
+                  "    pm.expect(fromDetail).to.eql(fromList);",
+                  "});",
+                  "pm.test(\"price has the same JSON type in both views\", function () {",
+                  "    pm.expect(typeof fromDetail.price, \"detail price type\")",
+                  "      .to.eql(typeof fromList.price);",
                   "});"
                 ]
               }
@@ -363,12 +1825,2154 @@
                 "products",
                 "2"
               ]
+            },
+            "description": "**A2-ST-006** - The detail payload matches the product's entry in the list\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | consistency: detail agrees with the list |\n| Requirement | FR-06 / FR-05 |\n| Expected | every field, and every field's type, matches the list entry |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-007 | Reassigning a product's category is reflected in its detail",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-007 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products/\" + pm.variables.get(\"prodId\"),",
+                  "            method: \"PUT\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ name: \"Recategorised\", price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 2 }) }",
+                  "        }, function (err, res) {",
+                  "",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Detail reflects the new category\", function () {",
+                  "    pm.expect(Number(pm.response.json().category_id)).to.eql(2);",
+                  "});"
+                ]
+              }
             }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-007** - Reassigning a product's category is reflected in its detail\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: category reassigned |\n| Requirement | FR-06 |\n| Expected | category_id === 2 |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-008 | Deleting a product's category does not break its detail view",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/categories\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\",",
+                  "                  \"X-Student-Id\": pm.environment.get(\"student_id\"),",
+                  "                  \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({",
+                  "            name: \"HW06 temp \" + pm.variables.get(\"uniq\") }) }",
+                  "    }, function (err, res) {",
+                  "        const catId = res && res.json() ? res.json().id : 1;",
+                  "        pm.variables.set(\"tempCat\", catId);",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\",",
+                  "                      \"X-Student-Id\": pm.environment.get(\"student_id\"),",
+                  "                      \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({",
+                  "                name: \"Orphan \" + pm.variables.get(\"uniq\"), price: 111000,",
+                  "                description: \"fixture\", imageUrl: \"\", category_id: catId }) }",
+                  "        }, function (err, res2) {",
+                  "            if (res2 && res2.json()) { pm.variables.set(\"prodId\", res2.json().id); }",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/categories/\" + catId,",
+                  "                method: \"DELETE\",",
+                  "                header: { \"X-Student-Id\": pm.environment.get(\"student_id\"),",
+                  "                          \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") }",
+                  "            }, function () {});",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Product detail survives its category being deleted\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-008** - Deleting a product's category does not break its detail view\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | transition: category deleted underneath the product |\n| Requirement | FR-06 |\n| Expected | 200 - the product is still readable even with a dangling category_id |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** The spec does not define referential behaviour when a category is removed."
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-009 | Reading a product does not change it",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/products/4\",",
+                  "    method: \"GET\",",
+                  "    header: { \"X-Student-Id\": pm.environment.get(\"student_id\") }",
+                  "}, function (err, res) {",
+                  "    if (res) { pm.variables.set(\"beforeRead\", res.text()); }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A GET has no side effect on the resource\", function () {",
+                  "    pm.expect(pm.response.text()).to.eql(pm.variables.get(\"beforeRead\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "4"
+              ]
+            },
+            "description": "**A2-ST-009** - Reading a product does not change it\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | isolation: reads do not mutate |\n| Requirement | FR-06 |\n| Expected | the payload is unchanged after a prior read |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-ST-010 | A product created through the API has a numeric price on read-back",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 ST-010 \" + pm.variables.get(\"uniq\"), price: 999000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"price of a newly created product is a JSON number\", function () {",
+                  "    pm.expect(pm.response.json().price,",
+                  "        \"id \" + pm.variables.get(\"prodId\") + \" returned price as \" +",
+                  "        typeof pm.response.json().price).to.be.a(\"number\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-ST-010** - A product created through the API has a numeric price on read-back\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | consistency: a freshly created product is well typed |\n| Requirement | FR-06 |\n| Expected | price === 999000 as a JSON number, whatever the id turns out to be |\n| Origin | AI-generated |\n| Audit | VALID |"
           },
           "response": []
         }
       ],
-      "description": "Run the same schema assertions across every id partition - type drift is id-dependent here."
+      "description": "Product existence lifecycle: absent -> created -> updated -> deleted -> absent, and read-consistency invariants."
+    },
+    {
+      "name": "03 - Security (SEC-01..SEC-07)",
+      "item": [
+        {
+          "name": "A2-SEC-001 | Injection via :id (tautology) is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});pm.test(\"Injection does not turn the detail route into a list\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json()),",
+                  "        \"a single-resource route must never return an array\").to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1 OR 1=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1 OR 1=1"
+              ]
+            },
+            "description": "**A2-SEC-001** - Injection via :id (tautology) is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: tautology |\n| Requirement | SEC-05 |\n| Expected | no 5xx, no SQL error text, no extra rows, no credential leak |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-002 | Injection via :id (quoted tautology) is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});pm.test(\"Injection does not turn the detail route into a list\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json()),",
+                  "        \"a single-resource route must never return an array\").to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1' OR '1'='1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1' OR '1'='1"
+              ]
+            },
+            "description": "**A2-SEC-002** - Injection via :id (quoted tautology) is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: quoted tautology |\n| Requirement | SEC-05 |\n| Expected | no 5xx, no SQL error text, no extra rows, no credential leak |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-003 | Injection via :id (statement termination) is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});pm.test(\"Injection does not turn the detail route into a list\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json()),",
+                  "        \"a single-resource route must never return an array\").to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1; DROP TABLE products;--",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1; DROP TABLE products;--"
+              ]
+            },
+            "description": "**A2-SEC-003** - Injection via :id (statement termination) is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: statement termination |\n| Requirement | SEC-05 |\n| Expected | no 5xx, no SQL error text, no extra rows, no credential leak |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-004 | Injection via :id (UNION SELECT against users) is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});pm.test(\"Injection does not turn the detail route into a list\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json()),",
+                  "        \"a single-resource route must never return an array\").to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1 UNION SELECT id,email,password,role,id,id FROM users--",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1 UNION SELECT id,email,password,role,id,id FROM users--"
+              ]
+            },
+            "description": "**A2-SEC-004** - Injection via :id (UNION SELECT against users) is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: UNION SELECT against users |\n| Requirement | SEC-05 |\n| Expected | no 5xx, no SQL error text, no extra rows, no credential leak |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-005 | Injection via :id (comment sequence) is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});pm.test(\"Injection does not turn the detail route into a list\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json()),",
+                  "        \"a single-resource route must never return an array\").to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1--",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1--"
+              ]
+            },
+            "description": "**A2-SEC-005** - Injection via :id (comment sequence) is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: comment sequence |\n| Requirement | SEC-05 |\n| Expected | no 5xx, no SQL error text, no extra rows, no credential leak |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-006 | The products table survives the injection attempts intact",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const base = pm.environment.get(\"base_url\");",
+                  "const sid = pm.environment.get(\"student_id\");",
+                  "[\"1; DROP TABLE products;--\", \"1' OR '1'='1\"].forEach(function (payload) {",
+                  "    pm.sendRequest({",
+                  "        url: base + \"/api/products/\" + encodeURIComponent(payload),",
+                  "        method: \"GET\",",
+                  "        header: { \"X-Student-Id\": sid }",
+                  "    }, function () {});",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response is a JSON array\", function () {",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                  "});pm.test(\"Seeded products survived the injection attempts\", function () {",
+                  "    pm.expect(pm.response.json().length,",
+                  "        \"at least the five seeded products\").to.be.at.least(5);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
+            },
+            "description": "**A2-SEC-006** - The products table survives the injection attempts intact\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | SQL injection: data integrity afterwards |\n| Requirement | SEC-05 |\n| Expected | the five seeded products are still listed |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-007 | A path-traversal payload does not escape the route",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});pm.test(\"No filesystem content is returned\", function () {",
+                  "    pm.expect(pm.response.text()).to.not.include(\"root:\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/..%2F..%2Fetc%2Fpasswd",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "..%2F..%2Fetc%2Fpasswd"
+              ]
+            },
+            "description": "**A2-SEC-007** - A path-traversal payload does not escape the route\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | path traversal |\n| Requirement | SEC-05 |\n| Expected | 404 or 400 - no file content, no directory listing |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-008 | A script payload in a product name is returned as inert JSON data",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"<script>alert(1)</script>\" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Content-Type is application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\") || \"\")",
+                  "        .to.include(\"application/json\");",
+                  "});pm.test(\"Payload is preserved as data, not rendered as markup\", function () {",
+                  "    pm.expect(pm.response.json().name).to.be.a(\"string\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-SEC-008** - A script payload in a product name is returned as inert JSON data\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | name |\n| Partition | stored XSS returned through the detail view |\n| Requirement | SEC-04 |\n| Expected | Content-Type is application/json and the payload is a string field |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-009 | Product detail exposes no credential or internal fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"No credential material in the response\", function () {",
+                  "    const t = pm.response.text();",
+                  "    pm.expect(t.toLowerCase()).to.not.include('\"password\"');",
+                  "    pm.expect(t).to.not.include(\"Admin123!\");",
+                  "    pm.expect(t).to.not.include(\"Test1234!\");",
+                  "});const text = pm.response.text().toLowerCase();",
+                  "[\"token\", \"role\", \"reset_token\"].forEach(function (key) {",
+                  "    pm.test('Detail payload contains no \"' + key + '\" field', function () {",
+                  "        pm.expect(text).to.not.include('\"' + key + '\"');",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SEC-009** - Product detail exposes no credential or internal fields\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | information disclosure in the detail payload |\n| Requirement | SEC-01 |\n| Expected | no password, token, role or reset_token key |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-010 | Product detail is readable without any Authorization header",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"A product object is returned\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.be.an(\"object\");",
+                  "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                  "});",
+                  "pm.test(\"Returned product is the one requested\", function () {",
+                  "    pm.expect(Number(pm.response.json().id)).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SEC-010** - Product detail is readable without any Authorization header\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | authentication requirement: browsing is public by design |\n| Requirement | SEC-02 (not applicable) |\n| Expected | 200 - SEC-02 does not apply to public product browsing |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** Documents why SEC-02 is not applicable to this endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-011 | Creating a product without a token must be refused",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (no token supplied)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
+            },
+            "description": "**A2-SEC-011** - Creating a product without a token must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | unauthenticated write: create |\n| Requirement | FR-12 / SEC-02 |\n| Expected | 401 - FR-12 requires a valid JWT on POST /api/products |\n| Origin | AI-generated |\n| Audit | VALID |",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Anonymous product {{uniq}}\",\n  \"price\": 1000,\n  \"description\": \"should not exist\",\n  \"imageUrl\": \"\",\n  \"category_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-012 | Updating a product without a token must be refused",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 SEC-012 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (no token supplied)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-SEC-012** - Updating a product without a token must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | unauthenticated write: update |\n| Requirement | FR-12 / SEC-02 |\n| Expected | 401 - FR-12 requires a valid JWT on PUT /api/products/:id |\n| Origin | AI-generated |\n| Audit | VALID |",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hijacked\",\n  \"price\": 1,\n  \"description\": \"\",\n  \"imageUrl\": \"\",\n  \"category_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-013 | Deleting a product without a token must be refused",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 SEC-013 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (no token supplied)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-SEC-013** - Deleting a product without a token must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | unauthenticated write: delete |\n| Requirement | FR-12 / SEC-02 |\n| Expected | 401 - FR-12 requires a valid JWT on DELETE /api/products/:id |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-014 | A non-admin token must not be able to update a product",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 SEC-014 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\",",
+                  "                      \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({",
+                  "                email: pm.environment.get(\"user_email\"),",
+                  "                password: pm.environment.get(\"user_password\") }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json() && res.json().token) {",
+                  "                pm.variables.set(\"tok\", res.json().token);",
+                  "            }",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (caller is not an admin)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-SEC-014** - A non-admin token must not be able to update a product\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | non-admin write: update |\n| Requirement | FR-12 / SEC-03 |\n| Expected | 403 - SEC-03 requires role='admin', not merely a valid token |\n| Origin | AI-generated |\n| Audit | VALID |",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hijacked by user\",\n  \"price\": 1,\n  \"description\": \"\",\n  \"imageUrl\": \"\",\n  \"category_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-015 | A non-admin token must not be able to delete a product",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/products\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ name: \"HW06 SEC-015 \" + pm.variables.get(\"uniq\"), price: 111000, description: \"fixture\", imageUrl: \"\", category_id: 1 }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json()) { pm.variables.set(\"prodId\", res.json().id); }",
+                  "",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\",",
+                  "                      \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({",
+                  "                email: pm.environment.get(\"user_email\"),",
+                  "                password: pm.environment.get(\"user_password\") }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json() && res.json().token) {",
+                  "                pm.variables.set(\"tok\", res.json().token);",
+                  "            }",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (caller is not an admin)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{prodId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{prodId}}"
+              ]
+            },
+            "description": "**A2-SEC-015** - A non-admin token must not be able to delete a product\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | non-admin write: delete |\n| Requirement | FR-12 / SEC-03 |\n| Expected | 403 - SEC-03 requires role='admin' |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SEC-016 | An invalid id must not leak database internals",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});",
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/';--",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "';--"
+              ]
+            },
+            "description": "**A2-SEC-016** - An invalid id must not leak database internals\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | information disclosure on error |\n| Requirement | SEC-05 |\n| Expected | a clean 4xx with no driver, table or stack detail |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-HR-002 | A query-string id cannot override the product path id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"A product object is returned\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.be.an(\"object\");",
+                  "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                  "});",
+                  "pm.test(\"Returned product is the one requested\", function () {",
+                  "    pm.expect(Number(pm.response.json().id)).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1?id=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "**A2-HR-002** - A query-string id cannot override the product path id\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | query string |\n| Partition | parameter pollution: query id must not override path id |\n| Requirement | FR-06 / SEC-04 |\n| Expected | 200 with product 1, not product 2 |\n| Origin | Student-designed |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-HR-004 | A double-encoded SQL payload is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 400-499 (double-encoded id is not an integer)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                  "});",
+                  "pm.test(\"Server does not fail with a 5xx\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.below(500);",
+                  "});",
+                  "pm.test(\"No database internals leak to the client\", function () {",
+                  "    const t = pm.response.text().toLowerCase();",
+                  "    [\"sqlite\", \"sql error\", \"syntax error\", \"at object.\"]",
+                  "        .forEach(function (needle) {",
+                  "            pm.expect(t, \"response must not contain \\\"\" + needle + \"\\\"\")",
+                  "                .to.not.include(needle);",
+                  "        });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1%2520OR%25201%253D1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1%2520OR%25201%253D1"
+              ]
+            },
+            "description": "**A2-HR-004** - A double-encoded SQL payload is neutralised\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | id |\n| Partition | invalid: double-encoded SQL metacharacters |\n| Requirement | SEC-04 / SEC-05 |\n| Expected | clean 4xx, never a query expansion or server error |\n| Origin | Student-designed |\n| Audit | VALID |"
+          },
+          "response": []
+        }
+      ],
+      "description": "SEC-05 injection through the path parameter, SEC-04 stored XSS, and the FR-12 / SEC-03 access control on the mutating siblings of this route."
+    },
+    {
+      "name": "04 - Schema validation",
+      "item": [
+        {
+          "name": "A2-SCH-001 | Product 1 conforms to the product schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const productSchema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        id:          { type: \"integer\" },",
+                  "        name:        { type: \"string\" },",
+                  "        price:       { type: \"number\" },",
+                  "        description: { type: [\"string\", \"null\"] },",
+                  "        imageUrl:    { type: [\"string\", \"null\"] },",
+                  "        category_id: { type: [\"integer\", \"null\"] }",
+                  "    }",
+                  "};",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(productSchema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-001** - Product 1 conforms to the product schema\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | strict schema for product 1 |\n| Requirement | spec conformance |\n| Expected | validates against the schema with additionalProperties false |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-002 | Product 2 conforms to the product schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const productSchema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        id:          { type: \"integer\" },",
+                  "        name:        { type: \"string\" },",
+                  "        price:       { type: \"number\" },",
+                  "        description: { type: [\"string\", \"null\"] },",
+                  "        imageUrl:    { type: [\"string\", \"null\"] },",
+                  "        category_id: { type: [\"integer\", \"null\"] }",
+                  "    }",
+                  "};",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(productSchema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "2"
+              ]
+            },
+            "description": "**A2-SCH-002** - Product 2 conforms to the product schema\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | strict schema for product 2 |\n| Requirement | spec conformance |\n| Expected | validates against the schema with additionalProperties false |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-003 | Product 3 conforms to the product schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const productSchema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        id:          { type: \"integer\" },",
+                  "        name:        { type: \"string\" },",
+                  "        price:       { type: \"number\" },",
+                  "        description: { type: [\"string\", \"null\"] },",
+                  "        imageUrl:    { type: [\"string\", \"null\"] },",
+                  "        category_id: { type: [\"integer\", \"null\"] }",
+                  "    }",
+                  "};",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(productSchema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3"
+              ]
+            },
+            "description": "**A2-SCH-003** - Product 3 conforms to the product schema\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | strict schema for product 3 |\n| Requirement | spec conformance |\n| Expected | validates against the schema with additionalProperties false |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-004 | Product 4 conforms to the product schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const productSchema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        id:          { type: \"integer\" },",
+                  "        name:        { type: \"string\" },",
+                  "        price:       { type: \"number\" },",
+                  "        description: { type: [\"string\", \"null\"] },",
+                  "        imageUrl:    { type: [\"string\", \"null\"] },",
+                  "        category_id: { type: [\"integer\", \"null\"] }",
+                  "    }",
+                  "};",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(productSchema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "4"
+              ]
+            },
+            "description": "**A2-SCH-004** - Product 4 conforms to the product schema\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | strict schema for product 4 |\n| Requirement | spec conformance |\n| Expected | validates against the schema with additionalProperties false |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-005 | Product 5 conforms to the product schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const productSchema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        id:          { type: \"integer\" },",
+                  "        name:        { type: \"string\" },",
+                  "        price:       { type: \"number\" },",
+                  "        description: { type: [\"string\", \"null\"] },",
+                  "        imageUrl:    { type: [\"string\", \"null\"] },",
+                  "        category_id: { type: [\"integer\", \"null\"] }",
+                  "    }",
+                  "};",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(productSchema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "5"
+              ]
+            },
+            "description": "**A2-SCH-005** - Product 5 conforms to the product schema\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | strict schema for product 5 |\n| Requirement | spec conformance |\n| Expected | validates against the schema with additionalProperties false |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-006 | price of product 1 is a JSON number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const price = pm.response.json().price;",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(price, \"product 1 returned price as a \" + typeof price)",
+                  "      .to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"price is arithmetic-safe\", function () {",
+                  "    pm.expect(price + 1, \"adding 1 must not concatenate\")",
+                  "      .to.eql(Number(price) + 1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-006** - price of product 1 is a JSON number\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | price type for product 1 (odd id) |\n| Requirement | FR-06 / spec conformance |\n| Expected | typeof price === 'number', for every id without exception |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-007 | price of product 2 is a JSON number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const price = pm.response.json().price;",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(price, \"product 2 returned price as a \" + typeof price)",
+                  "      .to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"price is arithmetic-safe\", function () {",
+                  "    pm.expect(price + 1, \"adding 1 must not concatenate\")",
+                  "      .to.eql(Number(price) + 1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "2"
+              ]
+            },
+            "description": "**A2-SCH-007** - price of product 2 is a JSON number\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | price type for product 2 (even id) |\n| Requirement | FR-06 / spec conformance |\n| Expected | typeof price === 'number', for every id without exception |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-008 | price of product 3 is a JSON number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const price = pm.response.json().price;",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(price, \"product 3 returned price as a \" + typeof price)",
+                  "      .to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"price is arithmetic-safe\", function () {",
+                  "    pm.expect(price + 1, \"adding 1 must not concatenate\")",
+                  "      .to.eql(Number(price) + 1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3"
+              ]
+            },
+            "description": "**A2-SCH-008** - price of product 3 is a JSON number\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | price type for product 3 (odd id) |\n| Requirement | FR-06 / spec conformance |\n| Expected | typeof price === 'number', for every id without exception |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-009 | price of product 4 is a JSON number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const price = pm.response.json().price;",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(price, \"product 4 returned price as a \" + typeof price)",
+                  "      .to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"price is arithmetic-safe\", function () {",
+                  "    pm.expect(price + 1, \"adding 1 must not concatenate\")",
+                  "      .to.eql(Number(price) + 1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "4"
+              ]
+            },
+            "description": "**A2-SCH-009** - price of product 4 is a JSON number\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | price type for product 4 (even id) |\n| Requirement | FR-06 / spec conformance |\n| Expected | typeof price === 'number', for every id without exception |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-010 | price of product 5 is a JSON number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const price = pm.response.json().price;",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(price, \"product 5 returned price as a \" + typeof price)",
+                  "      .to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"price is arithmetic-safe\", function () {",
+                  "    pm.expect(price + 1, \"adding 1 must not concatenate\")",
+                  "      .to.eql(Number(price) + 1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "5"
+              ]
+            },
+            "description": "**A2-SCH-010** - price of product 5 is a JSON number\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | price type for product 5 (odd id) |\n| Requirement | FR-06 / spec conformance |\n| Expected | typeof price === 'number', for every id without exception |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-011 | id is a JSON integer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"id is an integer\", function () {",
+                  "    const id = pm.response.json().id;",
+                  "    pm.expect(id).to.be.a(\"number\");",
+                  "    pm.expect(Number.isInteger(id)).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-011** - id is a JSON integer\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | id |\n| Partition | id type |\n| Requirement | spec conformance |\n| Expected | Number.isInteger(id) |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-012 | category_id is a JSON integer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"category_id is an integer\", function () {",
+                  "    pm.expect(Number.isInteger(pm.response.json().category_id)).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-012** - category_id is a JSON integer\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | category_id |\n| Partition | category_id type |\n| Requirement | FR-06 |\n| Expected | FR-06 requires the category to be displayable |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-013 | name is a non-empty string",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"name is a non-empty string\", function () {",
+                  "    const n = pm.response.json().name;",
+                  "    pm.expect(n).to.be.a(\"string\");",
+                  "    pm.expect(n.length).to.be.above(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-013** - name is a non-empty string\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | name |\n| Partition | name presence and type |\n| Requirement | FR-06 |\n| Expected | FR-06 requires the name to be displayed |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-014 | description is a string",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"description is a string\", function () {",
+                  "    pm.expect(pm.response.json().description).to.be.a(\"string\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-014** - description is a string\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | description |\n| Partition | description presence and type |\n| Requirement | FR-06 |\n| Expected | FR-06 requires the description to be displayed |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-015 | imageUrl is a string",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"imageUrl is a string\", function () {",
+                  "    pm.expect(pm.response.json().imageUrl).to.be.a(\"string\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-015** - imageUrl is a string\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | imageUrl |\n| Partition | imageUrl presence and type |\n| Requirement | FR-06 |\n| Expected | FR-06 requires a large image to be displayed |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-016 | The product payload carries exactly the six documented fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Exactly the documented keys are present\", function () {",
+                  "    const keys = Object.keys(pm.response.json()).sort();",
+                  "    pm.expect(keys).to.eql(",
+                  "        [\"category_id\", \"description\", \"id\", \"imageUrl\", \"name\", \"price\"]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-016** - The product payload carries exactly the six documented fields\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | no undocumented fields |\n| Requirement | spec conformance |\n| Expected | keys are exactly id, name, price, description, imageUrl, category_id |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-017 | Product detail is served as application/json",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Content-Type is application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\") || \"\")",
+                  "        .to.include(\"application/json\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-017** - Product detail is served as application/json\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | response headers |\n| Requirement | spec conformance |\n| Expected | Content-Type includes application/json |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-018 | A not-found response carries a structured error body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Missing product returns 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Error body is structured JSON\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.have.property(\"error\");",
+                  "    pm.expect(b.error).to.be.a(\"string\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/424242",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "424242"
+              ]
+            },
+            "description": "**A2-SCH-018** - A not-found response carries a structured error body\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | error body: not-found shape |\n| Requirement | spec conformance |\n| Expected | 404 with {\"error\": \"<string>\"} |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-019 | A product's price is greater than zero",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"price is positive\", function () {",
+                  "    pm.expect(Number(pm.response.json().price)).to.be.above(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**A2-SCH-019** - A product's price is greater than zero\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | price |\n| Partition | business rule: price is positive |\n| Requirement | FR-06 |\n| Expected | price > 0 - a saleable product cannot be free or negative |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-020 | The returned id equals the requested id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"The product returned is the one requested\", function () {",
+                  "    pm.expect(Number(pm.response.json().id)).to.eql(5);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "5"
+              ]
+            },
+            "description": "**A2-SCH-020** - The returned id equals the requested id\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | id |\n| Partition | identity: response matches the request |\n| Requirement | spec conformance |\n| Expected | response.id === 5 |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-021 | Every product in the catalogue has a numeric price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response is a JSON array\", function () {",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                  "});const offenders = pm.response.json()",
+                  "    .filter(function (p) { return typeof p.price !== \"number\"; })",
+                  "    .map(function (p) { return p.id; });",
+                  "pm.test(\"No product types price as a string\", function () {",
+                  "    pm.expect(offenders, \"product ids with a non-numeric price\").to.eql([]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
+            },
+            "description": "**A2-SCH-021** - Every product in the catalogue has a numeric price\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | type stability across the whole catalogue |\n| Requirement | spec conformance |\n| Expected | no product in the list types price as a string |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-SCH-022 | A not-found error is JSON, never an HTML page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Error response is not an HTML page\", function () {",
+                  "    pm.expect((pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase())",
+                  "      .to.not.include(\"text/html\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/313131",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "313131"
+              ]
+            },
+            "description": "**A2-SCH-022** - A not-found error is JSON, never an HTML page\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | - |\n| Partition | error body: not an HTML page |\n| Requirement | spec conformance |\n| Expected | Content-Type is not text/html |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A2-HR-003 | An explicit Accept: application/json request returns JSON",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"A product object is returned\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.be.an(\"object\");",
+                  "    pm.expect(Object.keys(b).length, \"product must not be empty\").to.be.above(0);",
+                  "});",
+                  "pm.test(\"Returned product is the one requested\", function () {",
+                  "    pm.expect(Number(pm.response.json().id)).to.eql(3);",
+                  "});",
+                  "pm.test(\"Content-Type is application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\") || \"\")",
+                  "        .to.include(\"application/json\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3"
+              ]
+            },
+            "description": "**A2-HR-003** - An explicit Accept: application/json request returns JSON\n\n| Field | Value |\n|---|---|\n| Dimension | Schema |\n| Parameter | Accept |\n| Partition | content negotiation: explicit JSON acceptance |\n| Requirement | spec conformance |\n| Expected | 200 with application/json |\n| Origin | Student-designed |\n| Audit | VALID |"
+          },
+          "response": []
+        }
+      ],
+      "description": "The response shape against api_specification.md, asserted strictly and repeated per product id."
     }
   ],
   "event": [
@@ -385,6 +3989,12 @@
           "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
           "",
           "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// A fresh token per request, so cases that must create a new account can do so",
+          "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+          "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+          "pm.variables.set(\"uniq\", uniq);",
+          "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
           "",
           "// Tag each run so Newman output and SUT state can be correlated.",
           "if (!pm.environment.get(\"run_tag\")) {",
