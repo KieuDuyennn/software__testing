@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "4047477e-e4ef-4cce-b69c-2bf83cad3840",
+    "_postman_id": "0d5b2a06-30cb-40ec-8d57-0afc57d291d3",
     "name": "API2 - FR-06 Product Detail (GET /api/products/:id)",
     "description": "HW06 / Pool A / FR-06.\n\nSpec: GET /api/products/:id -> the product record.\n\nThis collection is the main carrier of schema-validation evidence: the response type of `price` and the not-found behaviour are both worth checking against the spec on every id partition.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

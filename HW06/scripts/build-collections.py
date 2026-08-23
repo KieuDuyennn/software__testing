@@ -778,8 +778,12 @@ pm.test("Admin order list conforms to the schema", function () {
     ],
 )
 
+# API 1 is deliberately absent. Its collection is now generated from the case
+# specification in scripts/cases/api1_fr01_register.py via
+# `python scripts/render-cases.py --api 1`, which is the authority for it. The
+# api1 skeleton above is kept only as the reference shape for APIs 2-4; writing
+# it here would discard 121 generated test cases.
 TARGETS = {
-    "API1_FR01_Register.postman_collection.json": api1,
     "API2_FR06_ProductDetail.postman_collection.json": api2,
     "API3_FR11_OrderHistory.postman_collection.json": api3,
     "API4_FR13_AdminOrders.postman_collection.json": api4,

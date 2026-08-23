@@ -1,0 +1,1208 @@
+﻿
+=== API1_FR01_Register (gate via case list) ===
+newman
+
+API1 - FR-01 Account Registration (POST /api/register) [CI gate]
+
+□ 01 - Domain partitions / name
+└ A1-DP-001 | Registration succeeds with a valid name
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 73ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-006 | Single-character name is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-007 | Name with Vietnamese diacritics is accepted and preserved
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-008 | 255-character name is handled without error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-009 | Oversized name does not crash the server
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-DP-012 | Name with leading and trailing spaces is trimmed or rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 14ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-013 | Name containing emoji is handled without corruption
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 24ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / email
+└ A1-DP-014 | Registration succeeds with a well-formed email
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-029 | Email with a '+' tag is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-030 | Email on a subdomain is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-031 | Email on a hyphenated domain is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-032 | Email in uppercase is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 19ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-037 | Email with a trailing space is trimmed or rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / password
+└ A1-DP-038 | Registration succeeds with a compliant password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 14ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-043 | Eight-character compliant password is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-044 | Nine-character compliant password is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-050 | Password using '@' (at sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-051 | Password using '$' (dollar sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 14ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-052 | Password using '!' (exclamation mark) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-053 | Password using '%' (percent sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-054 | Password using '*' (asterisk) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-055 | Password using '?' (question mark) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-056 | Password using '&' (ampersand) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-061 | Password containing a space is handled consistently
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-062 | Very long password does not crash the server
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-064 | Password containing non-ASCII characters is handled without corruption
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / confirm password
+└ A1-DP-065 | Registration succeeds when the password confirmation matches
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+□ 01 - Domain partitions / request envelope
+└ A1-DP-070 | Malformed JSON is rejected with a 400, not a 500
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 1.64kB, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 400
+  √  No database internals leak to the client
+
+└ A1-DP-073 | Unknown extra fields are ignored, not stored
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-075 | Oversized payload is refused without a server error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 12ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+□ 01 - Domain partitions / http method
+└ A1-DP-076 | GET /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/r
+  │ egister | run_tag=run-1787497257024'
+  └
+  GET http://localhost:3000/api/register [404 Not Found, 455B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-077 | PUT /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PUT {{base_url}}/api/r
+  │ egister | run_tag=run-1787497257024'
+  └
+  PUT http://localhost:3000/api/register [404 Not Found, 455B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-078 | DELETE /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | DELETE {{base_url}}/ap
+  │ i/register | run_tag=run-1787497257024'
+  └
+  DELETE http://localhost:3000/api/register [404 Not Found, 458B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-079 | PATCH /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PATCH {{base_url}}/api
+  │ /register | run_tag=run-1787497257024'
+  └
+  PATCH http://localhost:3000/api/register [404 Not Found, 457B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+□ 02 - State transitions
+└ A1-ST-001 | A newly registered account can immediately log in
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptg71cs1rk@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 658B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeds for the new account
+
+└ A1-ST-002 | A duplicate registration does not replace the existing account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/register [200 OK, 317B, 17ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptjots68o@domai
+  │ n.com'
+  └
+[200 OK, 317B, 24ms]
+  ┌
+  │ '[HW06] A1-ST-002 duplicate attempt sent'
+  └
+  POST http://localhost:3000/api/login [200 OK, 657B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  The original credentials still authenticate
+
+└ A1-ST-003 | The registered account's profile is retrievable after login
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 10ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptohmp1kl@domai
+  │ n.com'
+  └
+[200 OK, 657B, 12ms]
+  GET http://localhost:3000/api/users/me [200 OK, 472B, 18ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Profile is returned
+  √  Profile belongs to the account just registered
+
+└ A1-ST-004 | A newly registered account starts with role 'user'
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptsl8htcm@domai
+  │ n.com'
+  └
+[200 OK, 657B, 13ms]
+  GET http://localhost:3000/api/users/me [200 OK, 472B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Initial role is 'user'
+
+└ A1-ST-005 | A newly registered account is not locked and has zero failed attempts
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 9ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptvm1boo7e@doma
+  │ in.com'
+  └
+[200 OK, 658B, 11ms]
+  GET http://localhost:3000/api/users/me [200 OK, 473B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No failed attempts recorded
+  √  Account is not locked
+
+└ A1-ST-006 | Password reset can be initiated for a newly registered account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ forgot-password | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xptzk1aj8iu@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/forgot-password [200 OK, 350B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Reset can be initiated
+  √  A reset token is returned
+
+└ A1-ST-007 | Consecutive registrations receive distinct, increasing ids
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xpu2v1afkah@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  New id is distinct from and greater than the previous one
+
+└ A1-ST-009 | A newly registered account starts with an empty cart
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/c
+  │ art | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 17ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xpu631ncw74@doma
+  │ in.com'
+  └
+[200 OK, 658B, 22ms]
+  GET http://localhost:3000/api/cart [200 OK, 267B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Cart is returned
+  √  Cart is empty for a brand-new account
+
+└ A1-ST-010 | A newly registered account has no orders
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 11ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xpu9z1hoq6z@doma
+  │ in.com'
+  └
+[200 OK, 658B, 12ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Order history is returned
+  √  Order history is empty for a brand-new account
+
+□ 03 - Security (SEC-01..SEC-07)
+└ A1-SEC-002 | The registration response must not echo the password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 16ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Password is absent from the response body
+  √  No password key in the response
+
+└ A1-SEC-005 | A script payload in the name is stored as inert data
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  POST http://localhost:3000/api/login [200 OK, 675B, 5ms]
+  GET http://localhost:3000/api/users/me [200 OK, 490B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Response is JSON data, not HTML
+  √  Payload is preserved as data, not interpreted
+
+└ A1-SEC-006 | An onerror payload in the name is stored without a server error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  Response is JSON, not rendered HTML
+
+└ A1-SEC-007 | A DROP TABLE payload in the email must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-008 | An OR 1=1 payload in the name must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-009 | A UNION SELECT payload must not return extra data
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+  √  No credential material leaks into the response
+
+└ A1-SEC-010 | A comment-sequence payload in the password must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-011 | The users table survives the injection attempts intact
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+[200 OK, 317B, 13ms]
+  POST http://localhost:3000/api/login [200 OK, 640B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Seeded admin account survived the injection attempts
+
+└ A1-SEC-012 | A client-supplied role must not create an admin account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  ┌
+  │ '[HW06] A1-SEC-012 registered with role=admin injected
+  │ '
+  └
+  POST http://localhost:3000/api/login [200 OK, 661B, 12ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injected role did not take effect
+
+└ A1-SEC-014 | A client-supplied id must not override the generated one
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server generated its own id
+
+└ A1-SEC-015 | Injected lockout fields must not affect the new account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] A1-SEC-015 registered with lock fields injecte
+  │ d'
+  └
+  POST http://localhost:3000/api/login [200 OK, 657B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injected lockout fields were ignored
+
+└ A1-SEC-016 | A client-supplied reset token must not be usable
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ reset-password | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] A1-SEC-016 registered with reset_token injecte
+  │ d'
+  └
+  POST http://localhost:3000/api/reset-password [400 Bad Request, 310B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Rejected with a 4xx (client-supplied reset token must not be honoured)
+  √  Error response names the problem
+
+└ A1-SEC-017 | A __proto__ payload does not crash or escalate
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-018 | Registration must not return an authentication token
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No token is issued by registration
+
+└ A1-SEC-019 | A failed registration must not leak database internals
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No database internals leak to the client
+  √  Server does not fail with a 5xx
+
+└ A1-SEC-020 | Registration works without any Authorization header
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+□ 04 - Schema validation
+└ A1-SCH-001 | The success response contains exactly {message, id}
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Success body matches the specified schema exactly
+
+└ A1-SCH-002 | The success message is exactly the documented string
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Message matches the specification verbatim
+
+└ A1-SCH-003 | The returned id is a JSON integer, not a string
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  id is an integer number
+
+└ A1-SCH-004 | The returned id is a positive identifier
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 22ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  id is positive
+
+└ A1-SCH-005 | The response is served as application/json
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 24ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Content-Type is application/json
+
+└ A1-SCH-006 | A successful registration returns HTTP 200 as documented
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 15ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+
+└ A1-SCH-008 | The response exposes no credential or role fields
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Response contains no "password" field
+  √  Response contains no "role" field
+  √  Response contains no "token" field
+  √  Response contains no "reset_token" field
+
+└ A1-SCH-009 | The success body carries no undocumented fields
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Exactly the two documented keys are present
+
+└ A1-SCH-011 | Two registrations never return the same id
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787497257024'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xpwglwn3of@domai
+  │ n.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Returned id is distinct from the previous registration
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │               91 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │              136 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │               83 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │              316 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 7.6s                                     │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 10.52kB (approx)                        │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 10ms [min: 3ms, max: 73ms, s.d.: 8ms] │
+└──────────────────────────────────────────────────────────────┘
+
+=== API2_FR06_ProductDetail (gate via folders) ===
+newman
+
+API2 - FR-06 Product Detail (GET /api/products/:id)
+
+□ 00 - Setup
+└ SETUP-001 | Capture a known-good product id
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts | run_tag=run-1787497265085'
+  └
+  GET http://localhost:3000/api/products [200 OK, 1.24kB, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Product list is available
+
+□ 03 - Security (SEC-01..SEC-07)
+└ SEC-05 | SQL injection through the :id path parameter
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/1 OR 1=1 | run_tag=run-1787497265085'
+  └
+  GET http://localhost:3000/api/products/1 OR 1=1 [200 OK, 267B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injection does not return the whole table
+  √  No 500 / SQL error leak
+
+┌─────────────────────────┬─────────────────┬────────────────┐
+│                         │        executed │         failed │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              iterations │               1 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│                requests │               2 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│            test-scripts │               4 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│      prerequest-scripts │               2 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              assertions │               9 │              0 │
+├─────────────────────────┴─────────────────┴────────────────┤
+│ total run duration: 196ms                                  │
+├────────────────────────────────────────────────────────────┤
+│ total data received: 971B (approx)                         │
+├────────────────────────────────────────────────────────────┤
+│ average response time: 4ms [min: 3ms, max: 5ms, s.d.: 1ms] │
+└────────────────────────────────────────────────────────────┘
+
+=== API3_FR11_OrderHistory (gate via folders) ===
+newman
+
+API3 - FR-11 Order History (GET /api/orders/my-orders)
+
+□ 00 - Setup
+└ SETUP-001 | Log in as the primary user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497265502'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+└ SETUP-002 | Create an order owned by the primary user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ checkout | run_tag=run-1787497265502'
+  └
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Checkout created an order
+
+└ SETUP-003 | Register + log in a second user (the victim)
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497265502'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] victim account created: 8aae0ee4-62d3-435c-976
+  │ 9-ce667b6cc8df@victim.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 669B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Victim account is usable
+
+└ SETUP-004 | Create an order owned by the victim
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ checkout | run_tag=run-1787497265502'
+  └
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Victim order created
+
+□ 01 - Domain partitions
+└ DP-001 | Authenticated user receives their own order list
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787497265502'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 410B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Response is an array
+  √  Every returned order belongs to the caller
+
+└ DP-002 | Missing token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787497265502'
+  └
+  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Unauthenticated request returns 401
+
+□ 02 - State transitions (FR-10)
+└ ST-001 | A new order appears in history as 'pending'
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787497265502'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 410B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  The order created in setup is listed as pending
+
+└ ST-002 | Cancelling a pending order is reflected in history
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PUT {{base_url}}/api/o
+  │ rders/{{own_order_id}}/cancel | run_tag=run-1787497265
+  │ 502'
+  └
+  PUT http://localhost:3000/api/orders/1/cancel [200 OK, 308B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Cancel from 'pending' is allowed
+
+□ 04 - Schema validation
+└ SCH-001 | Order-history entries match the orders schema
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787497265502'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 411B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Order history conforms to the schema
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              10 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              18 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │              10 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              38 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 962ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 1.4kB (approx)                         │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 6ms [min: 3ms, max: 10ms, s.d.: 2ms] │
+└─────────────────────────────────────────────────────────────┘
+
+=== API4_FR13_AdminOrders (gate via folders) ===
+newman
+
+API4 - FR-13 Admin Dashboard (GET /api/admin/orders)
+
+□ 00 - Setup
+└ SETUP-001 | Log in as admin
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497266670'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+└ SETUP-002 | Log in as a non-admin user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787497266670'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+□ 01 - Domain partitions
+└ DP-001 | Admin receives the full order list
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787497266670'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 593B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Response is an array
+  √  Rows are joined with the ordering user's name
+
+└ DP-002 | Missing token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787497266670'
+  └
+  GET http://localhost:3000/api/admin/orders [401 Unauthorized, 301B, 2ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Unauthenticated request returns 401
+
+└ DP-003 | Malformed token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787497266670'
+  └
+  GET http://localhost:3000/api/admin/orders [403 Forbidden, 295B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Invalid token returns 403
+
+□ 02 - State transitions (FR-10)
+└ ST-001 | Revenue counts only 'delivered' orders
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787497266670'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 593B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  ┌
+  │ '[HW06] delivered orders=0 revenue=0'
+  └
+  √  Every order carries a status from the FR-10 state set
+
+□ 04 - Schema validation
+└ SCH-001 | Admin order rows match the joined schema
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787497266670'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 593B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Admin order list conforms to the schema
+
+┌─────────────────────────┬─────────────────┬────────────────┐
+│                         │        executed │         failed │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              iterations │               1 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│                requests │               7 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│            test-scripts │              14 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│      prerequest-scripts │               7 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              assertions │              30 │              0 │
+├─────────────────────────┴─────────────────┴────────────────┤
+│ total run duration: 763ms                                  │
+├────────────────────────────────────────────────────────────┤
+│ total data received: 1.75kB (approx)                       │
+├────────────────────────────────────────────────────────────┤
+│ average response time: 4ms [min: 2ms, max: 6ms, s.d.: 1ms] │
+└────────────────────────────────────────────────────────────┘
+
+===== HW06 suite summary (mode=gate, env=local) =====
+  API1_FR01_Register            316/316  passed  PASS
+  API2_FR06_ProductDetail         9/9    passed  PASS
+  API3_FR11_OrderHistory         38/38   passed  PASS
+  API4_FR13_AdminOrders          30/30   passed  PASS
+  TOTAL                        393/393 assertions passed

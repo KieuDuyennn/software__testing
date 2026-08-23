@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "e5f9f5d3-8a49-4542-a064-50a55e0a0965",
+    "_postman_id": "44750fa2-73db-4390-83b7-f5f8998cbeee",
     "name": "API3 - FR-11 Order History (GET /api/orders/my-orders)",
     "description": "HW06 / Pool B / FR-11.\n\nSpec: GET /api/orders/my-orders (Bearer token) -> the caller's orders. FR-11 states a user may only see their own orders, which makes this the natural home for IDOR / ownership testing, and for the FR-10 order state machine as it is observed through order history.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

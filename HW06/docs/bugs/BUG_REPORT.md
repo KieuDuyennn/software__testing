@@ -9,11 +9,14 @@ Every bug below must also be filed as a **GitHub Issue with a screenshot**
 
 ## Status of this file
 
-The six defects in the *Confirmed* section were **reproduced by an actual
-Newman run** of the scaffold's exemplar test cases against the seeded SUT — the
-failing assertion and the observed response are quoted verbatim from that run.
-They are starting evidence, not the finished set: the full pipeline (generate →
-audit → extend) will add more.
+Every defect in the *Confirmed* section was **reproduced by an actual Newman
+run** against the seeded SUT — the failing assertion and the observed response
+are quoted verbatim from that run. BUG-01 to BUG-06 came from the scaffold's
+exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
+`docs/phases/api1-fr01-register/01-generate.md`).
+
+These are not the finished set: APIs 2, 3 and 4 have not been through the
+pipeline yet, and the audit and extend phases will add more.
 
 The *Candidates* section lists defects identified by **reading the backend
 source only**. They have not been executed yet, so they are recorded as leads,
@@ -32,6 +35,12 @@ reproduced it.
 | BUG-04 | FR-06 | Medium | `price` is a string for even product ids | Confirmed | |
 | BUG-05 | SEC-02 / FR-11 | Critical | Any order readable by anyone (IDOR, no auth) | Confirmed | |
 | BUG-06 | SEC-03 / FR-12 | Critical | Non-admin token reaches `/api/admin/orders` | Confirmed | |
+| BUG-07 | FR-01 | High | Registration enforces no mandatory-field validation | Confirmed | |
+| BUG-08 | FR-01 | High | Password complexity policy is not enforced at all | Confirmed | |
+| BUG-09 | FR-01 | High | Email uniqueness is not enforced | Confirmed | |
+| BUG-10 | FR-01 | Medium | Confirm-password is not implemented | Confirmed | |
+| BUG-11 | spec conformance | High | `Content-Type: text/plain` crashes the endpoint with HTTP 500 | Confirmed | |
+| BUG-12 | SEC-05 | Medium | Malformed JSON returns an HTML stack-trace page | Confirmed | |
 
 ---
 
@@ -41,7 +50,7 @@ reproduced it.
 
 - **Requirement:** FR-01 — *"Email phải có định dạng hợp lệ (`user@domain.com`)"*
 - **Severity:** High · **Endpoint:** `POST /api/register`
-- **Test case:** API1 / `01 - Domain partitions` / `DP-002`
+- **Test cases:** API1 / `01 - Domain partitions / email` / `A1-DP-019` … `A1-DP-028` (10 cases)
 
 **Steps to reproduce**
 
@@ -58,9 +67,10 @@ X-Student-Id: 23127184
   the account is created.
 - **Newman output:** `AssertionError: Malformed email is rejected with 4xx —
   expected 200 to be within 400..499`
-- **Note:** the handler performs no validation of any kind before the `INSERT`.
-  Password complexity and email uniqueness are almost certainly affected too —
-  write those cases and confirm before reporting them separately.
+- **Note:** all ten malformed-address partitions are accepted — no `@`, no
+  domain, no local part, no TLD, doubled `@`, leading/trailing dot, consecutive
+  dots, embedded space, illegal characters. The suspicion recorded here
+  originally has since been confirmed: see BUG-07, BUG-08 and BUG-09.
 
 ---
 
@@ -68,7 +78,7 @@ X-Student-Id: 23127184
 
 - **Requirement:** SEC-01 — *"Mật khẩu **không** được lưu dưới dạng plaintext"*
 - **Severity:** Critical · **Endpoint:** `POST /api/register`, `POST /api/login`
-- **Test case:** API1 / `03 - Security` / `SEC-01`
+- **Test cases:** API1 / `03 - Security` / `A1-SEC-001`, `A1-SEC-003`, `A1-SEC-004`
 
 **Steps to reproduce**
 
@@ -175,15 +185,168 @@ Three manifestations of one root cause:
 
 ---
 
+### BUG-07 | Registration enforces no mandatory-field validation
+
+- **Requirement:** FR-01 — *"Người dùng phải cung cấp: Họ Tên, Email, Mật khẩu"*
+- **Severity:** High · **Endpoint:** `POST /api/register`
+- **Test cases:** `A1-DP-002`..`005`, `A1-DP-010`, `A1-DP-011`, `A1-DP-015`..`018`,
+  `A1-DP-036`, `A1-DP-039`..`041`, `A1-DP-063`, `A1-DP-068`, `A1-DP-069`,
+  `A1-DP-072`, `A1-DP-074` (17 cases)
+
+Every one of these creates an account and returns `200`:
+
+| Request body | Expected | Actual |
+|---|---|---|
+| `{"email":"…","password":"…"}` (no `name`) | 4xx | `200` |
+| `{"name":null,"email":null,"password":null}` | 4xx | `200` |
+| `{"name":"","email":"","password":""}` | 4xx | `200` |
+| `{"name":"   ", …}` (whitespace only) | 4xx | `200` |
+| `{"name":12345, …}` (wrong JSON type) | 4xx | `200` |
+| `{}` (empty object) | 4xx | `200` |
+| *(no body at all)* | 4xx | `200` |
+| `[{…}]` (array instead of object) | 4xx | `200` |
+
+- **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
+- **Impact:** the users table accumulates rows with null or blank credentials.
+  An account created with a null email cannot be logged into or recovered, and
+  an empty-string email collides with every other empty-string email.
+- **Root cause:** the handler destructures `req.body` and goes straight to the
+  `INSERT` with no guard clause.
+
+---
+
+### BUG-08 | Password complexity policy is not enforced at all
+
+- **Requirement:** FR-01 — *"Tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ
+  thường, 1 chữ số và 1 ký tự đặc biệt (`@ $ ! % * ? &`)"*
+- **Severity:** High · **Endpoint:** `POST /api/register`
+- **Test cases:** `A1-DP-042`, `A1-DP-045`..`049`, `A1-DP-057`..`060` (10 cases)
+
+| Password | Rule violated | Expected | Actual |
+|---|---|---|---|
+| `Pass12!` | 7 chars, below the 8-char minimum | 4xx | `200` |
+| `password123!` | no uppercase | 4xx | `200` |
+| `PASSWORD123!` | no lowercase | 4xx | `200` |
+| `Password!!` | no digit | 4xx | `200` |
+| `Password123` | no special character | 4xx | `200` |
+| `Password123#` | `#` is outside the permitted set | 4xx | `200` |
+| `12345678` | digits only | 4xx | `200` |
+| `password` | three rules at once | 4xx | `200` |
+| (eight spaces) | whitespace only | 4xx | `200` |
+
+- **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
+- **Impact:** every account in the system may hold a trivially guessable
+  password. Combined with BUG-02 (plaintext storage) and the FR-02 lockout
+  behaviour, this materially weakens authentication.
+- **Note:** the boundary case `A1-DP-043` (exactly 8 compliant characters)
+  passes, but only because *everything* passes — it is not evidence that the
+  boundary is implemented.
+
+---
+
+### BUG-09 | Email uniqueness is not enforced
+
+- **Requirement:** FR-01 — the email must be *"duy nhất trong hệ thống"*
+- **Severity:** High · **Endpoint:** `POST /api/register`
+- **Test cases:** `A1-DP-033` (exact duplicate), `A1-DP-034` (differing only in case)
+
+**Steps to reproduce**
+
+1. `POST /api/register` with `dup@domain.com` → `200`, id *n*.
+2. `POST /api/register` with `dup@domain.com` again → **`200`, id *n+1*.**
+3. Repeat with `DUP@DOMAIN.COM` → `200` again.
+
+- **Expected:** `4xx` (409 Conflict) on the second and third attempts.
+- **Actual:** duplicate accounts are created. The `users` table declares no
+  `UNIQUE` constraint on `email` and the handler does not check first.
+- **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
+- **Impact:** `POST /api/login` resolves an email with
+  `SELECT * FROM users WHERE email = ?` and takes the first row, so the second
+  registrant can never log in — and password reset targets an ambiguous account.
+  `A1-ST-002` shows the original account is at least not overwritten.
+
+---
+
+### BUG-10 | Confirm-password is not implemented
+
+- **Requirement:** FR-01 — *"Phải có trường Xác nhận mật khẩu — hệ thống từ chối
+  nếu hai trường không khớp"*
+- **Severity:** Medium · **Endpoint:** `POST /api/register`
+- **Test cases:** `A1-DP-066` (mismatch), `A1-DP-067` (field absent)
+
+- **Expected:** `4xx` when `confirmPassword` differs from `password`, and when
+  it is missing entirely.
+- **Actual:** `200` in both cases — the field is ignored.
+- **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
+- **Scope note worth resolving before filing:** `api_specification.md` does not
+  document a confirmation field at all, so this may be a requirements-
+  traceability defect (the API spec omits an FR-01 rule) rather than purely an
+  implementation defect. Either way FR-01 is not satisfied end to end. Say which
+  reading you are filing under.
+
+---
+
+### BUG-11 | A non-JSON `Content-Type` crashes the endpoint with HTTP 500
+
+- **Requirement:** spec conformance — a malformed client request is a `4xx`
+- **Severity:** High · **Endpoint:** `POST /api/register`
+- **Test case:** `A1-DP-071`
+
+**Steps to reproduce**
+
+```http
+POST http://localhost:3000/api/register
+Content-Type: text/plain
+X-Student-Id: 23127184
+
+name=Test&email=a@b.com&password=Password123!
+```
+
+- **Expected:** `400` or `415 Unsupported Media Type`.
+- **Actual:** **`500 Internal Server Error`.** `body-parser` does not populate
+  `req.body` for a non-JSON content type, so destructuring it throws.
+- **Newman output:** `AssertionError: expected 500 to be one of [ 400, 415 ]`
+  and `status code: expected 500 to be below 500`
+- **Impact:** an unauthenticated caller can force a server-side exception with a
+  single header. This was **not** in the earlier source-read candidate list — it
+  was found only because the request envelope was partitioned alongside the JSON
+  fields.
+
+---
+
+### BUG-12 | Malformed JSON returns an HTML stack-trace page
+
+- **Requirement:** SEC-05 / general information disclosure
+- **Severity:** Medium · **Endpoint:** `POST /api/register` (Express default handler)
+- **Test case:** `A1-SCH-012`
+
+**Steps to reproduce**
+
+Send a body that is not valid JSON with `Content-Type: application/json`, for
+example `{"name": "Broken",` with no closing brace.
+
+- **Expected:** a JSON error body, e.g. `{"error": "Invalid JSON"}`.
+- **Actual:** `400` with `Content-Type: text/html; charset=utf-8` and an HTML
+  page containing a `<pre>` block with the server-side stack trace.
+- **Newman output:** `expected 'text/html; charset=utf-8' to not include
+  'text/html'` and `expected '<!doctype html>…' to not include '<pre>'`
+- **Impact:** discloses framework, file paths and internal structure to an
+  unauthenticated caller, and breaks the API contract for any client that
+  expects JSON on every response. `A1-DP-070` confirms the status code itself
+  (`400`) is correct — only the body is wrong.
+
+---
+
 ## Candidates (source-read, not yet executed)
 
 Leads found by reading `eshop/backend/server.js`. Write a test case, run it,
 and only then promote a row into *Confirmed* — with its Newman output quoted.
 
+*C-01 (password complexity) and C-02 (email uniqueness) were promoted to
+BUG-08 and BUG-09 by the API 1 test run and no longer appear here.*
+
 | # | Requirement | Where | What the code appears to do | Test case to write |
 |---|---|---|---|---|
-| C-01 | FR-01 | `POST /api/register` | No password-complexity check at all | Weak passwords (`a`, `12345678`, `password`) should be rejected |
-| C-02 | FR-01 | `POST /api/register` | `email` has no `UNIQUE` constraint | Register the same email twice; second should be rejected |
 | C-03 | FR-02 | `POST /api/login` | Failed attempts increment by **2**, lock fires at 3 | Lockout should trigger on the 3rd failure, not the 2nd |
 | C-04 | SEC-07 | `POST /api/forgot-password` | Reset token is 4 digits, never expires, not invalidated by time | OTP must be >= 6 digits, expiring, single-use |
 | C-05 | SEC-06 | `PUT /api/users/me` | Accepts `role` from the request body | A user must not be able to promote themselves to admin |

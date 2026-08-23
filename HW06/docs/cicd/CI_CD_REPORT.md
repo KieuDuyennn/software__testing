@@ -17,12 +17,38 @@ So the workflow splits in two:
 
 | Job | Scope | Fails the build? | Purpose |
 |---|---|---|---|
-| `regression-gate` | Only the folders listed in `HW06/config/ci-suite.json` | **Yes** | The expectations the SUT currently meets. This is the regression baseline: if it goes red, something that used to work has broken. |
-| `full-suite` | Every folder in all four collections | No | Runs the complete suite and uploads the reports. Its failures are the SUT's defects, tracked in `docs/bugs/BUG_REPORT.md`. |
+| `regression-gate` | The green baseline defined in `HW06/config/ci-suite.json` | **Yes** | The expectations the SUT currently meets. This is the regression baseline: if it goes red, something that used to work has broken. |
+| `full-suite` | Every case in all four collections | No | Runs the complete suite and uploads the reports. Its failures are the SUT's defects, tracked in `docs/bugs/BUG_REPORT.md`. |
 
-`config/ci-suite.json` is the single place that defines the gate. When new test
-cases are added, re-run the suite locally, then update that file so the gate
-still means "everything that passes today".
+### How the gate is defined, and why it changed
+
+`config/ci-suite.json` is the single place that defines the gate. It supports
+two granularities, and the runner prefers the finer one when it is available:
+
+| Key | Granularity | Used for |
+|---|---|---|
+| `gate` | folder names, passed to Newman as `--folder` | APIs 2-4, which still hold only the scaffold's exemplar cases |
+| `gate_cases` | explicit case IDs, rendered into a separate `*_gate` collection | API 1 |
+
+The folder-level gate stopped working the moment API 1 was written properly.
+Once 121 cases derive their expectations from the specification rather than
+from the SUT's behaviour, the 53 failures land in almost every folder: of nine
+folders and sub-folders, exactly one is entirely green, and gating on that one
+would prove nothing.
+
+The case-level gate fixes this. `scripts/render-cases.py --api 1 --refresh-gate`
+reads the last full-run report, writes the IDs of every case that passed into
+`gate_cases`, and renders `collections/API1_FR01_Register_gate.postman_collection.json`
+containing exactly those cases. The rule it encodes is *"whatever passes today
+must keep passing"* — which is what a regression gate is for — while the 53
+genuine failures stay visible in the `full-suite` job instead of being hidden.
+
+Current gate: **68 of 121 API 1 cases (316 assertions), plus the exemplar
+folders for APIs 2-4. Total 393 assertions, all green.**
+
+Re-run `--refresh-gate` after every batch of new or corrected cases, and commit
+the resulting diff — the change in that file is itself a readable record of
+which expectations the SUT started or stopped meeting.
 
 ## 2. Pipeline configuration
 
@@ -85,12 +111,22 @@ Newman summary with 0 failed assertions.
 | Screenshot | `evidence/screenshots/` |
 
 **How to produce this run honestly.** Do not fabricate a failure by breaking an
-assertion at random. Move one *defect-revealing* case into the gate — for
-example add `"03 - Security (SEC-01..SEC-07)"` to `API4_FR13_AdminOrders` in
-`config/ci-suite.json`, which pulls in the SEC-03 case that the SUT genuinely
-fails. Commit that one-line change. The same pipeline then goes red on a real
-defect, which is a far better demonstration than a sabotaged assertion, and the
-failing run doubles as evidence for BUG-06.
+assertion at random. Add one *defect-revealing* case to the gate and commit that
+one-line change:
+
+```jsonc
+// config/ci-suite.json -> gate_cases -> API1_FR01_Register
+// Append a case ID the SUT genuinely fails, e.g.:
+"A1-DP-071"     // BUG-11: Content-Type: text/plain returns HTTP 500
+```
+
+then `python scripts/render-cases.py --api 1` to re-render the gate collection.
+
+The same pipeline goes red on a real defect, which is a far better
+demonstration than a sabotaged assertion, and the failing run doubles as
+evidence for the bug. `A1-DP-071` is a good choice: the failure is a single
+unambiguous line (`expected 500 to be one of [400, 415]`) that reads clearly in
+a screenshot.
 
 **Screenshot must show:** the red X on the run, and the Newman failure detail
 naming the failing test case.

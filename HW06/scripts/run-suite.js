@@ -69,18 +69,38 @@ for (const dir of ["reports", "evidence/newman-console"]) {
 
 function run(name) {
   return new Promise((resolve) => {
-    const folders = mode === "gate" ? suite.gate[name] || [] : undefined;
-    if (mode === "gate" && folders.length === 0) {
-      console.log(`\n=== ${name}: no gate folders configured, skipped ===`);
-      return resolve({ name, total: 0, failed: 0, skipped: true });
+    // Two gate styles. A collection rendered from an explicit case list
+    // (config/ci-suite.json -> gate_cases) wins when it exists: once a suite is
+    // written against the spec rather than against observed behaviour, the
+    // passing cases no longer line up with folder boundaries, so gating per
+    // folder would either be red or prove nothing. Otherwise fall back to the
+    // folder list in `gate`, which is enough for the un-specced APIs.
+    const gateCollection = path.join(
+      ROOT, "collections", `${name}_gate.postman_collection.json`
+    );
+    const hasCaseGate = (suite.gate_cases || {})[name] && fs.existsSync(gateCollection);
+
+    let folders;
+    if (mode === "gate" && !hasCaseGate) {
+      folders = suite.gate[name] || [];
+      if (folders.length === 0) {
+        console.log(`\n=== ${name}: no gate configured, skipped ===`);
+        return resolve({ name, total: 0, failed: 0, skipped: true });
+      }
     }
 
     const suffix = mode === "gate" ? "_gate" : "";
-    console.log(`\n=== ${name} (${mode}) ===`);
+    const collectionFile =
+      mode === "gate" && hasCaseGate
+        ? gateCollection
+        : path.join(ROOT, "collections", `${name}.postman_collection.json`);
+
+    const style = mode === "gate" ? (hasCaseGate ? " via case list" : " via folders") : "";
+    console.log(`\n=== ${name} (${mode}${style}) ===`);
 
     newman.run(
       {
-        collection: path.join(ROOT, "collections", `${name}.postman_collection.json`),
+        collection: collectionFile,
         environment: envFile,
         folder: folders,
         reporters: ["cli", "htmlextra", "json"],

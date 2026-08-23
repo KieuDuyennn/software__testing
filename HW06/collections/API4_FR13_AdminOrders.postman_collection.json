@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "b6e8e36f-1860-4d8b-abf9-7644ca1f668c",
+    "_postman_id": "4c02b00d-17b7-4922-aad7-f2c35c718345",
     "name": "API4 - FR-13 Admin Dashboard (GET /api/admin/orders)",
     "description": "HW06 / Pool C / FR-13.\n\nThe admin dashboard reports total revenue - the sum of total_amount over orders whose status is 'delivered' - and the total order count. Both are computed from GET /api/admin/orders, so that endpoint is the API under test. FR-12 / SEC-03 require role='admin' in the token, not merely a valid token.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
