@@ -1004,9 +1004,9 @@ pm.test("Injected role did not take effect", function () {
     pm.expect(u.role, "role of the new account").to.eql("user");
 });"""))
 
-add(id="A1-SEC-013", dim="Security", param="role", rule="SEC-06",
-    partition="privilege escalation: injected role grants admin access",
-    title="An account registered with an injected role cannot reach admin APIs",
+add(id="A1-SEC-013", dim="Security", param="role", rule="SEC-03 / SEC-06",
+    partition="authorization: ordinary user reaches an admin route",
+    title="A newly registered ordinary user cannot reach admin APIs",
     method="GET", path="/api/admin/users", auth_var="stToken",
     pre=js("""
 const email = "esc2" + pm.variables.get("uniq") + "@domain.com";
@@ -1297,6 +1297,57 @@ pm.test("Error response is not an HTML page", function () {
 pm.test("No stack trace is rendered", function () {
     pm.expect(pm.response.text().toLowerCase()).to.not.include("<pre>");
 });"""))
+
+
+# ===========================================================================
+# PHASE 3 - STUDENT-DESIGNED EXTENSIONS
+# ===========================================================================
+
+add(id="A1-HR-001", dim="Security", param="email", rule="FR-01 / SEC-04",
+    partition="invalid: horizontal-tab control character in email",
+    title="An email containing a horizontal tab is rejected",
+    body=rb(email="tab{{uniq}}\t@domain.com"), expected="4xx - control characters are not part of user@domain.com",
+    tests=rejected("email contains a control character"),
+    origin="Student-designed",
+    rationale="The AI covered ordinary spaces but missed non-printing whitespace that often bypasses simplistic validators.")
+
+add(id="A1-HR-002", dim="Security", param="email", rule="FR-01 / SEC-04",
+    partition="invalid: CRLF sequence in email",
+    title="An email containing CRLF is rejected without response splitting",
+    body=rb(email="crlf{{uniq}}\r\nX-Injected: yes@domain.com"),
+    expected="4xx, no 5xx and no reflected injected header",
+    tests=rejected("email contains CRLF") + "\n" + no500() + js("""
+pm.test("The injected header is not reflected", function () {
+    pm.expect(pm.response.headers.has("X-Injected")).to.be.false;
+});"""),
+    origin="Student-designed",
+    rationale="The generated injection set focused on SQL/XSS and omitted HTTP response-splitting input.")
+
+add(id="A1-HR-003", dim="Security", param="name", rule="SEC-04",
+    partition="invalid: NUL control character in a display name",
+    title="A name containing a NUL character is rejected safely",
+    body=rb(name="Nguyen\u0000Van A", email="nul{{uniq}}@domain.com"),
+    expected="4xx and no internal error disclosure",
+    tests=rejected("name contains a NUL control character") + "\n" + no_leak() + "\n" + no500(),
+    origin="Student-designed",
+    rationale="Control-character validation was absent from the AI's domain partitions.")
+
+add(id="A1-HR-004", dim="Domain", param="Content-Type", rule="spec conformance",
+    partition="valid: JSON media type with UTF-8 charset parameter",
+    title="application/json with a UTF-8 charset is accepted",
+    body=rb(name="Nguyễn Văn A", email="charset{{uniq}}@domain.com"),
+    content_type="application/json; charset=utf-8", expected="200 with the documented success body",
+    tests=accepted(), origin="Student-designed",
+    rationale="The AI tested application/json and text/plain but missed a common valid media-type parameter.")
+
+add(id="A1-HR-005", dim="Domain", param="confirmPassword", rule="FR-01",
+    partition="invalid: confirmation has the wrong JSON type",
+    title="A numeric password confirmation is rejected",
+    body=rb(email="confirmtype{{uniq}}@domain.com", confirmPassword=12345678),
+    expected="4xx - confirmation must be a string equal to password",
+    tests=rejected("confirmPassword has the wrong type"),
+    origin="Student-designed",
+    rationale="The AI covered missing, matching and mismatching confirmation values but not its type partition.")
 
 
 # ---------------------------------------------------------------------------
