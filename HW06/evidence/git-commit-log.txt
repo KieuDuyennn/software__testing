@@ -2,9 +2,18 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-23 22:51:24 +07:00
+Generated  : 2026-08-23 22:57:11 +07:00
 Scope      : commits touching HW06/
 ==============================================================================
+
+f53519c  2026-08-23 22:57:10 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): record authentic green and red CI runs
+
+48f5eb0  2026-08-23 22:55:38 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): stabilize Linux regression gate
+
+3c34519  2026-08-23 22:51:28 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh phase commit history
 
 55b9030  2026-08-23 22:51:21 +0700  Lê Phạm Kiều Duyên
     docs(hw06): finalize reports bugs and evidence guide
