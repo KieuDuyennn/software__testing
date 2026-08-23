@@ -216,6 +216,12 @@ def parse_markdown(source: Path, page_width: float):
         line = lines[i]
         stripped = line.strip()
 
+        if stripped == "<!-- PAGEBREAK -->":
+            flush_paragraph()
+            story.append(PageBreak())
+            i += 1
+            continue
+
         if stripped.startswith("```"):
             flush_paragraph()
             if not in_code:
@@ -329,25 +335,32 @@ def footer(canvas, doc):
     canvas.line(18 * mm, 14 * mm, A4[0] - 18 * mm, 14 * mm)
     canvas.setFont("HWArial", 7.5)
     canvas.setFillColor(colors.HexColor("#526574"))
-    canvas.drawString(18 * mm, 9 * mm, "HW05 - Student 23127184")
+    canvas.drawString(18 * mm, 9 * mm, "HW06 - Student 23127184")
     canvas.drawRightString(A4[0] - 18 * mm, 9 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
 
+class FooterDocTemplate(SimpleDocTemplate):
+    """Draw the footer after flowables so tables/page breaks cannot cover it."""
+
+    def afterPage(self):
+        footer(self.canv, self)
+
+
 def build(source: Path, target: Path):
     target.parent.mkdir(parents=True, exist_ok=True)
-    doc = SimpleDocTemplate(
+    doc = FooterDocTemplate(
         str(target),
         pagesize=A4,
         leftMargin=18 * mm,
         rightMargin=18 * mm,
         topMargin=17 * mm,
-        bottomMargin=18 * mm,
+        bottomMargin=28 * mm,
         title=source.stem,
         author="23127184",
     )
     story = parse_markdown(source, A4[0] - 36 * mm)
-    doc.build(story, onFirstPage=footer, onLaterPages=footer)
+    doc.build(story)
 
 
 def render_and_validate(pdf_path: Path, prefix: str, required_terms: list[str]):

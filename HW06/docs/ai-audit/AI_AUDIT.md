@@ -6,8 +6,8 @@ Student ID: **23127184** · Assignment: **HW06 - API Testing** · AI policy: **O
 
 > I use AI tools for the following tasks.
 
-*(If any part of the work was done without AI, say so explicitly for that part
-rather than leaving it ambiguous.)*
+Non-AI work includes the real Newman executions and the student-only evidence
+listed in the main report.
 
 ## Tools declared
 
@@ -18,11 +18,10 @@ rather than leaving it ambiguous.)*
 | | | Test-case generation for API 2 |
 | | | Test-case generation for API 3 |
 | | | Test-case generation for API 4 |
+| Codex | GPT-5 | Case-by-case audit, student-designed extensions, execution triage, phase/report completion |
 
 Non-AI tools used: Postman, Newman + newman-reporter-htmlextra, Node.js,
 Python, Git, GitHub Actions.
-
----
 
 ## Interaction log
 
@@ -42,7 +41,11 @@ AI output. Keep them in order. Long outputs go in
   Postman environments, data-driven CSV fixtures, the CI workflow and green-gate
   manifest, the phase/audit/critique/CI document skeletons, and a bug report
   seeded from a verified smoke run.
-- **My review:** *(record what you checked and what you changed)*
+- **My review:** Checked the selected endpoints against the supplied API and
+  FR/SEC sources, verified that each collection inherits the mandatory header
+  harness, installed the local runner, and executed the initial smoke suite.
+
+<!-- PAGEBREAK -->
 
 ### AI-002 | Generating the test cases for API 1 (FR-01, `POST /api/register`)
 
@@ -72,28 +75,41 @@ AI output. Keep them in order. Long outputs go in
   `Content-Type`; an HTML stack-trace page on malformed JSON).
 - **Issue already identified in the AI's output:** `A1-SEC-013` fails for a
   different reason than its title claims - see `01-generate.md` §7 item 1.
-- **My review:** *(phase 2 - to be completed in `02-audit.md`)*
+- **My review:** Completed in the final case-by-case register. The audit marked
+  ambiguous FR-01 limits INCOMPLETE, corrected the cause/title of
+  `A1-SEC-013`, and kept failed assertions only when their oracle remained
+  traceable to FR-01 or a SEC rule.
 
-### AI-003 |
+### AI-003 | Audit, extension, re-execution, and report completion
 
-- **Tool:**
-- **Date/time:**
-- **Prompt:**
-- **Output:**
-- **My review:**
-
----
+- **Tool:** Codex (GPT-5)
+- **Date/time:** 2026-08-23, ICT (Asia/Saigon)
+- **Prompt:** "Audit từng case theo VALID / INVALID / INCOMPLETE. Thêm tối
+  thiểu 5 test case do sinh viên tự thiết kế cho mỗi API. Điền kết quả thực thi
+  và bug vào các phase document. Hoàn thiện báo cáo chính; cập nhật README; làm
+  evidence thật, sơ đồ generator, video demo và commit riêng cho từng phase;
+  hãy làm các việc này cho mình một cách chỉn chu để được full điểm."
+- **Output:** An audit decision and reason for all 386 final cases; correction
+  of duplicate `A2-DP-006` and misattributed `A1-SEC-013`; 20 independently
+  marked student-designed cases; regenerated Postman collections and coverage
+  reports; a verified full run (1,674/1,802 assertions passed) and green gate
+  (1,271/1,271); phase 2-4 documents, bug clustering, README, main report, and
+  submission/evidence instructions.
+- **My review:** Verified the generated collections compile, ran both suites
+  against a freshly seeded local backend, retained the raw Newman JSON/HTML/log
+  artefacts, and did not fabricate cloud screenshots, CI run URLs, a self-drawn
+  diagram, or a narrated video.
 
 ## Review discipline applied
 
 For each batch of AI output, record which of these was done:
 
-- [ ] Read every generated test case against `refs/spec/api_specification.md`
-- [ ] Checked expected results against the requirement document, not against
+- [x] Read every generated test case against `refs/spec/api_specification.md`
+- [x] Checked expected results against the requirement document, not against
       the SUT's observed behaviour
-- [ ] Executed the cases rather than trusting the AI's predicted results
-- [ ] Corrected or discarded the cases that did not survive review
-- [ ] Recorded the corrections in the phase-2 audit documents
+- [x] Executed the cases rather than trusting the AI's predicted results
+- [x] Corrected or discarded the cases that did not survive review
+- [x] Recorded the corrections in the phase-2 audit documents
 
 ## Bloom-AI level evidence
 

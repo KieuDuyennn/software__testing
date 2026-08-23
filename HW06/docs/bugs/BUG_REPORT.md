@@ -15,13 +15,11 @@ are quoted verbatim from that run. BUG-01 to BUG-06 came from the scaffold's
 exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
 `docs/phases/api1-fr01-register/01-generate.md`).
 
-These are not the finished set: APIs 2, 3 and 4 have not been through the
-pipeline yet, and the audit and extend phases will add more.
-
-The *Candidates* section lists defects identified by **reading the backend
-source only**. They have not been executed yet, so they are recorded as leads,
-not findings. Do not report a candidate as a bug until a test case has
-reproduced it.
+The final local full run on **2026-08-23** executed all four collections after
+the audit and extension phases. BUG-01 through BUG-16 are grouped by root cause,
+not by assertion count: 128 failed assertions reduce to 16 reportable defects.
+The green regression gate is recorded separately and passed 1,271/1,271
+assertions; it does not erase the defect-revealing full-suite failures.
 
 ---
 
@@ -29,18 +27,22 @@ reproduced it.
 
 | ID | Requirement | Severity | Title | Status | Issue |
 |---|---|---|---|---|---|
-| BUG-01 | FR-01 | High | Registration accepts a malformed email address | Confirmed | |
-| BUG-02 | SEC-01 | Critical | Passwords stored and returned in plaintext | Confirmed | |
-| BUG-03 | FR-06 | Medium | Missing product returns `200 {}` instead of `404` | Confirmed | |
-| BUG-04 | FR-06 | Medium | `price` is a string for even product ids | Confirmed | |
-| BUG-05 | SEC-02 / FR-11 | Critical | Any order readable by anyone (IDOR, no auth) | Confirmed | |
-| BUG-06 | SEC-03 / FR-12 | Critical | Non-admin token reaches `/api/admin/orders` | Confirmed | |
-| BUG-07 | FR-01 | High | Registration enforces no mandatory-field validation | Confirmed | |
-| BUG-08 | FR-01 | High | Password complexity policy is not enforced at all | Confirmed | |
-| BUG-09 | FR-01 | High | Email uniqueness is not enforced | Confirmed | |
-| BUG-10 | FR-01 | Medium | Confirm-password is not implemented | Confirmed | |
-| BUG-11 | spec conformance | High | `Content-Type: text/plain` crashes the endpoint with HTTP 500 | Confirmed | |
-| BUG-12 | SEC-05 | Medium | Malformed JSON returns an HTML stack-trace page | Confirmed | |
+| BUG-01 | FR-01 | High | Registration accepts a malformed email address | Confirmed | [#7](https://github.com/KieuDuyennn/software__testing/issues/7) |
+| BUG-02 | SEC-01 | Critical | Passwords stored and returned in plaintext | Confirmed | [#66](https://github.com/KieuDuyennn/software__testing/issues/66) |
+| BUG-03 | FR-06 | Medium | Missing product returns `200 {}` instead of `404` | Confirmed | [#8](https://github.com/KieuDuyennn/software__testing/issues/8) |
+| BUG-04 | FR-06 | Medium | `price` is a string for even product ids | Confirmed | [#9](https://github.com/KieuDuyennn/software__testing/issues/9) |
+| BUG-05 | SEC-02 / FR-11 | Critical | Any order readable by anyone (IDOR, no auth) | Confirmed | [#13](https://github.com/KieuDuyennn/software__testing/issues/13) |
+| BUG-06 | SEC-03 / FR-12 | Critical | Non-admin token reaches `/api/admin/orders` | Confirmed | [#14](https://github.com/KieuDuyennn/software__testing/issues/14) |
+| BUG-07 | FR-01 | High | Registration enforces no mandatory-field validation | Confirmed | [#47](https://github.com/KieuDuyennn/software__testing/issues/47)-[#55](https://github.com/KieuDuyennn/software__testing/issues/55) |
+| BUG-08 | FR-01 | High | Password complexity policy is not enforced at all | Confirmed | [#59](https://github.com/KieuDuyennn/software__testing/issues/59)-[#63](https://github.com/KieuDuyennn/software__testing/issues/63) |
+| BUG-09 | FR-01 | High | Email uniqueness is not enforced | Confirmed | [#64](https://github.com/KieuDuyennn/software__testing/issues/64) |
+| BUG-10 | FR-01 | Medium | Confirm-password is not implemented | Confirmed | [#67](https://github.com/KieuDuyennn/software__testing/issues/67) |
+| BUG-11 | spec conformance | High | `Content-Type: text/plain` crashes the endpoint with HTTP 500 | Confirmed | [#68](https://github.com/KieuDuyennn/software__testing/issues/68) |
+| BUG-12 | SEC-05 | Medium | Malformed JSON returns an HTML stack-trace page | Confirmed | [#69](https://github.com/KieuDuyennn/software__testing/issues/69) |
+| BUG-13 | SEC-03 / FR-12 | Critical | Product create/update/delete routes perform no authorization | Confirmed | [#70](https://github.com/KieuDuyennn/software__testing/issues/70) |
+| BUG-14 | SEC-02 | High | JWT remains usable after its account is deleted | Confirmed | [#33](https://github.com/KieuDuyennn/software__testing/issues/33) |
+| BUG-15 | FR-10 | High | A customer can cancel an order after it reaches `shipping` | Confirmed | [#26](https://github.com/KieuDuyennn/software__testing/issues/26) |
+| BUG-16 | FR-10 / FR-13 | High | Terminal `canceled` orders can transition to `delivered` | Confirmed | [#38](https://github.com/KieuDuyennn/software__testing/issues/38) |
 
 ---
 
@@ -337,20 +339,85 @@ example `{"name": "Broken",` with no closing brace.
 
 ---
 
+### BUG-13 | Product write routes perform no authorization
+
+- **Requirement:** SEC-03 / FR-12
+- **Severity:** Critical · **Endpoints:** `POST /api/products`,
+  `PUT /api/products/:id`, `DELETE /api/products/:id`
+- **Test cases:** `A2-SEC-011` through `A2-SEC-015`
+
+**Expected:** no token is rejected with `401`; a genuine non-admin token is
+rejected with `403`.
+
+**Actual:** every create, update and delete request returns `200` and mutates
+the catalogue. Both authentication and role authorization are absent on all
+three routes.
+
+**Newman evidence:** `status code: expected 200 to be within 401..403`.
+
+---
+
+### BUG-14 | JWT remains usable after its account is deleted
+
+- **Requirement:** SEC-02
+- **Severity:** High · **Endpoint:** `GET /api/orders/my-orders`
+- **Test case:** `A3-DP-009`
+
+**Steps:** create and log in a throwaway user, delete that user through the
+admin API, then reuse the old token for order history.
+
+- **Expected:** `401`/`403`; a session must not outlive its account.
+- **Actual:** `200 OK`. Signature validity is checked, but the token subject is
+  not revalidated against the current users table.
+- **Newman evidence:** `status code: expected 200 to be within 401..403`.
+
+---
+
+### BUG-15 | Customer can cancel an order in `shipping`
+
+- **Requirement:** FR-10 - cancellation is allowed only from `pending` or
+  `confirmed`.
+- **Severity:** High · **Endpoint:** `PUT /api/orders/:id/cancel`
+- **Test cases:** `A3-ST-008`, student-designed post-condition `A3-HR-001`
+
+- **Expected:** a 4xx response and the order remains `shipping`.
+- **Actual:** `200 OK`; a subsequent independent history read shows
+  `status = "canceled"`.
+- **Newman evidence:** `expected 'canceled' to deeply equal 'shipping'`.
+
+The post-condition case proves this is a real mutation, not merely an
+incorrect success status.
+
+---
+
+### BUG-16 | `canceled` orders can transition to `delivered`
+
+- **Requirement:** FR-10 / FR-13
+- **Severity:** High · **Endpoint:** `PUT /api/admin/orders/:id/status`
+- **Test cases:** `A3-ST-020`, `A4-ST-016`
+
+- **Expected:** `400`; both `canceled` and `delivered` are terminal states.
+- **Actual:** `200 OK` and the canceled order becomes delivered.
+- **Newman evidence:** `status code: expected 200 to be within 400..499`.
+- **Business impact:** FR-13 sums delivered orders as revenue, so this invalid
+  transition can turn a canceled sale into reported revenue.
+
+---
+
 ## Candidates (source-read, not yet executed)
 
 Leads found by reading `eshop/backend/server.js`. Write a test case, run it,
 and only then promote a row into *Confirmed* — with its Newman output quoted.
 
-*C-01 (password complexity) and C-02 (email uniqueness) were promoted to
-BUG-08 and BUG-09 by the API 1 test run and no longer appear here.*
+*C-01 (password complexity), C-02 (email uniqueness), and C-06 (shipping
+cancellation) were promoted to BUG-08, BUG-09, and BUG-15 after execution and
+no longer appear here.*
 
 | # | Requirement | Where | What the code appears to do | Test case to write |
 |---|---|---|---|---|
 | C-03 | FR-02 | `POST /api/login` | Failed attempts increment by **2**, lock fires at 3 | Lockout should trigger on the 3rd failure, not the 2nd |
 | C-04 | SEC-07 | `POST /api/forgot-password` | Reset token is 4 digits, never expires, not invalidated by time | OTP must be >= 6 digits, expiring, single-use |
 | C-05 | SEC-06 | `PUT /api/users/me` | Accepts `role` from the request body | A user must not be able to promote themselves to admin |
-| C-06 | FR-10 | `PUT /api/orders/:id/cancel` | Cancel is blocked only for `delivered`/`canceled`, so `shipping` can be cancelled | Cancel must be allowed only from `pending` or `confirmed` |
 | C-07 | FR-10 | `PUT /api/admin/orders/:id/status` | `canceled -> delivered` is explicitly permitted | That transition must be rejected |
 | C-08 | FR-13 | admin UI `App.jsx` | Revenue computed as `total_amount * 2` | Dashboard revenue must equal the API's delivered-order sum — note this one is a **frontend** defect, so cite the API total as the oracle |
 | C-09 | FR-12 | `POST/PUT/DELETE /api/products` | No `authenticateToken` middleware at all | Anonymous product create/update/delete must be refused |

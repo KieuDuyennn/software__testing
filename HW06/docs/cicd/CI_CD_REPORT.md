@@ -27,8 +27,8 @@ two granularities, and the runner prefers the finer one when it is available:
 
 | Key | Granularity | Used for |
 |---|---|---|
-| `gate` | folder names, passed to Newman as `--folder` | APIs 2-4, which still hold only the scaffold's exemplar cases |
-| `gate_cases` | explicit case IDs, rendered into a separate `*_gate` collection | API 1 |
+| `gate` | legacy folder names, passed to Newman as `--folder` | Retained for backward compatibility; currently empty |
+| `gate_cases` | explicit case IDs, rendered into a separate `*_gate` collection | All four APIs |
 
 The folder-level gate stopped working the moment API 1 was written properly.
 Once 121 cases derive their expectations from the specification rather than
@@ -43,8 +43,10 @@ containing exactly those cases. The rule it encodes is *"whatever passes today
 must keep passing"* — which is what a regression gate is for — while the 53
 genuine failures stay visible in the `full-suite` job instead of being hidden.
 
-Current gate: **68 of 121 API 1 cases (316 assertions), plus the exemplar
-folders for APIs 2-4. Total 393 assertions, all green.**
+Current gate after the final audited run: **69/126 API 1 cases, 54/88 API 2,
+84/94 API 3, and 68/78 API 4**. The verified local gate run on 2026-08-23
+passed **1,271/1,271 assertions**. Its raw transcript is
+`evidence/newman-console/suite_gate_20260823-223753.log`.
 
 Re-run `--refresh-gate` after every batch of new or corrected cases, and commit
 the resulting diff — the change in that file is itself a readable record of
@@ -85,6 +87,10 @@ locally.
 
 ## 3. Required run 1 — all test cases passing
 
+Local preflight is complete: `regression-gate` logic passes 1,271/1,271
+assertions. The fields below must be filled from a real pushed GitHub Actions
+run; local success is not represented as cloud evidence.
+
 | Field | Value |
 |---|---|
 | Commit SHA | |
@@ -99,6 +105,10 @@ locally.
 Newman summary with 0 failed assertions.
 
 ## 4. Required run 2 — one test case failing
+
+This deliberately red cloud run has not been fabricated. Produce it only after
+the green commit is pushed and captured, then revert the one-case gate change
+in a follow-up commit.
 
 | Field | Value |
 |---|---|

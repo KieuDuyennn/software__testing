@@ -1,42 +1,29 @@
 # HW06 - AI Critique
 
-**Required length: 200-300 words.** Write this last, from the audit tables and
-the extension phase, so the claims are backed by specific cases.
+**Word count: 258**
 
-## Questions to answer
+The AI produced broad coverage quickly, but its first output still contained
+plausible-looking weaknesses that required human review. The clearest error was
+`A2-DP-006`: it duplicated `A2-DP-005` by requesting product 5 again and called
+the duplicate a boundary case. I labelled the generated version INVALID and
+replaced it with a percent-encoded-id case. `A1-SEC-013` was more subtle. The
+test failed, but its title blamed client-supplied role injection. Another case
+proved that the role field was ignored; the actual cause was missing role
+authorization on the admin route. I therefore labelled it INCOMPLETE and
+corrected its traceability and title. The AI also favored single-request
+oracles. It checked that canceling a shipping order should return an error, but
+did not verify the post-state. My student-designed `A3-HR-001` performed an
+independent history read and proved that the order really changed from
+`shipping` to `canceled`. Similarly, `A4-HR-004` checks both rejection and
+atomicity after a non-admin transition attempt.
 
-1. Where did the AI get something wrong, biased, or incomplete?
-2. Why did it fail to catch the issue?
-3. What principle about collaborating with AI did this assignment teach you?
-
-## Raw material collected while working
-
-Fill these in as you go, then compress into the final paragraph.
-
-### Concrete misses (cite the test case id)
-
-| # | What the AI missed or got wrong | Where it shows up | Root cause |
-|---|---|---|---|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-
-### Root-cause vocabulary
-
-- **Specification blindness.** The AI reads `api_specification.md`, which
-  documents happy paths. A route that is missing its auth middleware, or a
-  comparison that uses `>` where the requirement says `>=`, leaves no trace in
-  the spec text.
-- **Single-endpoint framing.** IDOR, privilege escalation and ownership checks
-  need a second actor. A prompt scoped to one endpoint never introduces one.
-- **Observed-behaviour oracles.** Ask what a response looks like and the AI
-  describes what the SUT returns. A test built on that assertion passes by
-  construction and can never find a defect.
-- **Plausible-but-unexecuted output.** Well-formatted test cases that fail on
-  the first run because a precondition was imagined rather than checked.
-
----
-
-## Final critique (200-300 words)
-
-*(Write here. Word count: ___)*
+These misses came from three limitations: specification gaps encouraged weak
+“no 5xx” oracles; endpoint-by-endpoint prompting hid cross-route invariants;
+and fluent case titles made duplicated or incorrectly attributed tests appear
+credible. Execution alone was not enough either—a red assertion can identify a
+real symptom while explaining the wrong cause. The principle I learned is to
+treat AI output as a review queue, not as evidence. Every case needs an
+independent trace to an FR/SEC rule, a deterministic precondition, and an oracle
+that does not copy observed behavior. Failures must then be clustered by root
+cause and strengthened with post-condition or cross-route checks before they
+become bug reports.
