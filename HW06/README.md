@@ -109,7 +109,7 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Generator implementation/design brief/pseudocode
 - [ ] Final Excel workbook synchronized and visually verified
 - [x] Final PDFs regenerated and visually verified
-- [x] Public GitHub branch pushed; real red CI URL captured
+- [x] Public GitHub branch pushed; real green/red CI URLs recorded
 - [ ] GitHub Issues filed with screenshots
 - [ ] Postman cloud/console evidence captured
 - [ ] Self-drawn generator diagram added

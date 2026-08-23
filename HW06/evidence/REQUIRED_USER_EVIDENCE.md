@@ -50,14 +50,13 @@ Minimum new screenshot set:
 
 ## 4. GitHub Actions - one green and one red
 
-1. Push the final green-gate commit and run `.github/workflows/hw06-api-tests.yml`.
-2. Record commit SHA and Actions URL in `docs/cicd/CI_CD_REPORT.md`; capture the
-   green `regression-gate` job and its 0-failure Newman summary.
-3. In a new commit, add genuine failing case `A1-DP-071` to
-   `config/ci-suite.json -> gate_cases -> API1_FR01_Register`, refresh its gate
-   collection, and push.
-4. Capture the red job naming `A1-DP-071` and HTTP 500.
-5. Revert only that demonstration gate addition in a third commit.
+The real URLs and SHAs are already recorded in `docs/cicd/CI_CD_REPORT.md`:
+
+- Red: run `32649883960`, with `A1-ST-002` and `A1-ST-003` failing on Linux.
+- Green: run `32650090578`, with the reviewed gate passing 1,262/1,262.
+
+Open each run and capture the job summary. Save one screenshot showing the red
+failure detail and one showing the green `regression-gate` with zero failures.
 
 ## 5. Self-drawn generator diagram
 
