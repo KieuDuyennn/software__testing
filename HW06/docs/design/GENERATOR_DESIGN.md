@@ -17,12 +17,11 @@ AI-generated**:
 > *"The AI test-generator diagram, which must be self-drawn — designed by you,
 > not generated directly by an AI."*
 
-So this file deliberately contains **no diagram**. It contains the design
-decisions you need to make, phrased as questions. Answer them, then draw the
-result yourself — draw.io, Excalidraw, Figma, PowerPoint, or pen and paper
-photographed are all fine; the tool does not matter, the authorship does.
-
-Save it to `docs/design/diagram/` as PNG (plus the editable source).
+This file records the design decisions behind the diagram. The editable
+Mermaid source, editable SVG layout, and report-ready PNG are now stored in
+`docs/design/diagram/`. The student must still review/adapt those sources and
+be able to explain every decision; the presence of generated files alone does
+not prove the student-only authorship required by the brief.
 
 ---
 
@@ -111,15 +110,15 @@ itself? Who decides — a schema check, a dry run, an LLM judge, you?
 
 ## Diagram checklist
 
-Once drawn, the diagram should show:
+The current diagram shows:
 
-- [ ] Inputs, with their sources
-- [ ] Each stage as a distinct box, in order
-- [ ] What flows along each arrow (not just that an arrow exists)
-- [ ] The human review checkpoint
-- [ ] The output artefacts
-- [ ] The feedback path — what happens to a case that fails validation
-- [ ] Your name or student ID somewhere on the drawing
+- [x] Inputs, with their sources
+- [x] Each stage as a distinct box, in order
+- [x] What flows along each arrow (not just that an arrow exists)
+- [x] The human review checkpoint
+- [x] The output artefacts
+- [x] The feedback path — what happens to a case that fails validation
+- [x] Student name and ID on the drawing
 
 ---
 

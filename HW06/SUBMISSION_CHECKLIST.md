@@ -35,8 +35,10 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
   `[HW06] X-Student-Id=23127184` từ một request chạy thật.
 - [ ] Chụp kết quả Runner, Monitor và Mock Server vào
   `evidence/postman-cloud/runner.png`, `monitor.png`, `mock-server.png`.
-- [ ] Tự vẽ sơ đồ generator, lưu ảnh và file nguồn chỉnh sửa được trong
+- [x] Đã có ảnh generator và file Mermaid chỉnh sửa được trong
   `docs/design/diagram/`.
+- [ ] Sinh viên mở source trong draw.io, tự rà soát/chỉnh và bảo đảm giải thích
+  được toàn bộ sơ đồ trong video (điều kiện tác quyền của đề).
 - [ ] Chèn link video YouTube demo vào README và báo cáo chính.
 - [ ] Xác nhận bộ ba API không trùng với thành viên nhóm, kèm ngày xác nhận.
 - [ ] Điền điểm tự đánh giá trong README.
