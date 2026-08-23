@@ -1,0 +1,2216 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "238a58af-3e63-47ab-83f3-e4f6f1b95d0d"
+    },
+    "item": [
+      {
+        "id": "fd250561-0cec-4d9a-aa79-a7b30a2d88df",
+        "name": "00 - Setup",
+        "description": {
+          "content": "Fixtures and tokens needed by later folders. FR-01 needs none by default.",
+          "type": "text/plain"
+        },
+        "item": [],
+        "event": []
+      },
+      {
+        "id": "154a8d27-66e9-4289-b389-fb26d976e49b",
+        "name": "01 - Domain partitions",
+        "description": {
+          "content": "One case per equivalence class / boundary on name, email, password. Expand to the full partition table during the AI-generation phase.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "f1a738ff-0119-485a-af9e-4df0f232c35f",
+            "name": "DP-001 | Valid registration (all fields in-partition)",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "3629308c-622b-4c96-a51d-0c4c6fe84c06",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "",
+                    "pm.test(\"Body matches the spec's success shape\", function () {",
+                    "    const b = pm.response.json();",
+                    "    pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                    "    pm.expect(b).to.have.property(\"id\");",
+                    "    pm.expect(b.id, \"id must be an integer\").to.be.a(\"number\");",
+                    "});",
+                    "",
+                    "pm.environment.set(\"last_registered_id\", pm.response.json().id);"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "8828f6cc-bddd-42b9-a750-cb9898a8edb1",
+            "name": "DP-002 | Invalid email format is rejected",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "fed7c7e5-4a13-4396-9d0d-debf307fd4bf",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                    "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                    "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                    "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "e313a0f4-4ca5-4f38-a62b-b0788293b8aa",
+        "name": "02 - State transitions",
+        "description": {
+          "content": "Account lifecycle states reachable from registration: new -> registered -> authenticated.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "9f3a40af-6263-4030-a3b9-35a2ee1d780d",
+            "name": "ST-001 | Registered account can immediately log in",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "6f79ff12-55d4-42eb-aa02-ba3619c233e6",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// Register a fresh account in this step so the transition is self-contained.",
+                    "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                    "const password = \"Password123!\";",
+                    "pm.environment.set(\"registered_email\", email);",
+                    "pm.environment.set(\"registered_password\", password);",
+                    "",
+                    "pm.sendRequest({",
+                    "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                    "    method: \"POST\",",
+                    "    header: {",
+                    "        \"Content-Type\": \"application/json\",",
+                    "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                    "    },",
+                    "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                    "}, function (err, res) {",
+                    "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                    "});"
+                  ],
+                  "_lastExecutionId": "b4e85ddc-9772-4a2e-8380-3b9227a87a24"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "3cde384d-13c1-4a2c-9eb0-ee62e4c2d192",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                    "});"
+                  ],
+                  "_lastExecutionId": "41aa76a9-8e48-4dcf-8112-8b2d6958c97e"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "06420d5b-9e43-4784-a5b2-79c3b41e2cc6",
+        "name": "03 - Security (SEC-01..SEC-07)",
+        "description": {
+          "content": "Map every case to the SEC-01..SEC-07 id it exercises.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "0f4911fb-4fff-45d0-beed-97e27154a990",
+            "name": "SEC-01 | Password must not be retrievable in plaintext",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "b416c773-a18f-4064-b468-c87c9293bffa",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                    "// The login response echoes the whole users row; if password comes back equal",
+                    "// to what we sent, storage is plaintext.",
+                    "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                    "    const u = pm.response.json().user || {};",
+                    "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                    "        pm.environment.get(\"registered_password\")",
+                    "    );",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "91da3ecd-5985-4b32-84c6-a3250696d2a2",
+            "name": "SEC-05 | SQL injection in the email field is neutralised",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "16062184-6976-4b5c-be7d-f67577e3de42",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Server does not return a 500 / SQL error\", function () {",
+                    "    pm.expect(pm.response.code).to.not.eql(500);",
+                    "});",
+                    "",
+                    "pm.test(\"No SQL error text leaks to the client\", function () {",
+                    "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "5b7658cd-e193-47a7-a1af-bc185eb7822c",
+            "name": "SEC-06 | Client cannot self-assign the admin role at registration",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "ed2cc798-78fe-467d-8848-e5b1025f44ff",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// The created account must not come back with role=admin.",
+                    "pm.test(\"Injected role is ignored\", function () {",
+                    "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                    "});",
+                    "// Follow-up verification (log in and inspect role) is added in the extend phase."
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "895af5c9-2077-47ba-b0da-398339ebdb63",
+        "name": "04 - Schema validation",
+        "description": {
+          "content": "The response shape must match api_specification.md exactly - no extra or missing fields, correct JSON types.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "4dd3454b-0f63-447e-a1bf-9d5da30ade83",
+            "name": "SCH-001 | Success response matches the specified schema exactly",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "cd1f206f-462f-47a1-abde-e135cebb9565",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const schema = {",
+                    "    type: \"object\",",
+                    "    required: [\"message\", \"id\"],",
+                    "    additionalProperties: false,",
+                    "    properties: {",
+                    "        message: { type: \"string\" },",
+                    "        id: { type: \"integer\" }",
+                    "    }",
+                    "};",
+                    "",
+                    "pm.test(\"Response body conforms to the spec schema\", function () {",
+                    "    pm.response.to.have.jsonSchema(schema);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "386ee2ee-fea8-4f21-925c-75013585a0c8"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "d3404518-a772-4a5a-bb9d-33183b89ae52",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "2c81c807-810d-4499-9215-84fa434e8e1d"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "2182c72d-b99b-4679-8f97-435826ffd59b",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "be386d38-efc0-4310-9168-7b1f4dcd48a5"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "238a58af-3e63-47ab-83f3-e4f6f1b95d0d",
+      "name": "API1 - FR-01 Account Registration (POST /api/register)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool A / FR-01.\n\nSpec: POST /api/register {name, email, password} -> 200 {\"message\":\"User registered successfully\",\"id\":<int>}.\n\nCoverage dimensions required by the brief: domain partitions on every parameter, state transitions (registered -> can log in), security (SEC-01 plaintext storage, SEC-05 SQL injection, SEC-06 role injection) and schema validation.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787495967159",
+        "key": "run_tag"
+      },
+      {
+        "type": "any",
+        "value": "e27cda14-8cb3-45c1-8b9d-cf1aa1e04935@domain.com",
+        "key": "registered_email"
+      },
+      {
+        "type": "any",
+        "value": "Password123!",
+        "key": "registered_password"
+      }
+    ]
+  },
+  "globals": {
+    "id": "8088e5ff-1c98-400f-87df-fcb42f480f81",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 7,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 29.666666666666668,
+      "responseMin": 11,
+      "responseMax": 67,
+      "responseSd": 26.398653164297777,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787495967125,
+      "completed": 1787495967575
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "7b8026e4-92ff-4980-b3f7-47b9f106ccac",
+          "httpRequestId": "9de90a5c-9f3b-4d22-854c-bd780c043b36"
+        },
+        "item": {
+          "id": "9f3a40af-6263-4030-a3b9-35a2ee1d780d",
+          "name": "ST-001 | Registered account can immediately log in",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "6f79ff12-55d4-42eb-aa02-ba3619c233e6",
+                "type": "text/javascript",
+                "exec": [
+                  "// Register a fresh account in this step so the transition is self-contained.",
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                  "const password = \"Password123!\";",
+                  "pm.environment.set(\"registered_email\", email);",
+                  "pm.environment.set(\"registered_password\", password);",
+                  "",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/json\",",
+                  "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                  "    },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                  "}, function (err, res) {",
+                  "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                  "});"
+                ],
+                "_lastExecutionId": "b4e85ddc-9772-4a2e-8380-3b9227a87a24"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "3cde384d-13c1-4a2c-9eb0-ee62e4c2d192",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});"
+                ],
+                "_lastExecutionId": "41aa76a9-8e48-4dcf-8112-8b2d6958c97e"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "ade3bd0d-193a-4756-bad9-e19301869073",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "94",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"e27cda14-8cb3-45c1-8b9d-cf1aa1e04935@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "24ca80a4-2d66-4eae-9e9e-519f402d19ab",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "403"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"193-0KN7mgnZ1+1LM5rNVWmWszFHdr0\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:27 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              77,
+              121,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              106,
+              100,
+              57,
+              46,
+              106,
+              71,
+              87,
+              71,
+              86,
+              106,
+              113,
+              70,
+              55,
+              115,
+              110,
+              118,
+              121,
+              73,
+              54,
+              111,
+              68,
+              86,
+              97,
+              80,
+              83,
+              55,
+              122,
+              105,
+              106,
+              71,
+              117,
+              122,
+              76,
+              68,
+              88,
+              81,
+              76,
+              48,
+              81,
+              105,
+              70,
+              74,
+              116,
+              76,
+              109,
+              97,
+              99,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              84,
+              32,
+              70,
+              105,
+              120,
+              116,
+              117,
+              114,
+              101,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              101,
+              50,
+              55,
+              99,
+              100,
+              97,
+              49,
+              52,
+              45,
+              56,
+              99,
+              98,
+              51,
+              45,
+              52,
+              53,
+              99,
+              49,
+              45,
+              56,
+              98,
+              57,
+              100,
+              45,
+              99,
+              102,
+              49,
+              97,
+              97,
+              49,
+              101,
+              48,
+              52,
+              57,
+              51,
+              53,
+              64,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 11,
+          "responseSize": 403
+        },
+        "id": "9f3a40af-6263-4030-a3b9-35a2ee1d780d",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Newly registered account transitions to a usable login state",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "7b8026e4-92ff-4980-b3f7-47b9f106ccac",
+          "httpRequestId": "9de90a5c-9f3b-4d22-854c-bd780c043b36"
+        },
+        "item": {
+          "id": "9f3a40af-6263-4030-a3b9-35a2ee1d780d",
+          "name": "ST-001 | Registered account can immediately log in",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "6f79ff12-55d4-42eb-aa02-ba3619c233e6",
+                "type": "text/javascript",
+                "exec": [
+                  "// Register a fresh account in this step so the transition is self-contained.",
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                  "const password = \"Password123!\";",
+                  "pm.environment.set(\"registered_email\", email);",
+                  "pm.environment.set(\"registered_password\", password);",
+                  "",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/json\",",
+                  "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                  "    },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                  "}, function (err, res) {",
+                  "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                  "});"
+                ],
+                "_lastExecutionId": "b4e85ddc-9772-4a2e-8380-3b9227a87a24"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "3cde384d-13c1-4a2c-9eb0-ee62e4c2d192",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});"
+                ],
+                "_lastExecutionId": "41aa76a9-8e48-4dcf-8112-8b2d6958c97e"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "ade3bd0d-193a-4756-bad9-e19301869073",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "94",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"e27cda14-8cb3-45c1-8b9d-cf1aa1e04935@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "24ca80a4-2d66-4eae-9e9e-519f402d19ab",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "403"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"193-0KN7mgnZ1+1LM5rNVWmWszFHdr0\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:27 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              77,
+              121,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              106,
+              100,
+              57,
+              46,
+              106,
+              71,
+              87,
+              71,
+              86,
+              106,
+              113,
+              70,
+              55,
+              115,
+              110,
+              118,
+              121,
+              73,
+              54,
+              111,
+              68,
+              86,
+              97,
+              80,
+              83,
+              55,
+              122,
+              105,
+              106,
+              71,
+              117,
+              122,
+              76,
+              68,
+              88,
+              81,
+              76,
+              48,
+              81,
+              105,
+              70,
+              74,
+              116,
+              76,
+              109,
+              97,
+              99,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              84,
+              32,
+              70,
+              105,
+              120,
+              116,
+              117,
+              114,
+              101,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              101,
+              50,
+              55,
+              99,
+              100,
+              97,
+              49,
+              52,
+              45,
+              56,
+              99,
+              98,
+              51,
+              45,
+              52,
+              53,
+              99,
+              49,
+              45,
+              56,
+              98,
+              57,
+              100,
+              45,
+              99,
+              102,
+              49,
+              97,
+              97,
+              49,
+              101,
+              48,
+              52,
+              57,
+              51,
+              53,
+              64,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 11,
+          "responseSize": 403
+        },
+        "id": "9f3a40af-6263-4030-a3b9-35a2ee1d780d",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Newly registered account transitions to a usable login state",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "d68cfa96-746f-4bc5-bf78-d679a8162f69",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "ed9d6ffb-d790-40b3-a551-64b29424b59c"
+        },
+        "item": {
+          "id": "4dd3454b-0f63-447e-a1bf-9d5da30ade83",
+          "name": "SCH-001 | Success response matches the specified schema exactly",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "cd1f206f-462f-47a1-abde-e135cebb9565",
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"object\",",
+                  "    required: [\"message\", \"id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        message: { type: \"string\" },",
+                  "        id: { type: \"integer\" }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Response body conforms to the spec schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ],
+                "_lastExecutionId": "386ee2ee-fea8-4f21-925c-75013585a0c8"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "214756f0-bb77-4e65-afee-1a50cc9e496e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "120",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"020788d5-a189-49c1-8eec-d6bf5ce63c2e@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "f648841e-c1a1-4a7d-90bf-c9cea5646ed0",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-9gblabB93EjeSU+W40VtccBK30o\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:27 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 11,
+          "responseSize": 49
+        },
+        "id": "4dd3454b-0f63-447e-a1bf-9d5da30ade83",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Response body conforms to the spec schema",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 501
+    },
+    "failures": [],
+    "error": null
+  }
+}

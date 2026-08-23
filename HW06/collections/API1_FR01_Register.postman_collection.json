@@ -1,0 +1,469 @@
+{
+  "info": {
+    "_postman_id": "238a58af-3e63-47ab-83f3-e4f6f1b95d0d",
+    "name": "API1 - FR-01 Account Registration (POST /api/register)",
+    "description": "HW06 / Pool A / FR-01.\n\nSpec: POST /api/register {name, email, password} -> 200 {\"message\":\"User registered successfully\",\"id\":<int>}.\n\nCoverage dimensions required by the brief: domain partitions on every parameter, state transitions (registered -> can log in), security (SEC-01 plaintext storage, SEC-05 SQL injection, SEC-06 role injection) and schema validation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Setup",
+      "item": [],
+      "description": "Fixtures and tokens needed by later folders. FR-01 needs none by default."
+    },
+    {
+      "name": "01 - Domain partitions",
+      "item": [
+        {
+          "name": "DP-001 | Valid registration (all fields in-partition)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Body matches the spec's success shape\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "    pm.expect(b).to.have.property(\"id\");",
+                  "    pm.expect(b.id, \"id must be an integer\").to.be.a(\"number\");",
+                  "});",
+                  "",
+                  "pm.environment.set(\"last_registered_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DP-002 | Invalid email format is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                  "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                  "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                  "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "One case per equivalence class / boundary on name, email, password. Expand to the full partition table during the AI-generation phase."
+    },
+    {
+      "name": "02 - State transitions",
+      "item": [
+        {
+          "name": "ST-001 | Registered account can immediately log in",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Register a fresh account in this step so the transition is self-contained.",
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                  "const password = \"Password123!\";",
+                  "pm.environment.set(\"registered_email\", email);",
+                  "pm.environment.set(\"registered_password\", password);",
+                  "",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/json\",",
+                  "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                  "    },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                  "}, function (err, res) {",
+                  "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Account lifecycle states reachable from registration: new -> registered -> authenticated."
+    },
+    {
+      "name": "03 - Security (SEC-01..SEC-07)",
+      "item": [
+        {
+          "name": "SEC-01 | Password must not be retrievable in plaintext",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                  "// The login response echoes the whole users row; if password comes back equal",
+                  "// to what we sent, storage is plaintext.",
+                  "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                  "    const u = pm.response.json().user || {};",
+                  "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                  "        pm.environment.get(\"registered_password\")",
+                  "    );",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-05 | SQL injection in the email field is neutralised",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not return a 500 / SQL error\", function () {",
+                  "    pm.expect(pm.response.code).to.not.eql(500);",
+                  "});",
+                  "",
+                  "pm.test(\"No SQL error text leaks to the client\", function () {",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-06 | Client cannot self-assign the admin role at registration",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// The created account must not come back with role=admin.",
+                  "pm.test(\"Injected role is ignored\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});",
+                  "// Follow-up verification (log in and inspect role) is added in the extend phase."
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Map every case to the SEC-01..SEC-07 id it exercises."
+    },
+    {
+      "name": "04 - Schema validation",
+      "item": [
+        {
+          "name": "SCH-001 | Success response matches the specified schema exactly",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"object\",",
+                  "    required: [\"message\", \"id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        message: { type: \"string\" },",
+                  "        id: { type: \"integer\" }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Response body conforms to the spec schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "The response shape must match api_specification.md exactly - no extra or missing fields, correct JSON types."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// HW06 mandatory harness: every request must carry X-Student-Id.",
+          "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+          "// brief) - screenshot the Postman console showing it.",
+          "// ---------------------------------------------------------------------------",
+          "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+          "",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// Tag each run so Newman output and SUT state can be correlated.",
+          "if (!pm.environment.get(\"run_tag\")) {",
+          "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+          "}",
+          "",
+          "console.log(",
+          "    \"[HW06] X-Student-Id=\" + studentId +",
+          "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+          "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+          ");"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// Assertions that apply to every request in the collection.",
+          "// ---------------------------------------------------------------------------",
+          "pm.test(\"Request carried the X-Student-Id header\", function () {",
+          "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+          "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+          "        pm.environment.get(\"student_id\") || \"23127184\"",
+          "    );",
+          "});",
+          "",
+          "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+          "    pm.expect(",
+          "        pm.response.code,",
+          "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+          "    ).to.not.eql(429);",
+          "});",
+          "",
+          "pm.test(\"Response arrived under 2000 ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": []
+}

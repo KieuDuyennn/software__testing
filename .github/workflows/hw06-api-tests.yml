@@ -1,0 +1,118 @@
+name: HW06 API Tests (Newman)
+
+# Section 6 of the brief: the API test cases run in a CI/CD pipeline.
+#
+# Two jobs, because the SUT ships with real defects:
+#   regression-gate  the folders listed in HW06/config/ci-suite.json - the
+#                    expectations the SUT currently meets. This job GATES the
+#                    pipeline and must stay green.
+#   full-suite       every folder. Failures here are the SUT's defects, so the
+#                    job reports and uploads evidence without failing the build.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "HW06/**"
+      - ".github/workflows/hw06-api-tests.yml"
+  pull_request:
+    paths:
+      - "HW06/**"
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: HW06
+
+jobs:
+  regression-gate:
+    name: Regression gate (must be green)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install test harness
+        run: npm ci || npm install
+
+      - name: Install SUT dependencies
+        run: npm --prefix eshop/backend install
+
+      - name: Start EShop backend
+        # LOADTEST=1 bypasses the 200-request / 15-minute rate limiter, which a
+        # full suite would otherwise trip with HTTP 429. Starting the server
+        # drops and re-seeds database.sqlite, so the run begins from known state.
+        run: |
+          LOADTEST=1 node eshop/backend/server.js > sut.log 2>&1 &
+          echo "SUT_PID=$!" >> "$GITHUB_ENV"
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:3000/api/products > /dev/null; then
+              echo "Backend ready after $i attempt(s)."
+              exit 0
+            fi
+            sleep 0.5
+          done
+          echo "Backend never became ready:"; cat sut.log; exit 1
+
+      - name: Run regression gate
+        run: node scripts/run-suite.js --mode gate --env ci
+
+      - name: Stop EShop backend
+        if: always()
+        run: kill "$SUT_PID" || true
+
+      - name: Upload gate reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-gate-reports
+          path: |
+            HW06/reports/*_gate.html
+            HW06/reports/summary_gate.json
+            HW06/sut.log
+
+  full-suite:
+    name: Full suite (defect evidence)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install test harness
+        run: npm ci || npm install
+
+      - name: Install SUT dependencies
+        run: npm --prefix eshop/backend install
+
+      - name: Start EShop backend
+        run: |
+          LOADTEST=1 node eshop/backend/server.js > sut.log 2>&1 &
+          echo "SUT_PID=$!" >> "$GITHUB_ENV"
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:3000/api/products > /dev/null; then exit 0; fi
+            sleep 0.5
+          done
+          echo "Backend never became ready:"; cat sut.log; exit 1
+
+      - name: Run full suite
+        run: node scripts/run-suite.js --mode full --env ci
+
+      - name: Stop EShop backend
+        if: always()
+        run: kill "$SUT_PID" || true
+
+      - name: Upload full reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-full-reports
+          path: |
+            HW06/reports/*.html
+            HW06/reports/*.json
+            HW06/sut.log

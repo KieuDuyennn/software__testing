@@ -1,0 +1,12 @@
+{
+  "mode": "full",
+  "env": "local",
+  "generatedAt": "2026-08-23T14:39:34.719Z",
+  "results": [
+    {
+      "name": "API2_FR06_ProductDetail",
+      "total": 36,
+      "failed": 5
+    }
+  ]
+}

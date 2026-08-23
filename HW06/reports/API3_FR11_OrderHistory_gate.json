@@ -1,0 +1,4591 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "e5f9f5d3-8a49-4542-a064-50a55e0a0965"
+    },
+    "item": [
+      {
+        "id": "1f276158-455a-41ec-b77c-d7c365464737",
+        "name": "00 - Setup",
+        "description": {
+          "content": "Builds the two-user fixture that ownership and IDOR cases depend on.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+            "name": "SETUP-001 | Log in as the primary user",
+            "request": {
+              "description": {
+                "content": "Setup step: obtains a JWT used by later requests in this collection.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "a045ec96-8476-46a4-84dd-695031d25e04",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Login succeeded\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                    "});",
+                    "",
+                    "const body = pm.response.json();",
+                    "pm.environment.set(\"user_token\", body.token);",
+                    "if (body.user) {",
+                    "    pm.environment.set(\"user_token_user_id\", body.user.id);",
+                    "    pm.environment.set(\"user_token_role\", body.user.role);",
+                    "}"
+                  ],
+                  "_lastExecutionId": "9f1b26e9-52ac-40a5-bce9-30eeb64d9a4b"
+                }
+              }
+            ]
+          },
+          {
+            "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+            "name": "SETUP-002 | Create an order owned by the primary user",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "checkout"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"total_amount\": 250000,\n  \"shipping_address\": \"123 Le Loi, Q1, TP.HCM\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "4bbd6c16-2bd0-4b84-82e5-3def6fc6d7da",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Checkout created an order\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "    pm.expect(pm.response.json()).to.have.property(\"orderId\");",
+                    "});",
+                    "pm.environment.set(\"own_order_id\", pm.response.json().orderId);"
+                  ],
+                  "_lastExecutionId": "f9fe424a-99e1-43f3-a024-54428e99f01e"
+                }
+              }
+            ]
+          },
+          {
+            "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+            "name": "SETUP-003 | Register + log in a second user (the victim)",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{victim_email}}\",\n  \"password\": \"{{victim_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
+                    "const password = \"Victim123!\";",
+                    "pm.environment.set(\"victim_email\", email);",
+                    "pm.environment.set(\"victim_password\", password);",
+                    "pm.sendRequest({",
+                    "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                    "    method: \"POST\",",
+                    "    header: { \"Content-Type\": \"application/json\",",
+                    "              \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                    "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
+                    "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
+                  ],
+                  "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
+                    "pm.environment.set(\"victim_token\", pm.response.json().token);",
+                    "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
+                  ],
+                  "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+                }
+              }
+            ]
+          },
+          {
+            "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+            "name": "SETUP-004 | Create an order owned by the victim",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "checkout"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{victim_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"total_amount\": 777000,\n  \"shipping_address\": \"99 Victim Street\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "1733f608-29ed-4bfa-8a01-dd48700924f9",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Victim order created\", () => pm.response.to.have.status(200));",
+                    "pm.environment.set(\"victim_order_id\", pm.response.json().orderId);"
+                  ],
+                  "_lastExecutionId": "f713ba21-dfdc-461b-8d1b-1b83495f4a87"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "8f5e3dcc-0b5e-40ff-9dd2-3c605f3baba8",
+        "name": "01 - Domain partitions",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+            "name": "DP-001 | Authenticated user receives their own order list",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "my-orders"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "103b7e4a-91aa-4e14-b33c-5f4d8a476b82",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"Response is an array\", function () {",
+                    "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                    "});",
+                    "pm.test(\"Every returned order belongs to the caller\", function () {",
+                    "    const me = Number(pm.environment.get(\"user_token_user_id\"));",
+                    "    pm.response.json().forEach(function (o) {",
+                    "        pm.expect(o.user_id, \"order \" + o.id + \" owner\").to.eql(me);",
+                    "    });",
+                    "});"
+                  ],
+                  "_lastExecutionId": "f5cf553d-b21c-4162-91bd-55eb231aad94"
+                }
+              }
+            ]
+          },
+          {
+            "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+            "name": "DP-002 | Missing token is rejected",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "my-orders"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "8d3d878f-9732-4446-9dee-d59e9886ac99",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Unauthenticated request returns 401\", function () {",
+                    "    pm.response.to.have.status(401);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "8f431d78-0613-4732-a80a-adfb3d27aada"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "b68616b0-2ab6-4373-8a60-5c79ccb94785",
+        "name": "02 - State transitions (FR-10)",
+        "description": {
+          "content": "pending -> confirmed -> shipping -> delivered plus cancellation rules, observed through order history.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+            "name": "ST-001 | A new order appears in history as 'pending'",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "my-orders"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "3966b7c5-47e8-49fa-8dc7-7e7ec0714ef3",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"The order created in setup is listed as pending\", function () {",
+                    "    const target = Number(pm.environment.get(\"own_order_id\"));",
+                    "    const found = pm.response.json().find(o => o.id === target);",
+                    "    pm.expect(found, \"order \" + target + \" in history\").to.not.be.undefined;",
+                    "    pm.expect(found.status).to.eql(\"pending\");",
+                    "});"
+                  ],
+                  "_lastExecutionId": "fa66fdbe-47ca-4350-8fc3-075af73d659c"
+                }
+              }
+            ]
+          },
+          {
+            "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+            "name": "ST-002 | Cancelling a pending order is reflected in history",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "{{own_order_id}}",
+                  "cancel"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "aeca1ccd-5dac-49fb-9d16-aa92c4b273a1",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Cancel from 'pending' is allowed\", () => pm.response.to.have.status(200));"
+                  ],
+                  "_lastExecutionId": "e665fdfd-6009-40a4-b904-4bdaeac3d68c"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "f3d4bacb-8380-41fd-81b1-1b5cd118db87",
+        "name": "03 - Security (SEC-01..SEC-07)",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "17e7733d-fca0-4b10-a1c1-c89f22ab8370",
+            "name": "SEC-02 | Reading another user's order requires authentication (IDOR)",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "{{victim_order_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "7b7c74c2-3f09-48d1-897b-f03eba93c667",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// SEC-02: security-relevant APIs require a valid JWT.",
+                    "// FR-11: a user may only see their own orders.",
+                    "pm.test(\"Unauthenticated read of an arbitrary order is refused\", function () {",
+                    "    pm.expect(pm.response.code).to.be.oneOf([401, 403, 404]);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "6a49ce1e-443f-4671-a275-dda9e5dcfc30",
+            "name": "SEC-02b | User A cannot read user B's order with their own token",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "{{victim_order_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "5a9de64f-4954-4b73-90a2-cfebc49cd96b",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Cross-user order read is refused\", function () {",
+                    "    pm.expect(pm.response.code).to.be.oneOf([403, 404]);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "10af8c52-50a7-496b-9e20-5879d6bd9e77",
+        "name": "04 - Schema validation",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+            "name": "SCH-001 | Order-history entries match the orders schema",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "orders",
+                  "my-orders"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{user_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "d412de1a-a103-45d0-98d7-867c86e0191e",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const schema = {",
+                    "    type: \"array\",",
+                    "    items: {",
+                    "        type: \"object\",",
+                    "        required: [\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"],",
+                    "        properties: {",
+                    "            id: { type: \"integer\" },",
+                    "            user_id: { type: \"integer\" },",
+                    "            total_amount: { type: \"number\" },",
+                    "            status: { type: \"string\",",
+                    "                      enum: [\"pending\", \"confirmed\", \"shipping\", \"delivered\", \"canceled\"] },",
+                    "            shipping_address: { type: [\"string\", \"null\"] },",
+                    "            created_at: { type: \"string\" }",
+                    "        }",
+                    "    }",
+                    "};",
+                    "",
+                    "pm.test(\"Order history conforms to the schema\", function () {",
+                    "    pm.response.to.have.jsonSchema(schema);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "37c40838-7577-4731-b415-fa51337872cc"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "7fdb4a59-03e7-407f-a3db-657136507cf1",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "b9de5ac9-824c-4a49-a8a5-b3b441b7da95"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "9aa54efa-e4da-49fe-ac3b-42103fedab3a",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "afd005e4-3997-40c2-abc7-9da62a68c308"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "e5f9f5d3-8a49-4542-a064-50a55e0a0965",
+      "name": "API3 - FR-11 Order History (GET /api/orders/my-orders)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool B / FR-11.\n\nSpec: GET /api/orders/my-orders (Bearer token) -> the caller's orders. FR-11 states a user may only see their own orders, which makes this the natural home for IDOR / ownership testing, and for the FR-10 order state machine as it is observed through order history.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.fy0fw172wlQGV0tiqf4GwOUY5KGqzPuwLyfxWgwidT8",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": 2,
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": 1,
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787495968527",
+        "key": "run_tag"
+      },
+      {
+        "type": "any",
+        "value": 2,
+        "key": "user_token_user_id"
+      },
+      {
+        "type": "any",
+        "value": "user",
+        "key": "user_token_role"
+      },
+      {
+        "type": "any",
+        "value": "0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com",
+        "key": "victim_email"
+      },
+      {
+        "type": "any",
+        "value": "Victim123!",
+        "key": "victim_password"
+      },
+      {
+        "type": "any",
+        "value": 5,
+        "key": "victim_user_id"
+      }
+    ]
+  },
+  "globals": {
+    "id": "ef735683-401b-4a84-97f7-815aff2a4d29",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 9,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 28,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 9,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 9,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 38,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 18,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 11.3,
+      "responseMin": 3,
+      "responseMax": 24,
+      "responseSd": 5.762811813689563,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787495968513,
+      "completed": 1787495969552
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 9,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d84d406c-1a8c-4849-8caf-2d3ba2bc1aa7",
+          "httpRequestId": "220acf74-65b2-4416-890d-72199cbeb191"
+        },
+        "item": {
+          "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+          "name": "SETUP-001 | Log in as the primary user",
+          "request": {
+            "description": {
+              "content": "Setup step: obtains a JWT used by later requests in this collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a045ec96-8476-46a4-84dd-695031d25e04",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login succeeded\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.environment.set(\"user_token\", body.token);",
+                  "if (body.user) {",
+                  "    pm.environment.set(\"user_token_user_id\", body.user.id);",
+                  "    pm.environment.set(\"user_token_role\", body.user.role);",
+                  "}"
+                ],
+                "_lastExecutionId": "9f1b26e9-52ac-40a5-bce9-30eeb64d9a4b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Setup step: obtains a JWT used by later requests in this collection.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "99b8a8c2-5832-47f7-9627-97dca9994e92",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "58",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"test@eshop.com\",\n  \"password\": \"Test1234!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "25ce693c-42c3-4601-a976-8ba8d43d5542",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "366"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"16e-iaz2e1/jyzCFVuCsw4BKsltJVeQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              77,
+              105,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              106,
+              104,
+              57,
+              46,
+              72,
+              121,
+              76,
+              98,
+              50,
+              86,
+              109,
+              90,
+              81,
+              54,
+              100,
+              106,
+              51,
+              90,
+              112,
+              103,
+              45,
+              81,
+              111,
+              65,
+              66,
+              67,
+              120,
+              111,
+              52,
+              49,
+              104,
+              116,
+              109,
+              73,
+              95,
+              103,
+              65,
+              76,
+              66,
+              122,
+              118,
+              68,
+              107,
+              84,
+              98,
+              69,
+              81,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              101,
+              115,
+              116,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              116,
+              101,
+              115,
+              116,
+              64,
+              101,
+              115,
+              104,
+              111,
+              112,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              84,
+              101,
+              115,
+              116,
+              49,
+              50,
+              51,
+              52,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 24,
+          "responseSize": 366
+        },
+        "id": "2debb9cb-c2e9-498f-a299-378e8ce36d23",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Login succeeded",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "58832b59-e159-4f33-abbe-86d0e2bc0a87",
+          "length": 9,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "92314455-90f1-49ab-b2d3-6ccfe0371adb"
+        },
+        "item": {
+          "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+          "name": "SETUP-002 | Create an order owned by the primary user",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "checkout"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_amount\": 250000,\n  \"shipping_address\": \"123 Le Loi, Q1, TP.HCM\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4bbd6c16-2bd0-4b84-82e5-3def6fc6d7da",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Checkout created an order\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"orderId\");",
+                  "});",
+                  "pm.environment.set(\"own_order_id\", pm.response.json().orderId);"
+                ],
+                "_lastExecutionId": "f9fe424a-99e1-43f3-a024-54428e99f01e"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "checkout"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "68a0bad1-2c2e-4515-ad3f-d5c5bfeafa0d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "76",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"total_amount\": 250000,\n  \"shipping_address\": \"123 Le Loi, Q1, TP.HCM\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "0bdf09a7-c97d-42af-89be-a954885d898d",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "45"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2d-Zy4U9oAklfO2psNH2K5YlJmZMug\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              104,
+              101,
+              99,
+              107,
+              111,
+              117,
+              116,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              111,
+              114,
+              100,
+              101,
+              114,
+              73,
+              100,
+              34,
+              58,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 12,
+          "responseSize": 45
+        },
+        "id": "0d660c6d-8aab-4678-8279-db2bad85768c",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Checkout created an order",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "5024ea6b-bca3-4ff9-ab5f-cfd0826d7389",
+          "length": 9,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "88fe29f7-85d3-4134-8f2a-1402bc2bed38"
+        },
+        "item": {
+          "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+          "name": "SETUP-003 | Register + log in a second user (the victim)",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{victim_email}}\",\n  \"password\": \"{{victim_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                "type": "text/javascript",
+                "exec": [
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
+                  "const password = \"Victim123!\";",
+                  "pm.environment.set(\"victim_email\", email);",
+                  "pm.environment.set(\"victim_password\", password);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\",",
+                  "              \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
+                  "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
+                ],
+                "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
+                  "pm.environment.set(\"victim_token\", pm.response.json().token);",
+                  "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
+                ],
+                "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "afa097c3-a41c-4aeb-8c8a-ab66b1dff4f0",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "92",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com\",\n  \"password\": \"Victim123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "2239fa80-582c-4343-9799-7c8997e11e10",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "397"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18d-z3Hh6JmG6oCGlCnMKnwiosW58WU\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              78,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              106,
+              104,
+              57,
+              46,
+              102,
+              121,
+              48,
+              102,
+              119,
+              49,
+              55,
+              50,
+              119,
+              108,
+              81,
+              71,
+              86,
+              48,
+              116,
+              105,
+              113,
+              102,
+              52,
+              71,
+              119,
+              79,
+              85,
+              89,
+              53,
+              75,
+              71,
+              113,
+              122,
+              80,
+              117,
+              119,
+              76,
+              121,
+              102,
+              120,
+              87,
+              103,
+              119,
+              105,
+              100,
+              84,
+              56,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              86,
+              105,
+              99,
+              116,
+              105,
+              109,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              48,
+              101,
+              101,
+              98,
+              51,
+              100,
+              57,
+              98,
+              45,
+              102,
+              49,
+              57,
+              57,
+              45,
+              52,
+              48,
+              97,
+              50,
+              45,
+              56,
+              100,
+              48,
+              57,
+              45,
+              55,
+              51,
+              102,
+              51,
+              54,
+              48,
+              57,
+              50,
+              102,
+              99,
+              51,
+              102,
+              64,
+              118,
+              105,
+              99,
+              116,
+              105,
+              109,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              86,
+              105,
+              99,
+              116,
+              105,
+              109,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 10,
+          "responseSize": 397
+        },
+        "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Victim account is usable",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "5024ea6b-bca3-4ff9-ab5f-cfd0826d7389",
+          "length": 9,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "88fe29f7-85d3-4134-8f2a-1402bc2bed38"
+        },
+        "item": {
+          "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+          "name": "SETUP-003 | Register + log in a second user (the victim)",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{victim_email}}\",\n  \"password\": \"{{victim_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2c1931b2-8fa6-43b5-9ee0-dd3a2b32f0cf",
+                "type": "text/javascript",
+                "exec": [
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@victim.com\";",
+                  "const password = \"Victim123!\";",
+                  "pm.environment.set(\"victim_email\", email);",
+                  "pm.environment.set(\"victim_password\", password);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\",",
+                  "              \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Victim\", email, password }) }",
+                  "}, function () { console.log(\"[HW06] victim account created: \" + email); });"
+                ],
+                "_lastExecutionId": "139fe709-94fb-482d-9415-d9b67824f5bc"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "9e42ef89-45dd-41a1-95bb-a559fc4e26f5",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Victim account is usable\", () => pm.response.to.have.status(200));",
+                  "pm.environment.set(\"victim_token\", pm.response.json().token);",
+                  "pm.environment.set(\"victim_user_id\", pm.response.json().user.id);"
+                ],
+                "_lastExecutionId": "fa021e73-4b27-485b-afba-87053adc57d4"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "afa097c3-a41c-4aeb-8c8a-ab66b1dff4f0",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "92",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"0eeb3d9b-f199-40a2-8d09-73f36092fc3f@victim.com\",\n  \"password\": \"Victim123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "2239fa80-582c-4343-9799-7c8997e11e10",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "397"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18d-z3Hh6JmG6oCGlCnMKnwiosW58WU\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              78,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              106,
+              104,
+              57,
+              46,
+              102,
+              121,
+              48,
+              102,
+              119,
+              49,
+              55,
+              50,
+              119,
+              108,
+              81,
+              71,
+              86,
+              48,
+              116,
+              105,
+              113,
+              102,
+              52,
+              71,
+              119,
+              79,
+              85,
+              89,
+              53,
+              75,
+              71,
+              113,
+              122,
+              80,
+              117,
+              119,
+              76,
+              121,
+              102,
+              120,
+              87,
+              103,
+              119,
+              105,
+              100,
+              84,
+              56,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              86,
+              105,
+              99,
+              116,
+              105,
+              109,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              48,
+              101,
+              101,
+              98,
+              51,
+              100,
+              57,
+              98,
+              45,
+              102,
+              49,
+              57,
+              57,
+              45,
+              52,
+              48,
+              97,
+              50,
+              45,
+              56,
+              100,
+              48,
+              57,
+              45,
+              55,
+              51,
+              102,
+              51,
+              54,
+              48,
+              57,
+              50,
+              102,
+              99,
+              51,
+              102,
+              64,
+              118,
+              105,
+              99,
+              116,
+              105,
+              109,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              86,
+              105,
+              99,
+              116,
+              105,
+              109,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 10,
+          "responseSize": 397
+        },
+        "id": "31919346-30ca-4c82-9388-7a9a21d86019",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Victim account is usable",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "7d729787-3b04-4604-a9e4-0b8862dbbb52",
+          "length": 9,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "62596db6-f619-4a50-a267-f7794a11ca59"
+        },
+        "item": {
+          "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+          "name": "SETUP-004 | Create an order owned by the victim",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "checkout"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{victim_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"total_amount\": 777000,\n  \"shipping_address\": \"99 Victim Street\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1733f608-29ed-4bfa-8a01-dd48700924f9",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Victim order created\", () => pm.response.to.have.status(200));",
+                  "pm.environment.set(\"victim_order_id\", pm.response.json().orderId);"
+                ],
+                "_lastExecutionId": "f713ba21-dfdc-461b-8d1b-1b83495f4a87"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "checkout"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.fy0fw172wlQGV0tiqf4GwOUY5KGqzPuwLyfxWgwidT8"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "6c6a69c7-7dfd-4b30-a869-50637049321c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "70",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"total_amount\": 777000,\n  \"shipping_address\": \"99 Victim Street\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "319cf2e6-a9c8-45db-8bc2-666b4329d3fe",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "45"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2d-64YCqMTwxmLC7Alf0CXqYqA0N8k\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              104,
+              101,
+              99,
+              107,
+              111,
+              117,
+              116,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              111,
+              114,
+              100,
+              101,
+              114,
+              73,
+              100,
+              34,
+              58,
+              50,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 17,
+          "responseSize": 45
+        },
+        "id": "8d93a948-0552-4c50-ad2c-3744e12e7485",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Victim order created",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "f22474c4-c172-46e1-b38a-3f75599bb460",
+          "length": 9,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "8020b67b-a401-46e9-89f4-8ac54f75eace"
+        },
+        "item": {
+          "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+          "name": "DP-001 | Authenticated user receives their own order list",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "103b7e4a-91aa-4e14-b33c-5f4d8a476b82",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"Every returned order belongs to the caller\", function () {",
+                  "    const me = Number(pm.environment.get(\"user_token_user_id\"));",
+                  "    pm.response.json().forEach(function (o) {",
+                  "        pm.expect(o.user_id, \"order \" + o.id + \" owner\").to.eql(me);",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "f5cf553d-b21c-4162-91bd-55eb231aad94"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "orders",
+              "my-orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "eec1b546-0668-4c80-8dcf-a9d62e5f4e6a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "674e7a1e-d0c2-467f-964a-10ad0f63174d",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "142"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"8e-PDaMzINX8xPKIzMMxBG2aGiA6WI\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              51,
+              32,
+              49,
+              52,
+              58,
+              51,
+              57,
+              58,
+              50,
+              56,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 8,
+          "responseSize": 142
+        },
+        "id": "c86f93d4-71b5-4923-a593-2df634b454a5",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is an array",
+            "skipped": false
+          },
+          {
+            "assertion": "Every returned order belongs to the caller",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "e773bc10-94b4-48af-8b8b-f34cfc21f439",
+          "length": 9,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "8b7c04af-b059-4f0b-8194-4cfb10e4b419"
+        },
+        "item": {
+          "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+          "name": "DP-002 | Missing token is rejected",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "8d3d878f-9732-4446-9dee-d59e9886ac99",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Unauthenticated request returns 401\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "_lastExecutionId": "8f431d78-0613-4732-a80a-adfb3d27aada"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "orders",
+              "my-orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f2064a5a-f984-4c4d-ac15-00b2b93c1c84",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "66aa74f8-b3e7-4656-b98e-d07826ee1a21",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-XPDV80vbMk4yY1/PADG4jYM4rSI\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              117,
+              116,
+              104,
+              111,
+              114,
+              105,
+              122,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 24
+        },
+        "id": "a3d85bb2-10a3-440f-b871-65eea08a4abf",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Unauthenticated request returns 401",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "10523644-be7c-42ee-a501-4716b4a7c0d7",
+          "length": 9,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "85ea2251-87a6-4ed5-b6b7-ded477beb984"
+        },
+        "item": {
+          "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+          "name": "ST-001 | A new order appears in history as 'pending'",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3966b7c5-47e8-49fa-8dc7-7e7ec0714ef3",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"The order created in setup is listed as pending\", function () {",
+                  "    const target = Number(pm.environment.get(\"own_order_id\"));",
+                  "    const found = pm.response.json().find(o => o.id === target);",
+                  "    pm.expect(found, \"order \" + target + \" in history\").to.not.be.undefined;",
+                  "    pm.expect(found.status).to.eql(\"pending\");",
+                  "});"
+                ],
+                "_lastExecutionId": "fa66fdbe-47ca-4350-8fc3-075af73d659c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "orders",
+              "my-orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "10d233cb-1f02-45de-ba06-6ee177dfc2bd",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "70e8f4e7-8dc7-4396-afc3-00ff3c9392a8",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "142"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"8e-PDaMzINX8xPKIzMMxBG2aGiA6WI\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              51,
+              32,
+              49,
+              52,
+              58,
+              51,
+              57,
+              58,
+              50,
+              56,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 8,
+          "responseSize": 142
+        },
+        "id": "dd6cffc0-db59-49a0-9d54-9786a502d997",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "The order created in setup is listed as pending",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1ae39fbf-6467-4268-89a8-42307652e4bf",
+          "length": 9,
+          "cycles": 1,
+          "position": 7,
+          "iteration": 0,
+          "httpRequestId": "447819c1-7298-453f-90ad-388e0c03cedb"
+        },
+        "item": {
+          "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+          "name": "ST-002 | Cancelling a pending order is reflected in history",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "orders",
+                "{{own_order_id}}",
+                "cancel"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "aeca1ccd-5dac-49fb-9d16-aa92c4b273a1",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Cancel from 'pending' is allowed\", () => pm.response.to.have.status(200));"
+                ],
+                "_lastExecutionId": "e665fdfd-6009-40a4-b904-4bdaeac3d68c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "orders",
+              "1",
+              "cancel"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f0fd933a-5834-4e54-bb0a-ee6b74a517c6",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "0",
+              "system": true
+            }
+          ],
+          "method": "PUT"
+        },
+        "response": {
+          "id": "c596b9fc-856a-4032-b603-1c9f08dca235",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "41"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"29-+WJTbET4UbXIJ4W57wKVoLCE4cI\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              79,
+              114,
+              100,
+              101,
+              114,
+              32,
+              99,
+              97,
+              110,
+              99,
+              101,
+              108,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 13,
+          "responseSize": 41
+        },
+        "id": "3d3f3b9b-882e-41e4-97c1-7f115628dc1c",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Cancel from 'pending' is allowed",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "02a250fe-7004-4561-a252-31318edb4921",
+          "length": 9,
+          "cycles": 1,
+          "position": 8,
+          "iteration": 0,
+          "httpRequestId": "4429524d-b48a-47e3-af0a-3855bc3b762c"
+        },
+        "item": {
+          "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+          "name": "SCH-001 | Order-history entries match the orders schema",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d412de1a-a103-45d0-98d7-867c86e0191e",
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"array\",",
+                  "    items: {",
+                  "        type: \"object\",",
+                  "        required: [\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"],",
+                  "        properties: {",
+                  "            id: { type: \"integer\" },",
+                  "            user_id: { type: \"integer\" },",
+                  "            total_amount: { type: \"number\" },",
+                  "            status: { type: \"string\",",
+                  "                      enum: [\"pending\", \"confirmed\", \"shipping\", \"delivered\", \"canceled\"] },",
+                  "            shipping_address: { type: [\"string\", \"null\"] },",
+                  "            created_at: { type: \"string\" }",
+                  "        }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Order history conforms to the schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ],
+                "_lastExecutionId": "37c40838-7577-4731-b415-fa51337872cc"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "orders",
+              "my-orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc0OTU5Njh9.HyLb2VmZQ6dj3Zpg-QoABCxo41htmI_gALBzvDkTbEQ"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3feebf80-ff39-4edb-a2cc-ba4298deee86",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "25638db0-4b46-4384-8b4a-57200eb67472",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "143"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"8f-T60RiUq+IF1ybzBRmxgwKPRzjfA\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              99,
+              97,
+              110,
+              99,
+              101,
+              108,
+              101,
+              100,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              51,
+              32,
+              49,
+              52,
+              58,
+              51,
+              57,
+              58,
+              50,
+              56,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 143
+        },
+        "id": "1f378a80-3047-4f29-a6b4-935d77a73191",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Order history conforms to the schema",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1394
+    },
+    "failures": [],
+    "error": null
+  }
+}

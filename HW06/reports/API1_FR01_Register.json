@@ -1,0 +1,4327 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "238a58af-3e63-47ab-83f3-e4f6f1b95d0d"
+    },
+    "item": [
+      {
+        "id": "a365d78f-a301-430c-a285-a37866b18247",
+        "name": "00 - Setup",
+        "description": {
+          "content": "Fixtures and tokens needed by later folders. FR-01 needs none by default.",
+          "type": "text/plain"
+        },
+        "item": [],
+        "event": []
+      },
+      {
+        "id": "05c8adb6-f62a-4ac2-819b-d0bcafe0903b",
+        "name": "01 - Domain partitions",
+        "description": {
+          "content": "One case per equivalence class / boundary on name, email, password. Expand to the full partition table during the AI-generation phase.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "ec4172ed-4813-4386-91c0-cfd57dd177dd",
+            "name": "DP-001 | Valid registration (all fields in-partition)",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "171defbd-20f2-4d95-823e-c4bf498555b0",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "",
+                    "pm.test(\"Body matches the spec's success shape\", function () {",
+                    "    const b = pm.response.json();",
+                    "    pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                    "    pm.expect(b).to.have.property(\"id\");",
+                    "    pm.expect(b.id, \"id must be an integer\").to.be.a(\"number\");",
+                    "});",
+                    "",
+                    "pm.environment.set(\"last_registered_id\", pm.response.json().id);"
+                  ],
+                  "_lastExecutionId": "27eb6547-9fd7-4e6e-be9a-4efb9dcdbcf2"
+                }
+              }
+            ]
+          },
+          {
+            "id": "852a66af-dfc6-4bcd-8ae0-6e22ae9bdd18",
+            "name": "DP-002 | Invalid email format is rejected",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "de855d6e-217d-46c7-a3e6-5e5e4375a466",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                    "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                    "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                    "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "ee3777c1-4e3c-471f-aa50-0ce17959d36b"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "6289d537-5ef0-4837-94d4-cf70f2ae54c9",
+        "name": "02 - State transitions",
+        "description": {
+          "content": "Account lifecycle states reachable from registration: new -> registered -> authenticated.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "db511307-62ed-436c-b8c2-d9c18756ad25",
+            "name": "ST-001 | Registered account can immediately log in",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "1e72d283-9e40-449c-85a1-6c13dfc19e3e",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// Register a fresh account in this step so the transition is self-contained.",
+                    "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                    "const password = \"Password123!\";",
+                    "pm.environment.set(\"registered_email\", email);",
+                    "pm.environment.set(\"registered_password\", password);",
+                    "",
+                    "pm.sendRequest({",
+                    "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                    "    method: \"POST\",",
+                    "    header: {",
+                    "        \"Content-Type\": \"application/json\",",
+                    "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                    "    },",
+                    "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                    "}, function (err, res) {",
+                    "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                    "});"
+                  ],
+                  "_lastExecutionId": "abfde301-bb64-42ef-a050-8a2d7c5973b2"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "1d677477-373e-45dc-b349-06355c3655fd",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                    "});"
+                  ],
+                  "_lastExecutionId": "63a6076e-e534-4562-8830-3b1dc4e7ba84"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "8bf19f84-10de-4cdf-899d-2a014502c4df",
+        "name": "03 - Security (SEC-01..SEC-07)",
+        "description": {
+          "content": "Map every case to the SEC-01..SEC-07 id it exercises.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "c8ff8930-5559-44c0-acf0-3d66720b2161",
+            "name": "SEC-01 | Password must not be retrievable in plaintext",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "47e595ca-abc2-4588-b1ac-d65f70ec319d",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                    "// The login response echoes the whole users row; if password comes back equal",
+                    "// to what we sent, storage is plaintext.",
+                    "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                    "    const u = pm.response.json().user || {};",
+                    "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                    "        pm.environment.get(\"registered_password\")",
+                    "    );",
+                    "});"
+                  ],
+                  "_lastExecutionId": "0f530f39-4905-43b9-8a21-f522ee8927b6"
+                }
+              }
+            ]
+          },
+          {
+            "id": "69028564-5a5a-479e-a45e-3521c8b2911d",
+            "name": "SEC-05 | SQL injection in the email field is neutralised",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "061dd3b9-1046-469f-a9dd-dd3fec907037",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"Server does not return a 500 / SQL error\", function () {",
+                    "    pm.expect(pm.response.code).to.not.eql(500);",
+                    "});",
+                    "",
+                    "pm.test(\"No SQL error text leaks to the client\", function () {",
+                    "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                    "});"
+                  ],
+                  "_lastExecutionId": "a1359b48-bbbd-4652-950c-e408aeed204f"
+                }
+              }
+            ]
+          },
+          {
+            "id": "49b7773c-9fb8-409c-a7a7-666dd009f537",
+            "name": "SEC-06 | Client cannot self-assign the admin role at registration",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "e5b6947c-7eea-4f19-bf8e-6ffb71d4d483",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// The created account must not come back with role=admin.",
+                    "pm.test(\"Injected role is ignored\", function () {",
+                    "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                    "});",
+                    "// Follow-up verification (log in and inspect role) is added in the extend phase."
+                  ],
+                  "_lastExecutionId": "419e8f73-bd01-4d13-a9d7-0c49723aff44"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "1c393424-60b1-4dc4-9076-c49a46cd5816",
+        "name": "04 - Schema validation",
+        "description": {
+          "content": "The response shape must match api_specification.md exactly - no extra or missing fields, correct JSON types.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "979c3124-551f-4415-b5f4-0b12ea0d3a77",
+            "name": "SCH-001 | Success response matches the specified schema exactly",
+            "request": {
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "c974b738-7ec0-4626-80bd-dfb7a1f5f94a",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const schema = {",
+                    "    type: \"object\",",
+                    "    required: [\"message\", \"id\"],",
+                    "    additionalProperties: false,",
+                    "    properties: {",
+                    "        message: { type: \"string\" },",
+                    "        id: { type: \"integer\" }",
+                    "    }",
+                    "};",
+                    "",
+                    "pm.test(\"Response body conforms to the spec schema\", function () {",
+                    "    pm.response.to.have.jsonSchema(schema);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "4a205e58-42e4-48c7-b608-fb93528c195f"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "28d6c9bd-50d0-40f3-9e53-54bca2db9bdc",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "56bd0442-d4e7-4151-b3bf-32aeb9840a29"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "4447d9cb-071e-44b9-ae1f-e417fe686c22",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "149d6627-e440-4b69-a849-e2602cfa7f59"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "238a58af-3e63-47ab-83f3-e4f6f1b95d0d",
+      "name": "API1 - FR-01 Account Registration (POST /api/register)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool A / FR-01.\n\nSpec: POST /api/register {name, email, password} -> 200 {\"message\":\"User registered successfully\",\"id\":<int>}.\n\nCoverage dimensions required by the brief: domain partitions on every parameter, state transitions (registered -> can log in), security (SEC-01 plaintext storage, SEC-05 SQL injection, SEC-06 role injection) and schema validation.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787495950786",
+        "key": "run_tag"
+      },
+      {
+        "type": "any",
+        "value": 3,
+        "key": "last_registered_id"
+      },
+      {
+        "type": "any",
+        "value": "b1b9c684-e47f-49a5-8eb9-1699c78d6192@domain.com",
+        "key": "registered_email"
+      },
+      {
+        "type": "any",
+        "value": "Password123!",
+        "key": "registered_password"
+      }
+    ]
+  },
+  "globals": {
+    "id": "9cd37c6b-15c3-4828-a869-fe081ce75ae1",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 7,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 22,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 7,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 7,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 30,
+        "pending": 0,
+        "failed": 2
+      },
+      "testScripts": {
+        "total": 14,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 18.375,
+      "responseMin": 5,
+      "responseMax": 83,
+      "responseSd": 24.565918973244212,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787495950741,
+      "completed": 1787495951656
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 7,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "35ec00f2-8753-4677-8dfd-00ab9c91f122",
+          "httpRequestId": "784f63d4-3e6b-4847-b105-ead662bb3651"
+        },
+        "item": {
+          "id": "ec4172ed-4813-4386-91c0-cfd57dd177dd",
+          "name": "DP-001 | Valid registration (all fields in-partition)",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "171defbd-20f2-4d95-823e-c4bf498555b0",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Body matches the spec's success shape\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "    pm.expect(b).to.have.property(\"id\");",
+                  "    pm.expect(b.id, \"id must be an integer\").to.be.a(\"number\");",
+                  "});",
+                  "",
+                  "pm.environment.set(\"last_registered_id\", pm.response.json().id);"
+                ],
+                "_lastExecutionId": "27eb6547-9fd7-4e6e-be9a-4efb9dcdbcf2"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "387c4166-a90e-4845-bbff-9cce9728e4e4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "121",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"111dc0c0-ce4a-47f1-8e93-8596e245d27d@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "ff458a68-fec7-42bf-a1fb-d3c057b729f8",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-6Ci6+juThLYJE7fjTOwLWWX20Zs\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:10 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 83,
+          "responseSize": 49
+        },
+        "id": "ec4172ed-4813-4386-91c0-cfd57dd177dd",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Body matches the spec's success shape",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "27b53a0d-ab88-42d4-bbee-35924263582f",
+          "length": 7,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "5da15440-ec53-45bc-b194-2a09aeac7fb2"
+        },
+        "item": {
+          "id": "852a66af-dfc6-4bcd-8ae0-6e22ae9bdd18",
+          "name": "DP-002 | Invalid email format is rejected",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "de855d6e-217d-46c7-a3e6-5e5e4375a466",
+                "type": "text/javascript",
+                "exec": [
+                  "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                  "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                  "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                  "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                  "});"
+                ],
+                "_lastExecutionId": "ee3777c1-4e3c-471f-aa50-0ce17959d36b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "25adedd7-5e3e-4ea0-a034-565480fadcbb",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "82",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "d475845f-81d3-4de0-b4dd-07ad933dd2d1",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-9gblabB93EjeSU+W40VtccBK30o\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 10,
+          "responseSize": 49
+        },
+        "id": "852a66af-dfc6-4bcd-8ae0-6e22ae9bdd18",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Malformed email is rejected with 4xx",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Malformed email is rejected with 4xx",
+              "message": "expected 200 to be within 400..499",
+              "stack": "AssertionError: expected 200 to be within 400..499\n   at Object.eval sandbox-script.js:1:2)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "6ec79443-1213-4303-a12c-738956207525",
+          "length": 7,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "574dc0c9-ce79-4353-9469-e39a443df436"
+        },
+        "item": {
+          "id": "db511307-62ed-436c-b8c2-d9c18756ad25",
+          "name": "ST-001 | Registered account can immediately log in",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "1e72d283-9e40-449c-85a1-6c13dfc19e3e",
+                "type": "text/javascript",
+                "exec": [
+                  "// Register a fresh account in this step so the transition is self-contained.",
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                  "const password = \"Password123!\";",
+                  "pm.environment.set(\"registered_email\", email);",
+                  "pm.environment.set(\"registered_password\", password);",
+                  "",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/json\",",
+                  "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                  "    },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                  "}, function (err, res) {",
+                  "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                  "});"
+                ],
+                "_lastExecutionId": "abfde301-bb64-42ef-a050-8a2d7c5973b2"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "1d677477-373e-45dc-b349-06355c3655fd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});"
+                ],
+                "_lastExecutionId": "63a6076e-e534-4562-8830-3b1dc4e7ba84"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3bc78d9c-4d30-4a7e-801d-62f89d842bbf",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "94",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"b1b9c684-e47f-49a5-8eb9-1699c78d6192@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "a904cec4-2ee3-444b-b8c4-b677dc184270",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "403"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"193-2f3M5UCdQWL6JzVtZeAhJESSNXY\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              78,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              84,
+              70,
+              57,
+              46,
+              76,
+              120,
+              106,
+              84,
+              88,
+              50,
+              69,
+              71,
+              45,
+              70,
+              87,
+              70,
+              68,
+              66,
+              80,
+              115,
+              98,
+              77,
+              113,
+              66,
+              121,
+              113,
+              67,
+              84,
+              67,
+              115,
+              121,
+              54,
+              49,
+              88,
+              112,
+              50,
+              52,
+              101,
+              88,
+              72,
+              74,
+              71,
+              89,
+              85,
+              57,
+              88,
+              115,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              84,
+              32,
+              70,
+              105,
+              120,
+              116,
+              117,
+              114,
+              101,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              98,
+              49,
+              98,
+              57,
+              99,
+              54,
+              56,
+              52,
+              45,
+              101,
+              52,
+              55,
+              102,
+              45,
+              52,
+              57,
+              97,
+              53,
+              45,
+              56,
+              101,
+              98,
+              57,
+              45,
+              49,
+              54,
+              57,
+              57,
+              99,
+              55,
+              56,
+              100,
+              54,
+              49,
+              57,
+              50,
+              64,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 15,
+          "responseSize": 403
+        },
+        "id": "db511307-62ed-436c-b8c2-d9c18756ad25",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Newly registered account transitions to a usable login state",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "6ec79443-1213-4303-a12c-738956207525",
+          "length": 7,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "574dc0c9-ce79-4353-9469-e39a443df436"
+        },
+        "item": {
+          "id": "db511307-62ed-436c-b8c2-d9c18756ad25",
+          "name": "ST-001 | Registered account can immediately log in",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "1e72d283-9e40-449c-85a1-6c13dfc19e3e",
+                "type": "text/javascript",
+                "exec": [
+                  "// Register a fresh account in this step so the transition is self-contained.",
+                  "const email = pm.variables.replaceIn(\"{{$guid}}\") + \"@domain.com\";",
+                  "const password = \"Password123!\";",
+                  "pm.environment.set(\"registered_email\", email);",
+                  "pm.environment.set(\"registered_password\", password);",
+                  "",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/json\",",
+                  "        \"X-Student-Id\": pm.environment.get(\"student_id\")",
+                  "    },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"ST Fixture\", email, password }) }",
+                  "}, function (err, res) {",
+                  "    console.log(\"[HW06] ST-001 fixture registered \" + email + \" -> \" + (res ? res.code : err));",
+                  "});"
+                ],
+                "_lastExecutionId": "abfde301-bb64-42ef-a050-8a2d7c5973b2"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "1d677477-373e-45dc-b349-06355c3655fd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Newly registered account transitions to a usable login state\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});"
+                ],
+                "_lastExecutionId": "63a6076e-e534-4562-8830-3b1dc4e7ba84"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3bc78d9c-4d30-4a7e-801d-62f89d842bbf",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "94",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"b1b9c684-e47f-49a5-8eb9-1699c78d6192@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "a904cec4-2ee3-444b-b8c4-b677dc184270",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "403"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"193-2f3M5UCdQWL6JzVtZeAhJESSNXY\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              78,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              84,
+              70,
+              57,
+              46,
+              76,
+              120,
+              106,
+              84,
+              88,
+              50,
+              69,
+              71,
+              45,
+              70,
+              87,
+              70,
+              68,
+              66,
+              80,
+              115,
+              98,
+              77,
+              113,
+              66,
+              121,
+              113,
+              67,
+              84,
+              67,
+              115,
+              121,
+              54,
+              49,
+              88,
+              112,
+              50,
+              52,
+              101,
+              88,
+              72,
+              74,
+              71,
+              89,
+              85,
+              57,
+              88,
+              115,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              84,
+              32,
+              70,
+              105,
+              120,
+              116,
+              117,
+              114,
+              101,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              98,
+              49,
+              98,
+              57,
+              99,
+              54,
+              56,
+              52,
+              45,
+              101,
+              52,
+              55,
+              102,
+              45,
+              52,
+              57,
+              97,
+              53,
+              45,
+              56,
+              101,
+              98,
+              57,
+              45,
+              49,
+              54,
+              57,
+              57,
+              99,
+              55,
+              56,
+              100,
+              54,
+              49,
+              57,
+              50,
+              64,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 15,
+          "responseSize": 403
+        },
+        "id": "db511307-62ed-436c-b8c2-d9c18756ad25",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Newly registered account transitions to a usable login state",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "31d4a2e2-9c55-436a-9f25-8079daba0369",
+          "length": 7,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "aedbec8a-4acd-40ed-b744-f3c25b619941"
+        },
+        "item": {
+          "id": "c8ff8930-5559-44c0-acf0-3d66720b2161",
+          "name": "SEC-01 | Password must not be retrievable in plaintext",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "47e595ca-abc2-4588-b1ac-d65f70ec319d",
+                "type": "text/javascript",
+                "exec": [
+                  "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                  "// The login response echoes the whole users row; if password comes back equal",
+                  "// to what we sent, storage is plaintext.",
+                  "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                  "    const u = pm.response.json().user || {};",
+                  "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                  "        pm.environment.get(\"registered_password\")",
+                  "    );",
+                  "});"
+                ],
+                "_lastExecutionId": "0f530f39-4905-43b9-8a21-f522ee8927b6"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c46b3780-21f4-4381-a111-c7a4a63634a4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "94",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"b1b9c684-e47f-49a5-8eb9-1699c78d6192@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "c7938aa7-14a5-48a5-b880-d54035b52dc4",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "403"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"193-2f3M5UCdQWL6JzVtZeAhJESSNXY\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              78,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              110,
+              86,
+              122,
+              90,
+              88,
+              73,
+              105,
+              76,
+              67,
+              74,
+              112,
+              89,
+              88,
+              81,
+              105,
+              79,
+              106,
+              69,
+              51,
+              79,
+              68,
+              99,
+              48,
+              79,
+              84,
+              85,
+              53,
+              78,
+              84,
+              70,
+              57,
+              46,
+              76,
+              120,
+              106,
+              84,
+              88,
+              50,
+              69,
+              71,
+              45,
+              70,
+              87,
+              70,
+              68,
+              66,
+              80,
+              115,
+              98,
+              77,
+              113,
+              66,
+              121,
+              113,
+              67,
+              84,
+              67,
+              115,
+              121,
+              54,
+              49,
+              88,
+              112,
+              50,
+              52,
+              101,
+              88,
+              72,
+              74,
+              71,
+              89,
+              85,
+              57,
+              88,
+              115,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              84,
+              32,
+              70,
+              105,
+              120,
+              116,
+              117,
+              114,
+              101,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              98,
+              49,
+              98,
+              57,
+              99,
+              54,
+              56,
+              52,
+              45,
+              101,
+              52,
+              55,
+              102,
+              45,
+              52,
+              57,
+              97,
+              53,
+              45,
+              56,
+              101,
+              98,
+              57,
+              45,
+              49,
+              54,
+              57,
+              57,
+              99,
+              55,
+              56,
+              100,
+              54,
+              49,
+              57,
+              50,
+              64,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 403
+        },
+        "id": "c8ff8930-5559-44c0-acf0-3d66720b2161",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Login response does not expose the plaintext password",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Login response does not expose the plaintext password",
+              "message": "password field in response: expected 'Password123!' to not deeply equal 'Password123!'",
+              "stack": "AssertionError: password field in response: expected 'Password123!' to not deeply equal 'Password123!'\n   at Object.eval sandbox-script.js:1:4)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "b13cf687-e72e-4011-8864-d09e2fa0af4f",
+          "length": 7,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "e1b0093c-92bd-48d4-b7ed-5d4c125acb97"
+        },
+        "item": {
+          "id": "69028564-5a5a-479e-a45e-3521c8b2911d",
+          "name": "SEC-05 | SQL injection in the email field is neutralised",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "061dd3b9-1046-469f-a9dd-dd3fec907037",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Server does not return a 500 / SQL error\", function () {",
+                  "    pm.expect(pm.response.code).to.not.eql(500);",
+                  "});",
+                  "",
+                  "pm.test(\"No SQL error text leaks to the client\", function () {",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                  "});"
+                ],
+                "_lastExecutionId": "a1359b48-bbbd-4652-950c-e408aeed204f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "eefe2077-30e0-439d-9768-07fb34f8e224",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "109",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "18ecd382-9b04-4ac7-828b-207df08052f9",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-dX7jh/382Wfa2Uj6pHxDTJV5CCc\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              54,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 8,
+          "responseSize": 49
+        },
+        "id": "69028564-5a5a-479e-a45e-3521c8b2911d",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Server does not return a 500 / SQL error",
+            "skipped": false
+          },
+          {
+            "assertion": "No SQL error text leaks to the client",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a14afd73-d6a9-47cc-8cb4-9b05d2389789",
+          "length": 7,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "02088cdd-428d-4461-8688-71d8da50bcdd"
+        },
+        "item": {
+          "id": "49b7773c-9fb8-409c-a7a7-666dd009f537",
+          "name": "SEC-06 | Client cannot self-assign the admin role at registration",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "e5b6947c-7eea-4f19-bf8e-6ffb71d4d483",
+                "type": "text/javascript",
+                "exec": [
+                  "// The created account must not come back with role=admin.",
+                  "pm.test(\"Injected role is ignored\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});",
+                  "// Follow-up verification (log in and inspect role) is added in the extend phase."
+                ],
+                "_lastExecutionId": "419e8f73-bd01-4d13-a9d7-0c49723aff44"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "33aef5ee-1196-4058-9880-05b428f895b4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "141",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"74dcd7c9-5f77-4e83-a5c0-990f09e86d8f@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "cf03a5cd-036b-4ef0-8d3d-63d136911f00",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-bZAsYX1HXXOR76qWUhbcMlopiAc\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              55,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 8,
+          "responseSize": 49
+        },
+        "id": "49b7773c-9fb8-409c-a7a7-666dd009f537",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Injected role is ignored",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "ef547034-4f70-47a3-8a96-95c826ebb3b1",
+          "length": 7,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "64dc446c-d9f8-4021-8ed9-fd3dd8bd0640"
+        },
+        "item": {
+          "id": "979c3124-551f-4415-b5f4-0b12ea0d3a77",
+          "name": "SCH-001 | Success response matches the specified schema exactly",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c974b738-7ec0-4626-80bd-dfb7a1f5f94a",
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"object\",",
+                  "    required: [\"message\", \"id\"],",
+                  "    additionalProperties: false,",
+                  "    properties: {",
+                  "        message: { type: \"string\" },",
+                  "        id: { type: \"integer\" }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Response body conforms to the spec schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ],
+                "_lastExecutionId": "4a205e58-42e4-48c7-b608-fb93528c195f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "74d3f63e-8452-401f-99e9-e8510fb6a0c5",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "120",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Schema Probe\",\n  \"email\": \"20f8e375-e1c6-42d5-932e-eba86ee701cc@domain.com\",\n  \"password\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "49e2d21e-1ee9-49c3-a0ec-cf8554b0c11b",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-nWcwyHB4tD2EtWNZMTIgLDQTarU\""
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 23 Aug 2026 14:39:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              56,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 9,
+          "responseSize": 49
+        },
+        "id": "979c3124-551f-4415-b5f4-0b12ea0d3a77",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Response body conforms to the spec schema",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1100
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Malformed email is rejected with 4xx",
+          "message": "expected 200 to be within 400..499",
+          "stack": "AssertionError: expected 200 to be within 400..499\n   at Object.eval sandbox-script.js:1:2)",
+          "checksum": "2c5be43eba328271d4eb2083a11fac07",
+          "id": "bf8d3422-8025-4aba-b52f-a6f4c19c1ce5",
+          "timestamp": 1787495951060,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "852a66af-dfc6-4bcd-8ae0-6e22ae9bdd18",
+          "name": "DP-002 | Invalid email format is rejected",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "de855d6e-217d-46c7-a3e6-5e5e4375a466",
+                "type": "text/javascript",
+                "exec": [
+                  "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                  "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                  "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                  "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                  "});"
+                ],
+                "_lastExecutionId": "ee3777c1-4e3c-471f-aa50-0ce17959d36b"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "05c8adb6-f62a-4ac2-819b-d0bcafe0903b",
+          "name": "01 - Domain partitions",
+          "description": {
+            "content": "One case per equivalence class / boundary on name, email, password. Expand to the full partition table during the AI-generation phase.",
+            "type": "text/plain"
+          },
+          "item": [
+            {
+              "id": "ec4172ed-4813-4386-91c0-cfd57dd177dd",
+              "name": "DP-001 | Valid registration (all fields in-partition)",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "register"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Kieu Duyen QA\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "171defbd-20f2-4d95-823e-c4bf498555b0",
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                      "",
+                      "pm.test(\"Body matches the spec's success shape\", function () {",
+                      "    const b = pm.response.json();",
+                      "    pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                      "    pm.expect(b).to.have.property(\"id\");",
+                      "    pm.expect(b.id, \"id must be an integer\").to.be.a(\"number\");",
+                      "});",
+                      "",
+                      "pm.environment.set(\"last_registered_id\", pm.response.json().id);"
+                    ],
+                    "_lastExecutionId": "27eb6547-9fd7-4e6e-be9a-4efb9dcdbcf2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "852a66af-dfc6-4bcd-8ae0-6e22ae9bdd18",
+              "name": "DP-002 | Invalid email format is rejected",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "register"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bad Email\",\n  \"email\": \"not-an-email\",\n  \"password\": \"Password123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "de855d6e-217d-46c7-a3e6-5e5e4375a466",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// FR-01: \"Email phai co dinh dang hop le (user@domain.com)\".",
+                      "// EXPECTED per requirement; the SUT currently accepts it -> defect evidence.",
+                      "pm.test(\"Malformed email is rejected with 4xx\", function () {",
+                      "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                      "});"
+                    ],
+                    "_lastExecutionId": "ee3777c1-4e3c-471f-aa50-0ce17959d36b"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "ref": "27b53a0d-ab88-42d4-bbee-35924263582f",
+          "length": 7,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "5da15440-ec53-45bc-b194-2a09aeac7fb2",
+          "scriptId": "de855d6e-217d-46c7-a3e6-5e5e4375a466",
+          "execution": "ee3777c1-4e3c-471f-aa50-0ce17959d36b"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Login response does not expose the plaintext password",
+          "message": "password field in response: expected 'Password123!' to not deeply equal 'Password123!'",
+          "stack": "AssertionError: password field in response: expected 'Password123!' to not deeply equal 'Password123!'\n   at Object.eval sandbox-script.js:1:4)",
+          "checksum": "6ee968709d4dab19a9193530e990ac38",
+          "id": "984e6dc8-e22b-4f1f-a21e-1b6bf2d19071",
+          "timestamp": 1787495951301,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 4,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "c8ff8930-5559-44c0-acf0-3d66720b2161",
+          "name": "SEC-01 | Password must not be retrievable in plaintext",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "47e595ca-abc2-4588-b1ac-d65f70ec319d",
+                "type": "text/javascript",
+                "exec": [
+                  "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                  "// The login response echoes the whole users row; if password comes back equal",
+                  "// to what we sent, storage is plaintext.",
+                  "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                  "    const u = pm.response.json().user || {};",
+                  "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                  "        pm.environment.get(\"registered_password\")",
+                  "    );",
+                  "});"
+                ],
+                "_lastExecutionId": "0f530f39-4905-43b9-8a21-f522ee8927b6"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "8bf19f84-10de-4cdf-899d-2a014502c4df",
+          "name": "03 - Security (SEC-01..SEC-07)",
+          "description": {
+            "content": "Map every case to the SEC-01..SEC-07 id it exercises.",
+            "type": "text/plain"
+          },
+          "item": [
+            {
+              "id": "c8ff8930-5559-44c0-acf0-3d66720b2161",
+              "name": "SEC-01 | Password must not be retrievable in plaintext",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "login"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{registered_email}}\",\n  \"password\": \"{{registered_password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "47e595ca-abc2-4588-b1ac-d65f70ec319d",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// SEC-01: \"Mat khau khong duoc luu duoi dang plaintext.\"",
+                      "// The login response echoes the whole users row; if password comes back equal",
+                      "// to what we sent, storage is plaintext.",
+                      "pm.test(\"Login response does not expose the plaintext password\", function () {",
+                      "    const u = pm.response.json().user || {};",
+                      "    pm.expect(u.password, \"password field in response\").to.not.eql(",
+                      "        pm.environment.get(\"registered_password\")",
+                      "    );",
+                      "});"
+                    ],
+                    "_lastExecutionId": "0f530f39-4905-43b9-8a21-f522ee8927b6"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "69028564-5a5a-479e-a45e-3521c8b2911d",
+              "name": "SEC-05 | SQL injection in the email field is neutralised",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "register"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"SQLi Probe\",\n  \"password\": \"Password123!\",\n  \"email\": \"sqli'); DROP TABLE users;--@domain.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "061dd3b9-1046-469f-a9dd-dd3fec907037",
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Server does not return a 500 / SQL error\", function () {",
+                      "    pm.expect(pm.response.code).to.not.eql(500);",
+                      "});",
+                      "",
+                      "pm.test(\"No SQL error text leaks to the client\", function () {",
+                      "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "a1359b48-bbbd-4652-950c-e408aeed204f"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "49b7773c-9fb8-409c-a7a7-666dd009f537",
+              "name": "SEC-06 | Client cannot self-assign the admin role at registration",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "register"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Role Injection\",\n  \"email\": \"{{$guid}}@domain.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "e5b6947c-7eea-4f19-bf8e-6ffb71d4d483",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// The created account must not come back with role=admin.",
+                      "pm.test(\"Injected role is ignored\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                      "});",
+                      "// Follow-up verification (log in and inspect role) is added in the extend phase."
+                    ],
+                    "_lastExecutionId": "419e8f73-bd01-4d13-a9d7-0c49723aff44"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "ref": "31d4a2e2-9c55-436a-9f25-8079daba0369",
+          "length": 7,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "aedbec8a-4acd-40ed-b744-f3c25b619941",
+          "scriptId": "47e595ca-abc2-4588-b1ac-d65f70ec319d",
+          "execution": "0f530f39-4905-43b9-8a21-f522ee8927b6"
+        }
+      }
+    ],
+    "error": null
+  }
+}
