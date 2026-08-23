@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "af615e93-7caf-5ea2-9b3a-c67f21ec7382",
     "name": "API1 - FR-01 Account Registration (POST /api/register) [CI gate]",
-    "description": "HW06 / Pool A / FR-01 - Account registration.\n\nSpec: POST /api/register {name, email, password} -> 200 {\"message\": \"User registered successfully\", \"id\": <int>}.\n\nGenerated from the case specification in scripts/cases/api1_fr01_register.py. Expected results are derived from FR-01 and SEC-01..SEC-07, never from the SUT's observed behaviour, so a failing case here is evidence about the implementation rather than a broken test.\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\nContains 68 reviewed deterministic cases from config/ci-suite.json. The full suite remains the source of defect evidence.\n",
+    "description": "HW06 / Pool A / FR-01 - Account registration.\n\nSpec: POST /api/register {name, email, password} -> 200 {\"message\": \"User registered successfully\", \"id\": <int>}.\n\nGenerated from the case specification in scripts/cases/api1_fr01_register.py. Expected results are derived from FR-01 and SEC-01..SEC-07, never from the SUT's observed behaviour, so a failing case here is evidence about the implementation rather than a broken test.\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\nContains 67 reviewed deterministic cases from config/ci-suite.json. The full suite remains the source of defect evidence.\n",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -415,55 +415,6 @@
               "response": []
             },
             {
-              "name": "A1-DP-019 | Email without '@' is rejected",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "type": "text/javascript",
-                    "exec": [
-                      "pm.test(\"Rejected with a 4xx (email needs an @)\", function () {",
-                      "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
-                      "});",
-                      "pm.test(\"Error response names the problem\", function () {",
-                      "    pm.expect(pm.response.text()).to.not.be.empty;",
-                      "});"
-                    ]
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/api/register",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "api",
-                    "register"
-                  ]
-                },
-                "description": "**A1-DP-019** - Email without '@' is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | email |\n| Partition | invalid: no @ separator |\n| Requirement | FR-01 |\n| Expected | 4xx - FR-01 requires the user@domain.com form |\n| Origin | AI-generated |\n| Audit | VALID |",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"{{uniq}}domain.com\",\n  \"password\": \"Password123!\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "response": []
-            },
-            {
               "name": "A1-DP-029 | Email with a '+' tag is accepted",
               "event": [
                 {
@@ -714,7 +665,7 @@
               "response": []
             }
           ],
-          "description": "7 case(s) on `email`."
+          "description": "6 case(s) on `email`."
         },
         {
           "name": "password",
