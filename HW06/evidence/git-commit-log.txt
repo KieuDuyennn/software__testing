@@ -2,9 +2,15 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-23 21:40:53 +07:00
+Generated  : 2026-08-23 22:01:40 +07:00
 Scope      : commits touching HW06/
 ==============================================================================
+
+9d3a65b  2026-08-23 22:01:32 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): generate 121 test cases for API 1 (FR-01 register)
+
+afb5e8a  2026-08-23 21:41:00 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): count HW06 commits from the repository root
 
 39789ec  2026-08-23 21:40:30 +0700  Lê Phạm Kiều Duyên
     chore(hw06): scaffold AI-assisted API testing workspace
