@@ -76,9 +76,8 @@ These items cannot be generated or invented by an AI agent:
 
 - Postman Console screenshot visibly showing
   `[HW06] X-Student-Id=23127184`.
-- Postman Workspace, Collection Runner, Monitor and Mock Server screenshots.
-- GitHub Issues created from the student's account, with screenshots and URLs.
-- GitHub Actions screenshots for the real red and green gate runs.
+- Postman Console, Collection Runner, Monitor and Mock Server screenshots.
+- Failure screenshots attached to the corresponding GitHub Issues if required.
 - Group uniqueness confirmation and date.
 - Generator diagram drawn by the student and exported with editable source.
 - Narrated YouTube demo link.
@@ -110,8 +109,9 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [ ] Final Excel workbook synchronized and visually verified
 - [x] Final PDFs regenerated and visually verified
 - [x] Public GitHub branch pushed; real green/red CI URLs recorded
-- [ ] GitHub Issues filed with screenshots
-- [ ] Postman cloud/console evidence captured
+- [x] GitHub Issues filed; signed-in issue-page screenshots captured
+- [x] Postman Cloud workspace and environment screenshots captured
+- [ ] Postman Console/Runner/Monitor/Mock result evidence captured
 - [ ] Self-drawn generator diagram added
 - [ ] Narrated demo video URL added
 - [ ] Group uniqueness and self-assessment completed

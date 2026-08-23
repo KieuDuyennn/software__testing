@@ -80,6 +80,8 @@ AI output. Keep them in order. Long outputs go in
   `A1-SEC-013`, and kept failed assertions only when their oracle remained
   traceable to FR-01 or a SEC rule.
 
+<!-- PAGEBREAK -->
+
 ### AI-003 | Audit, extension, re-execution, and report completion
 
 - **Tool:** Codex (GPT-5)
