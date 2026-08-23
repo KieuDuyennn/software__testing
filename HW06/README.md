@@ -1,118 +1,117 @@
-# HW06 — AI-assisted API Testing
+# HW06 - AI-assisted API Testing
 
 Student ID: **23127184**
-SUT: **EShop** — <https://github.com/ttbhanh/eshop-sut> (vendored under `eshop/`)
+
+SUT: **EShop** - <https://github.com/ttbhanh/eshop-sut>
+
 Base URL: `http://localhost:3000`
-Public repository: <https://github.com/KieuDuyennn/software__testing/tree/hw6/HW06>
-Uniqueness: FR-01 / FR-06 / FR-11 / FR-13 — *confirm with your group and record the date here.*
 
-## APIs under test
+Repository: <https://github.com/KieuDuyennn/software__testing/tree/hw6/HW06>
 
-| # | Pool | Requirement | Endpoint | Collection |
+## Scope
+
+| API | Pool | Requirement | Endpoint | Status |
 |---|---|---|---|---|
-| 1 | A | FR-01 Account registration | `POST /api/register` | `API1_FR01_Register` |
-| 2 | A | FR-06 Product detail | `GET /api/products/:id` | `API2_FR06_ProductDetail` |
-| 3 | B | FR-11 Order history (user) | `GET /api/orders/my-orders` (+ `GET /api/orders/:id`) | `API3_FR11_OrderHistory` |
-| 4 | C | FR-13 Dashboard | `GET /api/admin/orders` | `API4_FR13_AdminOrders` |
+| 1 | A | FR-01 Registration | `POST /api/register` | Audited, extended, executed |
+| 2 | A | FR-06 Product detail | `GET /api/products/:id` | Additional coverage; audited, extended, executed |
+| 3 | B | FR-11 Order history | `GET /api/orders/my-orders` and related routes | Audited, extended, executed |
+| 4 | C | FR-13 Dashboard | `GET /api/admin/orders` and status route | Audited, extended, executed |
 
-The brief asks for three APIs, one per pool. Four are covered because FR-01 and
-FR-06 both sit in Pool A; the three graded slots are filled by one API from each
-pool and the fourth is additional coverage.
+The three graded pool slots are API 1 (A), API 3 (B), and API 4 (C). API 2 is
+additional Pool-A coverage. Confirm selection uniqueness with the group and add
+the date before submission.
 
-## Test summary
+## Verified summary
 
-*Update these numbers from `testcases/23127184_HW06_TestCases.xlsx` before
-submitting. They must match the workbook and the main report exactly.*
+Final local full run: **2026-08-23**. The SUT is reseeded before each run.
 
-**Progress: API 1 has completed phase 1 (generate).** Its row below is filled
-from the verified run; APIs 2-4 have only the scaffold's exemplar cases so far,
-and the audit and extend phases have not run for any API.
-
-| Metric | Value |
-|---|---|
-| APIs tested | 4 |
-| Test cases generated with AI | |
-| Test cases added by the student | |
-| Total test cases | |
-| Executed | |
-| Passed | |
-| Failed | |
-| Bugs found | |
-| Bugs filed as GitHub Issues | |
-
-### Per-API breakdown
-
-| API | Generated | Added | Total | Executed | Passed | Failed | Bugs |
+| API | AI-generated | Student-added | Total | Passed cases | Failed cases | Assertions passed/total | Bugs touched |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| API1 — FR-01 Register | 121 | _extend phase_ | 121 | 121 | 68 | 53 | 6 |
-| API2 — FR-06 Product detail | | | | | | | |
-| API3 — FR-11 Order history | | | | | | | |
-| API4 — FR-13 Admin dashboard | | | | | | | |
-| **Total** | | | | | | | |
+| API 1 - FR-01 | 121 | 5 | 126 | 69 | 57 | 544/606 | 9 |
+| API 2 - FR-06 | 83 | 5 | 88 | 54 | 34 | 390/433 | 3 |
+| API 3 - FR-11 | 89 | 5 | 94 | 84 | 10 | 407/418 | 5 |
+| API 4 - FR-13 | 73 | 5 | 78 | 68 | 10 | 333/345 | 2 |
+| **Total / unique** | **366** | **20** | **386** | **275** | **111** | **1,674/1,802** | **16 unique bugs** |
+
+Failed assertions are defect evidence, not broken fixtures. They are clustered
+into 16 root-cause reports in `docs/bugs/BUG_REPORT.md`.
+
+Audit totals across all APIs: **363 VALID, 1 INVALID and corrected, 22
+INCOMPLETE with documented specification gaps**.
+
+Regression gate: **1,271/1,271 assertions passed**.
 
 ## Quick start
 
 ```powershell
-cd HW06
-npm install                        # Newman + reporters
-npm run sut:install                # EShop backend dependencies
-.\scripts\Invoke-ApiTests.ps1      # start SUT, run all four collections, stop SUT
+npm install
+npm run sut:install
+.\scripts\Invoke-ApiTests.ps1
+.\scripts\Invoke-ApiTests.ps1 -Mode gate
 ```
 
-Reports land in `reports/`, console transcripts in `evidence/newman-console/`.
-Full details in [`docs/runbooks/LOCAL_RUN.md`](docs/runbooks/LOCAL_RUN.md).
-
-> The backend **must** run with `LOADTEST=1` — it rate-limits `/api` to 200
-> requests per 15 minutes, which a full suite exceeds. The scripts set it for
-> you.
+The runner starts EShop with `LOADTEST=1`, waits for readiness, executes the
+suite, writes HTML/JSON/log evidence, and stops the backend.
 
 ## Deliverables
 
 | Item | Location |
 |---|---|
-| Main report | `23127184_HW06_REPORT.md` (+ PDF in `output/pdf/`) |
-| Postman collections | `collections/*.postman_collection.json` |
-| Environments and globals | `config/` |
-| Newman HTML reports | `reports/` |
-| Postman features used | `docs/postman/POSTMAN_FEATURES.md` |
-| Per-API pipeline documents | `docs/phases/` |
+| Main report | `23127184_HW06_REPORT.md` and `output/pdf/23127184_HW06_AI_API_Report.pdf` |
+| Collections | `collections/*.postman_collection.json` |
+| Test case sources/exports | `scripts/cases/`, `testcases/*_cases.json` |
+| Excel workbook | `testcases/23127184_HW06_TestCases.xlsx` |
+| Audit/extend/execute registers | `docs/phases/` |
+| Full and gate reports | `reports/` |
+| Raw console transcripts | `evidence/newman-console/` |
 | Bug report | `docs/bugs/BUG_REPORT.md` |
 | CI/CD report | `docs/cicd/CI_CD_REPORT.md` |
-| Pipeline definition | `../.github/workflows/hw06-api-tests.yml` |
-| Test generator design + pseudocode | `docs/design/` |
-| Self-drawn diagram | `docs/design/diagram/` |
+| Generator design/pseudocode | `docs/design/` |
 | Agent Skill | `.claude/skills/api-test-generator/` |
-| AI audit report | `docs/ai-audit/AI_AUDIT.md` |
-| AI critique | `docs/AI_CRITIQUE.md` |
-| Excel test cases + summary | `testcases/23127184_HW06_TestCases.xlsx` |
-| Git commit log | `evidence/git-commit-log.txt` |
-| Screenshots | `evidence/screenshots/`, `evidence/postman-cloud/` |
+| AI critique/audit | `docs/AI_CRITIQUE.md`, `docs/ai-audit/AI_AUDIT.md` |
 
-Demo video (Agent Skill generating tests for one API): **_TODO — YouTube link_**
+## Evidence still requiring the student
+
+These items cannot be generated or invented by an AI agent:
+
+- Postman Console screenshot visibly showing
+  `[HW06] X-Student-Id=23127184`.
+- Postman Workspace, Collection Runner, Monitor and Mock Server screenshots.
+- GitHub Issues created from the student's account, with screenshots and URLs.
+- Two pushed GitHub Actions runs: one green gate and one genuine red gate.
+- Group uniqueness confirmation and date.
+- Generator diagram drawn by the student and exported with editable source.
+- Narrated YouTube demo link.
+
+Exact capture steps are in `evidence/REQUIRED_USER_EVIDENCE.md`.
 
 ## Self-assessment
 
 | No. | Criterion | Maximum | Self-assessed |
 |---:|---|---:|---:|
-| 1 | API 1 — full pipeline (generate + audit + extend + execute + bugs) | 30 | |
-| 2 | API 2 — full pipeline | 30 | |
-| 3 | API 3 — full pipeline | 30 | |
-| 4 | Agent Skills (AI-driven test generator) | 10 | |
-| | **Total** | **100** | |
+| 1 | API 1 - full pipeline | 30 | _Finalize after evidence_ |
+| 2 | API 3 - full pipeline | 30 | _Finalize after evidence_ |
+| 3 | API 4 - full pipeline | 30 | _Finalize after evidence_ |
+| 4 | Agent Skill / generator | 10 | _Finalize after diagram/video_ |
+| | **Total** | **100** | **Pending authentic evidence** |
 
 Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 
 ## Submission checklist
 
-- [ ] Main report in Markdown **and** PDF
-- [ ] Public GitHub repository link included
-- [ ] Postman collection `.json` + Newman HTML report
-- [ ] List of Postman features used
-- [ ] CI/CD report with both pipeline runs (one green, one red), screenshots and links
-- [ ] Excel test cases and test summary
-- [ ] Generator diagram (**self-drawn**) and pseudocode
-- [ ] Bug report + GitHub Issues with screenshots
-- [ ] AI Critique (200–300 words) and AI Audit Report, Markdown + PDF
-- [ ] Git commit log as a text file
-- [ ] This README with the self-assessment table and test summary filled in
-- [ ] Postman console screenshot showing `X-Student-Id` (Section 11 evidence)
+- [x] Main report content in Markdown
+- [x] Four complete Postman collections and Newman HTML/JSON reports
+- [x] 386-case machine-readable exports and per-case audit registers
+- [x] Five student-designed extension cases per API
+- [x] Full local run and all-green local regression gate
+- [x] Bug report with 16 root-cause defects
+- [x] AI Critique (200-300 words) and AI Audit Report content
+- [x] Generator implementation/design brief/pseudocode
+- [ ] Final Excel workbook synchronized and visually verified
+- [x] Final PDFs regenerated and visually verified
+- [ ] Public GitHub branch pushed; real CI green/red URLs captured
+- [ ] GitHub Issues filed with screenshots
+- [ ] Postman cloud/console evidence captured
+- [ ] Self-drawn generator diagram added
+- [ ] Narrated demo video URL added
+- [ ] Group uniqueness and self-assessment completed

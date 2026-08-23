@@ -41,7 +41,11 @@ Consider: the six defects already confirmed in `docs/bugs/BUG_REPORT.md` were
 unless the generator also reads SEC-03. That is an argument about input, and
 it belongs in your design.
 
-> **Your answer:**
+> **Decision:** Use three required inputs: the Markdown API specification, the
+> FR/SEC requirement source, and a target endpoint plus student id. A live SUT
+> is accepted only by the later execution validator; its responses are never an
+> oracle. This separation prevents current defects from being generated as
+> expected behavior.
 
 ### D2. What are the stages, and what does each one hand to the next?
 
@@ -50,14 +54,21 @@ transitions, security, schema validation — suggest one stage each. Decide
 whether they run in sequence or in parallel, and what the shared intermediate
 representation is (a parameter model? an endpoint model? a state machine?).
 
-> **Your answer:**
+> **Decision:** Run seven sequential stages: Parse Contract, Domain Partitions,
+> State Transitions, Security Model, Schema Validation, Static Validator, and
+> Human Review. `EndpointModel` is produced by parsing; each coverage pass adds
+> `CaseDraft` objects with rule id, actors, setup, action, and oracle. The
+> validator produces a `ReviewQueue` with rejection reasons.
 
 ### D3. Where does the human sit in the loop?
 
 You audited every AI-generated case by hand in phase 2. Does the generator
 automate that, ask for approval at a checkpoint, or emit a review queue?
 
-> **Your answer:**
+> **Decision:** The generator stops at a mandatory review gate. The student
+> assigns VALID / INVALID / INCOMPLETE with a reason and correction. INVALID
+> and INCOMPLETE rows feed back to the stage that produced them; only reviewed
+> final definitions can be rendered or executed.
 
 ### D4. What is the output artefact?
 
@@ -66,7 +77,10 @@ collection, it must carry the `X-Student-Id` pre-request script — that is a
 hard requirement of this assignment and therefore a hard requirement of the
 generator.
 
-> **Your answer:**
+> **Decision:** Emit one canonical machine-readable case set, then render a
+> Postman collection, JSON export, Excel review table, coverage report, and
+> phase documents from it. The collection-level harness always injects and
+> asserts `X-Student-Id: 23127184`.
 
 ### D5. How does it avoid the failure you actually observed?
 
@@ -75,14 +89,23 @@ that reason turns out to be, the generator has to have an answer for it. If the
 cause is "the AI asserts observed behaviour instead of specified behaviour",
 then something in the pipeline must ban the SUT's own responses as an oracle.
 
-> **Your answer:**
+> **Decision:** Ban observed-response oracles, require an FR/SEC/spec reference
+> on every case, include a two-actor model for ownership tests, generate the
+> complete illegal transition matrix, and add post-condition/metamorphic
+> templates. These controls directly address the wrong attribution in
+> `A1-SEC-013`, duplicate `A2-DP-006`, and missing post-state check later added
+> as `A3-HR-001`.
 
 ### D6. How is a generated case validated before it is trusted?
 
 Executable? Deterministic? Independent of run order? Does it clean up after
 itself? Who decides — a schema check, a dry run, an LLM judge, you?
 
-> **Your answer:**
+> **Decision:** Apply static checks for duplicate ids/cases, missing rule ids,
+> unsupported setup, observed-behavior oracles, and missing mandatory headers.
+> Then dry-run against a freshly seeded SUT to verify reachability and fixture
+> determinism. Runtime failure does not invalidate a spec-derived oracle; it is
+> routed to bug triage. Structural failures return to generation with a reason.
 
 ---
 
