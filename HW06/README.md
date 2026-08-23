@@ -8,6 +8,19 @@ Base URL: `http://localhost:3000`
 
 Repository: <https://github.com/KieuDuyennn/software__testing/tree/hw6/HW06>
 
+## Submission quick path
+
+Use `SUBMISSION_CHECKLIST.md` as the single handoff checklist. Do not select
+files manually. When the remaining authentic evidence is complete, run:
+
+```powershell
+.\scripts\New-Submission.ps1 -PreflightOnly
+.\scripts\New-Submission.ps1 -Grade 100 -VideoUrl https://youtu.be/VIDEO_ID
+```
+
+The verified Moodle archive will be written to `output/`; the reviewable
+folder beside it is `output/submission-ready/`.
+
 ## Scope
 
 | API | Pool | Requirement | Endpoint | Status |

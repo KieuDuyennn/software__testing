@@ -5,7 +5,8 @@
 .DESCRIPTION
     Verifies every artefact Section 14 requires, refuses to package while any
     of them is missing or still a placeholder, then builds
-    output/23127184_HW06_AI_API_<Grade>.zip and verifies the archive.
+    output/23127184_HW06_AI_API_<Grade>.zip and verifies the archive. The
+    curated, reviewable folder remains in output/submission-ready/.
 
     Run with -PreflightOnly at any time to see what is still outstanding.
 
@@ -43,6 +44,7 @@ function Test-Required([string] $Relative, [string] $Why) {
 
 # --- Artefacts required by Section 14 --------------------------------------
 Test-Required 'README.md'                                   'self-assessment table + test summary'
+Test-Required 'SUBMISSION_CHECKLIST.md'                     'final handoff checklist'
 Test-Required '23127184_HW06_REPORT.md'                     'main report (Markdown)'
 Test-Required 'output/pdf/23127184_HW06_AI_API_Report.pdf'  'main report (PDF)'
 Test-Required 'output/pdf/23127184_HW06_AI_Audit_Report.pdf' 'AI audit (PDF)'
@@ -63,17 +65,35 @@ foreach ($c in @('API1_FR01_Register', 'API2_FR06_ProductDetail',
 }
 
 # --- The self-drawn diagram ------------------------------------------------
-$diagrams = @(Get-ChildItem -Path (Join-Path $root 'docs/design/diagram') -File -ErrorAction SilentlyContinue |
-              Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg', '.svg', '.pdf' })
-if ($diagrams.Count -eq 0) {
-    $problems += "MISSING  docs/design/diagram/*.png  (self-drawn generator diagram - Section 11 verifies this is NOT AI-generated)"
+$diagramFiles = @(Get-ChildItem -Path (Join-Path $root 'docs/design/diagram') -File -ErrorAction SilentlyContinue)
+$diagramImages = @($diagramFiles | Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg', '.svg', '.pdf' })
+$diagramSources = @($diagramFiles | Where-Object { $_.Extension -in '.drawio', '.excalidraw', '.pptx', '.fig', '.mermaid', '.mmd' })
+if ($diagramImages.Count -eq 0) {
+    $problems += "MISSING  docs/design/diagram/*.(png|svg|pdf)  (self-drawn generator diagram)"
+}
+if ($diagramSources.Count -eq 0) {
+    $problems += "MISSING  docs/design/diagram/*.(drawio|excalidraw|pptx|mmd)  (editable source for the self-drawn diagram)"
 }
 
 # --- Screenshot evidence ---------------------------------------------------
-$shots = @(Get-ChildItem -Path (Join-Path $root 'evidence') -Recurse -File -ErrorAction SilentlyContinue |
-           Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg' })
-if ($shots.Count -eq 0) {
-    $problems += "MISSING  evidence/**/*.png  (X-Student-Id console screenshot, CI run screenshots, GitHub Issue screenshots)"
+foreach ($shot in @(
+    'evidence/screenshots/postman-console-x-student-id.png',
+    'evidence/screenshots/github-actions-green-summary.png',
+    'evidence/screenshots/github-actions-red-summary.png',
+    'evidence/postman-cloud/workspace.png',
+    'evidence/postman-cloud/environment.png',
+    'evidence/postman-cloud/runner.png',
+    'evidence/postman-cloud/monitor.png',
+    'evidence/postman-cloud/mock-server.png'
+)) {
+    Test-Required $shot 'authentic execution evidence'
+}
+foreach ($issue in 66..70) {
+    $matching = @(Get-ChildItem -Path (Join-Path $root 'evidence/screenshots') -File -ErrorAction SilentlyContinue |
+                  Where-Object { $_.Name -like "github-issue-$issue-*.png" })
+    if ($matching.Count -eq 0) {
+        $problems += "MISSING  evidence/screenshots/github-issue-$issue-*.png  (GitHub Issue evidence)"
+    }
 }
 
 # --- Placeholders that must be resolved ------------------------------------
@@ -83,6 +103,22 @@ foreach ($doc in @('README.md', '23127184_HW06_REPORT.md')) {
         $text = Get-Content -Raw -Encoding UTF8 $path
         if ($text -match '_?TODO_?') { $problems += "PLACEHOLDER  $doc still contains TODO markers" }
     }
+}
+
+$readmeText = Get-Content -Raw -Encoding UTF8 (Join-Path $root 'README.md')
+$reportText = Get-Content -Raw -Encoding UTF8 (Join-Path $root '23127184_HW06_REPORT.md')
+if ($readmeText -match 'Pending authentic evidence|_Finalize after evidence_') {
+    $problems += 'PLACEHOLDER  README.md self-assessment is not finalized'
+}
+if ($reportText -match 'Group uniqueness:\*\*\s*pending') {
+    $problems += 'PLACEHOLDER  main report still needs dated group uniqueness confirmation'
+}
+if (($readmeText -match 'VIDEO_ID') -or
+    ($readmeText -notmatch 'https://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]{6,}')) {
+    $problems += 'PLACEHOLDER  README.md still needs the real YouTube demo URL'
+}
+if ($reportText -notmatch 'https://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]{6,}') {
+    $problems += 'PLACEHOLDER  main report still needs the real YouTube demo URL'
 }
 
 # --- AI critique word count (200-300, mandatory) ---------------------------
@@ -124,7 +160,7 @@ if ([string]::IsNullOrWhiteSpace($VideoUrl)) {
 
 # --- Stage -----------------------------------------------------------------
 $output  = Join-Path $root 'output'
-$staging = Join-Path $output 'submission-staging'
+$staging = Join-Path $output 'submission-ready'
 $zipPath = Join-Path $output "${studentId}_HW06_AI_API_${Grade}.zip"
 
 if (Test-Path -LiteralPath $staging) { Remove-Item -LiteralPath $staging -Recurse -Force }
@@ -138,6 +174,7 @@ foreach ($dir in @('.claude', 'collections', 'config', 'data', 'docs', 'evidence
     }
 }
 Copy-Item -LiteralPath (Join-Path $root 'README.md'),
+                       (Join-Path $root 'SUBMISSION_CHECKLIST.md'),
                        (Join-Path $root '23127184_HW06_REPORT.md'),
                        (Join-Path $root 'package.json') -Destination $staging
 

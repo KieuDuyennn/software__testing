@@ -2,6 +2,8 @@
 
 **Word count: 258**
 
+## Final critique
+
 The AI produced broad coverage quickly, but its first output still contained
 plausible-looking weaknesses that required human review. The clearest error was
 `A2-DP-006`: it duplicated `A2-DP-005` by requesting product 5 again and called
