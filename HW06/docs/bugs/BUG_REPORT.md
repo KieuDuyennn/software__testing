@@ -18,7 +18,7 @@ exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
 The final local full run on **2026-08-23** executed all four collections after
 the audit and extension phases. BUG-01 through BUG-16 are grouped by root cause,
 not by assertion count: 128 failed assertions reduce to 16 reportable defects.
-The green regression gate is recorded separately and passed 1,271/1,271
+The green regression gate is recorded separately and passed 1,262/1,262
 assertions; it does not erase the defect-revealing full-suite failures.
 
 ---

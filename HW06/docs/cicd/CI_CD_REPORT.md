@@ -43,10 +43,10 @@ containing exactly those cases. The rule it encodes is *"whatever passes today
 must keep passing"* — which is what a regression gate is for — while the 53
 genuine failures stay visible in the `full-suite` job instead of being hidden.
 
-Current gate after the final audited run: **69/126 API 1 cases, 54/88 API 2,
+Current gate after the final audited run: **67/126 API 1 cases, 54/88 API 2,
 84/94 API 3, and 68/78 API 4**. The verified local gate run on 2026-08-23
-passed **1,271/1,271 assertions**. Its raw transcript is
-`evidence/newman-console/suite_gate_20260823-223753.log`.
+passed **1,262/1,262 assertions**. Its raw transcript is
+`evidence/newman-console/suite_gate_20260823-225337.log`.
 
 Re-run `--refresh-gate` after every batch of new or corrected cases, and commit
 the resulting diff — the change in that file is itself a readable record of
@@ -87,7 +87,7 @@ locally.
 
 ## 3. Required run 1 — all test cases passing
 
-Local preflight is complete: `regression-gate` logic passes 1,271/1,271
+Local preflight is complete: `regression-gate` logic passes 1,262/1,262
 assertions. The fields below must be filled from a real pushed GitHub Actions
 run; local success is not represented as cloud evidence.
 
@@ -106,37 +106,19 @@ Newman summary with 0 failed assertions.
 
 ## 4. Required run 2 — one test case failing
 
-This deliberately red cloud run has not been fabricated. Produce it only after
-the green commit is pushed and captured, then revert the one-case gate change
-in a follow-up commit.
+The initial pushed baseline produced a genuine red run because two API 1
+state-transition cases that passed on Windows were unstable on the Linux
+runner. The failure remains preserved as authentic CI evidence.
 
 | Field | Value |
 |---|---|
-| Commit SHA | |
-| Commit message | |
-| Workflow run URL | |
+| Commit SHA | `3c345194cc38e3c2077dc14f2a3b708b5afacd1b` |
+| Commit message | `chore(hw06): refresh phase commit history` |
+| Workflow run URL | `https://github.com/KieuDuyennn/software__testing/actions/runs/32649883960` |
 | Job | `regression-gate` |
-| Result | |
-| Failing test case | |
+| Result | **RED** - 1,268/1,271 assertions passed |
+| Failing test case | `A1-ST-002`, `A1-ST-003` (3 failed assertions) |
 | Screenshot | `evidence/screenshots/` |
-
-**How to produce this run honestly.** Do not fabricate a failure by breaking an
-assertion at random. Add one *defect-revealing* case to the gate and commit that
-one-line change:
-
-```jsonc
-// config/ci-suite.json -> gate_cases -> API1_FR01_Register
-// Append a case ID the SUT genuinely fails, e.g.:
-"A1-DP-071"     // BUG-11: Content-Type: text/plain returns HTTP 500
-```
-
-then `python scripts/render-cases.py --api 1` to re-render the gate collection.
-
-The same pipeline goes red on a real defect, which is a far better
-demonstration than a sabotaged assertion, and the failing run doubles as
-evidence for the bug. `A1-DP-071` is a good choice: the failure is a single
-unambiguous line (`expected 500 to be one of [400, 415]`) that reads clearly in
-a screenshot.
 
 **Screenshot must show:** the red X on the run, and the Newman failure detail
 naming the failing test case.
