@@ -2,45 +2,51 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-23 22:57:11 +07:00
+Generated  : 2026-08-23 23:18:08 +07:00
 Scope      : commits touching HW06/
 ==============================================================================
 
-f53519c  2026-08-23 22:57:10 +0700  Lê Phạm Kiều Duyên
+8d77c6d  2026-08-23 23:14:53 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): add authentic browser evidence
+
+44ca68b  2026-08-23 22:57:11 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh final commit history
+
+0d7fb95  2026-08-23 22:57:10 +0700  Lê Phạm Kiều Duyên
     docs(hw06): record authentic green and red CI runs
 
-48f5eb0  2026-08-23 22:55:38 +0700  Lê Phạm Kiều Duyên
+0319378  2026-08-23 22:55:38 +0700  Lê Phạm Kiều Duyên
     fix(hw06): stabilize Linux regression gate
 
-3c34519  2026-08-23 22:51:28 +0700  Lê Phạm Kiều Duyên
+280577e  2026-08-23 22:51:28 +0700  Lê Phạm Kiều Duyên
     chore(hw06): refresh phase commit history
 
-55b9030  2026-08-23 22:51:21 +0700  Lê Phạm Kiều Duyên
+f7173d2  2026-08-23 22:51:21 +0700  Lê Phạm Kiều Duyên
     docs(hw06): finalize reports bugs and evidence guide
 
-f5226c3  2026-08-23 22:51:11 +0700  Lê Phạm Kiều Duyên
+b3840be  2026-08-23 22:51:11 +0700  Lê Phạm Kiều Duyên
     test(hw06): record full and regression-gate executions
 
-6095e48  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
+29d7038  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
     feat(hw06): audit and extend API 4 test cases
 
-6371464  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
+32d5a5f  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
     feat(hw06): audit and extend API 3 test cases
 
-a34ad8d  2026-08-23 22:51:00 +0700  Lê Phạm Kiều Duyên
+388a59b  2026-08-23 22:51:00 +0700  Lê Phạm Kiều Duyên
     feat(hw06): audit and extend API 2 test cases
 
-5432c79  2026-08-23 22:50:53 +0700  Lê Phạm Kiều Duyên
+ae2b26f  2026-08-23 22:50:53 +0700  Lê Phạm Kiều Duyên
     feat(hw06): audit and extend API 1 test cases
 
-6b3cc7e  2026-08-23 22:01:40 +0700  Lê Phạm Kiều Duyên
+e6b27de  2026-08-23 22:01:40 +0700  Lê Phạm Kiều Duyên
     chore(hw06): refresh generated commit log
 
-9d3a65b  2026-08-23 22:01:32 +0700  Lê Phạm Kiều Duyên
+2c3caf4  2026-08-23 22:01:32 +0700  Lê Phạm Kiều Duyên
     feat(hw06): generate 121 test cases for API 1 (FR-01 register)
 
-afb5e8a  2026-08-23 21:41:00 +0700  Lê Phạm Kiều Duyên
+702ecfa  2026-08-23 21:41:00 +0700  Lê Phạm Kiều Duyên
     fix(hw06): count HW06 commits from the repository root
 
-39789ec  2026-08-23 21:40:30 +0700  Lê Phạm Kiều Duyên
+1287f9d  2026-08-23 21:40:30 +0700  Lê Phạm Kiều Duyên
     chore(hw06): scaffold AI-assisted API testing workspace
