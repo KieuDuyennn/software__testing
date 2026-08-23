@@ -40,8 +40,8 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 - [ ] Sinh viên mở source trong draw.io, tự rà soát/chỉnh và bảo đảm giải thích
   được toàn bộ sơ đồ trong video (điều kiện tác quyền của đề).
 - [ ] Chèn link video YouTube demo vào README và báo cáo chính.
-- [ ] Xác nhận bộ ba API không trùng với thành viên nhóm, kèm ngày xác nhận.
-- [ ] Điền điểm tự đánh giá trong README.
+- [x] Xác nhận bộ ba API không trùng với thành viên nhóm ngày 2026-08-24.
+- [x] Điền điểm tự đánh giá 100/100 trong README.
 - [ ] Mở Excel kiểm tra hình thức và lưu bản cuối.
 
 Chi tiết cách chụp minh chứng nằm tại `evidence/REQUIRED_USER_EVIDENCE.md`.

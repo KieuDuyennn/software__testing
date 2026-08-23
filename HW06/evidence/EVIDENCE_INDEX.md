@@ -36,8 +36,9 @@ Cloud URLs:
   exist, but the current call correctly reports that no example is attached).
 - Failure screenshots attached to the corresponding GitHub Issues, if the
   marking rubric requires attachments rather than issue-page screenshots.
-- Student authorship review of the editable generator diagram, narrated demo
-  video and group uniqueness proof. The Mermaid source and PNG export exist at
+- Student authorship review of the editable generator diagram and narrated demo
+  video. The dated group uniqueness confirmation is recorded in `README.md` and
+  the main report. The Mermaid source and PNG export exist at
   `docs/design/diagram/`.
 
 Postman Desktop 12.24.6 and Desktop Agent 0.4.90 were installed on 2026-08-23.

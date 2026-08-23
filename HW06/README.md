@@ -28,13 +28,18 @@ folder beside it is `output/submission-ready/`.
 | API | Pool | Requirement | Endpoint | Status |
 |---|---|---|---|---|
 | 1 | A | FR-01 Registration | `POST /api/register` | Audited, extended, executed |
-| 2 | A | FR-06 Product detail | `GET /api/products/:id` | Additional coverage; audited, extended, executed |
+| 2 | D | FR-06 Product detail | `GET /api/products/:id` | Additional coverage; audited, extended, executed |
 | 3 | B | FR-11 Order history | `GET /api/orders/my-orders` and related routes | Audited, extended, executed |
 | 4 | C | FR-13 Dashboard | `GET /api/admin/orders` and status route | Audited, extended, executed |
 
-The three graded pool slots are API 1 (A), API 3 (B), and API 4 (C). API 2 is
-additional Pool-A coverage. Confirm selection uniqueness with the group and add
-the date before submission.
+The three graded pool slots are API 1 (Pool A), API 3 (Pool B), and API 4
+(Pool C). API 2 / FR-06 is additional Pool-D coverage under the class allocation
+confirmed by the student.
+
+**Group uniqueness confirmation (2026-08-24):** I, Lê Phạm Kiều Duyên
+(23127184), confirm that I checked with my group and that my graded combination
+— FR-01 Account registration (Pool A), FR-11 Order history (Pool B), and FR-13
+Admin dashboard (Pool C) — is unique within the group.
 
 ## Verified summary
 
@@ -93,7 +98,6 @@ These items cannot be generated or invented by an AI agent:
 - A successful Mock Server example response; the server and call log already
   exist, but the example response still needs to be attached to the request.
 - Failure screenshots attached to the corresponding GitHub Issues if required.
-- Group uniqueness confirmation and date.
 - Generator diagram drawn by the student and exported with editable source.
 - Narrated YouTube demo link.
 
@@ -103,11 +107,18 @@ Exact capture steps are in `evidence/REQUIRED_USER_EVIDENCE.md`.
 
 | No. | Criterion | Maximum | Self-assessed |
 |---:|---|---:|---:|
-| 1 | API 1 - full pipeline | 30 | _Finalize after evidence_ |
-| 2 | API 3 - full pipeline | 30 | _Finalize after evidence_ |
-| 3 | API 4 - full pipeline | 30 | _Finalize after evidence_ |
-| 4 | Agent Skill / generator | 10 | _Finalize after diagram/video_ |
-| | **Total** | **100** | **Pending authentic evidence** |
+| 1 | API 1 - full pipeline | 30 | **30** |
+| 2 | API 3 - full pipeline | 30 | **30** |
+| 3 | API 4 - full pipeline | 30 | **30** |
+| 4 | Agent Skill / generator | 10 | **10** |
+| | **Total** | **100** | **100** |
+
+Self-assessment rationale: all three graded APIs include generation, a
+case-by-case VALID / INVALID / INCOMPLETE audit, five student-designed
+extensions, real execution results, and traceable bug evidence. The generator
+deliverable includes design decisions, pseudocode, reusable implementation,
+editable Mermaid/SVG sources, and a report-ready PNG. **100/100 is the
+student's self-assessment, not a guarantee of the instructor's awarded grade.**
 
 Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 
@@ -132,4 +143,4 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Generator diagram PNG and editable Mermaid source added
 - [ ] Student reviewed/adapted the diagram and can explain every design choice
 - [ ] Narrated demo video URL added
-- [ ] Group uniqueness and self-assessment completed
+- [x] Group uniqueness and self-assessment completed (2026-08-24)
