@@ -12,7 +12,7 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Metric | Value |
 |---|---:|
-| Generated at | `2026-08-23T15:37:21.740Z` |
+| Generated at | `2026-08-23T17:26:38.706Z` |
 | Cases in collection | 78 |
 | Cases fully passing | 68 |
 | Cases with at least one failed assertion | 10 |

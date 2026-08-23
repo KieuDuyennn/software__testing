@@ -287,9 +287,8 @@ Carry these into `02-audit.md`; each is a candidate INVALID or INCOMPLETE label.
    spec. Decide case by case whether to tighten the oracle from FR-01, or to
    keep the case as a documented ambiguity.
 3. **The confirm-password cases test a requirement the API spec omits.** DP-065
-   to DP-067 hold the API to FR-01. Confirm this is the right call rather than
-   an API-vs-UI scope error - it changes whether the failures are a defect or a
-   requirements-traceability problem.
+   to DP-067 apply FR-01 to the API. The audit must classify this scope choice
+   as either an implementation defect or a requirements-traceability problem.
 4. **DP-009, DP-062 and DP-075 assert only "no 5xx".** That is a weak oracle.
    Decide whether FR-01 justifies a firm limit, or accept the weakness and say so.
 5. **DP-012 and DP-037 accept either trimming or rejection.** A case that

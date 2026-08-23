@@ -1,138 +1,109 @@
-# HW06 - AI-Driven API Test Generator (Design)
+# HW06 - AI-Driven API Test Generator Design
 
-Section 7 of the brief, Bloom-AI level **G9.5 (Create)** — worth 10 points.
+This design addresses Section 7 and Bloom-AI level G9.5. The generator accepts
+the API contract and requirement rules, produces reviewed test definitions,
+and renders executable artifacts.
 
-**Goal:** given the API specification, produce test cases automatically.
+## 1. Inputs
 
-**Deliverables:** a self-drawn diagram, pseudocode, and (encouraged) a working
-Agent Skill plus a YouTube demo of it generating tests for one API.
+The generator requires:
 
----
+- Markdown API specification
+- FR and SEC requirement sources
+- Target endpoint
+- Student ID
 
-## ⚠ The diagram must be self-drawn
+The live SUT is used only during execution validation. Its responses are
+evidence and never define the expected result.
 
-Section 11 lists the diagram as one of three items TAs verify as **not
-AI-generated**:
+## 2. Case model
 
-> *"The AI test-generator diagram, which must be self-drawn — designed by you,
-> not generated directly by an AI."*
+`Parse Contract` creates an `EndpointModel` containing parameters, schemas,
+authentication rules, requirement IDs, and available operations. Coverage
+stages append `CaseDraft` records. Each record contains:
 
-This file records the design decisions behind the diagram. The editable
-Mermaid source, editable SVG layout, and report-ready PNG are now stored in
-`docs/design/diagram/`. The student must still review/adapt those sources and
-be able to explain every decision; the presence of generated files alone does
-not prove the student-only authorship required by the brief.
+- Case ID and coverage dimension
+- Requirement or security rule ID
+- Actor and authorization context
+- Preconditions and setup
+- Request action
+- Expected result
+- Cleanup requirement
+- Source stage
 
----
+## 3. Generation stages
 
-## Design decisions to make
+The stages execute in this order:
 
-Write your answer under each. These answers *are* the design — the diagram is
-just their picture.
+1. **Parse Contract:** Normalize the specification and requirement sources.
+2. **Domain Partitions:** Generate valid, invalid, boundary, encoded, missing,
+   and malformed inputs.
+3. **State Transitions:** Generate legal transitions, illegal transitions, and
+   terminal-state checks.
+4. **Security Model:** Cover anonymous, owner, other-user, and admin actors.
+5. **Schema Validation:** Check types, required fields, exact keys, invariants,
+   and content type.
+6. **Static Validator:** Reject duplicate IDs, duplicate cases, missing rule
+   references, unsupported setup, observed-response oracles, and missing
+   mandatory headers.
+7. **Human Review:** Assign VALID, INVALID, or INCOMPLETE with a reason and any
+   required correction.
 
-### D1. What does the generator take as input?
+INVALID and INCOMPLETE cases return to their source stage. Only reviewed cases
+enter `ApprovedCases`.
 
-Options: the Markdown spec as free text · an OpenAPI conversion · the spec plus
-the requirement document (FR/SEC ids) · the spec plus the live SUT.
+## 4. Outputs
 
-Consider: the six defects already confirmed in `docs/bugs/BUG_REPORT.md` were
-**not** discoverable from `api_specification.md` alone. BUG-06 is invisible
-unless the generator also reads SEC-03. That is an argument about input, and
-it belongs in your design.
+One canonical approved case set feeds four renderers:
 
-> **Decision:** Use three required inputs: the Markdown API specification, the
-> FR/SEC requirement source, and a target endpoint plus student id. A live SUT
-> is accepted only by the later execution validator; its responses are never an
-> oracle. This separation prevents current defects from being generated as
-> expected behavior.
+- Postman collections
+- Machine-readable JSON
+- Excel review workbook
+- Coverage and phase documents
 
-### D2. What are the stages, and what does each one hand to the next?
+The Postman collection injects and asserts `X-Student-Id: 23127184` at the
+collection level.
 
-The four coverage dimensions the brief mandates — domain partitions, state
-transitions, security, schema validation — suggest one stage each. Decide
-whether they run in sequence or in parallel, and what the shared intermediate
-representation is (a parameter model? an endpoint model? a state machine?).
+## 5. Controls based on observed weaknesses
 
-> **Decision:** Run seven sequential stages: Parse Contract, Domain Partitions,
-> State Transitions, Security Model, Schema Validation, Static Validator, and
-> Human Review. `EndpointModel` is produced by parsing; each coverage pass adds
-> `CaseDraft` objects with rule id, actors, setup, action, and oracle. The
-> validator produces a `ReviewQueue` with rejection reasons.
+The design includes the following controls:
 
-### D3. Where does the human sit in the loop?
+- Every oracle cites the API specification or an FR/SEC rule.
+- Observed SUT behavior cannot become an expected result.
+- Ownership checks use at least two user accounts.
+- State coverage includes the complete illegal-transition matrix.
+- Post-condition checks confirm that rejected mutations do not change state.
+- Metamorphic checks compare related routes and aggregate values.
+- Duplicate detection compares both IDs and normalized case definitions.
 
-You audited every AI-generated case by hand in phase 2. Does the generator
-automate that, ask for approval at a checkpoint, or emit a review queue?
+These controls address the duplicate `A2-DP-006`, the incorrect attribution in
+`A1-SEC-013`, and the missing post-state check later covered by `A3-HR-001`.
 
-> **Decision:** The generator stops at a mandatory review gate. The student
-> assigns VALID / INVALID / INCOMPLETE with a reason and correction. INVALID
-> and INCOMPLETE rows feed back to the stage that produced them; only reviewed
-> final definitions can be rendered or executed.
+## 6. Validation and triage
 
-### D4. What is the output artefact?
+Approved cases are rendered and dry-run against a freshly seeded SUT. The dry
+run checks route reachability, fixture determinism, setup support, and cleanup.
+A runtime mismatch enters bug triage without changing the spec-derived oracle.
+A structural failure returns to static validation with a reason.
 
-A Postman collection JSON? An Excel test-case table? Both? If it is a
-collection, it must carry the `X-Student-Id` pre-request script — that is a
-hard requirement of this assignment and therefore a hard requirement of the
-generator.
+## 7. Diagram and implementation
 
-> **Decision:** Emit one canonical machine-readable case set, then render a
-> Postman collection, JSON export, Excel review table, coverage report, and
-> phase documents from it. The collection-level harness always injects and
-> asserts `X-Student-Id: 23127184`.
+The editable sources and report image are stored in `docs/design/diagram/`:
 
-### D5. How does it avoid the failure you actually observed?
+- `generator-design.mmd`
+- `generator-design.svg`
+- `generator-design.png`
 
-Your extension phase will document why the AI missed certain cases. Whatever
-that reason turns out to be, the generator has to have an answer for it. If the
-cause is "the AI asserts observed behaviour instead of specified behaviour",
-then something in the pipeline must ban the SUT's own responses as an oracle.
+The pseudocode is `docs/design/generator_pseudocode.py`. The reusable
+implementation is under `.claude/skills/api-test-generator/`.
 
-> **Decision:** Ban observed-response oracles, require an FR/SEC/spec reference
-> on every case, include a two-actor model for ownership tests, generate the
-> complete illegal transition matrix, and add post-condition/metamorphic
-> templates. These controls directly address the wrong attribution in
-> `A1-SEC-013`, duplicate `A2-DP-006`, and missing post-state check later added
-> as `A3-HR-001`.
+## 8. Verification checklist
 
-### D6. How is a generated case validated before it is trusted?
-
-Executable? Deterministic? Independent of run order? Does it clean up after
-itself? Who decides — a schema check, a dry run, an LLM judge, you?
-
-> **Decision:** Apply static checks for duplicate ids/cases, missing rule ids,
-> unsupported setup, observed-behavior oracles, and missing mandatory headers.
-> Then dry-run against a freshly seeded SUT to verify reachability and fixture
-> determinism. Runtime failure does not invalidate a spec-derived oracle; it is
-> routed to bug triage. Structural failures return to generation with a reason.
-
----
-
-## Diagram checklist
-
-The current diagram shows:
-
-- [x] Inputs, with their sources
-- [x] Each stage as a distinct box, in order
-- [x] What flows along each arrow (not just that an arrow exists)
-- [x] The human review checkpoint
-- [x] The output artefacts
-- [x] The feedback path — what happens to a case that fails validation
-- [x] Student name and ID on the drawing
-
----
-
-## Pseudocode
-
-Lives in `docs/design/generator_pseudocode.py`. Keep it aligned with the
-diagram: same stage names, same order. Pseudocode that contradicts the diagram
-reads as though one of the two was produced by someone else.
-
-## Implementation
-
-The reusable Agent Skill scaffold is in `.claude/skills/api-test-generator/`.
-Section 7 makes the implementation *encouraged*, not required — the diagram and
-pseudocode are the graded parts.
-
-If you record the demo video, show it generating tests for **one** API end to
-end, and put the YouTube link in `README.md`.
+- [x] Input sources are identified.
+- [x] All seven stages appear in order.
+- [x] Arrow labels identify the transferred data.
+- [x] Human review is mandatory.
+- [x] Output artifacts are listed.
+- [x] Rejected cases have a feedback path.
+- [x] The diagram contains the student name and ID.
+- [x] Pseudocode stage names match the diagram.

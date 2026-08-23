@@ -1,87 +1,46 @@
-# HW06 - Authentic Evidence Capture Checklist
+# HW06 - Evidence completion status
 
-This file contains the remaining actions that must be performed by student
-23127184. Do not replace them with generated screenshots or invented URLs.
+Student ID: **23127184**
 
-## 1. Postman Console - complete
+Only authentic captures and URLs qualify as evidence. Generated interface
+images and invented links are excluded.
 
-Completed on 2026-08-23 in Postman Desktop 12.24.6. The image
-`evidence/screenshots/postman-console-x-student-id.png` visibly contains the
-localhost URL, HTTP 200 result and `[HW06] X-Student-Id=23127184` console line.
+## Completed evidence
 
-## 2. Postman cloud features
-
-The signed-in Postman workspace now contains all four collections and the
-`EShop - Local (23127184)` environment. The workspace and environment images
-have been captured. Remaining cloud features are listed below:
-
-| Evidence | Filename |
-|---|---|
-| Workspace with imported collections | `evidence/postman-cloud/workspace.png` (complete) |
-| Imported local environment | `evidence/postman-cloud/environment.png` (complete) |
-| Collection Runner summary | `evidence/postman-cloud/runner.png` |
-| Completed Monitor run | `evidence/postman-cloud/monitor.png` |
-| Mock Server call log | `evidence/postman-cloud/mock-server.png` (server complete; successful example response pending) |
-
-For the mock comparison, use product 2: the contract/mock should return numeric
-`price`, while the real SUT returns a string (BUG-04).
-
-## 3. GitHub Issues
-
-Issue URLs are now recorded in `docs/bugs/BUG_REPORT.md`, including newly filed
-issues #66-#70. Open each issue and attach a screenshot that shows the relevant
-Newman failure from the HTML report or Postman response. Do not use one generic
-image for unrelated bugs.
-
-Signed-in issue-page screenshots are complete for #66-#70 under
-`evidence/screenshots/`. If the rubric requires image attachments inside each
-issue, attach the corresponding Newman/Postman failure before submission.
-
-Captured screenshot set:
-
-| Issue | Failure to show | Suggested filename |
+| Evidence | Location | Verification |
 |---|---|---|
-| #66 | plaintext password | `github-issue-66-plaintext-password.png` |
-| #67 | confirmPassword accepted | `github-issue-67-confirm-password.png` |
-| #68 | text/plain returns HTTP 500 | `github-issue-68-text-plain-http500.png` |
-| #69 | HTML stack trace / `<pre>` | `github-issue-69-html-stack-trace.png` |
-| #70 | unauthenticated product mutation | `github-issue-70-product-write-auth.png` |
+| Postman Console | `evidence/screenshots/postman-console-x-student-id.png` | Localhost request, HTTP 200, and `X-Student-Id=23127184` are visible |
+| Postman workspace | `evidence/postman-cloud/workspace.png` | Four imported collections are visible |
+| Postman environment | `evidence/postman-cloud/environment.png` | `EShop - Local (23127184)` is visible |
+| Postman mock call log | `evidence/postman-cloud/mock-server.png` | Public API2 mock and authentic request log are visible; a successful example response is still pending |
+| GitHub Issues | `evidence/screenshots/` | Signed-in issue pages #66 through #70 |
+| GitHub Actions red run | `evidence/screenshots/github-actions-red-summary.png` | Run 32649883960 |
+| GitHub Actions green run | `evidence/screenshots/github-actions-green-summary.png` | Run 32650090578 |
+| Generator diagram draft | `docs/design/diagram/` | Mermaid source, SVG, and PNG with student ID |
 
-## 4. GitHub Actions - one green and one red
+The mock comparison uses product 2. The contract response should contain a
+numeric `price`; the real SUT returns a string, as recorded in BUG-04.
 
-The real URLs and SHAs are already recorded in `docs/cicd/CI_CD_REPORT.md`:
+## Remaining evidence
 
-- Red: run `32649883960`, with `A1-ST-002` and `A1-ST-003` failing on Linux.
-- Green: run `32650090578`, with the reviewed gate passing 1,262/1,262.
+| Evidence | Required result | Target |
+|---|---|---|
+| Collection Runner | Completed run summary for the imported collections | `evidence/postman-cloud/runner.png` |
+| Monitor | Completed cloud monitor run | `evidence/postman-cloud/monitor.png` |
+| Demo video | Narrated end-to-end generation, review, execution, and `X-Student-Id` proof | Real unlisted YouTube URL in README and main report |
 
-Both signed-in run summaries are captured as
-`github-actions-red-summary.png` and `github-actions-green-summary.png`.
+The generator diagram is an editable draft. Before submission, the student
+must review its labels and be able to explain its design decisions in the demo.
 
-## 5. Self-drawn generator diagram
+## Issue attachment check
 
-Draw this yourself in draw.io, Excalidraw, PowerPoint, Figma, or on paper. Use
-the exact stage names in `docs/design/GENERATOR_DESIGN.md` and
-`generator_pseudocode.py`:
+Issue-page screenshots exist for #66 through #70. If the rubric requires an
+image attachment inside each GitHub Issue, attach the matching Newman or
+Postman failure image. A generic image cannot support unrelated defects.
 
-`Inputs -> Parse Contract -> Domain Partitions -> State Transitions -> Security
-Model -> Schema Validation -> Static Validator -> Human Review -> Postman +
-Excel`
+## Final packaging checks
 
-Add a feedback arrow from rejected/INCOMPLETE cases to the stage that produced
-them. Label arrows with `EndpointModel`, `CaseDraft[]`, `ReviewQueue`, and
-`ApprovedCases`. Put `23127184` on the diagram. Export both editable source and
-PNG to `docs/design/diagram/`.
-
-## 6. Narrated demo video
-
-Record one end-to-end API generation flow. Show the spec input, the four
-coverage stages, human review labels, generated collection, Newman execution,
-and the `X-Student-Id` console line. Narrate in Vietnamese with your own voice.
-Upload unlisted and replace the video placeholders in `README.md` and the main
-report.
-
-## 7. Final identity fields
-
-- Add the dated group uniqueness confirmation.
-- Fill the self-assessed scores only after all evidence above exists.
-- Replace `<SelfAssessedGrade>` in the ZIP filename with a three-digit score.
+- Confirm the group uniqueness statement and date.
+- Keep the self-assessed score supported by the completed artifacts.
+- Insert a real video URL before creating the final ZIP.
+- Name the ZIP with the final three-digit self-assessed score.

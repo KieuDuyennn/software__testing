@@ -151,7 +151,7 @@ detail handler coerces the type", which is a far more actionable report.
    single missing guard in the detail handler. Group them before filing.
 3. **`A2-SEC-011`..`015` arguably belong to FR-15, not FR-06.** They are
    included because FR-12 names these routes explicitly and they share the
-   path. Confirm that scoping decision rather than leaving it implicit.
+   path. The audit records this scoping decision explicitly.
 4. **`A2-DP-006` duplicates `A2-DP-005`** (both request id 5). It is kept as a
    distinct boundary case, but a reviewer could reasonably label it INVALID as
    a duplicate.

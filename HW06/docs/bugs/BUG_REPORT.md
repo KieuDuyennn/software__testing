@@ -3,14 +3,14 @@
 Student ID: **23127184** · SUT: **EShop** (`ttbhanh/eshop-sut`) · Base URL: `http://localhost:3000`
 
 Every bug below must also be filed as a **GitHub Issue with a screenshot**
-(Section 6.5 of the brief). Fill the *Issue* column as you file them.
+(Section 6.5 of the brief). The *Issue* column records each filed issue.
 
 ---
 
 ## Status of this file
 
 Every defect in the *Confirmed* section was **reproduced by an actual Newman
-run** against the seeded SUT — the failing assertion and the observed response
+run** against the seeded SUT. The failing assertion and the observed response
 are quoted verbatim from that run. BUG-01 to BUG-06 came from the scaffold's
 exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
 `docs/phases/api1-fr01-register/01-generate.md`).
@@ -50,7 +50,7 @@ assertions; it does not erase the defect-revealing full-suite failures.
 
 ### BUG-01 | Registration accepts a malformed email address
 
-- **Requirement:** FR-01 — *"Email phải có định dạng hợp lệ (`user@domain.com`)"*
+- **Requirement:** FR-01: *"Email phải có định dạng hợp lệ (`user@domain.com`)"*
 - **Severity:** High · **Endpoint:** `POST /api/register`
 - **Test cases:** API1 / `01 - Domain partitions / email` / `A1-DP-019` … `A1-DP-028` (10 cases)
 
@@ -65,11 +65,11 @@ X-Student-Id: 23127184
 ```
 
 - **Expected:** `4xx` with a validation error.
-- **Actual:** `200 OK`, `{"message":"User registered successfully","id":<n>}` —
+- **Actual:** `200 OK`, `{"message":"User registered successfully","id":<n>}`.
   the account is created.
-- **Newman output:** `AssertionError: Malformed email is rejected with 4xx —
+- **Newman output:** `AssertionError: Malformed email is rejected with 4xx -
   expected 200 to be within 400..499`
-- **Note:** all ten malformed-address partitions are accepted — no `@`, no
+- **Note:** all ten malformed-address partitions are accepted: no `@`, no
   domain, no local part, no TLD, doubled `@`, leading/trailing dot, consecutive
   dots, embedded space, illegal characters. The suspicion recorded here
   originally has since been confirmed: see BUG-07, BUG-08 and BUG-09.
@@ -78,7 +78,7 @@ X-Student-Id: 23127184
 
 ### BUG-02 | Passwords stored and returned in plaintext
 
-- **Requirement:** SEC-01 — *"Mật khẩu **không** được lưu dưới dạng plaintext"*
+- **Requirement:** SEC-01: *"Mật khẩu **không** được lưu dưới dạng plaintext"*
 - **Severity:** Critical · **Endpoint:** `POST /api/register`, `POST /api/login`
 - **Test cases:** API1 / `03 - Security` / `A1-SEC-001`, `A1-SEC-003`, `A1-SEC-004`
 
@@ -94,7 +94,7 @@ X-Student-Id: 23127184
   who can authenticate.
 - **Newman output:** `AssertionError: password field in response: expected
   'Password123!' to not deeply equal 'Password123!'`
-- **Impact:** two defects in one — plaintext storage, and credential disclosure
+- **Impact:** plaintext storage and credential disclosure occur together.
   in an API response. Consider filing them as separate issues.
 
 ---
@@ -155,13 +155,13 @@ Three manifestations of one root cause:
 3. Repeat while authenticated as an unrelated user B.
 
 - **Expected:** `401` without a token; `403`/`404` for a non-owner.
-- **Actual:** `200 OK` with the full order in both cases — id, `user_id`,
+- **Actual:** `200 OK` with the full order in both cases, including id, `user_id`,
   `total_amount`, `shipping_address`, `created_at`.
 - **Newman output:** `expected 200 to be one of [ 401, 403, 404 ]`
 - **Impact:** every order in the system, including the customer's shipping
   address, is enumerable by an anonymous caller walking the id sequence. Note
-  that the sibling route `GET /api/orders/my-orders` *is* protected — this one
-  route was left without the middleware.
+  that the sibling route `GET /api/orders/my-orders` is protected. This route
+  was left without the middleware.
 
 ---
 
@@ -177,19 +177,19 @@ Three manifestations of one root cause:
 1. Log in as the ordinary seeded user `test@eshop.com` / `Test1234!`.
 2. `GET /api/admin/orders` with that user's token.
 
-- **Expected:** `401`/`403` — the token's role is `user`, not `admin`.
+- **Expected:** `401`/`403` because the token role is `user`.
 - **Actual:** `200 OK` with every order in the system, joined with the ordering
   users' names.
 - **Newman output:** `expected 200 to be one of [ 401, 403 ]`
 - **Impact:** the entire admin order dataset is exposed to any registered
   customer. The endpoint checks that a token exists but never inspects its
-  `role` claim — exactly the failure SEC-03 was written to prevent.
+  `role` claim. SEC-03 requires this authorization check.
 
 ---
 
 ### BUG-07 | Registration enforces no mandatory-field validation
 
-- **Requirement:** FR-01 — *"Người dùng phải cung cấp: Họ Tên, Email, Mật khẩu"*
+- **Requirement:** FR-01: *"Người dùng phải cung cấp: Họ Tên, Email, Mật khẩu"*
 - **Severity:** High · **Endpoint:** `POST /api/register`
 - **Test cases:** `A1-DP-002`..`005`, `A1-DP-010`, `A1-DP-011`, `A1-DP-015`..`018`,
   `A1-DP-036`, `A1-DP-039`..`041`, `A1-DP-063`, `A1-DP-068`, `A1-DP-069`,
@@ -219,7 +219,7 @@ Every one of these creates an account and returns `200`:
 
 ### BUG-08 | Password complexity policy is not enforced at all
 
-- **Requirement:** FR-01 — *"Tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ
+- **Requirement:** FR-01: *"Tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ
   thường, 1 chữ số và 1 ký tự đặc biệt (`@ $ ! % * ? &`)"*
 - **Severity:** High · **Endpoint:** `POST /api/register`
 - **Test cases:** `A1-DP-042`, `A1-DP-045`..`049`, `A1-DP-057`..`060` (10 cases)
@@ -241,14 +241,14 @@ Every one of these creates an account and returns `200`:
   password. Combined with BUG-02 (plaintext storage) and the FR-02 lockout
   behaviour, this materially weakens authentication.
 - **Note:** the boundary case `A1-DP-043` (exactly 8 compliant characters)
-  passes, but only because *everything* passes — it is not evidence that the
+  passes because every password is accepted. It does not prove that the
   boundary is implemented.
 
 ---
 
 ### BUG-09 | Email uniqueness is not enforced
 
-- **Requirement:** FR-01 — the email must be *"duy nhất trong hệ thống"*
+- **Requirement:** FR-01: the email must be *"duy nhất trong hệ thống"*
 - **Severity:** High · **Endpoint:** `POST /api/register`
 - **Test cases:** `A1-DP-033` (exact duplicate), `A1-DP-034` (differing only in case)
 
@@ -264,33 +264,33 @@ Every one of these creates an account and returns `200`:
 - **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
 - **Impact:** `POST /api/login` resolves an email with
   `SELECT * FROM users WHERE email = ?` and takes the first row, so the second
-  registrant can never log in — and password reset targets an ambiguous account.
+  registrant cannot log in. Password reset also targets an ambiguous account.
   `A1-ST-002` shows the original account is at least not overwritten.
 
 ---
 
 ### BUG-10 | Confirm-password is not implemented
 
-- **Requirement:** FR-01 — *"Phải có trường Xác nhận mật khẩu — hệ thống từ chối
+- **Requirement:** FR-01: *"Phải có trường Xác nhận mật khẩu - hệ thống từ chối
   nếu hai trường không khớp"*
 - **Severity:** Medium · **Endpoint:** `POST /api/register`
 - **Test cases:** `A1-DP-066` (mismatch), `A1-DP-067` (field absent)
 
 - **Expected:** `4xx` when `confirmPassword` differs from `password`, and when
   it is missing entirely.
-- **Actual:** `200` in both cases — the field is ignored.
+- **Actual:** `200` in both cases. The field is ignored.
 - **Newman output:** `AssertionError: status code: expected 200 to be within 400..499`
 - **Scope note worth resolving before filing:** `api_specification.md` does not
   document a confirmation field at all, so this may be a requirements-
   traceability defect (the API spec omits an FR-01 rule) rather than purely an
   implementation defect. Either way FR-01 is not satisfied end to end. Say which
-  reading you are filing under.
+  reading used for the issue.
 
 ---
 
 ### BUG-11 | A non-JSON `Content-Type` crashes the endpoint with HTTP 500
 
-- **Requirement:** spec conformance — a malformed client request is a `4xx`
+- **Requirement:** spec conformance. A malformed client request is a `4xx`
 - **Severity:** High · **Endpoint:** `POST /api/register`
 - **Test case:** `A1-DP-071`
 
@@ -310,7 +310,7 @@ name=Test&email=a@b.com&password=Password123!
 - **Newman output:** `AssertionError: expected 500 to be one of [ 400, 415 ]`
   and `status code: expected 500 to be below 500`
 - **Impact:** an unauthenticated caller can force a server-side exception with a
-  single header. This was **not** in the earlier source-read candidate list — it
+  single header. This was not in the earlier source-read candidate list. It
   was found only because the request envelope was partitioned alongside the JSON
   fields.
 
@@ -335,7 +335,7 @@ example `{"name": "Broken",` with no closing brace.
 - **Impact:** discloses framework, file paths and internal structure to an
   unauthenticated caller, and breaks the API contract for any client that
   expects JSON on every response. `A1-DP-070` confirms the status code itself
-  (`400`) is correct — only the body is wrong.
+  (`400`) is correct. The response body is wrong.
 
 ---
 
@@ -385,8 +385,8 @@ admin API, then reuse the old token for order history.
   `status = "canceled"`.
 - **Newman evidence:** `expected 'canceled' to deeply equal 'shipping'`.
 
-The post-condition case proves this is a real mutation, not merely an
-incorrect success status.
+The post-condition case proves that the request changes stored state. The
+response code alone would not establish this behavior.
 
 ---
 
@@ -407,7 +407,7 @@ incorrect success status.
 ## Candidates (source-read, not yet executed)
 
 Leads found by reading `eshop/backend/server.js`. Write a test case, run it,
-and only then promote a row into *Confirmed* — with its Newman output quoted.
+and only then promote a row into *Confirmed* with its Newman output quoted.
 
 *C-01 (password complexity), C-02 (email uniqueness), and C-06 (shipping
 cancellation) were promoted to BUG-08, BUG-09, and BUG-15 after execution and
@@ -419,7 +419,7 @@ no longer appear here.*
 | C-04 | SEC-07 | `POST /api/forgot-password` | Reset token is 4 digits, never expires, not invalidated by time | OTP must be >= 6 digits, expiring, single-use |
 | C-05 | SEC-06 | `PUT /api/users/me` | Accepts `role` from the request body | A user must not be able to promote themselves to admin |
 | C-07 | FR-10 | `PUT /api/admin/orders/:id/status` | `canceled -> delivered` is explicitly permitted | That transition must be rejected |
-| C-08 | FR-13 | admin UI `App.jsx` | Revenue computed as `total_amount * 2` | Dashboard revenue must equal the API's delivered-order sum — note this one is a **frontend** defect, so cite the API total as the oracle |
+| C-08 | FR-13 | admin UI `App.jsx` | Revenue computed as `total_amount * 2` | Dashboard revenue must equal the API's delivered-order sum. This is a **frontend** defect, so cite the API total as the oracle |
 | C-09 | FR-12 | `POST/PUT/DELETE /api/products` | No `authenticateToken` middleware at all | Anonymous product create/update/delete must be refused |
 
 ---
@@ -431,5 +431,5 @@ For each confirmed bug:
 - [ ] Title states the observable failure, not the suspected cause
 - [ ] Steps to reproduce that a TA can paste into Postman
 - [ ] Expected vs actual, with the requirement or SEC id quoted
-- [ ] **Screenshot attached** (Postman response or the Newman failure) — required
+- [ ] **Screenshot attached** (Postman response or the Newman failure), required
 - [ ] Issue URL recorded in the summary table above

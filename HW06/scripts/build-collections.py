@@ -6,8 +6,8 @@ assertions, auth setup) plus a small set of exemplar test cases per required
 coverage dimension. The bulk of the >=35 cases per API is added afterwards, in
 the AI-generation and human-audit phases, and re-exported from Postman.
 
-Re-running this script OVERWRITES the collections. Once you start editing in
-Postman, treat the exported JSON as the source of truth and stop re-running it.
+Re-running this script OVERWRITES its generated collections. After Postman
+edits, treat the exported JSON as the source of truth.
 """
 
 from __future__ import annotations

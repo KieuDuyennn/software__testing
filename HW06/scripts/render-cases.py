@@ -398,9 +398,9 @@ def render_coverage(module):
         "",
         "## Specification gaps flagged (%d)" % len(gaps),
         "",
-        "Cases where the specification is genuinely silent. Rather than invent "
-        "an expectation, each asserts only what can be justified and records "
-        "the ambiguity - these are the rows to resolve first in the audit phase.",
+        "The specification does not define a single strong oracle for these cases. "
+        "Each case asserts only supported behavior and records the ambiguity for "
+        "resolution during the audit phase.",
         "",
         "| Case | Gap |",
         "|---|---|",
