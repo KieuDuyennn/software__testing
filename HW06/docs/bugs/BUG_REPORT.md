@@ -15,7 +15,7 @@ are quoted verbatim from that run. BUG-01 to BUG-06 came from the scaffold's
 exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
 `docs/phases/api1-fr01-register/01-generate.md`).
 
-The final local full run on **2026-08-23** executed all four collections after
+The documented defect-baseline run on **2026-08-23** executed all four collections after
 the audit and extension phases. BUG-01 through BUG-16 are grouped by root cause,
 not by assertion count: 128 failed assertions reduce to 16 reportable defects.
 The green regression gate is recorded separately and passed 1,262/1,262
