@@ -93,7 +93,7 @@ AI output. Keep them in order. Long outputs go in
   of duplicate `A2-DP-006` and misattributed `A1-SEC-013`; 20 independently
   marked student-designed cases; regenerated Postman collections and coverage
   reports; a verified full run (1,674/1,802 assertions passed) and green gate
-  (1,271/1,271); phase 2-4 documents, bug clustering, README, main report, and
+  (1,262/1,262); phase 2-4 documents, bug clustering, README, main report, and
   submission/evidence instructions.
 - **My review:** Verified the generated collections compile, ran both suites
   against a freshly seeded local backend, retained the raw Newman JSON/HTML/log

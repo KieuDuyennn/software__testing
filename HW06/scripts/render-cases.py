@@ -239,6 +239,32 @@ def refresh_gate(module, api):
     return gate_path, green, total
 
 
+def rebuild_gate(module, api):
+    """Rebuild a gate collection from the reviewed IDs in ci-suite.json."""
+    name = COLLECTION_NAMES[api]
+    suite_path = ROOT / "config" / "ci-suite.json"
+    suite = json.loads(suite_path.read_text(encoding="utf-8"))
+    reviewed = suite.get("gate_cases", {}).get(name, [])
+    known = {c["id"] for c in module.CASES}
+    unknown = sorted(set(reviewed) - known)
+    if unknown:
+        raise SystemExit("Unknown gate case ids: %s" % ", ".join(unknown))
+
+    gate = build_collection(
+        module, only_ids=set(reviewed), name_suffix=" [CI gate]",
+        extra_description=(
+            "\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\n"
+            "Contains %d reviewed deterministic cases from config/ci-suite.json. "
+            "The full suite remains the source of defect evidence.\n"
+            % len(reviewed)
+        ),
+    )
+    gate_path = ROOT / "collections" / ("%s_gate.postman_collection.json" % name)
+    gate_path.write_text(json.dumps(gate, indent=2, ensure_ascii=False),
+                         encoding="utf-8")
+    return gate_path, reviewed, len(module.CASES)
+
+
 # ---------------------------------------------------------------------------
 # Excel
 # ---------------------------------------------------------------------------
@@ -402,6 +428,9 @@ def main():
     parser.add_argument("--refresh-gate", action="store_true",
                         help="rebuild the CI regression gate from the last run "
                              "report instead of re-rendering the artefacts")
+    parser.add_argument("--rebuild-gate", action="store_true",
+                        help="rebuild the gate from reviewed IDs already stored "
+                             "in config/ci-suite.json")
     parser.add_argument("--skip-workbook", action="store_true",
                         help="leave the Excel workbook unchanged")
     args = parser.parse_args()
@@ -416,6 +445,13 @@ def main():
               % (len(green), total, 100.0 * len(green) / total))
         print("  gate suite  : %s" % gate_path.relative_to(ROOT))
         print("  case list   : config/ci-suite.json -> gate_cases")
+        return
+
+    if args.rebuild_gate:
+        gate_path, reviewed, total = rebuild_gate(module, args.api)
+        print("CI gate rebuilt for API %d" % args.api)
+        print("  reviewed cases : %d of %d" % (len(reviewed), total))
+        print("  gate suite     : %s" % gate_path.relative_to(ROOT))
         return
 
     for case in cases:

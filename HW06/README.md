@@ -39,7 +39,7 @@ into 16 root-cause reports in `docs/bugs/BUG_REPORT.md`.
 Audit totals across all APIs: **363 VALID, 1 INVALID and corrected, 22
 INCOMPLETE with documented specification gaps**.
 
-Regression gate: **1,271/1,271 assertions passed**.
+Regression gate: **1,262/1,262 assertions passed**.
 
 ## Quick start
 
@@ -78,7 +78,7 @@ These items cannot be generated or invented by an AI agent:
   `[HW06] X-Student-Id=23127184`.
 - Postman Workspace, Collection Runner, Monitor and Mock Server screenshots.
 - GitHub Issues created from the student's account, with screenshots and URLs.
-- Two pushed GitHub Actions runs: one green gate and one genuine red gate.
+- GitHub Actions screenshots for the real red and green gate runs.
 - Group uniqueness confirmation and date.
 - Generator diagram drawn by the student and exported with editable source.
 - Narrated YouTube demo link.
@@ -109,7 +109,7 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Generator implementation/design brief/pseudocode
 - [ ] Final Excel workbook synchronized and visually verified
 - [x] Final PDFs regenerated and visually verified
-- [ ] Public GitHub branch pushed; real CI green/red URLs captured
+- [x] Public GitHub branch pushed; real red CI URL captured
 - [ ] GitHub Issues filed with screenshots
 - [ ] Postman cloud/console evidence captured
 - [ ] Self-drawn generator diagram added

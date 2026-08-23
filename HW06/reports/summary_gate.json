@@ -1,11 +1,11 @@
 {
   "mode": "gate",
   "env": "local",
-  "generatedAt": "2026-08-23T15:38:35.175Z",
+  "generatedAt": "2026-08-23T15:54:26.594Z",
   "results": [
     {
       "name": "API1_FR01_Register",
-      "total": 321,
+      "total": 312,
       "failed": 0
     },
     {
