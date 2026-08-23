@@ -1,26 +1,26 @@
 {
   "mode": "gate",
   "env": "local",
-  "generatedAt": "2026-08-23T15:01:07.474Z",
+  "generatedAt": "2026-08-23T15:38:35.175Z",
   "results": [
     {
       "name": "API1_FR01_Register",
-      "total": 316,
+      "total": 321,
       "failed": 0
     },
     {
       "name": "API2_FR06_ProductDetail",
-      "total": 9,
+      "total": 271,
       "failed": 0
     },
     {
       "name": "API3_FR11_OrderHistory",
-      "total": 38,
+      "total": 376,
       "failed": 0
     },
     {
       "name": "API4_FR13_AdminOrders",
-      "total": 30,
+      "total": 303,
       "failed": 0
     }
   ]
