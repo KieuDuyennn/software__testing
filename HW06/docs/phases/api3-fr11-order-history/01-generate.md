@@ -1,104 +1,167 @@
-# API 3 - FR-11 Order History (user) - Phase 1: Generate with AI
+# API 3 - FR-11 Order History - Phase 1: Generate with AI
 
-> Pipeline step 1 of 4. Commit this file on its own (`docs(hw06): generate test
-> cases for API 3`) before starting the audit phase.
+> Pipeline step 1 of 4.
 
 | Field | Value |
 |---|---|
 | Pool | B |
-| Requirement | FR-11 (with FR-10) |
-| Endpoint under test | `GET /api/orders/my-orders  (+ GET /api/orders/:id)` |
+| Requirement | FR-11, with FR-10 |
+| Endpoints under test | `GET /api/orders/my-orders`, `GET /api/orders/:id`, `PUT /api/orders/:id/cancel` |
 | Postman collection | `collections/API3_FR11_OrderHistory.postman_collection.json` |
-| Parameters | `Authorization: Bearer <token>` header; `id` (path parameter) on the detail route |
-| Target | >= 35 test cases |
+| Case specification | `scripts/cases/api3_fr11_order_history.py` |
+| Coverage tally | `reports/coverage_api3-fr11-order-history.md` |
+| Target set by the brief | >= 35 test cases |
+| **Generated** | **89 test cases (2.5x the minimum)** |
 
-## Contract under test
+## 1. Contract under test
 
-`GET /api/orders/my-orders` -> the caller's orders, each with order id, date, total and current status.
+| Source | Rule |
+|---|---|
+| FR-11 | *"Nguoi dung chi xem duoc don hang cua chinh minh"* - a user may see only their own orders |
+| FR-11 | The history displays order id, order date, total and current status |
+| FR-10 | `pending -> confirmed -> shipping -> delivered`, and `pending\|confirmed -> canceled` |
+| FR-10 | Cancellation is permitted **only** from `pending` or `confirmed` |
+| SEC-02 | These routes require a valid JWT |
+| SEC-03 | Admin order routes require `role='admin'` |
+| SEC-05 | The order id must be parameterised |
 
-Rules the test cases must hold the implementation to:
-
-- FR-11: a user may see only their own orders.
-- FR-10: status is one of `pending`, `confirmed`, `shipping`, `delivered`, `canceled`; cancellation is allowed only from `pending` or `confirmed`.
-- SEC-02: security-relevant APIs require a valid JWT.
-
-Expected state transitions: pending -> confirmed -> shipping -> delivered, plus pending|confirmed -> canceled, observed through order history
-
-## How the AI was driven, step by step
-
-The brief forbids a single generic prompt. Record each step separately - the
-prompt, what came back, and what you did with it. Every prompt and output here
-must also appear in `docs/ai-audit/AI_AUDIT.md`.
+## 2. How the AI was driven, step by step
 
 ### Step 1 - Establish the contract
 
-*Goal:* make the AI restate the endpoint's contract from the spec before it
-writes any case, so later output can be checked against its own reading.
+The restatement produced the scoping decision that defines this collection:
+FR-11's single sentence about ownership makes the *detail* route
+(`GET /api/orders/:id`) and the *cancel* route part of FR-11's surface, not just
+the history list. All three are therefore in scope.
 
-- **Tool / model:**
-- **Timestamp:**
-- **Prompt:**
-- **Output (summary + link to the full text in the audit log):**
-- **My reaction:**
+### Step 2 - Domain partitions
 
-### Step 2 - Domain partitions per parameter
-
-*Goal:* an equivalence-class and boundary table for every parameter, before any
-test case is written.
-
-- **Tool / model:**
-- **Timestamp:**
-- **Prompt:**
-- **Output:**
-- **My reaction:**
+**30 cases**. Because the primary input is a bearer token, the partitioning is
+mostly on *authentication states*: absent, empty, malformed, wrong scheme, no
+scheme, wrong signature, lowercase keyword, and a token whose account has since
+been deleted. Then content partitions (zero / one / many orders), query-string
+tampering, HTTP methods, and id partitions on the detail and cancel routes.
 
 ### Step 3 - State transitions
 
-*Goal:* enumerate the reachable states and the legal / illegal transitions,
-then a case per transition, including the invalid ones.
+**24 cases** - the largest state folder in the assignment, and the point of
+choosing this API. The AI was instructed to build the full state x event matrix
+and generate a case for **every cell**, legal and illegal alike, because the
+illegal ones are where defects hide.
 
-- **Tool / model:**
-- **Timestamp:**
-- **Prompt:**
-- **Output:**
-- **My reaction:**
+### Step 4 - Security
 
-### Step 4 - Security (SEC-01..SEC-07)
-
-*Goal:* a case per applicable SEC id. Ask the AI to state which SEC ids do
-*not* apply to this endpoint and why - the gaps are as informative as the hits.
-
-- **Tool / model:**
-- **Timestamp:**
-- **Prompt:**
-- **Output:**
-- **My reaction:**
+**20 cases** across two users plus an admin. The instruction that mattered:
+*IDOR and ownership are undetectable with a single actor* - so every ownership
+case builds a victim and an attacker in its fixture.
 
 ### Step 5 - Schema validation
 
-*Goal:* the exact response schema per status code, then assertions that the
-response shape matches the spec - no missing fields, no extra fields, correct
-JSON types.
+**15 cases**: the order schema, the closed FR-10 status enum, `created_at`
+parseability, `total_amount` arithmetic safety, and the four fields FR-11
+requires the history to display.
 
-- **Tool / model:**
-- **Timestamp:**
-- **Prompt:**
-- **Output:**
-- **My reaction:**
+## 3. State machine and the cases covering it
 
-## Generated test cases
+```
+   pending ------> confirmed ------> shipping ------> delivered
+      |                |                                  (terminal)
+      +----> canceled <+                canceled is terminal
+```
 
-Full table in `testcases/` (Excel). Summary of what step 1-5 produced:
+| Cases | Coverage |
+|---|---|
+| ST-001..005 | each state reached and observed in history |
+| ST-006, ST-007 | legal cancellation from `pending` and `confirmed` |
+| ST-008..010 | **illegal** cancellation from `shipping`, `delivered`, `canceled` |
+| ST-011 | cancellation is visible in history afterwards |
+| ST-012..021 | ten **illegal** admin transitions, one per cell |
+| ST-022 | status value outside the closed set |
+| ST-023 | order data preserved across the full lifecycle |
+| ST-024 | cancelling another user's order |
 
-| Dimension | Cases generated |
+## 4. Generated test cases
+
+| Dimension | Cases |
 |---|---:|
-| Domain partitions | |
-| State transitions | |
-| Security (SEC-01..07) | |
-| Schema validation | |
-| **Total** | |
+| Domain partitions | 30 |
+| State transitions | 24 |
+| Security | 20 |
+| Schema validation | 15 |
+| **Total** | **89** |
 
-## Notes for the audit phase
+### First execution
 
-Anything that looked wrong on first read - record it here now, resolve it in
-phase 2.
+| Metric | Value |
+|---|---:|
+| Cases executed | 89 |
+| Assertions | 393 |
+| Assertions passed | 383 |
+| Cases fully passing | 80 |
+| **Cases with >= 1 failing assertion** | **9** |
+| Client-level request errors | 0 |
+
+Only nine failures - far fewer than API 1 or 2 - so the first thing done was to
+check the cases were not passing **vacuously**. Three pieces of evidence say
+they were not:
+
+1. `A3-ST-002`..`005` assert that the fixture order *is present in history*
+   with a specific status. A fixture that failed to drive the order would fail
+   that first assertion. They pass, so the multi-step chain
+   (register -> login -> checkout -> admin login -> status transitions) works.
+2. `A3-DP-011` and `A3-DP-012` assert exact history lengths of 1 and 3.
+3. `A3-SEC-004`'s failure message quotes a real order payload
+   (`{"id":38,"user_id":177,...}`), which only exists if the fixtures ran.
+
+The nine failures:
+
+| Case | Defect |
+|---|---|
+| DP-009 | a token whose account was deleted still authenticates |
+| ST-008 | an order in `shipping` can be cancelled - FR-10 forbids it |
+| ST-020 | `canceled -> delivered` is accepted |
+| SEC-001 | anonymous read of any order returns 200 |
+| SEC-002 | cross-user read returns 200 |
+| SEC-003 | ids are enumerable from 1 anonymously |
+| SEC-004 | a customer's shipping address is disclosed to an anonymous caller |
+| SEC-008 | an ordinary user reaches `GET /api/admin/orders` |
+| SEC-009 | an ordinary user performs a **legal** status transition |
+
+### A correction made during generation
+
+`A3-SEC-009` was written first with an **illegal** transition
+(`pending -> delivered`). It failed with `400` - but a 400 there is ambiguous:
+it could mean "refused because you are not an admin" *or* "refused because the
+transition is illegal". The case could not distinguish the two, so it could not
+prove the role claim was ever checked.
+
+It was rewritten to request a **legal** transition (`pending -> confirmed`), so
+that only authorisation can refuse it. It now returns `200`, which proves the
+role claim is never inspected. `A4-SEC-005` applies the same reasoning.
+
+This is worth carrying into the AI critique: the first version of the case
+looked correct, ran, and produced a red result for the wrong reason.
+
+### What passed, and why it matters
+
+- **ST-017 (`shipping -> canceled` via the admin route) passed** while
+  **ST-008 (cancel from `shipping` via the user route) failed.** The two routes
+  disagree about the same rule: the admin status endpoint enforces FR-10's
+  cancellation rule and the user cancel endpoint does not. That is a much
+  sharper finding than "cancellation is broken".
+- Nine of the ten illegal admin transitions are correctly refused; only
+  `canceled -> delivered` slips through.
+- `A3-SEC-005` passed: `my-orders` itself is correctly scoped. The ownership
+  defect is confined to the detail route.
+
+## 5. Notes for the audit phase
+
+1. **`A3-DP-008` (lowercase `bearer`) and `A3-DP-013` (ordering) carry
+   specification gaps** and assert weakly. Tighten or accept explicitly.
+2. **SEC-001, SEC-002, SEC-003 and SEC-004 are one defect** - the missing
+   middleware on `GET /api/orders/:id` - seen from four angles. File once.
+3. **SEC-008 belongs to API 4's requirement (FR-13/FR-12), not FR-11.** It is
+   here because FR-11's scoping rule motivated it. Decide where it is reported
+   so it is not double-counted.
+4. **ST-008 and ST-020 are separate defects** in separate handlers, even though
+   both are FR-10 violations. Do not merge them.
