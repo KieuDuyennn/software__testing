@@ -31,7 +31,7 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 
 ## 3. Việc bắt buộc còn thiếu trước khi đóng gói
 
-- [ ] Chụp `evidence/screenshots/postman-console-x-student-id.png` có dòng
+- [x] Chụp `evidence/screenshots/postman-console-x-student-id.png` có dòng
   `[HW06] X-Student-Id=23127184` từ một request chạy thật.
 - [ ] Chụp kết quả Runner, Monitor và Mock Server vào
   `evidence/postman-cloud/runner.png`, `monitor.png`, `mock-server.png`.

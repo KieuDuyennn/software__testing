@@ -19,6 +19,8 @@ listed as complete. No placeholder or generated UI image is included.
 | GitHub Issue #70 | `screenshots/github-issue-70-product-write-auth.png` | Signed-in account, issue title/number and student header |
 | Postman Cloud workspace | `postman-cloud/workspace.png` | Signed-in workspace and all four imported HW06 collections |
 | Postman environment | `postman-cloud/environment.png` | Imported `EShop - Local (23127184)` environment |
+| Real Postman Console run | `screenshots/postman-console-x-student-id.png` | Postman Desktop, localhost URL, HTTP 200 and `[HW06] X-Student-Id=23127184` |
+| Postman Mock Server | `postman-cloud/mock-server.png` | Public API2 mock is Running and records `GET /api/products/2`; the request currently has no example response |
 
 Cloud URLs:
 
@@ -29,14 +31,14 @@ Cloud URLs:
 
 ## Still requires the student/device
 
-- Postman Console screenshot with an actually executed localhost request and
-  `[HW06] X-Student-Id=23127184`.
-- Collection Runner, Monitor and Mock Server results.
+- Collection Runner and Monitor results.
+- A successful Mock Server example response (the server and authentic call log
+  exist, but the current call correctly reports that no example is attached).
 - Failure screenshots attached to the corresponding GitHub Issues, if the
   marking rubric requires attachments rather than issue-page screenshots.
 - Self-drawn generator diagram, narrated demo video and group uniqueness proof.
 
-The Postman web workspace is configured, but no Postman Desktop Agent process
-was running during capture. A localhost request cannot be honestly shown as a
-Postman run until the Desktop Agent or Postman Desktop application is started.
-
+Postman Desktop 12.24.6 and Desktop Agent 0.4.90 were installed on 2026-08-23.
+The localhost SUT request was executed in Postman Desktop and captured without
+fabrication. The Desktop lightweight client requires account sign-in before it
+will enable collection import and Runner.

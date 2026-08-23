@@ -2,6 +2,8 @@
 
 Student ID: **23127184**
 
+Student name: **Lê Phạm Kiều Duyên**
+
 SUT: **EShop** - <https://github.com/ttbhanh/eshop-sut>
 
 Base URL: `http://localhost:3000`
@@ -87,9 +89,9 @@ suite, writes HTML/JSON/log evidence, and stops the backend.
 
 These items cannot be generated or invented by an AI agent:
 
-- Postman Console screenshot visibly showing
-  `[HW06] X-Student-Id=23127184`.
-- Postman Console, Collection Runner, Monitor and Mock Server screenshots.
+- Collection Runner and Monitor result screenshots.
+- A successful Mock Server example response; the server and call log already
+  exist, but the example response still needs to be attached to the request.
 - Failure screenshots attached to the corresponding GitHub Issues if required.
 - Group uniqueness confirmation and date.
 - Generator diagram drawn by the student and exported with editable source.
@@ -124,7 +126,9 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Public GitHub branch pushed; real green/red CI URLs recorded
 - [x] GitHub Issues filed; signed-in issue-page screenshots captured
 - [x] Postman Cloud workspace and environment screenshots captured
-- [ ] Postman Console/Runner/Monitor/Mock result evidence captured
+- [x] Real Postman Desktop Console evidence captured with localhost, HTTP 200
+  and `[HW06] X-Student-Id=23127184`
+- [ ] Collection Runner/Monitor and successful Mock response evidence captured
 - [ ] Self-drawn generator diagram added
 - [ ] Narrated demo video URL added
 - [ ] Group uniqueness and self-assessment completed

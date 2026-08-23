@@ -8,7 +8,7 @@ evidence. A feature listed without evidence is worse than a feature left out.
 
 | # | Feature | Status | Where it is used / evidence |
 |---|---|---|---|
-| 1 | **Workspace** | ☐ | Create a workspace named `HW06 - API Testing - 23127184`; screenshot to `evidence/postman-cloud/` |
+| 1 | **Workspace** | ✅ Used | Signed-in workspace with all four collections in `evidence/postman-cloud/workspace.png` |
 | 2 | **Collections** | ✅ Scaffolded | Four collections in `collections/`, one per API, each foldered by coverage dimension |
 | 3 | **Folders** | ✅ Scaffolded | `00 - Setup`, `01 - Domain partitions`, `02 - State transitions`, `03 - Security`, `04 - Schema validation` |
 | 4 | **Environments** | ✅ Scaffolded | `config/eshop-local`, `eshop-ci`, `eshop-mock` |
@@ -28,10 +28,10 @@ evidence. A feature listed without evidence is worse than a feature left out.
 | 18 | **`--folder` selective runs** | ✅ Working | The CI green gate, driven by `config/ci-suite.json` |
 | 19 | **CI integration** | ✅ Working | `.github/workflows/hw06-api-tests.yml` |
 | 20 | **Monitor** | ☐ | Cloud only — schedule a monitor on one collection, screenshot a run |
-| 21 | **Mock server** | ☐ | Cloud only — mock a spec-conformant response and point `eshop-mock` at it |
+| 21 | **Mock server** | ◐ Running | Public API2 mock and authentic call log in `evidence/postman-cloud/mock-server.png`; successful example response pending |
 | 22 | **Collection documentation** | ◐ | Each collection and folder carries a description; export the docs view when finished |
 | 23 | **Collection variables** | ☐ | Optional — currently everything lives in the environment |
-| 24 | **Postman console** | ☐ | Screenshot showing the `[HW06] X-Student-Id=23127184 …` lines — **required by Section 11** |
+| 24 | **Postman console** | ✅ Used | Real localhost HTTP 200 run and `[HW06] X-Student-Id=23127184` in `evidence/screenshots/postman-console-x-student-id.png` |
 
 Legend: ✅ done · ◐ partially done · ☐ not yet
 
