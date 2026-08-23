@@ -11,7 +11,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200 with {message, id}"
+    "expected": "200 with {message, id}",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-001 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-002",
@@ -24,7 +28,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - FR-01 makes name mandatory"
+    "expected": "4xx - FR-01 makes name mandatory",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-002 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-003",
@@ -38,7 +46,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-003 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-004",
@@ -52,7 +64,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-004 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-005",
@@ -66,7 +82,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - whitespace is not a name"
+    "expected": "4xx - whitespace is not a name",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-005 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-006",
@@ -81,7 +101,11 @@
       "password": "Password123!"
     },
     "expected": "200 - FR-01 sets no minimum length",
-    "gap": "FR-01 does not state a minimum name length; treated as valid."
+    "gap": "FR-01 does not state a minimum name length; treated as valid.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "FR-01 gives no minimum name length, so acceptance of one character is not a firm contract.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-007",
@@ -95,7 +119,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200, name stored unchanged"
+    "expected": "200, name stored unchanged",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-007 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-008",
@@ -110,7 +138,11 @@
       "password": "Password123!"
     },
     "expected": "200 or a 4xx limit error, never a 5xx",
-    "gap": "FR-01 states no maximum length; the only firm expectation is no 5xx."
+    "gap": "FR-01 states no maximum length; the only firm expectation is no 5xx.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "FR-01 gives no maximum name length; the original oracle could only require safe handling.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-009",
@@ -125,7 +157,11 @@
       "password": "Password123!"
     },
     "expected": "4xx limit error or 200, never a 5xx",
-    "gap": "No documented maximum; asserted only that the server stays healthy."
+    "gap": "No documented maximum; asserted only that the server stays healthy.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The oversized-name case had only a no-5xx oracle because no limit is specified.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-010",
@@ -139,7 +175,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - name is specified as a string"
+    "expected": "4xx - name is specified as a string",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-010 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-011",
@@ -155,7 +195,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-011 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-012",
@@ -170,7 +214,11 @@
       "password": "Password123!"
     },
     "expected": "200 with the value trimmed, or a 4xx; never stored padded",
-    "gap": "Spec is silent on trimming; recorded as a gap rather than guessed."
+    "gap": "Spec is silent on trimming; recorded as a gap rather than guessed.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The original oracle accepted either trimming or rejection, two contradictory outcomes.",
+    "correction": "Retained only spec-supported safety and non-corruption assertions; documented trimming as an open requirement decision."
   },
   {
     "id": "A1-DP-013",
@@ -184,7 +232,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200 or 4xx, never a 5xx"
+    "expected": "200 or 4xx, never a 5xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-013 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-014",
@@ -198,7 +250,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200"
+    "expected": "200",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-014 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-015",
@@ -211,7 +267,11 @@
       "name": "Nguyen Van A",
       "password": "Password123!"
     },
-    "expected": "4xx - FR-01 makes email mandatory"
+    "expected": "4xx - FR-01 makes email mandatory",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-015 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-016",
@@ -225,7 +285,11 @@
       "email": null,
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-016 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-017",
@@ -239,7 +303,11 @@
       "email": "",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-017 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-018",
@@ -253,7 +321,11 @@
       "email": "    ",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-018 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-019",
@@ -267,7 +339,11 @@
       "email": "{{uniq}}domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - FR-01 requires the user@domain.com form"
+    "expected": "4xx - FR-01 requires the user@domain.com form",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-019 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-020",
@@ -281,7 +357,11 @@
       "email": "{{uniq}}@",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-020 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-021",
@@ -295,7 +375,11 @@
       "email": "@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-021 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-022",
@@ -309,7 +393,11 @@
       "email": "{{uniq}}@domain",
       "password": "Password123!"
     },
-    "expected": "4xx - user@domain.com form required"
+    "expected": "4xx - user@domain.com form required",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-022 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-023",
@@ -323,7 +411,11 @@
       "email": "{{uniq}}@@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-023 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-024",
@@ -337,7 +429,11 @@
       "email": ".{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-024 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-025",
@@ -351,7 +447,11 @@
       "email": "{{uniq}}.@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-025 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-026",
@@ -365,7 +465,11 @@
       "email": "us..er{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-026 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-027",
@@ -379,7 +483,11 @@
       "email": "us er{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-027 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-028",
@@ -393,7 +501,11 @@
       "email": "us()er{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-028 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-029",
@@ -407,7 +519,11 @@
       "email": "{{uniq}}+qa@domain.com",
       "password": "Password123!"
     },
-    "expected": "200 - valid per RFC 5322"
+    "expected": "200 - valid per RFC 5322",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-029 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-030",
@@ -421,7 +537,11 @@
       "email": "{{uniq}}@mail.domain.com",
       "password": "Password123!"
     },
-    "expected": "200"
+    "expected": "200",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-030 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-031",
@@ -435,7 +555,11 @@
       "email": "{{uniq}}@my-shop.com.vn",
       "password": "Password123!"
     },
-    "expected": "200"
+    "expected": "200",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-031 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-032",
@@ -449,7 +573,11 @@
       "email": "{{uniqUpper}}@DOMAIN.COM",
       "password": "Password123!"
     },
-    "expected": "200 - the local part is case-preserving, the domain case-insensitive"
+    "expected": "200 - the local part is case-preserving, the domain case-insensitive",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-032 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-033",
@@ -463,7 +591,11 @@
       "email": "dup{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - FR-01: email must be \"duy nhất trong hệ thống\""
+    "expected": "4xx - FR-01: email must be \"duy nhất trong hệ thống\"",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-033 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-034",
@@ -477,7 +609,11 @@
       "email": "DUP{{uniq}}@DOMAIN.COM",
       "password": "Password123!"
     },
-    "expected": "4xx - email addresses differing only in case are the same account"
+    "expected": "4xx - email addresses differing only in case are the same account",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-034 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-035",
@@ -491,7 +627,11 @@
       "email": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx - RFC 5321 caps the local part at 64 characters"
+    "expected": "4xx - RFC 5321 caps the local part at 64 characters",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-035 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-036",
@@ -505,7 +645,11 @@
       "email": 12345,
       "password": "Password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-036 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-037",
@@ -520,7 +664,11 @@
       "password": "Password123!"
     },
     "expected": "200 with the value trimmed, or 4xx; never stored with the space",
-    "gap": "Spec does not say whether inputs are trimmed."
+    "gap": "Spec does not say whether inputs are trimmed.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The original oracle accepted either trimming or rejection of trailing email whitespace.",
+    "correction": "Retained rejection-or-normalisation as a documented gap and did not count either SUT behaviour as proof of FR-01 conformance."
   },
   {
     "id": "A1-DP-038",
@@ -534,7 +682,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200"
+    "expected": "200",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-038 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-039",
@@ -547,7 +699,11 @@
       "name": "Nguyen Van A",
       "email": "{{uniq}}@domain.com"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-039 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-040",
@@ -561,7 +717,11 @@
       "email": "{{uniq}}@domain.com",
       "password": null
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-040 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-041",
@@ -575,7 +735,11 @@
       "email": "{{uniq}}@domain.com",
       "password": ""
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-041 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-042",
@@ -589,7 +753,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Pass12!"
     },
-    "expected": "4xx - FR-01 requires at least 8 characters"
+    "expected": "4xx - FR-01 requires at least 8 characters",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-042 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-043",
@@ -603,7 +771,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Pass123!"
     },
-    "expected": "200 - exactly at the minimum"
+    "expected": "200 - exactly at the minimum",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-043 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-044",
@@ -617,7 +789,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Pass1234!"
     },
-    "expected": "200"
+    "expected": "200",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-044 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-045",
@@ -631,7 +807,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "password123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-045 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-046",
@@ -645,7 +825,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "PASSWORD123!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-046 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-047",
@@ -659,7 +843,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password!!"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-047 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-048",
@@ -673,7 +861,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123"
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-048 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-049",
@@ -687,7 +879,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123#"
     },
-    "expected": "4xx - FR-01 permits only @ $ ! % * ? &"
+    "expected": "4xx - FR-01 permits only @ $ ! % * ? &",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-049 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-050",
@@ -701,7 +897,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd@"
     },
-    "expected": "200 - '@' is in the FR-01 permitted set"
+    "expected": "200 - '@' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-050 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-051",
@@ -715,7 +915,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd$"
     },
-    "expected": "200 - '$' is in the FR-01 permitted set"
+    "expected": "200 - '$' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-051 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-052",
@@ -729,7 +933,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd!"
     },
-    "expected": "200 - '!' is in the FR-01 permitted set"
+    "expected": "200 - '!' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-052 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-053",
@@ -743,7 +951,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd%"
     },
-    "expected": "200 - '%' is in the FR-01 permitted set"
+    "expected": "200 - '%' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-053 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-054",
@@ -757,7 +969,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd*"
     },
-    "expected": "200 - '*' is in the FR-01 permitted set"
+    "expected": "200 - '*' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-054 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-055",
@@ -771,7 +987,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd?"
     },
-    "expected": "200 - '?' is in the FR-01 permitted set"
+    "expected": "200 - '?' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-055 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-056",
@@ -785,7 +1005,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passw0rd&"
     },
-    "expected": "200 - '&' is in the FR-01 permitted set"
+    "expected": "200 - '&' is in the FR-01 permitted set",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-056 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-057",
@@ -799,7 +1023,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "12345678"
     },
-    "expected": "4xx - no letters, no special character"
+    "expected": "4xx - no letters, no special character",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-057 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-058",
@@ -813,7 +1041,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Passwordd"
     },
-    "expected": "4xx - no digit, no special character"
+    "expected": "4xx - no digit, no special character",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-058 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-059",
@@ -827,7 +1059,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "        "
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-059 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-060",
@@ -841,7 +1077,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "password"
     },
-    "expected": "4xx - fails three complexity rules"
+    "expected": "4xx - fails three complexity rules",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-060 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-061",
@@ -856,7 +1096,11 @@
       "password": "Pass 123!"
     },
     "expected": "200 - FR-01 does not forbid spaces; must not 5xx",
-    "gap": "FR-01 neither permits nor forbids whitespace inside a password."
+    "gap": "FR-01 neither permits nor forbids whitespace inside a password.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "FR-01 neither permits nor forbids embedded spaces in passwords.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-062",
@@ -871,7 +1115,11 @@
       "password": "Aa1!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     },
     "expected": "200 or 4xx, never a 5xx",
-    "gap": "No documented maximum length."
+    "gap": "No documented maximum length.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "No maximum password length is specified, so only availability and non-disclosure are testable.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-063",
@@ -885,7 +1133,11 @@
       "email": "{{uniq}}@domain.com",
       "password": 12345678
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-063 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-064",
@@ -899,7 +1151,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Mật khẩu1!"
     },
-    "expected": "200 or 4xx, never a 5xx"
+    "expected": "200 or 4xx, never a 5xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-064 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-065",
@@ -915,7 +1171,11 @@
       "confirmPassword": "Password123!"
     },
     "expected": "200",
-    "gap": "Field required by FR-01 but absent from api_specification.md."
+    "gap": "Field required by FR-01 but absent from api_specification.md.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "confirmPassword is required by FR-01 but omitted from the backend API specification.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-066",
@@ -930,7 +1190,11 @@
       "password": "Password123!",
       "confirmPassword": "Password456!"
     },
-    "expected": "4xx - FR-01: \"hệ thống từ chối nếu hai trường không khớp\""
+    "expected": "4xx - FR-01: \"hệ thống từ chối nếu hai trường không khớp\"",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-066 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-067",
@@ -945,7 +1209,11 @@
       "password": "Password123!"
     },
     "expected": "4xx - FR-01 makes the confirmation field mandatory",
-    "gap": "Tests FR-01 against a spec that omits the field - expect disagreement."
+    "gap": "Tests FR-01 against a spec that omits the field - expect disagreement.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "confirmPassword is required by FR-01 but omitted from the backend API specification.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-068",
@@ -955,7 +1223,11 @@
     "partition": "invalid: empty JSON object",
     "title": "Empty request body is rejected",
     "body": {},
-    "expected": "4xx - all three fields are mandatory"
+    "expected": "4xx - all three fields are mandatory",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-068 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-069",
@@ -965,7 +1237,11 @@
     "partition": "invalid: no body at all",
     "title": "Request with no body is rejected",
     "raw_body": "",
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-069 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-070",
@@ -975,7 +1251,11 @@
     "partition": "invalid: malformed JSON",
     "title": "Malformed JSON is rejected with a 400, not a 500",
     "raw_body": "{\"name\": \"Broken\", \"email\": \"{{uniq}}@domain.com\", ",
-    "expected": "400 - a parse failure is a client error"
+    "expected": "400 - a parse failure is a client error",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-070 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-071",
@@ -986,7 +1266,11 @@
     "title": "Non-JSON Content-Type is rejected",
     "raw_body": "name=Test&email=a@b.com&password=Password123!",
     "content_type": "text/plain",
-    "expected": "400 or 415 - the endpoint is documented as JSON"
+    "expected": "400 or 415 - the endpoint is documented as JSON",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-071 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-072",
@@ -1002,7 +1286,11 @@
         "password": "Password123!"
       }
     ],
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-072 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-073",
@@ -1018,7 +1306,11 @@
       "nickname": "duyen",
       "favouriteColour": "pink"
     },
-    "expected": "200 - undocumented fields are ignored"
+    "expected": "200 - undocumented fields are ignored",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-073 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-074",
@@ -1032,7 +1324,11 @@
       "email": null,
       "password": null
     },
-    "expected": "4xx"
+    "expected": "4xx",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-074 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-075",
@@ -1047,7 +1343,11 @@
       "password": "Password123!"
     },
     "expected": "400 or 413, never a 5xx",
-    "gap": "No documented payload limit."
+    "gap": "No documented payload limit.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The request-size limit is unspecified; the original assertion was only a safety invariant.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-DP-076",
@@ -1058,7 +1358,11 @@
     "title": "GET /api/register is not routed",
     "method": "GET",
     "body": null,
-    "expected": "404 or 405 - the spec documents POST only"
+    "expected": "404 or 405 - the spec documents POST only",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-076 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-077",
@@ -1069,7 +1373,11 @@
     "title": "PUT /api/register is not routed",
     "method": "PUT",
     "body": null,
-    "expected": "404 or 405 - the spec documents POST only"
+    "expected": "404 or 405 - the spec documents POST only",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-077 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-078",
@@ -1080,7 +1388,11 @@
     "title": "DELETE /api/register is not routed",
     "method": "DELETE",
     "body": null,
-    "expected": "404 or 405 - the spec documents POST only"
+    "expected": "404 or 405 - the spec documents POST only",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-078 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-DP-079",
@@ -1091,7 +1403,11 @@
     "title": "PATCH /api/register is not routed",
     "method": "PATCH",
     "body": null,
-    "expected": "404 or 405 - the spec documents POST only"
+    "expected": "404 or 405 - the spec documents POST only",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-DP-079 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-001",
@@ -1106,7 +1422,11 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "200 with a JWT - registration leaves the account usable"
+    "expected": "200 with a JWT - registration leaves the account usable",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-001 against FR-01 / FR-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-002",
@@ -1121,7 +1441,11 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "200 - the original password still works; the duplicate changed nothing"
+    "expected": "200 - the original password still works; the duplicate changed nothing",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-002 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-003",
@@ -1133,7 +1457,11 @@
     "method": "GET",
     "path": "/api/users/me",
     "auth_var": "stToken",
-    "expected": "200 and the profile matches the registered email"
+    "expected": "200 and the profile matches the registered email",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-003 against FR-01 / FR-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-004",
@@ -1145,7 +1473,11 @@
     "method": "GET",
     "path": "/api/users/me",
     "auth_var": "stToken",
-    "expected": "role is exactly 'user' - registration never grants admin"
+    "expected": "role is exactly 'user' - registration never grants admin",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-004 against FR-01 / SEC-03: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-005",
@@ -1157,7 +1489,11 @@
     "method": "GET",
     "path": "/api/users/me",
     "auth_var": "stToken",
-    "expected": "login_attempts = 0 and locked_until is null"
+    "expected": "login_attempts = 0 and locked_until is null",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-005 against FR-01 / FR-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-006",
@@ -1171,7 +1507,11 @@
     "body": {
       "email": "{{stEmail}}"
     },
-    "expected": "200 - the account exists, so a reset token is issued"
+    "expected": "200 - the account exists, so a reset token is issued",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-006 against FR-01 / FR-03: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-007",
@@ -1185,7 +1525,11 @@
       "email": "second{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200 and an id strictly greater than the fixture account's id"
+    "expected": "200 and an id strictly greater than the fixture account's id",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-007 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-008",
@@ -1200,7 +1544,11 @@
       "email": "bad{{uniq}}",
       "password": "Password123!"
     },
-    "expected": "401 - no account was created, so login must fail"
+    "expected": "401 - no account was created, so login must fail",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-008 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-009",
@@ -1212,7 +1560,11 @@
     "method": "GET",
     "path": "/api/cart",
     "auth_var": "stToken",
-    "expected": "200 with an empty array"
+    "expected": "200 with an empty array",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-009 against FR-01 / FR-07: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-ST-010",
@@ -1224,7 +1576,11 @@
     "method": "GET",
     "path": "/api/orders/my-orders",
     "auth_var": "stToken",
-    "expected": "200 with an empty array"
+    "expected": "200 with an empty array",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-ST-010 against FR-01 / FR-11: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-001",
@@ -1239,7 +1595,11 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "no password field, and certainly not the plaintext just submitted"
+    "expected": "no password field, and certainly not the plaintext just submitted",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-001 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-002",
@@ -1253,7 +1613,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "the response body contains neither the password nor a password field"
+    "expected": "the response body contains neither the password nor a password field",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-002 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-003",
@@ -1265,7 +1629,11 @@
     "method": "GET",
     "path": "/api/users/me",
     "auth_var": "stToken",
-    "expected": "no password field in the profile payload"
+    "expected": "no password field in the profile payload",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-003 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-004",
@@ -1280,7 +1648,11 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "if any password material is returned it must look hashed, not plaintext"
+    "expected": "if any password material is returned it must look hashed, not plaintext",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-004 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-005",
@@ -1292,7 +1664,11 @@
     "method": "GET",
     "path": "/api/users/me",
     "auth_var": "stToken",
-    "expected": "returned as a JSON string, with Content-Type application/json"
+    "expected": "returned as a JSON string, with Content-Type application/json",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-005 against SEC-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-006",
@@ -1306,7 +1682,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "handled as data; no 5xx and no HTML content type"
+    "expected": "handled as data; no 5xx and no HTML content type",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-006 against SEC-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-007",
@@ -1320,7 +1700,11 @@
       "email": "sqli{{uniq}}'); DROP TABLE users;--@domain.com",
       "password": "Password123!"
     },
-    "expected": "rejected or stored literally; never a 5xx, never a SQL error"
+    "expected": "rejected or stored literally; never a 5xx, never a SQL error",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-007 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-008",
@@ -1334,7 +1718,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "stored literally; never a 5xx, never a SQL error"
+    "expected": "stored literally; never a 5xx, never a SQL error",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-008 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-009",
@@ -1348,7 +1736,11 @@
       "email": "u{{uniq}}' UNION SELECT id,email,password FROM users--@domain.com",
       "password": "Password123!"
     },
-    "expected": "no 5xx, no leaked rows, no SQL error text"
+    "expected": "no 5xx, no leaked rows, no SQL error text",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-009 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-010",
@@ -1362,7 +1754,11 @@
       "email": "{{uniq}}@domain.com",
       "password": "Aa1!'--"
     },
-    "expected": "no 5xx, no SQL error text"
+    "expected": "no 5xx, no SQL error text",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-010 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-011",
@@ -1377,7 +1773,11 @@
       "email": "{{admin_email}}",
       "password": "{{admin_password}}"
     },
-    "expected": "200 - the seeded admin account is still there and still works"
+    "expected": "200 - the seeded admin account is still there and still works",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-011 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-012",
@@ -1392,19 +1792,27 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "the account's role is 'user' - the injected value was ignored"
+    "expected": "the account's role is 'user' - the injected value was ignored",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-012 against SEC-06: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-013",
     "dim": "Security",
     "param": "role",
-    "rule": "SEC-06",
-    "partition": "privilege escalation: injected role grants admin access",
-    "title": "An account registered with an injected role cannot reach admin APIs",
+    "rule": "SEC-03 / SEC-06",
+    "partition": "authorization: ordinary user reaches an admin route",
+    "title": "A newly registered ordinary user cannot reach admin APIs",
     "method": "GET",
     "path": "/api/admin/users",
     "auth_var": "stToken",
-    "expected": "401 or 403 - SEC-03 requires a genuine admin role"
+    "expected": "401 or 403 - SEC-03 requires a genuine admin role",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The original title attributed access to role injection, while A1-SEC-012 proves the role was ignored; the real issue is missing admin authorization.",
+    "correction": "Retitled and interpreted as a direct SEC-03 admin-authorization test for a newly registered ordinary user."
   },
   {
     "id": "A1-SEC-014",
@@ -1419,7 +1827,11 @@
       "password": "Password123!",
       "id": 1
     },
-    "expected": "200 with a server-generated id that is not the injected 1"
+    "expected": "200 with a server-generated id that is not the injected 1",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-014 against SEC-06: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-015",
@@ -1434,7 +1846,11 @@
       "email": "{{stEmail}}",
       "password": "{{stPassword}}"
     },
-    "expected": "200 - the injected lock was ignored, so login still works"
+    "expected": "200 - the injected lock was ignored, so login still works",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-015 against SEC-06: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-016",
@@ -1450,7 +1866,11 @@
       "resetToken": "123456",
       "newPassword": "Hijacked999!"
     },
-    "expected": "4xx - a token the client chose must never authorise a reset"
+    "expected": "4xx - a token the client chose must never authorise a reset",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-016 against SEC-06 / SEC-07: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-017",
@@ -1460,7 +1880,11 @@
     "partition": "prototype pollution",
     "title": "A __proto__ payload does not crash or escalate",
     "raw_body": "{\"name\":\"Proto Probe\",\"email\":\"proto{{uniq}}@domain.com\",\"password\":\"Password123!\",\"__proto__\":{\"role\":\"admin\"}}",
-    "expected": "no 5xx; the payload is ignored"
+    "expected": "no 5xx; the payload is ignored",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-017 against SEC-06: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-018",
@@ -1474,7 +1898,11 @@
       "email": "tok{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "no token/JWT in the response - FR-01 sends the user to the login page"
+    "expected": "no token/JWT in the response - FR-01 sends the user to the login page",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-018 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-019",
@@ -1492,7 +1920,11 @@
       "email": "err{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "a clean 4xx message with no driver, table or stack detail"
+    "expected": "a clean 4xx message with no driver, table or stack detail",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SEC-019 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SEC-020",
@@ -1507,7 +1939,11 @@
       "password": "Password123!"
     },
     "expected": "200 - SEC-02 does not apply; registration must stay public",
-    "gap": "Documents why SEC-02 is not applicable to this endpoint."
+    "gap": "Documents why SEC-02 is not applicable to this endpoint.",
+    "origin": "AI-generated",
+    "audit_label": "INCOMPLETE",
+    "audit_reason": "The specification does not explicitly say whether registration ignores an Authorization header.",
+    "correction": "Oracle limited to a spec-supported safety invariant and the ambiguity is documented."
   },
   {
     "id": "A1-SCH-001",
@@ -1521,7 +1957,11 @@
       "email": "sch{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "body validates against the spec schema with additionalProperties false"
+    "expected": "body validates against the spec schema with additionalProperties false",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-001 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-002",
@@ -1535,7 +1975,11 @@
       "email": "sch2{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "message === \"User registered successfully\""
+    "expected": "message === \"User registered successfully\"",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-002 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-003",
@@ -1549,7 +1993,11 @@
       "email": "sch3{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "typeof id === 'number' and Number.isInteger(id)"
+    "expected": "typeof id === 'number' and Number.isInteger(id)",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-003 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-004",
@@ -1563,7 +2011,11 @@
       "email": "sch4{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "id > 0"
+    "expected": "id > 0",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-004 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-005",
@@ -1577,7 +2029,11 @@
       "email": "sch5{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "Content-Type includes application/json"
+    "expected": "Content-Type includes application/json",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-005 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-006",
@@ -1591,7 +2047,11 @@
       "email": "sch6{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "200 - the spec documents 200 OK, not 201"
+    "expected": "200 - the spec documents 200 OK, not 201",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-006 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-007",
@@ -1601,7 +2061,11 @@
     "partition": "error body: validation failure shape",
     "title": "A validation error returns a structured error body",
     "body": {},
-    "expected": "4xx with {\"error\": \"<string>\"}"
+    "expected": "4xx with {\"error\": \"<string>\"}",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-007 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-008",
@@ -1615,7 +2079,11 @@
       "email": "sch8{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "no password, role, token or reset_token key anywhere in the body"
+    "expected": "no password, role, token or reset_token key anywhere in the body",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-008 against spec conformance / SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-009",
@@ -1629,7 +2097,11 @@
       "email": "sch9{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "exactly two keys: message and id"
+    "expected": "exactly two keys: message and id",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-009 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-010",
@@ -1643,7 +2115,11 @@
       "email": "dupsch{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "4xx with {\"error\": \"<string>\"} naming the conflict"
+    "expected": "4xx with {\"error\": \"<string>\"} naming the conflict",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-010 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-011",
@@ -1657,7 +2133,11 @@
       "email": "uniq2{{uniq}}@domain.com",
       "password": "Password123!"
     },
-    "expected": "the returned id differs from the fixture account's id"
+    "expected": "the returned id differs from the fixture account's id",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-011 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   },
   {
     "id": "A1-SCH-012",
@@ -1667,6 +2147,107 @@
     "partition": "error body: not an HTML error page",
     "title": "Errors are JSON, never an HTML stack-trace page",
     "raw_body": "{\"name\": \"Broken\",",
-    "expected": "the error response is JSON or plain text, never an HTML error page"
+    "expected": "the error response is JSON or plain text, never an HTML error page",
+    "origin": "AI-generated",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-SCH-012 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
+  },
+  {
+    "id": "A1-HR-001",
+    "dim": "Security",
+    "param": "email",
+    "rule": "FR-01 / SEC-04",
+    "partition": "invalid: horizontal-tab control character in email",
+    "title": "An email containing a horizontal tab is rejected",
+    "body": {
+      "name": "Nguyen Van A",
+      "email": "tab{{uniq}}\t@domain.com",
+      "password": "Password123!"
+    },
+    "expected": "4xx - control characters are not part of user@domain.com",
+    "origin": "Student-designed",
+    "rationale": "The AI covered ordinary spaces but missed non-printing whitespace that often bypasses simplistic validators.",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-HR-001 against FR-01 / SEC-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
+  },
+  {
+    "id": "A1-HR-002",
+    "dim": "Security",
+    "param": "email",
+    "rule": "FR-01 / SEC-04",
+    "partition": "invalid: CRLF sequence in email",
+    "title": "An email containing CRLF is rejected without response splitting",
+    "body": {
+      "name": "Nguyen Van A",
+      "email": "crlf{{uniq}}\r\nX-Injected: yes@domain.com",
+      "password": "Password123!"
+    },
+    "expected": "4xx, no 5xx and no reflected injected header",
+    "origin": "Student-designed",
+    "rationale": "The generated injection set focused on SQL/XSS and omitted HTTP response-splitting input.",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-HR-002 against FR-01 / SEC-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
+  },
+  {
+    "id": "A1-HR-003",
+    "dim": "Security",
+    "param": "name",
+    "rule": "SEC-04",
+    "partition": "invalid: NUL control character in a display name",
+    "title": "A name containing a NUL character is rejected safely",
+    "body": {
+      "name": "Nguyen\u0000Van A",
+      "email": "nul{{uniq}}@domain.com",
+      "password": "Password123!"
+    },
+    "expected": "4xx and no internal error disclosure",
+    "origin": "Student-designed",
+    "rationale": "Control-character validation was absent from the AI's domain partitions.",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-HR-003 against SEC-04: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
+  },
+  {
+    "id": "A1-HR-004",
+    "dim": "Domain",
+    "param": "Content-Type",
+    "rule": "spec conformance",
+    "partition": "valid: JSON media type with UTF-8 charset parameter",
+    "title": "application/json with a UTF-8 charset is accepted",
+    "body": {
+      "name": "Nguyễn Văn A",
+      "email": "charset{{uniq}}@domain.com",
+      "password": "Password123!"
+    },
+    "content_type": "application/json; charset=utf-8",
+    "expected": "200 with the documented success body",
+    "origin": "Student-designed",
+    "rationale": "The AI tested application/json and text/plain but missed a common valid media-type parameter.",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-HR-004 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
+  },
+  {
+    "id": "A1-HR-005",
+    "dim": "Domain",
+    "param": "confirmPassword",
+    "rule": "FR-01",
+    "partition": "invalid: confirmation has the wrong JSON type",
+    "title": "A numeric password confirmation is rejected",
+    "body": {
+      "name": "Nguyen Van A",
+      "email": "confirmtype{{uniq}}@domain.com",
+      "password": "Password123!",
+      "confirmPassword": 12345678
+    },
+    "expected": "4xx - confirmation must be a string equal to password",
+    "origin": "Student-designed",
+    "rationale": "The AI covered missing, matching and mismatching confirmation values but not its type partition.",
+    "audit_label": "VALID",
+    "audit_reason": "Cross-checked A1-HR-005 against FR-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result.",
+    "correction": "None required."
   }
 ]

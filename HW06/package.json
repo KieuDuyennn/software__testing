@@ -16,7 +16,12 @@
     "ddt:api3": "newman run collections/API3_FR11_OrderHistory.postman_collection.json -e config/eshop-local.postman_environment.json -d data/api3_fr11_order_history.csv --folder \"05 - Data-driven\" -r cli,htmlextra --reporter-htmlextra-export reports/API3_FR11_OrderHistory_ddt.html",
     "ddt:api4": "newman run collections/API4_FR13_AdminOrders.postman_collection.json -e config/eshop-local.postman_environment.json -d data/api4_fr13_admin_orders.csv --folder \"05 - Data-driven\" -r cli,htmlextra --reporter-htmlextra-export reports/API4_FR13_AdminOrders_ddt.html",
     "collections:rebuild": "python scripts/build-collections.py",
-    "cases:api1": "python scripts/render-cases.py --api 1"
+    "cases:api1": "python scripts/render-cases.py --api 1 --skip-workbook",
+    "cases:api2": "python scripts/render-cases.py --api 2 --skip-workbook",
+    "cases:api3": "python scripts/render-cases.py --api 3 --skip-workbook",
+    "cases:api4": "python scripts/render-cases.py --api 4 --skip-workbook",
+    "cases:all": "npm run cases:api1 && npm run cases:api2 && npm run cases:api3 && npm run cases:api4",
+    "docs:phases": "python scripts/render-phase-docs.py"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

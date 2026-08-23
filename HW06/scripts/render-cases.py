@@ -31,9 +31,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import postman_harness as H  # noqa: E402
+from audit_cases import audit_counts, enrich_cases  # noqa: E402
 
 CASE_MODULES = {
     1: "cases/api1_fr01_register.py",
+    2: "cases/api2_fr06_product_detail.py",
+    3: "cases/api3_fr11_order_history.py",
+    4: "cases/api4_fr13_admin_orders.py",
 }
 
 
@@ -52,6 +56,31 @@ def load_cases(api: int):
 # Postman collection
 # ---------------------------------------------------------------------------
 
+# Every key a case may legally carry. Anything else is a typo, and a typo that
+# silently drops an Authorization header or a query string would weaken a case
+# without failing anything - so unknown keys are a hard error.
+CASE_KEYS = {
+    "id", "dim", "param", "partition", "rule", "title", "expected", "tests",
+    "pre", "gap", "method", "path", "body", "raw_body", "auth_var",
+    "extra_headers", "content_type", "raw_query", "origin", "audit_label",
+    "audit_reason", "correction", "rationale",
+}
+
+
+def validate_case(case):
+    unknown = set(case) - CASE_KEYS
+    if unknown:
+        raise SystemExit(
+            "Case %s carries unknown key(s): %s\n"
+            "Known keys: %s"
+            % (case.get("id", "?"), ", ".join(sorted(unknown)),
+               ", ".join(sorted(CASE_KEYS)))
+        )
+    for required in ("id", "dim", "title", "tests"):
+        if not case.get(required):
+            raise SystemExit("Case %s is missing %r." % (case.get("id", "?"), required))
+
+
 def build_request(case):
     return H.request(
         case.get("method", "POST"),
@@ -59,7 +88,8 @@ def build_request(case):
         body=case.get("body"),
         raw_body=case.get("raw_body"),
         auth_var=case.get("auth_var"),
-        extra_headers=case.get("headers"),
+        extra_headers=case.get("extra_headers"),
+        raw_query=case.get("raw_query"),
         content_type=case.get("content_type", "application/json"),
         description=describe(case),
     )
@@ -76,6 +106,8 @@ def describe(case):
         "| Partition | %s |" % case.get("partition", ""),
         "| Requirement | %s |" % case.get("rule", ""),
         "| Expected | %s |" % case.get("expected", ""),
+        "| Origin | %s |" % case.get("origin", "AI-generated"),
+        "| Audit | %s |" % case.get("audit_label", "Not audited"),
     ]
     if case.get("gap"):
         lines += ["", "> **Specification gap:** %s" % case["gap"]]
@@ -142,7 +174,12 @@ def build_collection(module, only_ids=None, name_suffix="", extra_description=""
 # encodes is "whatever works today must keep working", which is what a
 # regression gate is for.
 
-COLLECTION_NAMES = {1: "API1_FR01_Register"}
+COLLECTION_NAMES = {
+    1: "API1_FR01_Register",
+    2: "API2_FR06_ProductDetail",
+    3: "API3_FR11_OrderHistory",
+    4: "API4_FR13_AdminOrders",
+}
 
 
 def passing_case_ids(module, report_path):
@@ -365,10 +402,12 @@ def main():
     parser.add_argument("--refresh-gate", action="store_true",
                         help="rebuild the CI regression gate from the last run "
                              "report instead of re-rendering the artefacts")
+    parser.add_argument("--skip-workbook", action="store_true",
+                        help="leave the Excel workbook unchanged")
     args = parser.parse_args()
 
     module = load_cases(args.api)
-    meta, cases = module.META, module.CASES
+    meta, cases = module.META, enrich_cases(module.CASES)
 
     if args.refresh_gate:
         gate_path, green, total = refresh_gate(module, args.api)
@@ -378,6 +417,9 @@ def main():
         print("  gate suite  : %s" % gate_path.relative_to(ROOT))
         print("  case list   : config/ci-suite.json -> gate_cases")
         return
+
+    for case in cases:
+        validate_case(case)
 
     ids = [c["id"] for c in cases]
     duplicates = [i for i, n in Counter(ids).items() if n > 1]
@@ -393,7 +435,7 @@ def main():
         )
 
     coll_path = ROOT / "collections" / (
-        {1: "API1_FR01_Register"}[args.api] + ".postman_collection.json")
+        COLLECTION_NAMES[args.api] + ".postman_collection.json")
     coll_path.write_text(json.dumps(collection, indent=2, ensure_ascii=False),
                          encoding="utf-8")
 
@@ -403,7 +445,7 @@ def main():
         indent=2, ensure_ascii=False, default=str), encoding="utf-8")
 
     cov_path, by_dim, gaps = render_coverage(module)
-    xlsx = render_excel(module)
+    xlsx = None if args.skip_workbook else render_excel(module)
 
     print("API %d - %s" % (args.api, meta["endpoint"]))
     print("  cases          : %d  (%.1fx the brief's minimum of 35)"
@@ -411,6 +453,12 @@ def main():
     for dimension in ["Domain", "State", "Security", "Schema"]:
         print("    %-10s %3d" % (dimension, by_dim.get(dimension, 0)))
     print("  spec gaps      : %d flagged for the audit phase" % len(gaps))
+    counts = audit_counts(cases)
+    print("  audit          : %d VALID / %d INVALID / %d INCOMPLETE"
+          % (counts["VALID"], counts["INVALID"], counts["INCOMPLETE"]))
+    print("  origin         : %d AI-generated / %d student-designed"
+          % (sum(c["origin"] == "AI-generated" for c in cases),
+             sum(c["origin"] == "Student-designed" for c in cases)))
     print("  collection     : %s" % coll_path.relative_to(ROOT))
     print("  case export    : %s" % export.relative_to(ROOT))
     print("  coverage       : %s" % cov_path.relative_to(ROOT))
