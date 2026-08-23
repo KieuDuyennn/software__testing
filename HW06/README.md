@@ -129,6 +129,7 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Real Postman Desktop Console evidence captured with localhost, HTTP 200
   and `[HW06] X-Student-Id=23127184`
 - [ ] Collection Runner/Monitor and successful Mock response evidence captured
-- [ ] Self-drawn generator diagram added
+- [x] Generator diagram PNG and editable Mermaid source added
+- [ ] Student reviewed/adapted the diagram and can explain every design choice
 - [ ] Narrated demo video URL added
 - [ ] Group uniqueness and self-assessment completed
