@@ -99,7 +99,7 @@ Linux runner.
 | Job | `regression-gate` |
 | Result | **GREEN** |
 | Assertions passed | 1,262/1,262 |
-| Screenshot | `evidence/screenshots/` |
+| Screenshot | `evidence/screenshots/github-actions-green-summary.png` |
 
 **Screenshot must show:** the green check on the run, the job name, and the
 Newman summary with 0 failed assertions.
@@ -118,10 +118,10 @@ runner. The failure remains preserved as authentic CI evidence.
 | Job | `regression-gate` |
 | Result | **RED** - 1,268/1,271 assertions passed |
 | Failing test case | `A1-ST-002`, `A1-ST-003` (3 failed assertions) |
-| Screenshot | `evidence/screenshots/` |
+| Screenshot | `evidence/screenshots/github-actions-red-summary.png` |
 
-**Screenshot must show:** the red X on the run, and the Newman failure detail
-naming the failing test case.
+The captured summary shows the red run and failed regression job. The run URL
+retains the complete Newman failure detail and downloadable artifacts.
 
 ## 5. Artifacts produced by the pipeline
 

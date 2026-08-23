@@ -18,12 +18,14 @@ This file contains the remaining actions that must be performed by student
 
 ## 2. Postman cloud features
 
-Create workspace `HW06 - API Testing - 23127184`, import the collections and
-environments, then capture:
+The signed-in Postman workspace now contains all four collections and the
+`EShop - Local (23127184)` environment. The workspace and environment images
+have been captured. Remaining cloud features are listed below:
 
 | Evidence | Filename |
 |---|---|
-| Workspace with imported collections | `evidence/postman-cloud/workspace.png` |
+| Workspace with imported collections | `evidence/postman-cloud/workspace.png` (complete) |
+| Imported local environment | `evidence/postman-cloud/environment.png` (complete) |
 | Collection Runner summary | `evidence/postman-cloud/runner.png` |
 | Completed Monitor run | `evidence/postman-cloud/monitor.png` |
 | Mock Server response | `evidence/postman-cloud/mock-server.png` |
@@ -38,15 +40,19 @@ issues #66-#70. Open each issue and attach a screenshot that shows the relevant
 Newman failure from the HTML report or Postman response. Do not use one generic
 image for unrelated bugs.
 
-Minimum new screenshot set:
+Signed-in issue-page screenshots are complete for #66-#70 under
+`evidence/screenshots/`. If the rubric requires image attachments inside each
+issue, attach the corresponding Newman/Postman failure before submission.
+
+Captured screenshot set:
 
 | Issue | Failure to show | Suggested filename |
 |---|---|---|
-| #66 | plaintext password assertion | `bug-02-plaintext-password.png` |
-| #67 | confirmPassword accepted | `bug-10-confirm-password.png` |
-| #68 | text/plain returns HTTP 500 | `bug-11-http-500.png` |
-| #69 | HTML stack trace / `<pre>` | `bug-12-stack-trace.png` |
-| #70 | unauthenticated product mutation returns 200 | `bug-13-product-auth.png` |
+| #66 | plaintext password | `github-issue-66-plaintext-password.png` |
+| #67 | confirmPassword accepted | `github-issue-67-confirm-password.png` |
+| #68 | text/plain returns HTTP 500 | `github-issue-68-text-plain-http500.png` |
+| #69 | HTML stack trace / `<pre>` | `github-issue-69-html-stack-trace.png` |
+| #70 | unauthenticated product mutation | `github-issue-70-product-write-auth.png` |
 
 ## 4. GitHub Actions - one green and one red
 
@@ -55,8 +61,8 @@ The real URLs and SHAs are already recorded in `docs/cicd/CI_CD_REPORT.md`:
 - Red: run `32649883960`, with `A1-ST-002` and `A1-ST-003` failing on Linux.
 - Green: run `32650090578`, with the reviewed gate passing 1,262/1,262.
 
-Open each run and capture the job summary. Save one screenshot showing the red
-failure detail and one showing the green `regression-gate` with zero failures.
+Both signed-in run summaries are captured as
+`github-actions-red-summary.png` and `github-actions-green-summary.png`.
 
 ## 5. Self-drawn generator diagram
 
