@@ -1,0 +1,8 @@
+﻿HW06 - API Testing | Git commit log
+Student ID : 23127184
+Repository : https://github.com/KieuDuyennn/software__testing.git
+Branch     : hw6
+Generated  : 2026-08-23 21:39:43 +07:00
+Scope      : commits touching HW06/
+==============================================================================
+

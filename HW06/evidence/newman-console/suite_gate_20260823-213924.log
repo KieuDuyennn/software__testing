@@ -1,0 +1,358 @@
+﻿
+=== API1_FR01_Register (gate) ===
+newman
+
+API1 - FR-01 Account Registration (POST /api/register)
+
+□ 02 - State transitions
+└ ST-001 | Registered account can immediately log in
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787495967159'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 67ms]
+  ┌
+  │ '[HW06] ST-001 fixture registered e27cda14-8cb3-45c1-8
+  │ b9d-cf1aa1e04935@domain.com -> 200'
+  └
+  POST http://localhost:3000/api/login [200 OK, 672B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Newly registered account transitions to a usable login state
+
+□ 04 - Schema validation
+└ SCH-001 | Success response matches the specified schema exactly
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787495967159'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Response body conforms to the spec schema
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                 3 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                 4 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                 3 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                 8 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 450ms                                      │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 501B (approx)                             │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 29ms [min: 11ms, max: 67ms, s.d.: 26ms] │
+└────────────────────────────────────────────────────────────────┘
+
+=== API2_FR06_ProductDetail (gate) ===
+newman
+
+API2 - FR-06 Product Detail (GET /api/products/:id)
+
+□ 00 - Setup
+└ SETUP-001 | Capture a known-good product id
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts | run_tag=run-1787495968024'
+  └
+  GET http://localhost:3000/api/products [200 OK, 1.24kB, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Product list is available
+
+□ 03 - Security (SEC-01..SEC-07)
+└ SEC-05 | SQL injection through the :id path parameter
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/1 OR 1=1 | run_tag=run-1787495968024'
+  └
+  GET http://localhost:3000/api/products/1 OR 1=1 [200 OK, 267B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injection does not return the whole table
+  √  No 500 / SQL error leak
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │                2 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │                4 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │                2 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │                9 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 240ms                                    │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 971B (approx)                           │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 5ms [min: 5ms, max: 6ms, s.d.: 500µs] │
+└──────────────────────────────────────────────────────────────┘
+
+=== API3_FR11_OrderHistory (gate) ===
+newman
+
+API3 - FR-11 Order History (GET /api/orders/my-orders)
+
+□ 00 - Setup
+└ SETUP-001 | Log in as the primary user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787495968527'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 24ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+└ SETUP-002 | Create an order owned by the primary user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ checkout | run_tag=run-1787495968527'
+  └
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 12ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Checkout created an order
+
+└ SETUP-003 | Register + log in a second user (the victim)
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787495968527'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 13ms]
+  ┌
+  │ '[HW06] victim account created: 0eeb3d9b-f199-40a2-8d0
+  │ 9-73f36092fc3f@victim.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 666B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Victim account is usable
+
+└ SETUP-004 | Create an order owned by the victim
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ checkout | run_tag=run-1787495968527'
+  └
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 17ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Victim order created
+
+□ 01 - Domain partitions
+└ DP-001 | Authenticated user receives their own order list
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787495968527'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 410B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Response is an array
+  √  Every returned order belongs to the caller
+
+└ DP-002 | Missing token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787495968527'
+  └
+  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Unauthenticated request returns 401
+
+□ 02 - State transitions (FR-10)
+└ ST-001 | A new order appears in history as 'pending'
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787495968527'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 410B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  The order created in setup is listed as pending
+
+└ ST-002 | Cancelling a pending order is reflected in history
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PUT {{base_url}}/api/o
+  │ rders/{{own_order_id}}/cancel | run_tag=run-1787495968
+  │ 527'
+  └
+  PUT http://localhost:3000/api/orders/1/cancel [200 OK, 308B, 13ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Cancel from 'pending' is allowed
+
+□ 04 - Schema validation
+└ SCH-001 | Order-history entries match the orders schema
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787495968527'
+  └
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 411B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Order history conforms to the schema
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │               10 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │               18 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │               10 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │               38 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 1039ms                                   │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 1.39kB (approx)                         │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 11ms [min: 3ms, max: 24ms, s.d.: 5ms] │
+└──────────────────────────────────────────────────────────────┘
+
+=== API4_FR13_AdminOrders (gate) ===
+newman
+
+API4 - FR-13 Admin Dashboard (GET /api/admin/orders)
+
+□ 00 - Setup
+└ SETUP-001 | Log in as admin
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787495969887'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+└ SETUP-002 | Log in as a non-admin user
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787495969887'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeded
+
+□ 01 - Domain partitions
+└ DP-001 | Admin receives the full order list
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787495969887'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 592B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Response is an array
+  √  Rows are joined with the ordering user's name
+
+└ DP-002 | Missing token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787495969887'
+  └
+  GET http://localhost:3000/api/admin/orders [401 Unauthorized, 301B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Unauthenticated request returns 401
+
+└ DP-003 | Malformed token is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787495969887'
+  └
+  GET http://localhost:3000/api/admin/orders [403 Forbidden, 295B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Invalid token returns 403
+
+□ 02 - State transitions (FR-10)
+└ ST-001 | Revenue counts only 'delivered' orders
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787495969887'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 592B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  ┌
+  │ '[HW06] delivered orders=0 revenue=0'
+  └
+  √  Every order carries a status from the FR-10 state set
+
+□ 04 - Schema validation
+└ SCH-001 | Admin order rows match the joined schema
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787495969887'
+  └
+  GET http://localhost:3000/api/admin/orders [200 OK, 592B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Admin order list conforms to the schema
+
+┌─────────────────────────┬─────────────────┬────────────────┐
+│                         │        executed │         failed │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              iterations │               1 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│                requests │               7 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│            test-scripts │              14 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│      prerequest-scripts │               7 │              0 │
+├─────────────────────────┼─────────────────┼────────────────┤
+│              assertions │              30 │              0 │
+├─────────────────────────┴─────────────────┴────────────────┤
+│ total run duration: 766ms                                  │
+├────────────────────────────────────────────────────────────┤
+│ total data received: 1.75kB (approx)                       │
+├────────────────────────────────────────────────────────────┤
+│ average response time: 5ms [min: 3ms, max: 8ms, s.d.: 1ms] │
+└────────────────────────────────────────────────────────────┘
+
+===== HW06 suite summary (mode=gate, env=local) =====
+  API1_FR01_Register              8/8    passed  PASS
+  API2_FR06_ProductDetail         9/9    passed  PASS
+  API3_FR11_OrderHistory         38/38   passed  PASS
+  API4_FR13_AdminOrders          30/30   passed  PASS
+  TOTAL                        85/85 assertions passed

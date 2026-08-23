@@ -1,0 +1,36 @@
+{
+  "_comment": [
+    "Folders that form the CI green gate. The SUT contains real defects, so the",
+    "full suite legitimately goes red; the gate is the subset whose expectations",
+    "the SUT currently meets, i.e. the regression baseline that must not break.",
+    "",
+    "Section 6 of the brief asks for two sample pipeline runs: one all-passing and",
+    "one with a failing case. Commit A = this gate, green. Commit B = move one",
+    "defect-revealing folder/case into the gate so the same pipeline goes red.",
+    "",
+    "Verified green against the seeded SUT on the scaffold smoke run.",
+    "Re-verify after each batch of new test cases and update this list."
+  ],
+  "gate": {
+    "API1_FR01_Register": [
+      "02 - State transitions",
+      "04 - Schema validation"
+    ],
+    "API2_FR06_ProductDetail": [
+      "00 - Setup",
+      "03 - Security (SEC-01..SEC-07)"
+    ],
+    "API3_FR11_OrderHistory": [
+      "00 - Setup",
+      "01 - Domain partitions",
+      "02 - State transitions (FR-10)",
+      "04 - Schema validation"
+    ],
+    "API4_FR13_AdminOrders": [
+      "00 - Setup",
+      "01 - Domain partitions",
+      "02 - State transitions (FR-10)",
+      "04 - Schema validation"
+    ]
+  }
+}

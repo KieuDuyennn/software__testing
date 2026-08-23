@@ -1,0 +1,432 @@
+{
+  "info": {
+    "_postman_id": "4047477e-e4ef-4cce-b69c-2bf83cad3840",
+    "name": "API2 - FR-06 Product Detail (GET /api/products/:id)",
+    "description": "HW06 / Pool A / FR-06.\n\nSpec: GET /api/products/:id -> the product record.\n\nThis collection is the main carrier of schema-validation evidence: the response type of `price` and the not-found behaviour are both worth checking against the spec on every id partition.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Setup",
+      "item": [
+        {
+          "name": "SETUP-001 | Capture a known-good product id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Product list is available\", () => pm.response.to.have.status(200));",
+                  "const list = pm.response.json();",
+                  "if (Array.isArray(list) && list.length) {",
+                  "    pm.environment.set(\"existing_product_id\", list[0].id);",
+                  "    pm.environment.set(\"max_product_id\", list[list.length - 1].id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "01 - Domain partitions",
+      "item": [
+        {
+          "name": "DP-001 | Existing id returns that product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Returned product is the one requested\", function () {",
+                  "    pm.expect(String(pm.response.json().id)).to.eql(",
+                  "        String(pm.environment.get(\"existing_product_id\"))",
+                  "    );",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{existing_product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{existing_product_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DP-002 | Non-existent id returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Spec/REST contract: an unknown resource is 404, not 200 with an empty body.",
+                  "pm.test(\"Unknown product id returns 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/999999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "999999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DP-003 | Non-numeric id is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Non-numeric id yields a 4xx, never a 500\", function () {",
+                  "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/abc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "abc"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Partitions on :id - valid / non-existent / zero / negative / non-numeric / overflow / injection."
+    },
+    {
+      "name": "02 - State transitions",
+      "item": [
+        {
+          "name": "ST-001 | Deleted product is no longer retrievable",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Create then delete a product so this request observes the post-delete state.",
+                  "// NOTE: POST/DELETE /api/products currently need no token - that itself is a",
+                  "// finding for the security folder.",
+                  "const base = pm.environment.get(\"base_url\");",
+                  "const sid = pm.environment.get(\"student_id\");",
+                  "pm.sendRequest({",
+                  "    url: base + \"/api/products\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": sid },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({",
+                  "        name: \"HW06 transient\", price: 1000, description: \"state fixture\",",
+                  "        imageUrl: \"\", category_id: 1 }) }",
+                  "}, function (err, res) {",
+                  "    if (err || !res) { return; }",
+                  "    const id = res.json().id;",
+                  "    pm.environment.set(\"transient_product_id\", id);",
+                  "    pm.sendRequest({",
+                  "        url: base + \"/api/products/\" + id,",
+                  "        method: \"DELETE\",",
+                  "        header: { \"X-Student-Id\": sid }",
+                  "    }, function () {",
+                  "        console.log(\"[HW06] ST-001 fixture created+deleted product \" + id);",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A deleted product returns 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{transient_product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{transient_product_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Existence states of a product: present -> deleted -> absent."
+    },
+    {
+      "name": "03 - Security (SEC-01..SEC-07)",
+      "item": [
+        {
+          "name": "SEC-05 | SQL injection through the :id path parameter",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Injection does not return the whole table\", function () {",
+                  "    const b = pm.response.json();",
+                  "    pm.expect(Array.isArray(b), \"response must not be a list of all products\").to.be.false;",
+                  "});",
+                  "pm.test(\"No 500 / SQL error leak\", function () {",
+                  "    pm.expect(pm.response.code).to.not.eql(500);",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.not.include(\"sqlite\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1 OR 1=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1 OR 1=1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "04 - Schema validation",
+      "item": [
+        {
+          "name": "SCH-001 | Product schema holds for an odd id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    properties: {",
+                  "        id: { type: \"integer\" },",
+                  "        name: { type: \"string\" },",
+                  "        price: { type: \"number\" },",
+                  "        description: { type: \"string\" },",
+                  "        imageUrl: { type: \"string\" },",
+                  "        category_id: { type: \"integer\" }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});",
+                  "",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(pm.response.json().price).to.be.a(\"number\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SCH-002 | Product schema holds for an even id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"object\",",
+                  "    required: [\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"],",
+                  "    properties: {",
+                  "        id: { type: \"integer\" },",
+                  "        name: { type: \"string\" },",
+                  "        price: { type: \"number\" },",
+                  "        description: { type: \"string\" },",
+                  "        imageUrl: { type: \"string\" },",
+                  "        category_id: { type: \"integer\" }",
+                  "    }",
+                  "};",
+                  "",
+                  "// Same contract must hold regardless of the id's parity.",
+                  "pm.test(\"Response conforms to the product schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});",
+                  "",
+                  "pm.test(\"price is a JSON number, not a string\", function () {",
+                  "    pm.expect(pm.response.json().price).to.be.a(\"number\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Run the same schema assertions across every id partition - type drift is id-dependent here."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// HW06 mandatory harness: every request must carry X-Student-Id.",
+          "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+          "// brief) - screenshot the Postman console showing it.",
+          "// ---------------------------------------------------------------------------",
+          "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+          "",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// Tag each run so Newman output and SUT state can be correlated.",
+          "if (!pm.environment.get(\"run_tag\")) {",
+          "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+          "}",
+          "",
+          "console.log(",
+          "    \"[HW06] X-Student-Id=\" + studentId +",
+          "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+          "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+          ");"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// Assertions that apply to every request in the collection.",
+          "// ---------------------------------------------------------------------------",
+          "pm.test(\"Request carried the X-Student-Id header\", function () {",
+          "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+          "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+          "        pm.environment.get(\"student_id\") || \"23127184\"",
+          "    );",
+          "});",
+          "",
+          "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+          "    pm.expect(",
+          "        pm.response.code,",
+          "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+          "    ).to.not.eql(429);",
+          "});",
+          "",
+          "pm.test(\"Response arrived under 2000 ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": []
+}

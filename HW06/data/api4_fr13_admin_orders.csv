@@ -1,0 +1,5 @@
+tc_id,partition,actor,token_var,expected_status,requirement
+DDT-01,admin-role,admin,admin_token,200,FR-13
+DDT-02,user-role,normal-user,user_token,403,SEC-03
+DDT-03,no-token,anonymous,,401,SEC-02
+DDT-04,malformed-token,forged,bad_token,403,SEC-02

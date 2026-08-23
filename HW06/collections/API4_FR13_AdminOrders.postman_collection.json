@@ -1,0 +1,491 @@
+{
+  "info": {
+    "_postman_id": "b6e8e36f-1860-4d8b-abf9-7644ca1f668c",
+    "name": "API4 - FR-13 Admin Dashboard (GET /api/admin/orders)",
+    "description": "HW06 / Pool C / FR-13.\n\nThe admin dashboard reports total revenue - the sum of total_amount over orders whose status is 'delivered' - and the total order count. Both are computed from GET /api/admin/orders, so that endpoint is the API under test. FR-12 / SEC-03 require role='admin' in the token, not merely a valid token.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Setup",
+      "item": [
+        {
+          "name": "SETUP-001 | Log in as admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login succeeded\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.environment.set(\"admin_token\", body.token);",
+                  "if (body.user) {",
+                  "    pm.environment.set(\"admin_token_user_id\", body.user.id);",
+                  "    pm.environment.set(\"admin_token_role\", body.user.role);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Setup step: obtains a JWT used by later requests in this collection."
+          },
+          "response": []
+        },
+        {
+          "name": "SETUP-002 | Log in as a non-admin user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login succeeded\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.environment.set(\"user_token\", body.token);",
+                  "if (body.user) {",
+                  "    pm.environment.set(\"user_token_user_id\", body.user.id);",
+                  "    pm.environment.set(\"user_token_role\", body.user.role);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Setup step: obtains a JWT used by later requests in this collection."
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "01 - Domain partitions",
+      "item": [
+        {
+          "name": "DP-001 | Admin receives the full order list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"Rows are joined with the ordering user's name\", function () {",
+                  "    const rows = pm.response.json();",
+                  "    if (rows.length) { pm.expect(rows[0]).to.have.property(\"user_name\"); }",
+                  "});",
+                  "pm.environment.set(\"admin_order_count\", pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DP-002 | Missing token is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Unauthenticated request returns 401\", () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DP-003 | Malformed token is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Invalid token returns 403\", () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer not.a.real.token"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "02 - State transitions (FR-10)",
+      "item": [
+        {
+          "name": "ST-001 | Revenue counts only 'delivered' orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// FR-13: \"Chi tinh tong total_amount cua cac don co status = 'delivered'\".",
+                  "const rows = pm.response.json();",
+                  "const delivered = rows.filter(o => o.status === \"delivered\");",
+                  "const revenue = delivered.reduce((s, o) => s + Number(o.total_amount || 0), 0);",
+                  "",
+                  "pm.environment.set(\"expected_revenue\", revenue);",
+                  "console.log(\"[HW06] delivered orders=\" + delivered.length + \" revenue=\" + revenue);",
+                  "",
+                  "pm.test(\"Every order carries a status from the FR-10 state set\", function () {",
+                  "    const allowed = [\"pending\", \"confirmed\", \"shipping\", \"delivered\", \"canceled\"];",
+                  "    rows.forEach(o => pm.expect(allowed, \"status of order \" + o.id).to.include(o.status));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "The dashboard's numbers are a projection of the FR-10 state machine; drive orders through transitions and re-assert the aggregate."
+    },
+    {
+      "name": "03 - Security (SEC-01..SEC-07)",
+      "item": [
+        {
+          "name": "SEC-03 | A non-admin token must not reach an /api/admin endpoint",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// SEC-03 / FR-12: admin APIs must check role='admin' in the token, not just",
+                  "// that a token exists.",
+                  "pm.test(\"Non-admin caller is refused\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-01 | Admin order data must not leak user credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"No password field is present in any row\", function () {",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.not.include('\"password\"');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "04 - Schema validation",
+      "item": [
+        {
+          "name": "SCH-001 | Admin order rows match the joined schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const schema = {",
+                  "    type: \"array\",",
+                  "    items: {",
+                  "        type: \"object\",",
+                  "        required: [\"id\", \"user_id\", \"total_amount\", \"status\", \"user_name\"],",
+                  "        properties: {",
+                  "            id: { type: \"integer\" },",
+                  "            user_id: { type: \"integer\" },",
+                  "            total_amount: { type: \"number\" },",
+                  "            status: { type: \"string\",",
+                  "                      enum: [\"pending\", \"confirmed\", \"shipping\", \"delivered\", \"canceled\"] },",
+                  "            shipping_address: { type: [\"string\", \"null\"] },",
+                  "            created_at: { type: \"string\" },",
+                  "            user_name: { type: [\"string\", \"null\"] }",
+                  "        }",
+                  "    }",
+                  "};",
+                  "",
+                  "pm.test(\"Admin order list conforms to the schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// HW06 mandatory harness: every request must carry X-Student-Id.",
+          "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+          "// brief) - screenshot the Postman console showing it.",
+          "// ---------------------------------------------------------------------------",
+          "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+          "",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// Tag each run so Newman output and SUT state can be correlated.",
+          "if (!pm.environment.get(\"run_tag\")) {",
+          "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+          "}",
+          "",
+          "console.log(",
+          "    \"[HW06] X-Student-Id=\" + studentId +",
+          "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+          "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+          ");"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// Assertions that apply to every request in the collection.",
+          "// ---------------------------------------------------------------------------",
+          "pm.test(\"Request carried the X-Student-Id header\", function () {",
+          "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+          "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+          "        pm.environment.get(\"student_id\") || \"23127184\"",
+          "    );",
+          "});",
+          "",
+          "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+          "    pm.expect(",
+          "        pm.response.code,",
+          "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+          "    ).to.not.eql(429);",
+          "});",
+          "",
+          "pm.test(\"Response arrived under 2000 ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": []
+}
