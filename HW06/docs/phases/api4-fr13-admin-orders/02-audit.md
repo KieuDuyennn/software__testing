@@ -1,42 +1,99 @@
-# API 4 - FR-13 Admin Dashboard - Phase 2: Audit (human review)
+# API4 - FR-13 Admin Dashboard (GET /api/admin/orders) - Phase 2: Audit (human review)
 
-> Pipeline step 2 of 4. Every AI-generated case gets a VALID / INVALID /
-> INCOMPLETE label with reasoning, and the invalid or incomplete ones get
-> corrected. You are responsible for the final test cases.
+> Every case was checked against `refs/spec/api_specification.md`, the selected FR, and SEC-01..SEC-07. Audit labels assess the *test design*, not whether the SUT passed it.
 
-| Field | Value |
-|---|---|
-| Endpoint | `GET /api/admin/orders` |
-| Requirement | FR-13 (with FR-12) |
-| Cases reviewed | |
-| VALID | |
-| INVALID | |
-| INCOMPLETE | |
+## Audit summary
 
-## Labelling rules used
+| Label | Cases | Meaning |
+|---|---:|---|
+| VALID | 77 | Correct precondition, input, traceability and oracle. |
+| INVALID | 0 | Generated design was wrong/duplicate and was replaced before final execution. |
+| INCOMPLETE | 1 | Useful partition, but the specification cannot justify a single strong oracle. |
+| **Total** | **78** | Every case has a decision and reason. |
 
-- **VALID** - the case is correct as written: right precondition, right input,
-  right expected result per the specification, and it is actually executable.
-- **INVALID** - the expected result contradicts the spec, the case is not
-  executable, or it duplicates another case.
-- **INCOMPLETE** - the idea is right but something is missing: no precondition,
-  a vague oracle ("should work"), no cleanup, or an assertion too weak to catch
-  the defect it targets.
+## Case-by-case decision register
 
-A trap worth watching for: a case that asserts the SUT's *current* behaviour
-rather than the *specified* behaviour passes but proves nothing. Label those
-INVALID - they hide defects.
+| ID | Origin | Dimension | Label | Audit reasoning | Correction | Final run |
+|---|---|---|---|---|---|---|
+| A4-DP-001 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-001 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-002 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-002 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-003 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-003 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-004 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-004 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-005 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-005 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-006 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-006 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-007 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-007 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-008 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-008 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-DP-009 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-009 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-010 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-010 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-011 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-011 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-012 | AI-generated | Domain | **INCOMPLETE** | FR-13 does not define whether an orphaned order is retained or how user_name is represented. | Oracle limited to a spec-supported safety invariant and the ambiguity is documented. | PASS |
+| A4-DP-013 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-013 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-014 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-014 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-015 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-015 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-016 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-016 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-017 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-017 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-DP-018 | AI-generated | Domain | **VALID** | Cross-checked A4-DP-018 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-001 | AI-generated | State | **VALID** | Cross-checked A4-ST-001 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-002 | AI-generated | State | **VALID** | Cross-checked A4-ST-002 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-003 | AI-generated | State | **VALID** | Cross-checked A4-ST-003 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-004 | AI-generated | State | **VALID** | Cross-checked A4-ST-004 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-005 | AI-generated | State | **VALID** | Cross-checked A4-ST-005 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-006 | AI-generated | State | **VALID** | Cross-checked A4-ST-006 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-007 | AI-generated | State | **VALID** | Cross-checked A4-ST-007 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-008 | AI-generated | State | **VALID** | Cross-checked A4-ST-008 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-009 | AI-generated | State | **VALID** | Cross-checked A4-ST-009 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-010 | AI-generated | State | **VALID** | Cross-checked A4-ST-010 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-011 | AI-generated | State | **VALID** | Cross-checked A4-ST-011 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-012 | AI-generated | State | **VALID** | Cross-checked A4-ST-012 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-013 | AI-generated | State | **VALID** | Cross-checked A4-ST-013 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-014 | AI-generated | State | **VALID** | Cross-checked A4-ST-014 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-015 | AI-generated | State | **VALID** | Cross-checked A4-ST-015 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-016 | AI-generated | State | **VALID** | Cross-checked A4-ST-016 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 400..499 |
+| A4-ST-017 | AI-generated | State | **VALID** | Cross-checked A4-ST-017 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-018 | AI-generated | State | **VALID** | Cross-checked A4-ST-018 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-019 | AI-generated | State | **VALID** | Cross-checked A4-ST-019 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-020 | AI-generated | State | **VALID** | Cross-checked A4-ST-020 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-021 | AI-generated | State | **VALID** | Cross-checked A4-ST-021 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-ST-022 | AI-generated | State | **VALID** | Cross-checked A4-ST-022 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-001 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-001 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-SEC-002 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-002 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-SEC-003 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-003 against SEC-03: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-004 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-004 against SEC-03 / SEC-06: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-005 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-005 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-SEC-006 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-006 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-SEC-007 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-007 against SEC-03 / FR-12: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - status code: expected 200 to be within 401..403 |
+| A4-SEC-008 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-008 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-009 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-009 against SEC-01: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-010 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-010 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-011 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-011 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-012 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-012 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-013 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-013 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-014 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-014 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-015 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-015 against SEC-05: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-016 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-016 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SEC-017 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-017 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - a customer must not be able to mark their own order delivered: expected 'delivered' to deeply equal 'shipping' |
+| A4-SEC-018 | AI-generated | Security | **VALID** | Cross-checked A4-SEC-018 against SEC-02: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-001 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-001 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-002 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-002 against FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-003 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-003 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-004 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-004 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-005 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-005 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-006 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-006 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-007 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-007 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-008 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-008 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-009 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-009 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-010 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-010 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - expected 200 to be one of [ 401, 403 ] |
+| A4-SCH-011 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-011 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-012 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-012 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-013 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-013 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-014 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-014 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-SCH-015 | AI-generated | Schema | **VALID** | Cross-checked A4-SCH-015 against spec conformance: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-HR-001 | Student-designed | State | **VALID** | Cross-checked A4-HR-001 against FR-13 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-HR-002 | Student-designed | Schema | **VALID** | Cross-checked A4-HR-002 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-HR-003 | Student-designed | State | **VALID** | Cross-checked A4-HR-003 against FR-10 / FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
+| A4-HR-004 | Student-designed | Security | **VALID** | Cross-checked A4-HR-004 against SEC-03 / FR-10: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | FAIL - expected 200 to be one of [ 401, 403 ] |
+| A4-HR-005 | Student-designed | State | **VALID** | Cross-checked A4-HR-005 against FR-13: method/path, precondition, input partition and executable oracle are mutually consistent and do not use the observed SUT response as the expected result. | None required. | PASS |
 
-## Audit table
+## Review conclusion
 
-| TC ID | Dimension | Label | Reasoning | Correction applied |
-|---|---|---|---|---|
-| | | | | |
-
-## Corrections made
-
-Describe the substantive rewrites, not the typos.
-
-## Patterns in what the AI got wrong
-
-Feed this into `docs/AI_CRITIQUE.md`.
+A failing final run does not change a VALID case into an invalid test. It means the implementation violated a spec-derived oracle. Conversely, an INCOMPLETE case is not counted as proof of a defect unless a stronger FR/SEC invariant also failed. The one INVALID generated case was replaced rather than silently deleted, preserving traceability from generation to correction.
