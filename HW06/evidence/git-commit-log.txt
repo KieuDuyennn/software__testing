@@ -2,9 +2,21 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-23 23:53:23 +07:00
+Generated  : 2026-08-24 00:30:16 +07:00
 Scope      : commits touching HW06/
 ==============================================================================
+
+5226c45  2026-08-24 00:30:07 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): align pool mapping and refresh evidence
+
+a59eea6  2026-08-24 00:14:04 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): finalize self assessment and uniqueness
+
+d818a20  2026-08-24 00:08:41 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): add generator diagram evidence
+
+61edce5  2026-08-23 23:53:24 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh evidence commit log
 
 0395924  2026-08-23 23:53:19 +0700  Lê Phạm Kiều Duyên
     evidence(hw06): add real Postman localhost execution
