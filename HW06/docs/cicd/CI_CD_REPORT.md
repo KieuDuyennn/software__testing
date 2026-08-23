@@ -88,17 +88,17 @@ locally.
 ## 3. Required run 1 — all test cases passing
 
 Local preflight is complete: `regression-gate` logic passes 1,262/1,262
-assertions. The fields below must be filled from a real pushed GitHub Actions
-run; local success is not represented as cloud evidence.
+assertions. The reviewed follow-up commit also passed on the GitHub-hosted
+Linux runner.
 
 | Field | Value |
 |---|---|
-| Commit SHA | |
-| Commit message | |
-| Workflow run URL | |
+| Commit SHA | `48f5eb0f50b1d7413a0f4e394d1751578395ac70` |
+| Commit message | `fix(hw06): stabilize Linux regression gate` |
+| Workflow run URL | `https://github.com/KieuDuyennn/software__testing/actions/runs/32650090578` |
 | Job | `regression-gate` |
-| Result | |
-| Assertions passed | |
+| Result | **GREEN** |
+| Assertions passed | 1,262/1,262 |
 | Screenshot | `evidence/screenshots/` |
 
 **Screenshot must show:** the green check on the run, the job name, and the
