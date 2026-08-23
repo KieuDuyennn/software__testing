@@ -146,10 +146,10 @@ def render_audit(module, data, out_dir):
         "",
         "## Review conclusion",
         "",
-        "A failing final run does not change a VALID case into an invalid test. It means the implementation "
-        "violated a spec-derived oracle. Conversely, an INCOMPLETE case is not counted as proof of a defect "
-        "unless a stronger FR/SEC invariant also failed. The one INVALID generated case was replaced rather "
-        "than silently deleted, preserving traceability from generation to correction.",
+        "VALID and INVALID describe test quality, not the final execution result. A failed VALID case shows "
+        "that the implementation violated its requirement-based oracle. An INCOMPLETE case does not prove a "
+        "defect unless another FR/SEC invariant supplies the missing oracle. The INVALID generated case remains "
+        "in the audit trail with its replacement recorded.",
         "",
     ]
     (out_dir / "02-audit.md").write_text("\n".join(lines), encoding="utf-8")
@@ -160,8 +160,8 @@ def render_extend(module, data, out_dir):
     lines = [
         "# %s - Phase 3: Extend" % module.META["collection_name"],
         "",
-        "> Five independently designed cases added after the human audit. They target omitted encodings, "
-        "post-conditions, metamorphic consistency, and atomicity rather than inflating boundary counts.",
+        "> Five cases designed after the human audit cover omitted encodings, post-conditions, "
+        "metamorphic consistency, and atomicity.",
         "",
         "## Added test cases",
         "",

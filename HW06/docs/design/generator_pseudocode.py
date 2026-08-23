@@ -4,9 +4,8 @@ HW06 - AI-driven API test generator: PSEUDOCODE.
 This is a design artefact, not a runnable program. It exists to make the stage
 boundaries and the data passed between them concrete enough to draw.
 
-Keep the stage names identical to the ones in your diagram
-(docs/design/GENERATOR_DESIGN.md). Adjust freely - the design decisions are
-yours, and the graders are assessing your design, not this skeleton.
+Stage names match docs/design/GENERATOR_DESIGN.md and the editable diagram.
+The submitted version requires student review of every design decision.
 """
 
 # =============================================================================

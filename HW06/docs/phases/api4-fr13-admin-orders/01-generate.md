@@ -117,7 +117,7 @@ a customer must not be able to mark their own order delivered:
 expected 'delivered' to equal 'shipping'
 ```
 
-It succeeded. So the missing role check is not only an information-disclosure
+It succeeded. The missing role check is an information-disclosure
 problem - it lets any customer **inflate the company's reported revenue** by
 delivering their own orders. That converts an abstract SEC-03 violation into a
 concrete business impact, which is what a bug report needs.
@@ -144,7 +144,7 @@ reads `expected [ ...(91) ] to have property 'error'`.
    once; keep the others as regression coverage.
 2. **SEC-006 and SEC-007 target `/api/admin/users`, which is FR-19, not
    FR-13.** They are included because FR-12 covers the whole `/api/admin/*`
-   surface. Confirm that scoping so the finding is reported in one place.
+   surface. The audit groups this finding under one root cause.
 3. **`A4-DP-012` (deleted user) carries a specification gap** - the spec does
    not say how orphaned orders should appear. It asserts only presence.
 4. **`A4-SEC-017` overlaps SEC-005** in root cause but not in impact. Keep both:

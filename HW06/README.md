@@ -38,8 +38,8 @@ second graded selection.
 
 **Group uniqueness confirmation (2026-08-24):** I, Lê Phạm Kiều Duyên
 (23127184), confirm that I checked with my group and that my graded combination
-— FR-01 Account registration (Pool A), FR-11 Order history (Pool B), and FR-13
-Admin dashboard (Pool C) — is unique within the group.
+consisting of FR-01 Account registration (Pool A), FR-11 Order history (Pool B),
+and FR-13 Admin dashboard (Pool C), is unique within the group.
 
 ## Verified summary
 

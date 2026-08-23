@@ -238,9 +238,8 @@ AUDIT = """# {title} - Phase 2: Audit (human review)
   a vague oracle ("should work"), no cleanup, or an assertion too weak to catch
   the defect it targets.
 
-A trap worth watching for: a case that asserts the SUT's *current* behaviour
-rather than the *specified* behaviour passes but proves nothing. Label those
-INVALID - they hide defects.
+A case that asserts the SUT's *current* behaviour can pass without proving
+specification conformance. Such a case is INVALID because it can hide defects.
 
 ## Audit table
 
@@ -259,7 +258,7 @@ Feed this into `docs/AI_CRITIQUE.md`.
 
 EXTEND = """# {title} - Phase 3: Extend
 
-> Pipeline step 3 of 4. At least five test cases of your own that the AI missed,
+> Pipeline step 3 of 4. At least five student-designed cases that the AI missed,
 > weighted towards security and state transitions, each with an explanation of
 > *why* the AI missed it.
 

@@ -11,15 +11,14 @@ TAs verify as **not AI-generated**. It must be self-drawn.
 | `generator-design.mmd` | Editable Mermaid source; import it with **Insert > Advanced > Mermaid** in draw.io |
 | `generator-design.svg` | Editable vector layout used to create the readable report PNG |
 
-Any tool is fine - draw.io, Excalidraw, Figma, PowerPoint, or paper photographed
-with a phone. What matters is that the design decisions and the drawing are
-yours.
+The checked-in files are an editable draft. The final submitted diagram must
+reflect the student's reviewed design decisions.
 
 ## Before editing
 
 The source implements D1-D6 in `../GENERATOR_DESIGN.md`. Before submission,
-open it in draw.io, review every label and make any changes needed to reflect
-your own explanation in the demo. Mermaid import may become draw.io shapes or
+open it in draw.io, review every label, and make any needed changes before the
+demo. Mermaid import may become draw.io shapes or
 an SVG depending on the draw.io version; keep this `.mmd` as the editable source.
 
 ## Checklist

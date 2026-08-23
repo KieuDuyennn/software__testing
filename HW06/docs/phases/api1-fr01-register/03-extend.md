@@ -1,6 +1,6 @@
 # API1 - FR-01 Account Registration (POST /api/register) - Phase 3: Extend
 
-> Five independently designed cases added after the human audit. They target omitted encodings, post-conditions, metamorphic consistency, and atomicity rather than inflating boundary counts.
+> Five cases designed after the human audit cover omitted encodings, post-conditions, metamorphic consistency, and atomicity.
 
 ## Added test cases
 

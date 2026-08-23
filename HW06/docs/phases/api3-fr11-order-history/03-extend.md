@@ -1,6 +1,6 @@
 # API3 - FR-11 Order History (GET /api/orders/my-orders) - Phase 3: Extend
 
-> Five independently designed cases added after the human audit. They target omitted encodings, post-conditions, metamorphic consistency, and atomicity rather than inflating boundary counts.
+> Five cases designed after the human audit cover omitted encodings, post-conditions, metamorphic consistency, and atomicity.
 
 ## Added test cases
 

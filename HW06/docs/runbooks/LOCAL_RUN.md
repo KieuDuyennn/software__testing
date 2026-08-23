@@ -28,7 +28,7 @@ Useful switches:
 ## Run against an already-running backend
 
 ```powershell
-npm run sut:start           # terminal 1 - LOADTEST=1 is set for you
+npm run sut:start           # terminal 1; sets LOADTEST=1
 npm run test:api1           # terminal 2
 npm run test:all
 ```
@@ -41,18 +41,18 @@ node scripts/run-suite.js --mode gate --env local     # must be green
 node scripts/run-suite.js --mode full --env local     # defects show here
 ```
 
-## Two things that will bite you
+## Execution constraints
 
 **1. `LOADTEST=1` is not optional.** The backend rate-limits `/api` to 200
 requests per 15 minutes per IP. A full suite exceeds that, and without the flag
-the run starts returning HTTP 429 partway through — every later assertion then
+the run starts returning HTTP 429 partway through. Every later assertion then
 fails for a reason that has nothing to do with the SUT. The collections assert
-`code !== 429` globally so this is caught rather than misread, but the fix is
-to set the flag.
+`code !== 429` globally to identify an invalid rate-limited run. Set the flag
+before execution.
 
 **2. Starting the backend wipes the database.** `database.js` drops and
 re-seeds every table on startup. That is what makes runs reproducible, but it
-also means any data you created by hand is gone the moment you restart. Seeded
+also removes manually created data on restart. Seeded
 accounts after every restart:
 
 | Account | Email | Password | Role |
@@ -69,9 +69,9 @@ Seeded data: 3 categories, 5 products (ids 1-5), 4 coupons
 python scripts/build-collections.py    # OVERWRITES collections/
 ```
 
-Only useful before you start editing in Postman. Once you have imported the
-collections and added cases there, the exported JSON is the source of truth —
-re-running the builder would discard your work.
+Use this command only before editing in Postman. After import and case edits,
+the exported JSON becomes the source of truth. Re-running the builder discards
+those edits.
 
 ## Exporting the commit log
 
@@ -93,9 +93,9 @@ python scripts/render-cases.py --api 1
 python scripts/render-cases.py --api 1 --refresh-gate
 ```
 
-Edit cases in the Python module, never in the exported collection JSON —
-re-rendering overwrites the collection. `scripts/build-collections.py`
-deliberately no longer writes API 1 for the same reason.
+Edit cases in the Python module, never in the exported collection JSON.
+Re-rendering overwrites the collection. `scripts/build-collections.py` excludes
+API 1 because its case module is the source of truth.
 
 The renderer fails loudly on a duplicate case ID, and on any case that would
 fall outside every folder filter, so a case can never be silently dropped.

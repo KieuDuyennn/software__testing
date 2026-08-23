@@ -9,8 +9,8 @@ Workflow file: [`.github/workflows/hw06-api-tests.yml`](../../../.github/workflo
 
 The EShop SUT ships with genuine defects, and the test suite is written against
 the **specification**, not against the SUT's current behaviour. A suite written
-that way is red by design — which is correct testing, but useless as a build
-gate, because a permanently red pipeline tells you nothing when something new
+that way is red by design. This is valid defect discovery but cannot serve as a build
+gate, because a permanently red pipeline cannot identify a new
 breaks.
 
 So the workflow splits in two:
@@ -31,8 +31,8 @@ two granularities, and the runner prefers the finer one when it is available:
 | `gate_cases` | explicit case IDs, rendered into a separate `*_gate` collection | All four APIs |
 
 The folder-level gate stopped working the moment API 1 was written properly.
-Once 121 cases derive their expectations from the specification rather than
-from the SUT's behaviour, the 53 failures land in almost every folder: of nine
+The 121 cases derive their expectations from the specification. Their 53
+failures occur in almost every folder: of nine
 folders and sub-folders, exactly one is entirely green, and gating on that one
 would prove nothing.
 
@@ -40,16 +40,16 @@ The case-level gate fixes this. `scripts/render-cases.py --api 1 --refresh-gate`
 reads the last full-run report, writes the IDs of every case that passed into
 `gate_cases`, and renders `collections/API1_FR01_Register_gate.postman_collection.json`
 containing exactly those cases. The rule it encodes is *"whatever passes today
-must keep passing"* — which is what a regression gate is for — while the 53
+must keep passing"*. The regression gate covers that purpose. The 53
 genuine failures stay visible in the `full-suite` job instead of being hidden.
 
 Current gate after the final audited run: **67/126 API 1 cases, 54/88 API 2,
-84/94 API 3, and 68/78 API 4**. The verified local gate run on 2026-08-23
+84/94 API 3, and 68/78 API 4**. The verified local gate run on 2026-08-24
 passed **1,262/1,262 assertions**. Its raw transcript is
-`evidence/newman-console/suite_gate_20260823-225337.log`.
+`evidence/newman-console/suite_gate_20260824-002730.log`.
 
 Re-run `--refresh-gate` after every batch of new or corrected cases, and commit
-the resulting diff — the change in that file is itself a readable record of
+the resulting diff. The change in that file records
 which expectations the SUT started or stopped meeting.
 
 ## 2. Pipeline configuration
@@ -61,8 +61,8 @@ Each job runs the same six steps:
 
 1. `actions/checkout@v4`
 2. `actions/setup-node@v4` with Node 20
-3. Install the test harness — `npm ci || npm install` in `HW06/`
-4. Install the SUT — `npm --prefix eshop/backend install`
+3. Install the test harness: `npm ci || npm install` in `HW06/`
+4. Install the SUT: `npm --prefix eshop/backend install`
 5. **Start the backend** with `LOADTEST=1`, then poll
    `http://127.0.0.1:3000/api/products` until it answers (40 attempts, 0.5 s
    apart) before any test runs
@@ -85,7 +85,7 @@ The `X-Student-Id: 23127184` header is injected by the collection-level
 pre-request script, so it is present on every request in CI exactly as it is
 locally.
 
-## 3. Required run 1 — all test cases passing
+## 3. Required run 1: all test cases passing
 
 Local preflight is complete: `regression-gate` logic passes 1,262/1,262
 assertions. The reviewed follow-up commit also passed on the GitHub-hosted
@@ -104,7 +104,7 @@ Linux runner.
 **Screenshot must show:** the green check on the run, the job name, and the
 Newman summary with 0 failed assertions.
 
-## 4. Required run 2 — one test case failing
+## 4. Required run 2: one test case failing
 
 The initial pushed baseline produced a genuine red run because two API 1
 state-transition cases that passed on Windows were unstable on the Linux
@@ -132,9 +132,9 @@ retains the complete Newman failure detail and downloadable artifacts.
 
 ## 6. What the pipeline does not cover
 
-State honestly, so the report does not overclaim:
+Current exclusions:
 
-- [ ] Postman **monitors** run against the Postman cloud, not this pipeline —
+- [ ] Postman **monitors** run against the Postman cloud, not this pipeline;
       note whether one was configured and link it.
 - [ ] The **mock server** is used for contract work, not in the gate.
 - [ ] The SUT runs on the CI runner itself (`127.0.0.1`), not on a deployed
