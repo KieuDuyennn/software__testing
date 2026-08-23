@@ -2,9 +2,15 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-23 23:18:08 +07:00
+Generated  : 2026-08-23 23:24:01 +07:00
 Scope      : commits touching HW06/
 ==============================================================================
+
+00c1072  2026-08-23 23:23:58 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): streamline submission handoff
+
+fe36b7e  2026-08-23 23:18:08 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh history after trailer cleanup
 
 8d77c6d  2026-08-23 23:14:53 +0700  Lê Phạm Kiều Duyên
     docs(hw06): add authentic browser evidence
