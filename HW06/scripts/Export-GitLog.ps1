@@ -29,12 +29,14 @@ $header = @(
     ""
 )
 
+# The HW06 pathspec is relative to the current directory, so both git calls
+# must run from the repository root - not from HW06/, where it matches nothing.
 Push-Location $repoRoot
 try {
-    $log = git log --date=iso --pretty=format:"%h  %ad  %an%n    %s%n" -- HW06
+    $log   = git log --date=iso --pretty=format:"%h  %ad  %an%n    %s%n" -- HW06
+    $count = (git log --oneline -- HW06 | Measure-Object -Line).Lines
 }
 finally { Pop-Location }
 
 $header + $log | Set-Content -Path $OutFile -Encoding utf8
-$count = (git log --oneline -- HW06 | Measure-Object -Line).Lines
 Write-Host "Wrote $OutFile ($count commits touching HW06/)." -ForegroundColor Green
