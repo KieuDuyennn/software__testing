@@ -28,13 +28,13 @@ folder beside it is `output/submission-ready/`.
 | API | Pool | Requirement | Endpoint | Status |
 |---|---|---|---|---|
 | 1 | A | FR-01 Registration | `POST /api/register` | Audited, extended, executed |
-| 2 | D | FR-06 Product detail | `GET /api/products/:id` | Additional coverage; audited, extended, executed |
+| 2 | A | FR-06 Product detail | `GET /api/products/:id` | Additional coverage; audited, extended, executed |
 | 3 | B | FR-11 Order history | `GET /api/orders/my-orders` and related routes | Audited, extended, executed |
 | 4 | C | FR-13 Dashboard | `GET /api/admin/orders` and status route | Audited, extended, executed |
 
 The three graded pool slots are API 1 (Pool A), API 3 (Pool B), and API 4
-(Pool C). API 2 / FR-06 is additional Pool-D coverage under the class allocation
-confirmed by the student.
+(Pool C). API 2 / FR-06 is additional Pool-A coverage and is not counted as a
+second graded selection.
 
 **Group uniqueness confirmation (2026-08-24):** I, Lê Phạm Kiều Duyên
 (23127184), confirm that I checked with my group and that my graded combination
@@ -43,7 +43,8 @@ Admin dashboard (Pool C) — is unique within the group.
 
 ## Verified summary
 
-Final local full run: **2026-08-23**. The SUT is reseeded before each run.
+Latest complete local full run: **2026-08-24**. The SUT is reseeded before each
+run; results remained identical to the documented defect baseline.
 
 | API | AI-generated | Student-added | Total | Passed cases | Failed cases | Assertions passed/total | Bugs touched |
 |---|---:|---:|---:|---:|---:|---:|---:|
