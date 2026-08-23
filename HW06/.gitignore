@@ -15,6 +15,7 @@ __pycache__/
 # Scratch working area; graded Newman output under reports/ is retained.
 /tmp/
 /output/submission-staging/
+/output/submission-ready/
 /output/*.zip
 
 # Backend process logs (runtime noise). The Newman console transcripts in
