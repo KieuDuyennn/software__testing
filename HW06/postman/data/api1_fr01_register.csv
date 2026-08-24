@@ -1,0 +1,11 @@
+tc_id,partition,name,email,password,expected_status,requirement
+DDT-01,valid-all,Nguyen Van A,ddt01@domain.com,Password123!,200,FR-01
+DDT-02,email-missing-at,Nguyen Van B,ddt02.domain.com,Password123!,400,FR-01
+DDT-03,email-missing-domain,Nguyen Van C,ddt03@,Password123!,400,FR-01
+DDT-04,email-empty,Nguyen Van D,,Password123!,400,FR-01
+DDT-05,password-too-short,Nguyen Van E,ddt05@domain.com,Pa1!,400,FR-01
+DDT-06,password-no-uppercase,Nguyen Van F,ddt06@domain.com,password123!,400,FR-01
+DDT-07,password-no-digit,Nguyen Van G,ddt07@domain.com,Password!,400,FR-01
+DDT-08,password-no-special,Nguyen Van H,ddt08@domain.com,Password123,400,FR-01
+DDT-09,password-boundary-8,Nguyen Van I,ddt09@domain.com,Pass12!A,200,FR-01
+DDT-10,name-empty,,ddt10@domain.com,Password123!,400,FR-01

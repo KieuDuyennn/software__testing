@@ -4,7 +4,7 @@
 
     python scripts/build-ddt.py
 
-The main collections in `collections/APIn_*.postman_collection.json` are
+The main collections in `postman/collections/APIn_*.postman_collection.json` are
 data-driven at *generation* time: every case is a record in scripts/cases/, and
 render-cases.py turns those records into requests. That satisfies "separate the
 data from the logic", but the data ends up baked into the collection, so a
@@ -14,12 +14,12 @@ different data set.
 This script covers the other half - data-driven at *execution* time, which is
 what the brief means by "the Collection Runner with a data file". Each output
 collection holds exactly ONE request. Newman (or the Runner) replays it once
-per row of the matching CSV in `data/`, and every input, every URL and every
+per row of the matching CSV in `postman/data/`, and every input, every URL and every
 expected status comes from `pm.iterationData`.
 
-    newman run collections/API1_FR01_Register_ddt.postman_collection.json \
-        -e config/eshop-local.postman_environment.json \
-        -d data/api1_fr01_register.csv
+    newman run postman/collections/API1_FR01_Register_ddt.postman_collection.json \
+        -e postman/config/eshop-local.postman_environment.json \
+        -d postman/data/api1_fr01_register.csv
 
 These are deliberately rendered as SEPARATE collections rather than as a fifth
 folder inside the main ones: the 386-case baseline in reports/ and README.md is
@@ -49,8 +49,8 @@ from cases._helpers import (  # noqa: E402
     admin_login, create_order, fresh_user, seeded_user_login,
 )
 
-DATA = ROOT / "data"
-OUT = ROOT / "collections"
+DATA = ROOT / "postman" / "data"
+OUT = ROOT / "postman" / "collections"
 
 # A syntactically well-formed JWT whose signature is wrong: jwt.verify rejects
 # it, which is the "forged token" partition the CSVs ask for.
@@ -70,7 +70,7 @@ GUARD = """
 const d = pm.iterationData;
 if (!d.get("tc_id")) {
     console.log("[HW06][DDT] No data file supplied - skipping. Run with: " +
-                "newman run <collection> -d data/<file>.csv");
+                "newman run <collection> -d postman/data/<file>.csv");
     if (pm.execution && pm.execution.skipRequest) {
         pm.execution.skipRequest();
     }
@@ -173,10 +173,10 @@ if (Number(d.get("expected_status")) === 200 && pm.response.code === 200) {
 """
 
 api1 = ddt_collection(
-    "API1 - FR-01 Registration - DATA-DRIVEN (data/api1_fr01_register.csv)",
+    "API1 - FR-01 Registration - DATA-DRIVEN (postman/data/api1_fr01_register.csv)",
     "HW06 / Pool A / FR-01, executed data-driven.\n\n"
     "One `POST /api/register`, replayed once per row of "
-    "`data/api1_fr01_register.csv`. The row supplies name, email, password and "
+    "`postman/data/api1_fr01_register.csv`. The row supplies name, email, password and "
     "the status the requirement demands; the collection supplies no test data "
     "at all.\n\n"
     "Run: `npm run ddt:api1`",
@@ -221,10 +221,10 @@ if (d.get("expect_body") === "product" && pm.response.code === 200) {
 """ + NO_LEAK_TEST
 
 api2 = ddt_collection(
-    "API2 - FR-06 Product Detail - DATA-DRIVEN (data/api2_fr06_product_detail.csv)",
+    "API2 - FR-06 Product Detail - DATA-DRIVEN (postman/data/api2_fr06_product_detail.csv)",
     "HW06 / Pool A / FR-06, executed data-driven.\n\n"
     "One `GET /api/products/:id`, replayed once per row of "
-    "`data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - "
+    "`postman/data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - "
     "valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection "
     "payload.\n\n"
     "Run: `npm run ddt:api2`",
@@ -289,10 +289,10 @@ if (d.get("order_owner") === "victim") {
 """
 
 api3 = ddt_collection(
-    "API3 - FR-11 Order History - DATA-DRIVEN (data/api3_fr11_order_history.csv)",
+    "API3 - FR-11 Order History - DATA-DRIVEN (postman/data/api3_fr11_order_history.csv)",
     "HW06 / Pool B / FR-11, executed data-driven.\n\n"
     "One `GET /api/orders/:target`, replayed once per row of "
-    "`data/api3_fr11_order_history.csv`. The row chooses the actor (its token), "
+    "`postman/data/api3_fr11_order_history.csv`. The row chooses the actor (its token), "
     "the target (own history or another user's order) and the status SEC-02 / "
     "FR-11 require. The IDOR victim and their order are created per iteration "
     "in the pre-request script.\n\n"
@@ -337,10 +337,10 @@ if (pm.response.code === 200) {
 """
 
 api4 = ddt_collection(
-    "API4 - FR-13 Admin Dashboard - DATA-DRIVEN (data/api4_fr13_admin_orders.csv)",
+    "API4 - FR-13 Admin Dashboard - DATA-DRIVEN (postman/data/api4_fr13_admin_orders.csv)",
     "HW06 / Pool C / FR-13, executed data-driven.\n\n"
     "One `GET /api/admin/orders`, replayed once per row of "
-    "`data/api4_fr13_admin_orders.csv`. Each row is a role in the SEC-03 "
+    "`postman/data/api4_fr13_admin_orders.csv`. Each row is a role in the SEC-03 "
     "matrix - admin, ordinary user, anonymous and forged token - together with "
     "the status that role must receive.\n\n"
     "Run: `npm run ddt:api4`",
@@ -379,7 +379,7 @@ def main():
         path = OUT / (stem + ".postman_collection.json")
         path.write_text(json.dumps(coll, indent=2, ensure_ascii=False) + "\n",
                         encoding="utf-8")
-        print("%-34s 1 request x %2d CSV rows  <- data/%s"
+        print("%-34s 1 request x %2d CSV rows  <- postman/data/%s"
               % (path.name, len(rows), csv_name))
 
 

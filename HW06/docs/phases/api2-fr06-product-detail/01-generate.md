@@ -7,7 +7,7 @@
 | Pool | A |
 | Requirement | FR-06 |
 | Endpoint under test | `GET /api/products/:id` |
-| Postman collection | `collections/API2_FR06_ProductDetail.postman_collection.json` |
+| Postman collection | `postman/collections/API2_FR06_ProductDetail.postman_collection.json` |
 | Case specification | `scripts/cases/api2_fr06_product_detail.py` |
 | Coverage tally | `reports/coverage_api2-fr06-product-detail.md` |
 | Parameters | `id` (path parameter, integer) |

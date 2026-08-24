@@ -7,7 +7,7 @@
  *   node scripts/run-suite.js --mode full --only 3
  *
  * Modes
- *   gate  Runs only the folders listed in config/ci-suite.json. These are the
+ *   gate  Runs only the folders listed in postman/config/ci-suite.json. These are the
  *         expectations the SUT currently meets, so this run must stay green;
  *         it is what the CI pipeline gates on.
  *   full  Runs every folder in every collection. Any failed assertion makes
@@ -35,13 +35,13 @@ if (!["gate", "full"].includes(mode)) {
   process.exit(2);
 }
 
-const envFile = path.join(ROOT, "config", `eshop-${envName}.postman_environment.json`);
+const envFile = path.join(ROOT, "postman", "config", `eshop-${envName}.postman_environment.json`);
 if (!fs.existsSync(envFile)) {
   console.error(`No environment file at ${envFile}`);
   process.exit(2);
 }
 
-const suite = JSON.parse(fs.readFileSync(path.join(ROOT, "config", "ci-suite.json"), "utf8"));
+const suite = JSON.parse(fs.readFileSync(path.join(ROOT, "postman", "config", "ci-suite.json"), "utf8"));
 const ALL_COLLECTIONS = [
   "API1_FR01_Register",
   "API2_FR06_ProductDetail",
@@ -68,13 +68,13 @@ for (const dir of ["reports", "evidence/newman-console"]) {
 function run(name) {
   return new Promise((resolve) => {
     // Two gate styles. A collection rendered from an explicit case list
-    // (config/ci-suite.json -> gate_cases) wins when it exists: once a suite is
+    // (postman/config/ci-suite.json -> gate_cases) wins when it exists: once a suite is
     // written against the spec rather than against observed behaviour, the
     // passing cases no longer line up with folder boundaries, so gating per
     // folder would either be red or prove nothing. Otherwise fall back to the
     // folder list in `gate`, which is enough for the un-specced APIs.
     const gateCollection = path.join(
-      ROOT, "collections", `${name}_gate.postman_collection.json`
+      ROOT, "postman", "collections", `${name}_gate.postman_collection.json`
     );
     const hasCaseGate = (suite.gate_cases || {})[name] && fs.existsSync(gateCollection);
 
@@ -91,7 +91,7 @@ function run(name) {
     const collectionFile =
       mode === "gate" && hasCaseGate
         ? gateCollection
-        : path.join(ROOT, "collections", `${name}.postman_collection.json`);
+        : path.join(ROOT, "postman", "collections", `${name}.postman_collection.json`);
 
     const style = mode === "gate" ? (hasCaseGate ? " via case list" : " via folders") : "";
     console.log(`\n=== ${name} (${mode}${style}) ===`);

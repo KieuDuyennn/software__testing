@@ -12,12 +12,12 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Metric | Value |
 |---|---:|
-| Generated at | `2026-08-23T17:26:38.706Z` |
+| Generated at | `2026-08-24T08:36:50.683Z` |
 | Cases in collection | 126 |
-| Cases fully passing | 69 |
-| Cases with at least one failed assertion | 57 |
+| Cases fully passing | 126 |
+| Cases with at least one failed assertion | 0 |
 | Newman assertions | 606 |
-| Failed assertions | 62 |
+| Failed assertions | 0 |
 | Request transport failures | 0 |
 | HTML report | `reports/API1_FR01_Register.html` |
 | JSON report | `reports/API1_FR01_Register.json` |
@@ -26,15 +26,7 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Bug | Failing cases |
 |---|---|
-| BUG-01 | `A1-DP-019`, `A1-DP-020`, `A1-DP-021`, `A1-DP-022`, `A1-DP-023`, `A1-DP-024`, `A1-DP-025`, `A1-DP-026`, `A1-DP-027`, `A1-DP-028`, `A1-HR-001`, `A1-HR-002` |
-| BUG-02 | `A1-SEC-001`, `A1-SEC-003`, `A1-SEC-004` |
-| BUG-06 | `A1-SEC-013` |
-| BUG-07 | `A1-DP-002`, `A1-DP-003`, `A1-DP-004`, `A1-DP-005`, `A1-DP-010`, `A1-DP-011`, `A1-DP-015`, `A1-DP-016`, `A1-DP-017`, `A1-DP-018`, `A1-DP-035`, `A1-DP-036`, `A1-DP-039`, `A1-DP-040`, `A1-DP-041`, `A1-DP-063`, `A1-DP-068`, `A1-DP-069`, `A1-DP-072`, `A1-DP-074`, `A1-HR-003`, `A1-SCH-007`, `A1-ST-008` |
-| BUG-08 | `A1-DP-042`, `A1-DP-045`, `A1-DP-046`, `A1-DP-047`, `A1-DP-048`, `A1-DP-049`, `A1-DP-057`, `A1-DP-058`, `A1-DP-059`, `A1-DP-060` |
-| BUG-09 | `A1-DP-033`, `A1-DP-034`, `A1-SCH-010` |
-| BUG-10 | `A1-DP-066`, `A1-DP-067`, `A1-HR-005` |
-| BUG-11 | `A1-DP-071` |
-| BUG-12 | `A1-SCH-012` |
+| - | No failed cases |
 
 ## Evidence integrity
 

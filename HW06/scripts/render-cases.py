@@ -7,7 +7,7 @@
 Reads scripts/cases/apiN_*.py (the single source of truth for that API's test
 cases) and writes:
 
-  collections/<name>.postman_collection.json   executable cases, foldered by
+  postman/collections/<name>.postman_collection.json   executable cases, foldered by
                                                coverage dimension
   testcases/<slug>_cases.json                  machine-readable export
   testcases/23127184_HW06_TestCases.xlsx       the API's sheet, refreshed
@@ -214,7 +214,7 @@ def refresh_gate(module, api):
     green = passing_case_ids(module, report_path)
     total = len(module.CASES)
 
-    suite_path = ROOT / "config" / "ci-suite.json"
+    suite_path = ROOT / "postman" / "config" / "ci-suite.json"
     suite = json.loads(suite_path.read_text(encoding="utf-8"))
     suite.setdefault("gate_cases", {})[name] = green
     suite.setdefault("gate", {}).pop(name, None)
@@ -233,7 +233,7 @@ def refresh_gate(module, api):
             % (len(green), total, name, total - len(green), api)
         ),
     )
-    gate_path = ROOT / "collections" / ("%s_gate.postman_collection.json" % name)
+    gate_path = ROOT / "postman" / "collections" / ("%s_gate.postman_collection.json" % name)
     gate_path.write_text(json.dumps(gate, indent=2, ensure_ascii=False),
                          encoding="utf-8")
     return gate_path, green, total
@@ -242,7 +242,7 @@ def refresh_gate(module, api):
 def rebuild_gate(module, api):
     """Rebuild a gate collection from the reviewed IDs in ci-suite.json."""
     name = COLLECTION_NAMES[api]
-    suite_path = ROOT / "config" / "ci-suite.json"
+    suite_path = ROOT / "postman" / "config" / "ci-suite.json"
     suite = json.loads(suite_path.read_text(encoding="utf-8"))
     reviewed = suite.get("gate_cases", {}).get(name, [])
     known = {c["id"] for c in module.CASES}
@@ -254,12 +254,12 @@ def rebuild_gate(module, api):
         module, only_ids=set(reviewed), name_suffix=" [CI gate]",
         extra_description=(
             "\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\n"
-            "Contains %d reviewed deterministic cases from config/ci-suite.json. "
+            "Contains %d reviewed deterministic cases from postman/config/ci-suite.json. "
             "The full suite remains the source of defect evidence.\n"
             % len(reviewed)
         ),
     )
-    gate_path = ROOT / "collections" / ("%s_gate.postman_collection.json" % name)
+    gate_path = ROOT / "postman" / "collections" / ("%s_gate.postman_collection.json" % name)
     gate_path.write_text(json.dumps(gate, indent=2, ensure_ascii=False),
                          encoding="utf-8")
     return gate_path, reviewed, len(module.CASES)
@@ -510,7 +510,7 @@ def main():
                              "report instead of re-rendering the artefacts")
     parser.add_argument("--rebuild-gate", action="store_true",
                         help="rebuild the gate from reviewed IDs already stored "
-                             "in config/ci-suite.json")
+                             "in postman/config/ci-suite.json")
     parser.add_argument("--skip-workbook", action="store_true",
                         help="leave the Excel workbook unchanged")
     args = parser.parse_args()
@@ -524,7 +524,7 @@ def main():
         print("  green cases : %d of %d (%.0f%%)"
               % (len(green), total, 100.0 * len(green) / total))
         print("  gate suite  : %s" % gate_path.relative_to(ROOT))
-        print("  case list   : config/ci-suite.json -> gate_cases")
+        print("  case list   : postman/config/ci-suite.json -> gate_cases")
         return
 
     if args.rebuild_gate:
@@ -550,7 +550,7 @@ def main():
             "outside every folder filter." % (rendered, len(cases))
         )
 
-    coll_path = ROOT / "collections" / (
+    coll_path = ROOT / "postman" / "collections" / (
         COLLECTION_NAMES[args.api] + ".postman_collection.json")
     coll_path.write_text(json.dumps(collection, indent=2, ensure_ascii=False),
                          encoding="utf-8")

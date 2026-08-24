@@ -63,16 +63,6 @@ accounts after every restart:
 Seeded data: 3 categories, 5 products (ids 1-5), 4 coupons
 (`SAVE10`, `BIGBUY`, `VIP100`, `EXPIRED`).
 
-## Rebuilding the collection skeletons
-
-```powershell
-python scripts/build-collections.py    # OVERWRITES collections/
-```
-
-Use this command only before editing in Postman. After import and case edits,
-the exported JSON becomes the source of truth. Re-running the builder discards
-those edits.
-
 ## Exporting the commit log
 
 ```powershell
@@ -94,8 +84,7 @@ python scripts/render-cases.py --api 1 --refresh-gate
 ```
 
 Edit cases in the Python module, never in the exported collection JSON.
-Re-rendering overwrites the collection. `scripts/build-collections.py` excludes
-API 1 because its case module is the source of truth.
+Re-rendering overwrites the collection.
 
 The renderer fails loudly on a duplicate case ID, and on any case that would
 fall outside every folder filter, so a case can never be silently dropped.

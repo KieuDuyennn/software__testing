@@ -27,7 +27,7 @@ No placeholder or simulated application UI is included.
 | Postman Mock Server | `postman-cloud/mock-server.png` | Public API2 mock is Running and records `GET /api/products/2`; the request currently has no example response |
 | Collection Runner | `postman-cloud/runner.png` | Authentic API2 local run: 433 tests, 390 passed, 43 failed and 0 errors |
 | Postman Monitor | `postman-cloud/monitor.png` | Completed cloud run at 13:44 on 2026-08-24; failure explicitly demonstrates that a cloud monitor cannot reach localhost |
-| Data-driven Newman run | `newman-console/suite_ddt_20260824-145525.log` | Four CSV-fed collections, 27 iterations, 128 assertions, 0 failed; each line shows `[HW06] X-Student-Id=23127184` and the iteration's `tc_id` |
+| Data-driven Newman run | `newman-console/suite_ddt_20260824-154226.log` | Four CSV-fed collections, 27 iterations, 128 assertions, 0 failed; each line shows `[HW06] X-Student-Id=23127184` and the iteration's `tc_id` |
 
 > **Two SUT states.** Every screenshot and log that shows a failing assertion
 > was captured against the SUT **as delivered**, before commit `73ce207` fixed

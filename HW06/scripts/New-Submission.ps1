@@ -61,7 +61,7 @@ Test-Required 'evidence/git-commit-log.txt'                 'git commit log'
 
 foreach ($c in @('API1_FR01_Register', 'API2_FR06_ProductDetail',
                  'API3_FR11_OrderHistory', 'API4_FR13_AdminOrders')) {
-    Test-Required "collections/$c.postman_collection.json" "Postman collection for $c"
+    Test-Required "postman/collections/$c.postman_collection.json" "Postman collection for $c"
     Test-Required "reports/$c.html"                        "Newman HTML report for $c"
 }
 
@@ -155,15 +155,15 @@ $zipPath = Join-Path $output "${studentId}_HW06_AI_API_${Grade}.zip"
 if (Test-Path -LiteralPath $staging) { Remove-Item -LiteralPath $staging -Recurse -Force }
 New-Item -ItemType Directory -Path $staging | Out-Null
 
-foreach ($dir in @('.claude', 'collections', 'config', 'data', 'docs', 'evidence',
+foreach ($dir in @('.claude', 'docs', 'evidence', 'postman',
                    'refs', 'reports', 'scripts', 'testcases')) {
     $src = Join-Path $root $dir
     if (Test-Path -LiteralPath $src) {
         Copy-Item -LiteralPath $src -Destination (Join-Path $staging $dir) -Recurse -Force
     }
 }
+# SUBMISSION_CHECKLIST.md is a working document and is deliberately not shipped.
 Copy-Item -LiteralPath (Join-Path $root 'README.md'),
-                       (Join-Path $root 'SUBMISSION_CHECKLIST.md'),
                        (Join-Path $root '23127184_HW06_REPORT.md'),
                        (Join-Path $root 'package.json') -Destination $staging
 

@@ -1,6 +1,0 @@
-tc_id,partition,actor,token_var,order_owner,expected_status,requirement
-DDT-01,own-history,primary-user,user_token,self,200,FR-11
-DDT-02,no-token,anonymous,,self,401,SEC-02
-DDT-03,malformed-token,forged,bad_token,self,403,SEC-02
-DDT-04,cross-user-read,primary-user,user_token,victim,403,FR-11
-DDT-05,anonymous-order-read,anonymous,,victim,401,SEC-02
