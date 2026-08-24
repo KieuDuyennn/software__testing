@@ -10,12 +10,10 @@
  *   gate  Runs only the folders listed in config/ci-suite.json. These are the
  *         expectations the SUT currently meets, so this run must stay green;
  *         it is what the CI pipeline gates on.
- *   full  Runs every folder in every collection. Failures here are the SUT's
- *         real defects, not harness problems, so this mode never fails the
- *         process - it reports and uploads evidence.
+ *   full  Runs every folder in every collection. Any failed assertion makes
+ *         the process fail, which is the mode used by the final CI pipeline.
  *
- * Exit code: number of failed assertions in gate mode (0 = green), always 0 in
- * full mode.
+ * Exit code: 0 when the selected scope passes, 1 when any assertion fails.
  */
 
 const fs = require("fs");
@@ -149,15 +147,9 @@ function run(name) {
     JSON.stringify({ mode, env: envName, generatedAt: new Date().toISOString(), results }, null, 2)
   );
 
-  if (mode === "gate" && totalFailed > 0) {
-    console.error(`\nGate is RED: ${totalFailed} assertion(s) failed in the regression baseline.`);
+  if (totalFailed > 0) {
+    console.error(`\nSuite is RED: ${totalFailed} assertion(s) failed.`);
     process.exit(1);
-  }
-  if (mode === "full" && totalFailed > 0) {
-    console.log(
-      `\n${totalFailed} assertion(s) failed. In full mode these are the SUT's defects - ` +
-        `triage them in docs/bugs/BUG_REPORT.md. Process exits 0 by design.`
-    );
   }
   process.exit(0);
 })();

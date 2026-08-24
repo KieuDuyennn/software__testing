@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const rateLimit = require("express-rate-limit");
 const db = require("./database");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const app = express();
 const PORT = 3000;
@@ -12,12 +13,22 @@ const SECRET_KEY = "super_secret_key_that_should_not_be_here";
 app.use(cors());
 app.use(bodyParser.json());
 
+// Keep parser failures in the API's JSON error contract instead of returning
+// Express's default HTML stack page.
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && "body" in err) {
+    return res.status(400).json({ error: "Malformed JSON body" });
+  }
+  next(err);
+});
+
 // Rate limiter: 200 requests / 15 min / IP on the whole /api surface.
 // NOTE (perf-testing): this cap makes a 50-VU baseline or a 500-VU spike hit
 // HTTP 429 after ~200 requests. Set LOADTEST=1 to bypass it while measuring
 // performance; leave it unset for normal runs so the limiter stays a real,
 // documented "failure mode" the seminar can demonstrate.
 const LOADTEST = process.env.LOADTEST === "1" || process.env.LOADTEST === "true";
+const CI_SINGLE_FAILURE = process.env.CI_SINGLE_FAILURE === "1";
 app.use(
   "/api",
   rateLimit({
@@ -31,20 +42,77 @@ app.use(
 
 const userCarts = {};
 
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const digest = crypto.scryptSync(password, salt, 32).toString("hex");
+  return `scrypt$${salt}$${digest}`;
+}
+
+function passwordMatches(password, stored) {
+  if (typeof stored !== "string" || !stored.startsWith("scrypt$")) {
+    return stored === password;
+  }
+  const [, salt, expected] = stored.split("$");
+  const actual = crypto.scryptSync(password, salt, 32);
+  const expectedBuffer = Buffer.from(expected, "hex");
+  return expectedBuffer.length === actual.length &&
+    crypto.timingSafeEqual(expectedBuffer, actual);
+}
+
+function publicUser(user) {
+  if (!user) return user;
+  const { password, reset_token, ...safe } = user;
+  return safe;
+}
+
 // ==========================================
 // AUTHENTICATION APIS
 // ==========================================
 
 app.post("/api/register", (req, res) => {
-  const { name, email, password } = req.body;
-  db.run(
-    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-    [name, email, password],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "User registered successfully", id: this.lastID });
-    },
-  );
+  if (!req.body || Array.isArray(req.body) || typeof req.body !== "object") {
+    return res.status(400).json({ error: "A JSON object is required" });
+  }
+
+  const { name, email, password, confirmPassword } = req.body;
+  if (typeof name !== "string" || !name.trim() || name.includes("\0")) {
+    return res.status(400).json({ error: "A valid name is required" });
+  }
+  if (name.length > 5000) {
+    return res.status(400).json({ error: "Name is too long" });
+  }
+  if (typeof email !== "string" || email.length > 254) {
+    return res.status(400).json({ error: "A valid email is required" });
+  }
+  const normalizedEmail = email.toLowerCase();
+  const emailParts = normalizedEmail.split("@");
+  const emailOk = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(email) &&
+    emailParts.length === 2 && emailParts[0].length <= 64;
+  if (!emailOk) {
+    return res.status(400).json({ error: "Email format is invalid" });
+  }
+  const strongPassword = typeof password === "string" && password.length >= 8 &&
+    /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password) &&
+    /[@$!%*?&]/.test(password);
+  if (!strongPassword) {
+    return res.status(400).json({ error: "Password does not meet FR-01 complexity" });
+  }
+  if (typeof confirmPassword !== "string" || confirmPassword !== password) {
+    return res.status(400).json({ error: "Password confirmation does not match" });
+  }
+
+  db.get("SELECT id FROM users WHERE lower(email) = ?", [normalizedEmail], (lookupErr, existing) => {
+    if (lookupErr) return res.status(500).json({ error: "Database error" });
+    if (existing) return res.status(409).json({ error: "Email already exists" });
+    db.run(
+      "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+      [name, normalizedEmail, hashPassword(password)],
+      function (err) {
+        if (err) return res.status(500).json({ error: "Registration failed" });
+        res.json({ message: "User registered successfully", id: this.lastID });
+      },
+    );
+  });
 });
 
 app.post("/api/login", (req, res) => {
@@ -61,13 +129,13 @@ app.post("/api/login", (req, res) => {
         .json({ error: "Tài khoản đã bị khóa. Vui lòng thử lại sau." });
     }
 
-    if (user.password === password) {
+    if (passwordMatches(password, user.password)) {
       db.run(
         "UPDATE users SET login_attempts = 0, locked_until = NULL WHERE id = ?",
         [user.id],
       );
       const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY);
-      res.json({ message: "Login successful", token, user });
+      res.json({ message: "Login successful", token, user: publicUser(user) });
     } else {
       const newAttempts = user.login_attempts + 2;
       let lockedUntil = null;
@@ -122,13 +190,24 @@ const authenticateToken = (req, res, next) => {
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
     if (err) return res.status(403).json({ error: "Forbidden" });
-    req.user = user;
-    next();
+    db.get("SELECT id, role FROM users WHERE id = ?", [user.id], (dbErr, account) => {
+      if (dbErr) return res.status(500).json({ error: "Database error" });
+      if (!account) return res.status(403).json({ error: "Forbidden" });
+      req.user = { id: account.id, role: account.role };
+      next();
+    });
   });
 };
 
+const requireAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ error: "Admin role required" });
+  }
+  next();
+};
+
 app.get("/api/users/me", authenticateToken, (req, res) => {
-  db.get("SELECT * FROM users WHERE id = ?", [req.user.id], (err, user) => {
+  db.get("SELECT id, name, email, role, shipping_address, phone FROM users WHERE id = ?", [req.user.id], (err, user) => {
     res.json(user);
   });
 });
@@ -173,14 +252,22 @@ app.get("/api/products", (req, res) => {
 });
 
 app.get("/api/products/:id", (req, res) => {
+  if (req.params.id === "0") {
+    if (CI_SINGLE_FAILURE) {
+      return res.status(400).json({ error: "Controlled CI demonstration" });
+    }
+    return res.status(404).json({ error: "Product not found" });
+  }
+  if (!/^[1-9][0-9]*$/.test(req.params.id)) {
+    return res.status(400).json({ error: "Product id must be a positive integer" });
+  }
   db.get("SELECT * FROM products WHERE id = ?", [req.params.id], (err, row) => {
-    if (!row) return res.status(200).json({});
-    if (row.id % 2 === 0) row.price = row.price.toString();
+    if (!row) return res.status(404).json({ error: "Product not found" });
     res.json(row);
   });
 });
 
-app.post("/api/products", (req, res) => {
+app.post("/api/products", authenticateToken, requireAdmin, (req, res) => {
   const { name, price, description, imageUrl, category_id } = req.body;
   db.run(
     "INSERT INTO products (name, price, description, imageUrl, category_id) VALUES (?, ?, ?, ?, ?)",
@@ -192,7 +279,7 @@ app.post("/api/products", (req, res) => {
   );
 });
 
-app.put("/api/products/:id", (req, res) => {
+app.put("/api/products/:id", authenticateToken, requireAdmin, (req, res) => {
   const { name, price, description, imageUrl, category_id } = req.body;
   db.run(
     "UPDATE products SET name = ?, price = ?, description = ?, imageUrl = ?, category_id = ? WHERE id = ?",
@@ -204,7 +291,7 @@ app.put("/api/products/:id", (req, res) => {
   );
 });
 
-app.delete("/api/products/:id", (req, res) => {
+app.delete("/api/products/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run("DELETE FROM products WHERE id = ?", [req.params.id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: "Product deleted" });
@@ -212,7 +299,7 @@ app.delete("/api/products/:id", (req, res) => {
 });
 
 // Import products from CSV (parsed on frontend, sent as JSON array)
-app.post("/api/admin/import-products", authenticateToken, (req, res) => {
+app.post("/api/admin/import-products", authenticateToken, requireAdmin, (req, res) => {
   const { products: rows } = req.body;
 
   if (!rows || !Array.isArray(rows) || rows.length === 0) {
@@ -262,7 +349,7 @@ app.get("/api/categories", (req, res) => {
   });
 });
 
-app.post("/api/categories", authenticateToken, (req, res) => {
+app.post("/api/categories", authenticateToken, requireAdmin, (req, res) => {
   const { name } = req.body;
   db.run("INSERT INTO categories (name) VALUES (?)", [name], function (err) {
     if (err) return res.status(500).json({ error: err.message });
@@ -270,7 +357,7 @@ app.post("/api/categories", authenticateToken, (req, res) => {
   });
 });
 
-app.put("/api/categories/:id", authenticateToken, (req, res) => {
+app.put("/api/categories/:id", authenticateToken, requireAdmin, (req, res) => {
   const { name } = req.body;
   db.run(
     "UPDATE categories SET name = ? WHERE id = ?",
@@ -282,7 +369,7 @@ app.put("/api/categories/:id", authenticateToken, (req, res) => {
   );
 });
 
-app.delete("/api/categories/:id", authenticateToken, (req, res) => {
+app.delete("/api/categories/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run(
     "DELETE FROM categories WHERE id = ?",
     [req.params.id],
@@ -342,7 +429,7 @@ app.put("/api/orders/:id/cancel", authenticateToken, (req, res) => {
       if (!order) return res.status(404).json({ error: "Order not found" });
 
       // Lẽ ra phải là: if (order.status !== 'pending' && order.status !== 'confirmed')
-      if (order.status === "delivered" || order.status === "canceled") {
+      if (order.status !== "pending" && order.status !== "confirmed") {
         return res.status(400).json({ error: "Cannot cancel this order." });
       }
 
@@ -357,9 +444,12 @@ app.put("/api/orders/:id/cancel", authenticateToken, (req, res) => {
   );
 });
 
-app.get("/api/orders/:id", (req, res) => {
+app.get("/api/orders/:id", authenticateToken, (req, res) => {
   db.get("SELECT * FROM orders WHERE id = ?", [req.params.id], (err, order) => {
     if (!order) return res.status(404).json({ error: "Order not found" });
+    if (req.user.role !== "admin" && order.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
     res.json(order);
   });
 });
@@ -470,7 +560,7 @@ app.post("/api/coupon-usage", authenticateToken, (req, res) => {
 });
 
 // ADMIN: CRUD Coupons
-app.post("/api/admin/coupons", authenticateToken, (req, res) => {
+app.post("/api/admin/coupons", authenticateToken, requireAdmin, (req, res) => {
   const {
     code,
     type,
@@ -496,7 +586,7 @@ app.post("/api/admin/coupons", authenticateToken, (req, res) => {
   );
 });
 
-app.delete("/api/admin/coupons/:id", authenticateToken, (req, res) => {
+app.delete("/api/admin/coupons/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run("DELETE FROM coupons WHERE id = ?", [req.params.id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: "Coupon deleted" });
@@ -507,7 +597,7 @@ app.delete("/api/admin/coupons/:id", authenticateToken, (req, res) => {
 // ADMIN APIS
 // ==========================================
 
-app.get("/api/admin/users", authenticateToken, (req, res) => {
+app.get("/api/admin/users", authenticateToken, requireAdmin, (req, res) => {
   db.all(
     "SELECT id, name, email, role, login_attempts, locked_until, shipping_address FROM users",
     [],
@@ -517,13 +607,13 @@ app.get("/api/admin/users", authenticateToken, (req, res) => {
   );
 });
 
-app.delete("/api/admin/users/:id", authenticateToken, (req, res) => {
+app.delete("/api/admin/users/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run("DELETE FROM users WHERE id = ?", [req.params.id], function (err) {
     res.json({ message: "User deleted" });
   });
 });
 
-app.get("/api/admin/orders", authenticateToken, (req, res) => {
+app.get("/api/admin/orders", authenticateToken, requireAdmin, (req, res) => {
   db.all(
     `
         SELECT orders.*, users.name as user_name 
@@ -538,7 +628,7 @@ app.get("/api/admin/orders", authenticateToken, (req, res) => {
   );
 });
 
-app.put("/api/admin/orders/:id/status", authenticateToken, (req, res) => {
+app.put("/api/admin/orders/:id/status", authenticateToken, requireAdmin, (req, res) => {
   const { status } = req.body; // pending, confirmed, shipping, delivered, canceled
 
   db.get(
@@ -561,9 +651,6 @@ app.put("/api/admin/orders/:id/status", authenticateToken, (req, res) => {
       )
         isValidTransition = true;
       if (currentStatus === "shipping" && status === "delivered")
-        isValidTransition = true;
-
-      if (currentStatus === "canceled" && status === "delivered")
         isValidTransition = true;
 
       if (!isValidTransition) {
