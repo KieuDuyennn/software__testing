@@ -1,0 +1,158 @@
+{
+  "info": {
+    "_postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003",
+    "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (data/api2_fr06_product_detail.csv)",
+    "description": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "05 - Data-driven (CSV)",
+      "item": [
+        {
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/{{ddt_product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ]
+            },
+            "description": "The :id partition under test comes from the CSV."
+          },
+          "response": []
+        }
+      ],
+      "description": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// HW06 mandatory harness: every request must carry X-Student-Id.",
+          "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+          "// brief) - screenshot the Postman console showing it.",
+          "// ---------------------------------------------------------------------------",
+          "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+          "",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// A fresh token per request, so cases that must create a new account can do so",
+          "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+          "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+          "pm.variables.set(\"uniq\", uniq);",
+          "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
+          "",
+          "// Tag each run so Newman output and SUT state can be correlated.",
+          "if (!pm.environment.get(\"run_tag\")) {",
+          "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+          "}",
+          "",
+          "console.log(",
+          "    \"[HW06] X-Student-Id=\" + studentId +",
+          "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+          "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+          ");"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// Assertions that apply to every request in the collection.",
+          "// ---------------------------------------------------------------------------",
+          "pm.test(\"Request carried the X-Student-Id header\", function () {",
+          "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+          "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+          "        pm.environment.get(\"student_id\") || \"23127184\"",
+          "    );",
+          "});",
+          "",
+          "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+          "    pm.expect(",
+          "        pm.response.code,",
+          "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+          "    ).to.not.eql(429);",
+          "});",
+          "",
+          "pm.test(\"Response arrived under 2000 ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": []
+}

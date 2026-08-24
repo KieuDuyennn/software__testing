@@ -62,6 +62,9 @@ INCOMPLETE with documented specification gaps**.
 
 Regression gate: **1,262/1,262 assertions passed**.
 
+Data-driven runs: **27 iterations, 128 assertions, 0 failed** across four
+one-request collections fed from `data/*.csv` (`npm run ddt:all`).
+
 ## Quick start
 
 ```powershell
@@ -69,6 +72,14 @@ npm install
 npm run sut:install
 .\scripts\Invoke-ApiTests.ps1
 .\scripts\Invoke-ApiTests.ps1 -Mode gate
+```
+
+Data-driven runs need the SUT already up (`npm run sut:start` in another
+shell):
+
+```powershell
+npm run ddt:rebuild
+npm run ddt:all
 ```
 
 The runner starts EShop with `LOADTEST=1`, waits for readiness, executes the
@@ -84,6 +95,7 @@ suite, writes HTML/JSON/log evidence, and stops the backend.
 | Excel workbook | `testcases/23127184_HW06_TestCases.xlsx` |
 | Audit/extend/execute registers | `docs/phases/` |
 | Full and gate reports | `reports/` |
+| Data-driven collections and CSVs | `collections/*_ddt.postman_collection.json`, `data/`, `reports/*_ddt.html` |
 | Raw console transcripts | `evidence/newman-console/` |
 | Bug report | `docs/bugs/BUG_REPORT.md` |
 | CI/CD report | `docs/cicd/CI_CD_REPORT.md` |
@@ -130,6 +142,7 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] 386-case machine-readable exports and per-case audit registers
 - [x] Five student-designed extension cases per API
 - [x] Full local run and all-green local regression gate
+- [x] Data-driven execution: four CSV-fed collections, 27 iterations green
 - [x] Bug report with 16 root-cause defects
 - [x] AI Critique (200-300 words) and AI Audit Report content
 - [x] Generator implementation/design brief/pseudocode

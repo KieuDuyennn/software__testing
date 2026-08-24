@@ -1,0 +1,2973 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003"
+    },
+    "item": [
+      {
+        "id": "29a4fc3f-9aa3-4e2f-b799-a72b1c5d3c70",
+        "name": "05 - Data-driven (CSV)",
+        "description": {
+          "content": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+            "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+            "request": {
+              "description": {
+                "content": "The :id partition under test comes from the CSV.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products",
+                  "{{ddt_product_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) {",
+                    "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                    "                \"newman run <collection> -d data/<file>.csv\");",
+                    "    if (pm.execution && pm.execution.skipRequest) {",
+                    "        pm.execution.skipRequest();",
+                    "    }",
+                    "    return;",
+                    "}",
+                    "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                    "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                    "",
+                    "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                  ],
+                  "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) { return; }",
+                    "",
+                    "const tc = d.get(\"tc_id\");",
+                    "const expected = Number(d.get(\"expected_status\"));",
+                    "const rule = d.get(\"requirement\");",
+                    "",
+                    "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                    "        \" -> HTTP \" + expected, function () {",
+                    "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                    "});",
+                    "",
+                    "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                    "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                    "        const b = pm.response.json();",
+                    "        pm.expect(b).to.have.property(\"id\");",
+                    "        pm.expect(b).to.have.property(\"name\");",
+                    "        pm.expect(b).to.have.property(\"price\");",
+                    "    });",
+                    "}",
+                    "",
+                    "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                    "        function () {",
+                    "    const body = pm.response.text() || \"\";",
+                    "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                    "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                    "});"
+                  ],
+                  "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "214f9248-1854-4c63-a646-263c564d9b68",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// A fresh token per request, so cases that must create a new account can do so",
+            "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+            "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+            "pm.variables.set(\"uniq\", uniq);",
+            "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "e6489768-c17b-4d88-a9a1-4c327d65b5d3"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "107b2b39-e38b-42fd-88ea-13fb74ce54e7",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "aa211504-56bc-41b9-9e60-9dd63a0e8d51"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003",
+      "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (data/api2_fr06_product_detail.csv)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787558131137",
+        "key": "run_tag"
+      }
+    ]
+  },
+  "globals": {
+    "id": "1f9e80de-722d-46d6-a843-2e4d487b0383",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 32,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 43,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 16,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 16,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 6.875,
+      "responseMin": 2,
+      "responseMax": 33,
+      "responseSd": 9.905017667828766,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787558131119,
+      "completed": 1787558131932
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 8,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "c7c12988-3a00-48be-8a7b-39f6d6c11cbb",
+          "httpRequestId": "44d9a782-3763-40dc-9f7e-86335b7f28dd"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "1"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "7528fca0-3d57-4688-bb81-9c97a4051089",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "29b17cf8-d969-431a-97fd-63b6217b6557",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "183"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"b7-TDXxV8cogLA+39ph/S9GkjYsmjg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              105,
+              80,
+              104,
+              111,
+              110,
+              101,
+              32,
+              49,
+              53,
+              32,
+              80,
+              114,
+              111,
+              32,
+              77,
+              97,
+              120,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              51,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              196,
+              144,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              116,
+              104,
+              111,
+              225,
+              186,
+              161,
+              105,
+              32,
+              99,
+              97,
+              111,
+              32,
+              99,
+              225,
+              186,
+              165,
+              112,
+              32,
+              99,
+              225,
+              187,
+              167,
+              97,
+              32,
+              65,
+              112,
+              112,
+              108,
+              101,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              105,
+              80,
+              104,
+              111,
+              110,
+              101,
+              43,
+              49,
+              53,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 33,
+          "responseSize": 183
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 [FR-06] valid-odd-id -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | body is a product per api_specification.md",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "bf3a7cd1-097e-4df9-beb4-1a5275e307d0",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "be23e9bd-124f-45cb-a775-66e8993f4c74"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "2"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "807e1e65-9c17-42f0-947b-762499d4835d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "70fb2e85-133c-4bff-8870-164906963699",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "210"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"d2-M0VRNKI2HJtneOLCQukcr7xwdU8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              97,
+              109,
+              115,
+              117,
+              110,
+              103,
+              32,
+              71,
+              97,
+              108,
+              97,
+              120,
+              121,
+              32,
+              83,
+              50,
+              52,
+              32,
+              85,
+              108,
+              116,
+              114,
+              97,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              50,
+              56,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              77,
+              195,
+              160,
+              110,
+              32,
+              104,
+              195,
+              172,
+              110,
+              104,
+              32,
+              104,
+              105,
+              225,
+              187,
+              131,
+              110,
+              32,
+              116,
+              104,
+              225,
+              187,
+              139,
+              32,
+              120,
+              117,
+              225,
+              186,
+              165,
+              116,
+              32,
+              115,
+              225,
+              186,
+              175,
+              99,
+              44,
+              32,
+              99,
+              97,
+              109,
+              101,
+              114,
+              97,
+              32,
+              115,
+              105,
+              195,
+              170,
+              117,
+              32,
+              122,
+              111,
+              111,
+              109,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              83,
+              97,
+              109,
+              115,
+              117,
+              110,
+              103,
+              43,
+              83,
+              50,
+              52,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 210
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 [FR-06] valid-even-id -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 | body is a product per api_specification.md",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "9569dd5e-1dfa-438d-a03e-4f51c88e1fc7",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "9ff53dcb-8da6-47a2-bdd6-777148f4d2ba"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "5"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f43fabff-03ad-480f-bd09-e0bfccea5a69",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "24ce2af0-6ba4-4c5f-96d3-c471b1c54106",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "199"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"c7-eMEZEJtH0PrMTk7GqXsDa7IceXg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              66,
+              195,
+              160,
+              110,
+              32,
+              112,
+              104,
+              195,
+              173,
+              109,
+              32,
+              99,
+              198,
+              161,
+              32,
+              75,
+              101,
+              121,
+              99,
+              104,
+              114,
+              111,
+              110,
+              32,
+              81,
+              49,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              52,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              71,
+              195,
+              181,
+              32,
+              99,
+              225,
+              187,
+              177,
+              99,
+              32,
+              115,
+              198,
+              176,
+              225,
+              187,
+              155,
+              110,
+              103,
+              44,
+              32,
+              116,
+              104,
+              105,
+              225,
+              186,
+              191,
+              116,
+              32,
+              107,
+              225,
+              186,
+              191,
+              32,
+              107,
+              105,
+              109,
+              32,
+              108,
+              111,
+              225,
+              186,
+              161,
+              105,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              75,
+              101,
+              121,
+              99,
+              104,
+              114,
+              111,
+              110,
+              43,
+              81,
+              49,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              51,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 199
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 [FR-06] valid-last-seeded -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 | body is a product per api_specification.md",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "68373a66-18cc-4c69-94bc-38ad93cdea77",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "0e977e37-6d20-44a7-a858-1d9c7c55fb7c"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "999999"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "ed3b5bf1-6880-4ed1-900b-800e7a3ce24f",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "a99d0e85-f06f-42b3-8af6-6841454ed5c4",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "29"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1d-KH4ngqV3S/XmJmUEKpwjFfjZ2wg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 29
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 [FR-06] non-existent -> HTTP 404",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "00b84305-01df-481a-b551-6c7cd06d13c7",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 4,
+          "cr": true,
+          "httpRequestId": "0184bf4e-9840-4695-92c2-78403ab4094e"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "0"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d5521c11-ae72-443d-a512-d73634358c87",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "b58e16b5-a31c-4b01-8bf0-b2d461551c59",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "29"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1d-KH4ngqV3S/XmJmUEKpwjFfjZ2wg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 29
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-05 [FR-06] boundary-zero -> HTTP 404",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-05 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "d312d054-18b1-4860-996a-1a133c460a94",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 5,
+          "cr": true,
+          "httpRequestId": "c8718ceb-ba2b-48b7-845c-4f070aedf5f0"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "-1"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "9c0f837b-dd3c-4a17-b9ab-2fe6e115b249",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "e0ae96ed-4073-4596-bf74-97131263cffc",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-KF7UoS3WNG37AR/2JHN9lQAtCLk\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              105,
+              100,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              97,
+              32,
+              112,
+              111,
+              115,
+              105,
+              116,
+              105,
+              118,
+              101,
+              32,
+              105,
+              110,
+              116,
+              101,
+              103,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 49
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-06 [FR-06] negative -> HTTP 400",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-06 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "0af1d024-c658-41b6-aa54-29c7d4644f3e",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 6,
+          "cr": true,
+          "httpRequestId": "018121b7-999f-4fb7-945a-7b02a987a7d6"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "abc"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "804689ce-ef28-43d9-9d89-091cca039e64",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "a183b4b9-aecb-4738-9ee1-fe3d90dcfcaa",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-KF7UoS3WNG37AR/2JHN9lQAtCLk\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              105,
+              100,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              97,
+              32,
+              112,
+              111,
+              115,
+              105,
+              116,
+              105,
+              118,
+              101,
+              32,
+              105,
+              110,
+              116,
+              101,
+              103,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 49
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-07 [FR-06] non-numeric -> HTTP 400",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-07 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "d427ff92-f6c9-4e5a-9712-bd6558500a0a",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 7,
+          "cr": true,
+          "httpRequestId": "d57b1e68-cc1d-4eff-b61c-a7b8465b6656"
+        },
+        "item": {
+          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "1%20OR%201=1"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "dde5023d-2f86-45e4-813e-63da31ca3f4a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "d9b3fb25-7cb2-43d1-8aa2-165480b9e120",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-KF7UoS3WNG37AR/2JHN9lQAtCLk\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              105,
+              100,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              97,
+              32,
+              112,
+              111,
+              115,
+              105,
+              116,
+              105,
+              118,
+              101,
+              32,
+              105,
+              110,
+              116,
+              101,
+              103,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 49
+        },
+        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-08 [SEC-05] sql-injection -> HTTP 400",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-08 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 797
+    },
+    "failures": [],
+    "error": null
+  }
+}
