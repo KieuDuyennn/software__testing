@@ -40,7 +40,7 @@ jobs:
 
       - name: Start EShop backend
         run: |
-          LOADTEST=1 CI_SINGLE_FAILURE=1 node eshop/backend/server.js > sut.log 2>&1 &
+          LOADTEST=1 node eshop/backend/server.js > sut.log 2>&1 &
           echo "SUT_PID=$!" >> "$GITHUB_ENV"
           for i in $(seq 1 40); do
             if curl -sf http://127.0.0.1:3000/api/products > /dev/null; then exit 0; fi
