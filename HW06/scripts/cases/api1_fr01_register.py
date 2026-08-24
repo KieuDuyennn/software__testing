@@ -39,7 +39,7 @@ def add(**kw):
 
 
 def rb(name="Nguyen Van A", email="{{uniq}}@domain.com",
-       password="Password123!", **extra):
+       password="Password123!", confirmPassword=None, **extra):
     """Build a request body, omitting any field passed as OMIT."""
     d = {}
     if name is not OMIT:
@@ -48,6 +48,11 @@ def rb(name="Nguyen Van A", email="{{uniq}}@domain.com",
         d["email"] = email
     if password is not OMIT:
         d["password"] = password
+    if confirmPassword is not OMIT:
+        if confirmPassword is None:
+            d["confirmPassword"] = "Password123!" if password is OMIT else password
+        else:
+            d["confirmPassword"] = confirmPassword
     d.update(extra)
     return d
 
@@ -332,7 +337,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "First Owner", email: email, password: "Password123!" }) }
+        name: "First Owner", email: email, password: "Password123!",
+        confirmPassword: "Password123!" }) }
 }, function (err, res) {
     console.log("[HW06] A1-DP-033 fixture claimed " + email +
                 " -> " + (res ? res.code : err));
@@ -353,7 +359,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "First Owner", email: email, password: "Password123!" }) }
+        name: "First Owner", email: email, password: "Password123!",
+        confirmPassword: "Password123!" }) }
 }, function () { console.log("[HW06] A1-DP-034 fixture claimed " + email); });
 """),
     tests=rejected("uniqueness must ignore case"))
@@ -537,7 +544,8 @@ add(id="A1-DP-066", dim="Domain", param="confirmPassword", rule="FR-01",
 add(id="A1-DP-067", dim="Domain", param="confirmPassword", rule="FR-01",
     partition="invalid: confirmation absent",
     title="Missing password confirmation is rejected",
-    body=rb(), expected="4xx - FR-01 makes the confirmation field mandatory",
+    body=rb(confirmPassword=OMIT),
+    expected="4xx - FR-01 makes the confirmation field mandatory",
     tests=rejected("confirmation field is mandatory"),
     gap="Tests FR-01 against a spec that omits the field - expect disagreement.")
 
@@ -629,7 +637,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "State Fixture", email: email, password: password }) }
+        name: "State Fixture", email: email, password: password,
+        confirmPassword: password }) }
 }, function (err, res) {
     if (res && res.json()) { pm.variables.set("stUserId", res.json().id); }
     console.log("[HW06] state fixture registered " + email);
@@ -679,7 +688,7 @@ pm.sendRequest({
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
         name: "Impostor", email: pm.variables.get("stEmail"),
-        password: "Hijacked999!" }) }
+        password: "Hijacked999!", confirmPassword: "Hijacked999!" }) }
 }, function () { console.log("[HW06] A1-ST-002 duplicate attempt sent"); });
 """),
     expected="200 - the original password still works; the duplicate changed nothing",
@@ -769,7 +778,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "Should Not Exist", email: email, password: "Password123!" }) }
+        name: "Should Not Exist", email: email, password: "Password123!",
+        confirmPassword: "Password123!" }) }
 }, function () { console.log("[HW06] A1-ST-008 invalid registration attempted"); });
 """),
     expected="401 - no account was created, so login must fail",
@@ -881,7 +891,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "<script>alert('XSS')</script>", email: email, password: password }) }
+        name: "<script>alert('XSS')</script>", email: email, password: password,
+        confirmPassword: password }) }
 }, function () {
     pm.sendRequest({
         url: pm.environment.get("base_url") + "/api/login",
@@ -966,7 +977,8 @@ const uniq = pm.variables.get("uniq");
         method: "POST",
         header: { "Content-Type": "application/json", "X-Student-Id": sid },
         body: { mode: "raw", raw: JSON.stringify({
-            name: payload.name, email: payload.email, password: "Password123!" }) }
+            name: payload.name, email: payload.email, password: "Password123!",
+            confirmPassword: "Password123!" }) }
     }, function () {});
 });
 """),
@@ -994,6 +1006,7 @@ pm.sendRequest({
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
         name: "Escalation Probe", email: email, password: password,
+        confirmPassword: password,
         role: "admin" }) }
 }, function () { console.log("[HW06] A1-SEC-012 registered with role=admin injected"); });
 """),
@@ -1018,6 +1031,7 @@ pm.sendRequest({
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
         name: "Escalation Probe 2", email: email, password: password,
+        confirmPassword: password,
         role: "admin" }) }
 }, function () {
     pm.sendRequest({
@@ -1066,6 +1080,7 @@ pm.sendRequest({
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
         name: "Lock Probe", email: email, password: password,
+        confirmPassword: password,
         login_attempts: 99, locked_until: "2099-01-01T00:00:00.000Z" }) }
 }, function () { console.log("[HW06] A1-SEC-015 registered with lock fields injected"); });
 """),
@@ -1091,6 +1106,7 @@ pm.sendRequest({
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
         name: "Reset Probe", email: email, password: "Password123!",
+        confirmPassword: "Password123!",
         reset_token: "123456" }) }
 }, function () { console.log("[HW06] A1-SEC-016 registered with reset_token injected"); });
 """),
@@ -1260,7 +1276,8 @@ pm.sendRequest({
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        name: "First Owner", email: email, password: "Password123!" }) }
+        name: "First Owner", email: email, password: "Password123!",
+        confirmPassword: "Password123!" }) }
 }, function () { console.log("[HW06] A1-SCH-010 fixture claimed " + email); });
 """),
     expected='4xx with {"error": "<string>"} naming the conflict',

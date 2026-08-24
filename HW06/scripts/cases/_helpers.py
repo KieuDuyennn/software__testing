@@ -239,7 +239,8 @@ def fresh_user(var="tok", prefix="u", on_done=""):
         % (var, prefix, var, var, var)
     ) + _step(
         BASE + ' + "/api/register"', "POST",
-        '{ name: "Fresh User", email: %sEmail, password: %sPassword }' % (var, var),
+        ('{ name: "Fresh User", email: %sEmail, password: %sPassword, '
+         'confirmPassword: %sPassword }') % (var, var, var),
         on_done=login_step("%sEmail" % var, "%sPassword" % var, var, on_done),
     )
 
