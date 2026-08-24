@@ -63,3 +63,16 @@ Kết quả đúng là preflight không báo thiếu file, file ZIP mở đượ
 - [ ] Thử các link GitHub Actions, GitHub Issues, repository và YouTube.
 - [ ] Bảo đảm ảnh là ảnh thật, rõ MSSV/tài khoản/trạng thái khi rubric yêu cầu.
 - [ ] Không nộp `node_modules`, `tmp`, database SQLite hay log chạy thử dư.
+
+## 6. Việc còn lại của sinh viên cho phần data-driven
+
+Phần chạy data-driven đã hoàn tất bằng Newman (27 iteration, 128 assertion,
+không có assertion nào fail — xem `reports/*_ddt.html`). Còn đúng một ảnh cần
+tự chụp để chứng minh đã dùng **Collection Runner với data file**:
+
+1. Mở Postman, import `collections/API1_FR01_Register_ddt.postman_collection.json`.
+2. Chọn **Run collection** → mục **Data**, chọn file `data/api1_fr01_register.csv`.
+3. Kiểm tra Postman báo `10 iterations` và bấm **Preview** để thấy 10 dòng dữ liệu.
+4. Bảo đảm SUT đang chạy (`npm run sut:start`), rồi bấm **Run**.
+5. Chụp màn hình kết quả (thấy rõ tên file CSV và số iteration) và lưu vào
+   `evidence/postman-cloud/runner-data-driven.png`.

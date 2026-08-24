@@ -1,0 +1,3427 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "6d0bf0ad-060b-5b9a-bc49-6105b7b99812"
+    },
+    "item": [
+      {
+        "id": "d6ef4fef-13db-48f5-8ccb-98b6f075f770",
+        "name": "05 - Data-driven (CSV)",
+        "description": {
+          "content": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "fe516951-09b3-432a-b998-8085203f6d81",
+            "name": "DDT | POST /api/register <- CSV row",
+            "request": {
+              "description": {
+                "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) {",
+                    "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                    "                \"newman run <collection> -d data/<file>.csv\");",
+                    "    if (pm.execution && pm.execution.skipRequest) {",
+                    "        pm.execution.skipRequest();",
+                    "    }",
+                    "    return;",
+                    "}",
+                    "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                    "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                    "",
+                    "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                    "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                    "// accounts the first run created. Insert the harness's per-request `uniq`",
+                    "// into the local part, leaving malformed addresses malformed.",
+                    "const uniq = pm.variables.get(\"uniq\");",
+                    "let email = d.get(\"email\") || \"\";",
+                    "if (email.indexOf(\"@\") > 0) {",
+                    "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                    "}",
+                    "",
+                    "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                    "pm.variables.set(\"ddt_email\", email);",
+                    "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                  ],
+                  "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) { return; }",
+                    "",
+                    "const tc = d.get(\"tc_id\");",
+                    "const expected = Number(d.get(\"expected_status\"));",
+                    "const rule = d.get(\"requirement\");",
+                    "",
+                    "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                    "        \" -> HTTP \" + expected, function () {",
+                    "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                    "});",
+                    "",
+                    "// A row that the requirement says must be accepted has to come back in the",
+                    "// shape the specification promises, not merely with a 200.",
+                    "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                    "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                    "        const b = pm.response.json();",
+                    "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                    "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                    "    });",
+                    "}"
+                  ],
+                  "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "741673c2-b72d-4a16-86ee-665368ce3783",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// A fresh token per request, so cases that must create a new account can do so",
+            "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+            "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+            "pm.variables.set(\"uniq\", uniq);",
+            "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "93f3948f-9cfd-4128-8a4c-7f6378c9ae0c"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "2301bff1-b8ec-4de5-a0e5-12277e054a08",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "c899dd71-8e98-4762-991f-63079f92f521"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "6d0bf0ad-060b-5b9a-bc49-6105b7b99812",
+      "name": "API1 - FR-01 Registration - DATA-DRIVEN (data/api1_fr01_register.csv)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool A / FR-01, executed data-driven.\n\nOne `POST /api/register`, replayed once per row of `data/api1_fr01_register.csv`. The row supplies name, email, password and the status the requirement demands; the collection supplies no test data at all.\n\nRun: `npm run ddt:api1`",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787558128011",
+        "key": "run_tag"
+      }
+    ]
+  },
+  "globals": {
+    "id": "0d507bc4-3921-4596-aea6-c72053995bb4",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 40,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 42,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 20,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 20,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 15.7,
+      "responseMin": 2,
+      "responseMax": 79,
+      "responseSd": 26.41230773711377,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787558127994,
+      "completed": 1787558129115
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 10,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "6e51ab86-adbe-4020-adc7-a7b18f61ca72",
+          "httpRequestId": "c9b160c2-690e-45db-9841-b28b76f3bdf7"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "1e260551-11ca-47e2-a0d8-811af4b8c824",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "141",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"ddt01+mt6xyf0r12raxw@domain.com\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "c02eed8e-6172-45fc-868e-db3f6bf77f10",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-DwctSz4nPECmasbg7U0otXtacfI\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              49,
+              54,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 79,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 [FR-01] valid-all -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | success body matches the FR-01 shape",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "910c7bce-952a-4353-9461-ef087c86ee63",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "6b8d01de-1016-46b2-9a3c-56f8e98ce3ba"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "de1dcc4b-6726-42d2-8bf1-f9889eb7465e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "126",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van B\",\n  \"email\": \"ddt02.domain.com\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "f6a1362d-7539-446c-be5a-64a8462615db",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "35"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"23-xRpgUtciPrbeCfxg440uwlLzO0g\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              69,
+              109,
+              97,
+              105,
+              108,
+              32,
+              102,
+              111,
+              114,
+              109,
+              97,
+              116,
+              32,
+              105,
+              115,
+              32,
+              105,
+              110,
+              118,
+              97,
+              108,
+              105,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 4,
+          "responseSize": 35
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 [FR-01] email-missing-at -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "64305fe6-cad5-40ca-b227-510352337a40",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "84714725-99f1-466a-82f8-61a4ae98d5ad"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "50cdc472-5916-4f4f-a3a9-d6df9d9de9fa",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "130",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van C\",\n  \"email\": \"ddt03+mt6xyf9sj1ak8@\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "eef7e781-117b-4a7d-889d-b7ae2f1865b4",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "35"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"23-xRpgUtciPrbeCfxg440uwlLzO0g\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              69,
+              109,
+              97,
+              105,
+              108,
+              32,
+              102,
+              111,
+              114,
+              109,
+              97,
+              116,
+              32,
+              105,
+              115,
+              32,
+              105,
+              110,
+              118,
+              97,
+              108,
+              105,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 35
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 [FR-01] email-missing-domain -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "3de528dc-92d5-4c99-baef-0eaadf689723",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "40cec8fd-00f9-493a-8303-6884a28a7af5"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "2f5e8385-72d8-4cc7-aff3-e24f4a5606fe",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "110",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van D\",\n  \"email\": \"\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "7abba320-1ded-4fd5-8b59-086de9956c92",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "35"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"23-xRpgUtciPrbeCfxg440uwlLzO0g\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              69,
+              109,
+              97,
+              105,
+              108,
+              32,
+              102,
+              111,
+              114,
+              109,
+              97,
+              116,
+              32,
+              105,
+              115,
+              32,
+              105,
+              110,
+              118,
+              97,
+              108,
+              105,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 35
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 [FR-01] email-empty -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "c0830e73-dcd0-4d49-863f-b81cc7d92612",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 4,
+          "cr": true,
+          "httpRequestId": "bbd6695b-aad6-43f5-b6b9-ff8f39a3ea62"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "7ce4633a-56ae-4979-87eb-25b3f6ef0ebc",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "125",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van E\",\n  \"email\": \"ddt05+mt6xyfel124u3s@domain.com\",\n  \"password\": \"Pa1!\",\n  \"confirmPassword\": \"Pa1!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "7642286a-6539-4164-9d68-d6c2e9b55160",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-ucqL4jQngTkEjqKGTQafEs0vE4M\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              32,
+              100,
+              111,
+              101,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              109,
+              101,
+              101,
+              116,
+              32,
+              70,
+              82,
+              45,
+              48,
+              49,
+              32,
+              99,
+              111,
+              109,
+              112,
+              108,
+              101,
+              120,
+              105,
+              116,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-05 [FR-01] password-too-short -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "65da4c9f-e123-47ab-a59a-9b04f0e00aec",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 5,
+          "cr": true,
+          "httpRequestId": "2e39d6cc-bab7-460a-86f4-0ecf4527c725"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "346763f1-37b4-403c-acdc-f486c6e8cf98",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "140",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van F\",\n  \"email\": \"ddt06+mt6xyfi1egusl@domain.com\",\n  \"password\": \"password123!\",\n  \"confirmPassword\": \"password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "95ea6cca-0cbe-4c4c-bd99-69d03835b0c8",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-ucqL4jQngTkEjqKGTQafEs0vE4M\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              32,
+              100,
+              111,
+              101,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              109,
+              101,
+              101,
+              116,
+              32,
+              70,
+              82,
+              45,
+              48,
+              49,
+              32,
+              99,
+              111,
+              109,
+              112,
+              108,
+              101,
+              120,
+              105,
+              116,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-06 [FR-01] password-no-uppercase -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1c3318cd-187b-40bc-b9fb-d93e4e076ff9",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 6,
+          "cr": true,
+          "httpRequestId": "a6c9b89d-cc71-4b05-88a7-27945e605fa7"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "44b5ed73-f838-47ea-aaec-4136c91d1a12",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "135",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van G\",\n  \"email\": \"ddt07+mt6xyfk7147nhh@domain.com\",\n  \"password\": \"Password!\",\n  \"confirmPassword\": \"Password!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "67e99e93-05d8-42cc-9d45-665d45f90745",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-ucqL4jQngTkEjqKGTQafEs0vE4M\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              32,
+              100,
+              111,
+              101,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              109,
+              101,
+              101,
+              116,
+              32,
+              70,
+              82,
+              45,
+              48,
+              49,
+              32,
+              99,
+              111,
+              109,
+              112,
+              108,
+              101,
+              120,
+              105,
+              116,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-07 [FR-01] password-no-digit -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a622312c-d55d-4dec-86f3-520b7e90314c",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 7,
+          "cr": true,
+          "httpRequestId": "23a44bf3-34f2-40b8-92f5-b4b1e2105deb"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e06efbde-7569-40b6-b636-8aadb7b23e57",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "138",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van H\",\n  \"email\": \"ddt08+mt6xyfmrmsnzp@domain.com\",\n  \"password\": \"Password123\",\n  \"confirmPassword\": \"Password123\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "1cb59a01-dc2c-4cc2-9845-9a8a29194516",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-ucqL4jQngTkEjqKGTQafEs0vE4M\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              32,
+              100,
+              111,
+              101,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              109,
+              101,
+              101,
+              116,
+              32,
+              70,
+              82,
+              45,
+              48,
+              49,
+              32,
+              99,
+              111,
+              109,
+              112,
+              108,
+              101,
+              120,
+              105,
+              116,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-08 [FR-01] password-no-special -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "738f6325-85e1-4238-8049-10119e58a23d",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 8,
+          "cr": true,
+          "httpRequestId": "80b20126-dc4c-4d86-8ea3-42759b86cdf6"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "57825b8f-d088-42db-b566-0a16245e2427",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "132",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Nguyen Van I\",\n  \"email\": \"ddt09+mt6xyfpddwzyq@domain.com\",\n  \"password\": \"Pass12!A\",\n  \"confirmPassword\": \"Pass12!A\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "87cfefc2-d21f-4921-9364-2b0f9aa18e96",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33-xpCyCeVdSsjXGIz2m4Dh1H3s3WA\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:28 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              49,
+              55,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 56,
+          "responseSize": 51
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-09 [FR-01] password-boundary-8 -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-09 | success body matches the FR-01 shape",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "e73ba9be-e524-42a7-a77a-9cb62e1eed96",
+          "length": 1,
+          "cycles": 10,
+          "position": 0,
+          "iteration": 9,
+          "cr": true,
+          "httpRequestId": "de8a48cc-8e0a-43ad-93b2-1e15bc1b729c"
+        },
+        "item": {
+          "id": "fe516951-09b3-432a-b998-8085203f6d81",
+          "name": "DDT | POST /api/register <- CSV row",
+          "request": {
+            "description": {
+              "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dab866b6-c438-4035-be1b-3090169e400c",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ],
+                "_lastExecutionId": "7e8b3be3-19ff-4b46-bfd4-11d8a7a2a453"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "19c9740c-8cac-40bf-b2a8-e73dad37d855",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "f7823646-e722-4077-b4dd-ce701b6c1636"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "8d95d6ee-7d50-4cd6-82a1-94e60167fe3d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "128",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"\",\n  \"email\": \"ddt10+mt6xyftaj3yac@domain.com\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "92aded71-5b3e-45cc-ab15-ebcb956763a2",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "36"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"24-lq4juWZp2OA1ndH0WSH18Dr1HQg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 07:55:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              65,
+              32,
+              118,
+              97,
+              108,
+              105,
+              100,
+              32,
+              110,
+              97,
+              109,
+              101,
+              32,
+              105,
+              115,
+              32,
+              114,
+              101,
+              113,
+              117,
+              105,
+              114,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 36
+        },
+        "id": "fe516951-09b3-432a-b998-8085203f6d81",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-10 [FR-01] name-empty -> HTTP 400",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 447
+    },
+    "failures": [],
+    "error": null
+  }
+}
