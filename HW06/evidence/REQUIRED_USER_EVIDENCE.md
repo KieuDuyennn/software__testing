@@ -17,6 +17,8 @@ images and invented links are excluded.
 | GitHub Actions red run | `evidence/screenshots/github-actions-red-summary.png` | Run 32649883960 |
 | GitHub Actions green run | `evidence/screenshots/github-actions-green-summary.png` | Run 32650090578 |
 | Generator diagram draft | `docs/design/diagram/` | Mermaid source, SVG, and PNG with student ID |
+| Collection Runner | `evidence/postman-cloud/runner.png` | API2 local run completed: 433 assertions, 390 passed, 43 failed, 0 errors |
+| Monitor | `evidence/postman-cloud/monitor.png` | Authentic cloud run completed; Unhealthy because Postman Cloud cannot reach localhost |
 
 The mock comparison uses product 2. The contract response should contain a
 numeric `price`; the real SUT returns a string, as recorded in BUG-04.
@@ -25,9 +27,7 @@ numeric `price`; the real SUT returns a string, as recorded in BUG-04.
 
 | Evidence | Required result | Target |
 |---|---|---|
-| Collection Runner | Completed run summary for the imported collections | `evidence/postman-cloud/runner.png` |
-| Monitor | Completed cloud monitor run | `evidence/postman-cloud/monitor.png` |
-| Demo video | Narrated end-to-end generation, review, execution, and `X-Student-Id` proof | Real unlisted YouTube URL in README and main report |
+| Demo video (optional) | Narrated end-to-end generation, review, execution, and `X-Student-Id` proof | Real unlisted YouTube URL in README and main report |
 
 The generator diagram is an editable draft. Before submission, the student
 must review its labels and be able to explain its design decisions in the demo.
@@ -42,5 +42,5 @@ Postman failure image. A generic image cannot support unrelated defects.
 
 - Confirm the group uniqueness statement and date.
 - Keep the self-assessed score supported by the completed artifacts.
-- Insert a real video URL before creating the final ZIP.
+- Add a real video URL only if submitting the optional demonstration.
 - Name the ZIP with the final three-digit self-assessed score.

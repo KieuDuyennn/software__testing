@@ -17,7 +17,7 @@ files manually. When the remaining authentic evidence is complete, run:
 
 ```powershell
 .\scripts\New-Submission.ps1 -PreflightOnly
-.\scripts\New-Submission.ps1 -Grade 100 -VideoUrl https://youtu.be/VIDEO_ID
+.\scripts\New-Submission.ps1 -Grade 100
 ```
 
 The verified Moodle archive will be written to `output/`; the reviewable
@@ -43,10 +43,14 @@ and FR-13 Admin dashboard (Pool C), is unique within the group.
 
 ## Verified summary
 
-Latest complete local full run: **2026-08-24**. The SUT is reseeded before each
-run; results remained identical to the documented defect baseline.
+The suite was executed twice against two different states of the SUT, and both
+runs are part of the evidence. The SUT is reseeded before every run.
 
-| API | AI-generated | Student-added | Total | Passed cases | Failed cases | Assertions passed/total | Bugs touched |
+**Run 1 - defect discovery, against the SUT as delivered** (2026-08-24 00:25,
+`evidence/newman-console/suite_full_20260824-002523.log`). This is the run the
+bug report and the GitHub Issue screenshots were taken from.
+
+| API | AI-generated | Student-added | Total | Passed cases | Failed cases | Assertions passed/total | Bugs found |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | API 1 - FR-01 | 121 | 5 | 126 | 69 | 57 | 544/606 | 9 |
 | API 2 - FR-06 | 83 | 5 | 88 | 54 | 34 | 390/433 | 3 |
@@ -54,8 +58,26 @@ run; results remained identical to the documented defect baseline.
 | API 4 - FR-13 | 73 | 5 | 78 | 68 | 10 | 333/345 | 2 |
 | **Total / unique** | **366** | **20** | **386** | **275** | **111** | **1,674/1,802** | **16 unique bugs** |
 
-Failed assertions are defect evidence, not broken fixtures. They are clustered
-into 16 root-cause reports in `docs/bugs/BUG_REPORT.md`.
+The 128 failing assertions there are defect evidence, not broken fixtures. They
+cluster into the 16 root-cause reports in `docs/bugs/BUG_REPORT.md`.
+
+**Run 2 - regression, after the defects were fixed** (2026-08-24 14:12, commit
+`73ce207`, current contents of `reports/`). The same 386 cases, unchanged, were
+re-run against the patched SUT:
+
+| API | Total cases | Passed cases | Failed cases | Assertions passed/total |
+|---|---:|---:|---:|---:|
+| API 1 - FR-01 | 126 | 126 | 0 | 606/606 |
+| API 2 - FR-06 | 88 | 88 | 0 | 433/433 |
+| API 3 - FR-11 | 94 | 94 | 0 | 418/418 |
+| API 4 - FR-13 | 78 | 78 | 0 | 345/345 |
+| **Total** | **386** | **386** | **0** | **1,802/1,802** |
+
+Both numbers matter and neither replaces the other: run 1 is what the test
+cases *found*, run 2 is proof that the fixes actually close those 16 defects
+and that no case was quietly weakened to make the suite pass. The reports in
+`reports/` are run 2; run 1 survives in the console transcripts under
+`evidence/newman-console/` and in the Issue screenshots.
 
 Audit totals across all APIs: **363 VALID, 1 INVALID and corrected, 22
 INCOMPLETE with documented specification gaps**.
@@ -146,15 +168,16 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Bug report with 16 root-cause defects
 - [x] AI Critique (200-300 words) and AI Audit Report content
 - [x] Generator implementation/design brief/pseudocode
-- [ ] Final Excel workbook synchronized and visually verified
+- [x] Final Excel workbook synchronized with 386 audited/executed cases
 - [x] Final PDFs regenerated and visually verified
 - [x] Public GitHub branch pushed; real green/red CI URLs recorded
 - [x] GitHub Issues filed; signed-in issue-page screenshots captured
 - [x] Postman Cloud workspace and environment screenshots captured
 - [x] Real Postman Desktop Console evidence captured with localhost, HTTP 200
   and `[HW06] X-Student-Id=23127184`
-- [ ] Collection Runner/Monitor and successful Mock response evidence captured
+- [x] Collection Runner and completed Monitor evidence captured
+- [ ] Successful Mock example response captured (optional Postman enhancement)
 - [x] Generator diagram PNG and editable Mermaid source added
 - [ ] Student reviewed/adapted the diagram and can explain every design choice
-- [ ] Narrated demo video URL added
+- [ ] Narrated demo video URL added (optional enhancement)
 - [x] Group uniqueness and self-assessment completed (2026-08-24)

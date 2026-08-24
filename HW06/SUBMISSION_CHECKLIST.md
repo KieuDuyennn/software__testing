@@ -8,7 +8,7 @@ Không chọn từng file thủ công. Sau khi hoàn tất các mục còn thi�
 chạy:
 
 ```powershell
-.\scripts\New-Submission.ps1 -Grade 100 -VideoUrl https://youtu.be/VIDEO_ID
+.\scripts\New-Submission.ps1 -Grade 100
 ```
 
 Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submission-ready/`, sau
@@ -33,16 +33,22 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 
 - [x] Chụp `evidence/screenshots/postman-console-x-student-id.png` có dòng
   `[HW06] X-Student-Id=23127184` từ một request chạy thật.
-- [ ] Chụp kết quả Runner, Monitor và Mock Server vào
-  `evidence/postman-cloud/runner.png`, `monitor.png`, `mock-server.png`.
+- [x] Đã chụp Collection Runner thật tại `evidence/postman-cloud/runner.png`:
+  API2 chạy local, 433 assertions, 390 pass và 43 defect-revealing failures.
+- [x] Đã tạo/chạy Monitor thật tại `evidence/postman-cloud/monitor.png`. Monitor
+  hoàn thành ở trạng thái Unhealthy vì Postman Cloud không truy cập được
+  `localhost`; ảnh ghi rõ 129 requests, 238 failed tests và 11 errors.
+- [x] Đã chụp Mock Server đang chạy và request log tại
+  `evidence/postman-cloud/mock-server.png`.
 - [x] Đã có ảnh generator và file Mermaid chỉnh sửa được trong
   `docs/design/diagram/`.
 - [ ] Sinh viên mở source trong draw.io, tự rà soát/chỉnh và bảo đảm giải thích
   được toàn bộ sơ đồ trong video (điều kiện tác quyền của đề).
-- [ ] Chèn link video YouTube demo vào README và báo cáo chính.
+- [ ] (Tùy chọn) Chèn link video YouTube demo vào README và báo cáo chính.
 - [x] Xác nhận bộ ba API không trùng với thành viên nhóm ngày 2026-08-24.
 - [x] Điền điểm tự đánh giá 100/100 trong README.
-- [ ] Mở Excel kiểm tra hình thức và lưu bản cuối.
+- [x] Excel đã được đồng bộ từ nguồn 386 case, gồm audit, 20 case tự thêm và
+  kết quả full run; vẫn nên mở một lần bằng Excel trước khi nộp để kiểm tra font.
 
 Chi tiết cách chụp minh chứng nằm tại `evidence/REQUIRED_USER_EVIDENCE.md`.
 

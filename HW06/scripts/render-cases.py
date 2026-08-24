@@ -269,7 +269,54 @@ def rebuild_gate(module, api):
 # Excel
 # ---------------------------------------------------------------------------
 
-def render_excel(module):
+BUGS_TOUCHED = {
+    "API1_FR01_Register": 9,
+    "API2_FR06_ProductDetail": 3,
+    "API3_FR11_OrderHistory": 5,
+    "API4_FR13_AdminOrders": 2,
+}
+
+
+def load_execution_results(collection_name):
+    """Return the latest Newman outcome keyed by case id.
+
+    The workbook is a review/export artefact, so it must carry the same actual
+    result and pass/fail state as the JSON report instead of resetting every
+    row to ``Not run`` whenever cases are rendered.
+    """
+    report_path = ROOT / "reports" / (collection_name + ".json")
+    if not report_path.exists():
+        return {}
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    results = {}
+    for execution in report.get("run", {}).get("executions", []):
+        item_name = execution.get("item", {}).get("name", "")
+        case_id = item_name.split("|", 1)[0].strip()
+        if not case_id:
+            continue
+
+        assertions = execution.get("assertions", [])
+        failures = [
+            a.get("error", {}).get("message", "assertion failed")
+            for a in assertions if a.get("error")
+        ]
+        response = execution.get("response") or {}
+        code = response.get("code")
+        passed = len(assertions) - len(failures)
+        summary = "HTTP %s; %d/%d assertions passed" % (
+            code if code is not None else "no response", passed, len(assertions)
+        )
+        if failures:
+            summary += "; " + " | ".join(failures[:3])
+        results[case_id] = {
+            "actual": summary,
+            "status": "Fail" if failures else "Pass",
+        }
+    return results
+
+
+def render_excel(module, cases):
     try:
         from openpyxl import load_workbook
         from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
@@ -283,7 +330,12 @@ def render_excel(module):
         print("  workbook missing - run scripts/build-testcase-workbook.py first.")
         return None
 
-    meta, cases = module.META, module.CASES
+    meta = module.META
+    collection_name = next(
+        name for api, name in COLLECTION_NAMES.items()
+        if api == int(meta["api"])
+    )
+    execution_results = load_execution_results(collection_name)
     wb = load_workbook(path)
     sheet_name = meta["sheet"][:31]
     if sheet_name not in wb.sheetnames:
@@ -314,12 +366,12 @@ def render_excel(module):
             "%s %s" % (c.get("method", "POST"), c.get("path", "/api/register")),
             (payload or "")[:900],
             c.get("expected", ""),
-            "AI-generated",
-            "",                       # Audit label - phase 2
-            "",                       # Audit reasoning - phase 2
-            "",                       # Correction applied - phase 2
-            "",                       # Actual result - phase 4
-            "Not run",
+            c.get("origin", "AI-generated"),
+            c.get("audit_label", ""),
+            c.get("audit_reason", ""),
+            c.get("correction", ""),
+            execution_results.get(c["id"], {}).get("actual", "Not executed in the latest full run."),
+            execution_results.get(c["id"], {}).get("status", "Not run"),
             "",                       # Bug ID
         ]
         for col, value in enumerate(values, start=1):
@@ -337,9 +389,37 @@ def render_excel(module):
         summary = wb["Summary"]
         for row in range(5, 9):
             if str(summary.cell(row=row, column=1).value or "").startswith(meta["sheet"][:8]):
-                summary.cell(row=row, column=4, value=len(cases))     # AI-generated
-                summary.cell(row=row, column=5, value=0)              # student-added
+                ai_count = sum(c.get("origin") == "AI-generated" for c in cases)
+                student_count = sum(c.get("origin") == "Student-designed" for c in cases)
+                passed = sum(r["status"] == "Pass" for r in execution_results.values())
+                failed = sum(r["status"] == "Fail" for r in execution_results.values())
+                summary.cell(row=row, column=4, value=ai_count)
+                summary.cell(row=row, column=5, value=student_count)
+                summary.cell(row=row, column=6, value=len(cases))
+                summary.cell(row=row, column=7, value=len(execution_results))
+                summary.cell(row=row, column=8, value=passed)
+                summary.cell(row=row, column=9, value=failed)
+                summary.cell(row=row, column=10, value=BUGS_TOUCHED[collection_name])
                 break
+
+        def summary_number(row, col):
+            value = summary.cell(row=row, column=col).value
+            if isinstance(value, (int, float)):
+                return int(value)
+            # The original skeleton used =Drow+Erow in the Total column.
+            if col == 6 and isinstance(value, str) and value.startswith("="):
+                return summary_number(row, 4) + summary_number(row, 5)
+            return 0
+
+        total_row = 9
+        for col in range(4, 10):
+            summary.cell(
+                row=total_row,
+                column=col,
+                value=sum(summary_number(r, col) for r in range(5, 9)),
+            )
+        # Three root causes touch more than one API; the report tracks 16 unique bugs.
+        summary.cell(row=total_row, column=10, value=16)
 
     wb.save(path)
     return path
@@ -481,7 +561,7 @@ def main():
         indent=2, ensure_ascii=False, default=str), encoding="utf-8")
 
     cov_path, by_dim, gaps = render_coverage(module)
-    xlsx = None if args.skip_workbook else render_excel(module)
+    xlsx = None if args.skip_workbook else render_excel(module, cases)
 
     print("API %d - %s" % (args.api, meta["endpoint"]))
     print("  cases          : %d  (%.1fx the brief's minimum of 35)"
