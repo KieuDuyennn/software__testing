@@ -645,19 +645,37 @@ pm.sendRequest({
 });
 """
 
-_REGISTER_AND_LOGIN = _REGISTER_FIXTURE + """
+_REGISTER_AND_LOGIN = """
+// Fixture: register first, then log in from its callback. Nesting the requests
+// avoids a race when password hashing makes registration slower than login.
+const email = "st" + pm.variables.get("uniq") + "@domain.com";
+const password = "Password123!";
+pm.variables.set("stEmail", email);
+pm.variables.set("stPassword", password);
 pm.sendRequest({
-    url: pm.environment.get("base_url") + "/api/login",
+    url: pm.environment.get("base_url") + "/api/register",
     method: "POST",
     header: { "Content-Type": "application/json",
               "X-Student-Id": pm.environment.get("student_id") },
     body: { mode: "raw", raw: JSON.stringify({
-        email: pm.variables.get("stEmail"),
-        password: pm.variables.get("stPassword") }) }
-}, function (err, res) {
-    if (res && res.json() && res.json().token) {
-        pm.variables.set("stToken", res.json().token);
+        name: "State Fixture", email: email, password: password,
+        confirmPassword: password }) }
+}, function (registerErr, registerRes) {
+    if (registerRes && registerRes.json()) {
+        pm.variables.set("stUserId", registerRes.json().id);
     }
+    pm.sendRequest({
+        url: pm.environment.get("base_url") + "/api/login",
+        method: "POST",
+        header: { "Content-Type": "application/json",
+                  "X-Student-Id": pm.environment.get("student_id") },
+        body: { mode: "raw", raw: JSON.stringify({
+            email: email, password: password }) }
+    }, function (loginErr, loginRes) {
+        if (loginRes && loginRes.json() && loginRes.json().token) {
+            pm.variables.set("stToken", loginRes.json().token);
+        }
+    });
 });
 """
 
