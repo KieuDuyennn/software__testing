@@ -12,12 +12,12 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Metric | Value |
 |---|---:|
-| Generated at | `2026-08-23T17:26:38.706Z` |
+| Generated at | `2026-08-24T08:36:50.683Z` |
 | Cases in collection | 88 |
-| Cases fully passing | 54 |
-| Cases with at least one failed assertion | 34 |
+| Cases fully passing | 88 |
+| Cases with at least one failed assertion | 0 |
 | Newman assertions | 433 |
-| Failed assertions | 43 |
+| Failed assertions | 0 |
 | Request transport failures | 0 |
 | HTML report | `reports/API2_FR06_ProductDetail.html` |
 | JSON report | `reports/API2_FR06_ProductDetail.json` |
@@ -26,9 +26,7 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Bug | Failing cases |
 |---|---|
-| BUG-03 | `A2-DP-007`, `A2-DP-008`, `A2-DP-009`, `A2-DP-010`, `A2-DP-011`, `A2-DP-012`, `A2-DP-014`, `A2-DP-015`, `A2-DP-016`, `A2-DP-017`, `A2-DP-018`, `A2-DP-019`, `A2-DP-020`, `A2-DP-021`, `A2-DP-022`, `A2-DP-023`, `A2-DP-024`, `A2-DP-025`, `A2-HR-004`, `A2-HR-005`, `A2-SCH-018`, `A2-ST-004` |
-| BUG-04 | `A2-SCH-002`, `A2-SCH-004`, `A2-SCH-007`, `A2-SCH-009`, `A2-ST-003`, `A2-ST-006`, `A2-ST-010` |
-| BUG-13 | `A2-SEC-011`, `A2-SEC-012`, `A2-SEC-013`, `A2-SEC-014`, `A2-SEC-015` |
+| - | No failed cases |
 
 ## Evidence integrity
 

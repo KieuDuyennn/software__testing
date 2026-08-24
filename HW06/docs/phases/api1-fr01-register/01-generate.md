@@ -7,7 +7,7 @@
 | Pool | A |
 | Requirement | FR-01 |
 | Endpoint under test | `POST /api/register` |
-| Postman collection | `collections/API1_FR01_Register.postman_collection.json` |
+| Postman collection | `postman/collections/API1_FR01_Register.postman_collection.json` |
 | Case specification | `scripts/cases/api1_fr01_register.py` |
 | Coverage tally | `reports/coverage_api1-fr01-register.md` |
 | Parameters | `name` (string), `email` (string), `password` (string) |

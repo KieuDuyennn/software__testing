@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003",
-    "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (data/api2_fr06_product_detail.csv)",
-    "description": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
+    "_postman_id": "bbb93d3e-4c34-5f91-9cbc-1bcb29cb085f",
+    "name": "API4 - FR-13 Admin Dashboard - DATA-DRIVEN (postman/data/api4_fr13_admin_orders.csv)",
+    "description": "HW06 / Pool C / FR-13, executed data-driven.\n\nOne `GET /api/admin/orders`, replayed once per row of `postman/data/api4_fr13_admin_orders.csv`. Each row is a role in the SEC-03 matrix - admin, ordinary user, anonymous and forged token - together with the status that role must receive.\n\nRun: `npm run ddt:api4`",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -10,7 +10,7 @@
       "name": "05 - Data-driven (CSV)",
       "item": [
         {
-          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
           "event": [
             {
               "listen": "prerequest",
@@ -20,7 +20,7 @@
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -29,7 +29,42 @@
                   "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
                   "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
                   "",
-                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
                 ]
               }
             },
@@ -50,21 +85,18 @@
                   "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
                   "});",
                   "",
-                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
-                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
                   "        const b = pm.response.json();",
-                  "        pm.expect(b).to.have.property(\"id\");",
-                  "        pm.expect(b).to.have.property(\"name\");",
-                  "        pm.expect(b).to.have.property(\"price\");",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
                   "    });",
-                  "}",
-                  "",
-                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
-                  "        function () {",
-                  "    const body = pm.response.text() || \"\";",
-                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
-                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
-                  "});"
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
                 ]
               }
             }
@@ -73,17 +105,17 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/products/{{ddt_product_id}}",
+              "raw": "{{base_url}}/api/admin/orders",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "products",
-                "{{ddt_product_id}}"
+                "admin",
+                "orders"
               ]
             },
-            "description": "The :id partition under test comes from the CSV."
+            "description": "The calling role comes from the CSV's token_var column."
           },
           "response": []
         }

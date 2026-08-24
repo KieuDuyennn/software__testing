@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "579064c8-50e3-5792-bc33-3e82170852ae",
     "name": "API3 - FR-11 Order History (GET /api/orders/my-orders) [CI gate]",
-    "description": "HW06 / Pool B / FR-11 - Order history.\n\nSpec: GET /api/orders/my-orders (Bearer token) -> the caller's orders. Also covers GET /api/orders/:id and PUT /api/orders/:id/cancel, the two routes FR-11 governs alongside it.\n\nGenerated from scripts/cases/api3_fr11_order_history.py. FR-11's rule that a user may see only their own orders makes this the home for ownership and IDOR testing; FR-10's state machine is exercised through the history view, with a case for every ILLEGAL transition as well as every legal one.\n\nEach case builds its own users and orders in a pre-request fixture, so no case depends on another having run first.\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\nContains the 84 of 94 cases that passed the run recorded in reports/API3_FR11_OrderHistory.json. The remaining 10 fail because the SUT violates the specification; they are tracked in docs/bugs/BUG_REPORT.md, not here. Refresh with:\n\n    python scripts/render-cases.py --api 3 --refresh-gate\n",
+    "description": "HW06 / Pool B / FR-11 - Order history.\n\nSpec: GET /api/orders/my-orders (Bearer token) -> the caller's orders. Also covers GET /api/orders/:id and PUT /api/orders/:id/cancel, the two routes FR-11 governs alongside it.\n\nGenerated from scripts/cases/api3_fr11_order_history.py. FR-11's rule that a user may see only their own orders makes this the home for ownership and IDOR testing; FR-10's state machine is exercised through the history view, with a case for every ILLEGAL transition as well as every legal one.\n\nEach case builds its own users and orders in a pre-request fixture, so no case depends on another having run first.\n\n---\n\nCI REGRESSION GATE - generated, do not edit.\n\nContains the 94 of 94 cases that passed the run recorded in reports/API3_FR11_OrderHistory.json. The remaining 0 fail because the SUT violates the specification; they are tracked in docs/bugs/BUG_REPORT.md, not here. Refresh with:\n\n    python scripts/render-cases.py --api 3 --refresh-gate\n",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -28,7 +28,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -212,7 +212,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -357,7 +357,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -409,9 +409,96 @@
                 "description": "**A3-DP-008** - A lowercase 'bearer' scheme is handled without a server error\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | authorization |\n| Partition | edge: lowercase scheme keyword |\n| Requirement | SEC-02 |\n| Expected | 200 or 401 - RFC 7235 makes the scheme case-insensitive; never a 5xx |\n| Origin | AI-generated |\n| Audit | INCOMPLETE |\n\n> **Specification gap:** The spec does not state whether the scheme keyword is case-sensitive."
               },
               "response": []
+            },
+            {
+              "name": "A3-DP-009 | A token whose account no longer exists is rejected",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const tokEmail = \"u\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                      "const tokPassword = \"Password123!\";",
+                      "pm.variables.set(\"freshEmail\", tokEmail);",
+                      "pm.variables.set(\"freshPassword\", tokPassword);",
+                      "pm.sendRequest({",
+                      "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                      "    method: \"POST\",",
+                      "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                      "}, function (err, res) {",
+                      "    pm.sendRequest({",
+                      "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                      "        method: \"POST\",",
+                      "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                      "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                      "    }, function (err, res) {",
+                      "        if (res && res.json() && res.json().token) {",
+                      "            pm.variables.set(\"tok\", res.json().token);",
+                      "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                      "        }",
+                      "        pm.sendRequest({",
+                      "            url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                      "            method: \"POST\",",
+                      "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                      "            body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                      "        }, function (err, res) {",
+                      "            if (res && res.json() && res.json().token) {",
+                      "                pm.variables.set(\"adminTok\", res.json().token);",
+                      "                pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                      "            }",
+                      "",
+                      "            pm.sendRequest({",
+                      "                url: pm.environment.get(\"base_url\") + \"/api/admin/users/\" +",
+                      "                     pm.variables.get(\"tok_uid\"),",
+                      "                method: \"DELETE\",",
+                      "                header: { \"X-Student-Id\": pm.environment.get(\"student_id\"),",
+                      "                          \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") }",
+                      "            }, function () {});",
+                      "        });",
+                      "    });",
+                      "});"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Rejected with a 401-403 (account no longer exists)\", function () {",
+                      "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{tok}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/my-orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "my-orders"
+                  ]
+                },
+                "description": "**A3-DP-009** - A token whose account no longer exists is rejected\n\n| Field | Value |\n|---|---|\n| Dimension | Domain |\n| Parameter | authorization |\n| Partition | invalid: token belonging to a deleted account |\n| Requirement | SEC-02 |\n| Expected | 401 - a session must not outlive its account |\n| Origin | AI-generated |\n| Audit | VALID |"
+              },
+              "response": []
             }
           ],
-          "description": "8 case(s) on `authorization`."
+          "description": "9 case(s) on `authorization`."
         },
         {
           "name": "id",
@@ -432,7 +519,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -511,7 +598,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -580,7 +667,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -649,7 +736,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -718,7 +805,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -790,7 +877,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -859,7 +946,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -931,7 +1018,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1007,7 +1094,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1091,7 +1178,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1196,7 +1283,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1265,7 +1352,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1334,7 +1421,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1403,7 +1490,7 @@
                       "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                       "    method: \"POST\",",
                       "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                      "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                       "}, function (err, res) {",
                       "    pm.sendRequest({",
                       "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1475,7 +1562,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1546,7 +1633,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1623,7 +1710,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1716,7 +1803,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1813,7 +1900,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1891,7 +1978,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -1961,7 +2048,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2040,7 +2127,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2139,7 +2226,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2245,7 +2332,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2358,7 +2445,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2478,7 +2565,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2584,7 +2671,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2673,7 +2760,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2754,6 +2841,109 @@
           "response": []
         },
         {
+          "name": "A3-ST-008 | Cancelling a shipping order must be refused",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"sh\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "            }, function (err, res) {",
+                  "                if (res && res.json() && res.json().token) {",
+                  "                    pm.variables.set(\"adminTok\", res.json().token);",
+                  "                    pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "                }",
+                  "                pm.sendRequest({",
+                  "                    url: pm.environment.get(\"base_url\") + \"/api/admin/orders/\" + pm.variables.get(\"orderId\") + \"/status\",",
+                  "                    method: \"PUT\",",
+                  "                    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                    body: { mode: \"raw\", raw: JSON.stringify({ status: \"confirmed\" }) }",
+                  "                }, function (err, res) {",
+                  "                    pm.sendRequest({",
+                  "                        url: pm.environment.get(\"base_url\") + \"/api/admin/orders/\" + pm.variables.get(\"orderId\") + \"/status\",",
+                  "                        method: \"PUT\",",
+                  "                        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                        body: { mode: \"raw\", raw: JSON.stringify({ status: \"shipping\" }) }",
+                  "                    }, function (err, res) {",
+                  "",
+                  "                    });",
+                  "                });",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 400-499 (shipping is not a cancellable state)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/{{orderId}}/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{orderId}}",
+                "cancel"
+              ]
+            },
+            "description": "**A3-ST-008** - Cancelling a shipping order must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | ILLEGAL cancellation: from shipping |\n| Requirement | FR-10 |\n| Expected | 400 - FR-10 permits cancellation only from pending or confirmed |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
           "name": "A3-ST-009 | Cancelling a delivered order must be refused",
           "event": [
             {
@@ -2769,7 +2959,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2879,7 +3069,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -2975,7 +3165,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3081,7 +3271,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3184,7 +3374,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3287,7 +3477,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3397,7 +3587,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3507,7 +3697,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3624,7 +3814,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3741,7 +3931,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3865,7 +4055,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -3974,6 +4164,116 @@
           "response": []
         },
         {
+          "name": "A3-ST-020 | Transition canceled -> delivered must be refused",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"cade\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "            }, function (err, res) {",
+                  "                if (res && res.json() && res.json().token) {",
+                  "                    pm.variables.set(\"adminTok\", res.json().token);",
+                  "                    pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "                }",
+                  "                pm.sendRequest({",
+                  "                    url: pm.environment.get(\"base_url\") + \"/api/admin/orders/\" + pm.variables.get(\"orderId\") + \"/status\",",
+                  "                    method: \"PUT\",",
+                  "                    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                    body: { mode: \"raw\", raw: JSON.stringify({ status: \"canceled\" }) }",
+                  "                }, function (err, res) {",
+                  "",
+                  "                });",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 400-499 (canceled -> delivered is not a legal transition)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(400, 499);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminTok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders/{{orderId}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            },
+            "description": "**A3-ST-020** - Transition canceled -> delivered must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | ILLEGAL transition: canceled -> delivered |\n| Requirement | FR-10 |\n| Expected | 400 - canceled is terminal |\n| Origin | AI-generated |\n| Audit | VALID |",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"delivered\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
           "name": "A3-ST-021 | Transition canceled -> pending must be refused",
           "event": [
             {
@@ -3989,7 +4289,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4099,7 +4399,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4202,7 +4502,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4316,7 +4616,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword, confirmPassword: victimTokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4343,7 +4643,7 @@
                   "                url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "                method: \"POST\",",
                   "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "            }, function (err, res) {",
                   "                pm.sendRequest({",
                   "                    url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4399,6 +4699,126 @@
             "description": "**A3-ST-024** - A user must not be able to cancel someone else's order\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | ownership: cancelling another user's order |\n| Requirement | FR-10 / FR-11 |\n| Expected | 403 or 404 - FR-11 scopes orders to their owner |\n| Origin | AI-generated |\n| Audit | VALID |"
           },
           "response": []
+        },
+        {
+          "name": "A3-HR-001 | A refused shipping cancellation leaves the order in shipping",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"hrsh\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "            }, function (err, res) {",
+                  "                if (res && res.json() && res.json().token) {",
+                  "                    pm.variables.set(\"adminTok\", res.json().token);",
+                  "                    pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "                }",
+                  "                pm.sendRequest({",
+                  "                    url: pm.environment.get(\"base_url\") + \"/api/admin/orders/\" + pm.variables.get(\"orderId\") + \"/status\",",
+                  "                    method: \"PUT\",",
+                  "                    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                    body: { mode: \"raw\", raw: JSON.stringify({ status: \"confirmed\" }) }",
+                  "                }, function (err, res) {",
+                  "                    pm.sendRequest({",
+                  "                        url: pm.environment.get(\"base_url\") + \"/api/admin/orders/\" + pm.variables.get(\"orderId\") + \"/status\",",
+                  "                        method: \"PUT\",",
+                  "                        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"adminTok\") },",
+                  "                        body: { mode: \"raw\", raw: JSON.stringify({ status: \"shipping\" }) }",
+                  "                    }, function (err, res) {",
+                  "",
+                  "                        pm.sendRequest({",
+                  "                            url: pm.environment.get(\"base_url\") + \"/api/orders/\" +",
+                  "                                 pm.variables.get(\"orderId\") + \"/cancel\",",
+                  "                            method: \"PUT\",",
+                  "                            header: { \"X-Student-Id\": pm.environment.get(\"student_id\"),",
+                  "                                      \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") }",
+                  "                        }, function () {});",
+                  "                    });",
+                  "                });",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Order is listed in the caller's history\", function () {",
+                  "    const target = Number(pm.variables.get(\"orderId\"));",
+                  "    const found = pm.response.json().find(function (o) {",
+                  "        return Number(o.id) === target;",
+                  "    });",
+                  "    pm.expect(found, \"order \" + target + \" must appear in history\").to.not.be.undefined;",
+                  "});",
+                  "pm.test(\"History shows the order as 'shipping'\", function () {",
+                  "    const target = Number(pm.variables.get(\"orderId\"));",
+                  "    const found = pm.response.json().find(function (o) {",
+                  "        return Number(o.id) === target;",
+                  "    }) || {};",
+                  "    pm.expect(found.status).to.eql(\"shipping\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/my-orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "**A3-HR-001** - A refused shipping cancellation leaves the order in shipping\n\n| Field | Value |\n|---|---|\n| Dimension | State |\n| Parameter | - |\n| Partition | post-condition after refused shipping cancellation |\n| Requirement | FR-10 / FR-11 |\n| Expected | the order remains shipping after the forbidden request |\n| Origin | Student-designed |\n| Audit | VALID |"
+          },
+          "response": []
         }
       ],
       "description": "Every legal transition, and every illegal one - the illegal ones are where the defects live."
@@ -4406,6 +4826,282 @@
     {
       "name": "03 - Security (SEC-01..SEC-07)",
       "item": [
+        {
+          "name": "A3-SEC-001 | Reading an order with no token at all must be refused",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"u\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-404 (no token supplied)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/orders/{{orderId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{orderId}}"
+              ]
+            },
+            "description": "**A3-SEC-001** - Reading an order with no token at all must be refused\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | IDOR: anonymous read of an arbitrary order |\n| Requirement | SEC-02 / FR-11 |\n| Expected | 401 - SEC-02 requires a valid JWT on order data |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A3-SEC-002 | User A must not be able to read user B's order",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const victimTokEmail = \"vc2\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const victimTokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", victimTokEmail);",
+                  "pm.variables.set(\"freshPassword\", victimTokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword, confirmPassword: victimTokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: victimTokEmail, password: victimTokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"victimTok\", res.json().token);",
+                  "            pm.variables.set(\"victimTok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"victimTok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 999000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"victimOrder\", res.json().orderId); }",
+                  "            const tokEmail = \"at2\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "            const tokPassword = \"Password123!\";",
+                  "            pm.variables.set(\"freshEmail\", tokEmail);",
+                  "            pm.variables.set(\"freshPassword\", tokPassword);",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "            }, function (err, res) {",
+                  "                pm.sendRequest({",
+                  "                    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "                    method: \"POST\",",
+                  "                    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                    body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "                }, function (err, res) {",
+                  "                    if (res && res.json() && res.json().token) {",
+                  "                        pm.variables.set(\"tok\", res.json().token);",
+                  "                        pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "                    }",
+                  "",
+                  "                });",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-404 (caller does not own this order)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/{{victimOrder}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{victimOrder}}"
+              ]
+            },
+            "description": "**A3-SEC-002** - User A must not be able to read user B's order\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | IDOR: cross-user read with a valid token |\n| Requirement | FR-11 |\n| Expected | 403 or 404 - FR-11 scopes orders to their owner |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A3-SEC-003 | Sequential order ids must not be enumerable anonymously",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-404 (anonymous enumeration must be refused)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1"
+              ]
+            },
+            "description": "**A3-SEC-003** - Sequential order ids must not be enumerable anonymously\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | IDOR: enumeration of the id space |\n| Requirement | FR-11 / SEC-02 |\n| Expected | 401 - walking ids from 1 must not disclose other customers' orders |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A3-SEC-004 | An anonymous caller must not learn a customer's shipping address",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"u\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"99 Secret Lane, District 1\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"No shipping address is disclosed to an anonymous caller\", function () {",
+                  "    pm.expect(pm.response.text()).to.not.include(\"99 Secret Lane\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/orders/{{orderId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{orderId}}"
+              ]
+            },
+            "description": "**A3-SEC-004** - An anonymous caller must not learn a customer's shipping address\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | privacy: shipping address disclosure |\n| Requirement | FR-11 |\n| Expected | the response must not contain the address |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
         {
           "name": "A3-SEC-005 | Order history contains only the caller's orders",
           "event": [
@@ -4422,7 +5118,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword, confirmPassword: victimTokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4449,7 +5145,7 @@
                   "                url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "                method: \"POST\",",
                   "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "            }, function (err, res) {",
                   "                pm.sendRequest({",
                   "                    url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4541,7 +5237,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4643,6 +5339,181 @@
           "response": []
         },
         {
+          "name": "A3-SEC-008 | An ordinary user must not reach the admin order list",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"u\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (caller is not an admin)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            },
+            "description": "**A3-SEC-008** - An ordinary user must not reach the admin order list\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | privilege escalation: a real user token on an admin route |\n| Requirement | SEC-03 / FR-12 |\n| Expected | 403 - SEC-03 requires role='admin' |\n| Origin | AI-generated |\n| Audit | VALID |"
+          },
+          "response": []
+        },
+        {
+          "name": "A3-SEC-009 | An ordinary user must not change an order's status",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tokEmail = \"pe\" + pm.variables.get(\"uniq\") + \"@domain.com\";",
+                  "const tokPassword = \"Password123!\";",
+                  "pm.variables.set(\"freshEmail\", tokEmail);",
+                  "pm.variables.set(\"freshPassword\", tokPassword);",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
+                  "}, function (err, res) {",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: tokEmail, password: tokPassword }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        pm.sendRequest({",
+                  "            url: pm.environment.get(\"base_url\") + \"/api/checkout\",",
+                  "            method: \"POST\",",
+                  "            header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\"), \"Authorization\": \"Bearer \" + pm.variables.get(\"tok\") },",
+                  "            body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 250000, shipping_address: \"123 Le Loi, Q1, TP.HCM\" }) }",
+                  "        }, function (err, res) {",
+                  "            if (res && res.json()) { pm.variables.set(\"orderId\", res.json().orderId); }",
+                  "            pm.sendRequest({",
+                  "                url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "                method: \"POST\",",
+                  "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "            }, function (err, res) {",
+                  "                if (res && res.json() && res.json().token) {",
+                  "                    pm.variables.set(\"adminTok\", res.json().token);",
+                  "                    pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "                }",
+                  "",
+                  "            });",
+                  "        });",
+                  "    });",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rejected with a 401-403 (caller is not an admin)\", function () {",
+                  "    pm.expect(pm.response.code, \"status code\").to.be.within(401, 403);",
+                  "});pm.test(\"The transition did not take effect\", function () {",
+                  "    pm.expect(pm.response.code,",
+                  "        \"a 200 here means the role claim was never checked\").to.not.eql(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tok}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders/{{orderId}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            },
+            "description": "**A3-SEC-009** - An ordinary user must not change an order's status\n\n| Field | Value |\n|---|---|\n| Dimension | Security |\n| Parameter | - |\n| Partition | privilege escalation: a user driving the state machine |\n| Requirement | SEC-03 / FR-12 |\n| Expected | 403 - only an admin may drive FR-10 transitions, even legal ones |\n| Origin | AI-generated |\n| Audit | VALID |",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
           "name": "A3-SEC-010 | Injection via the order id (tautology) is neutralised",
           "event": [
             {
@@ -4658,7 +5529,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4743,7 +5614,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4828,7 +5699,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4913,7 +5784,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -4998,7 +5869,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5085,7 +5956,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5170,7 +6041,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5247,7 +6118,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5324,7 +6195,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5465,7 +6336,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5561,7 +6432,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: victimTokEmail, password: victimTokPassword, confirmPassword: victimTokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5588,7 +6459,7 @@
                   "                url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "                method: \"POST\",",
                   "                header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: attackerTokEmail, password: attackerTokPassword }) }",
+                  "                body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: attackerTokEmail, password: attackerTokPassword, confirmPassword: attackerTokPassword }) }",
                   "            }, function (err, res) {",
                   "                pm.sendRequest({",
                   "                    url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5668,7 +6539,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5749,7 +6620,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5849,7 +6720,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -5938,7 +6809,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6018,7 +6889,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6097,7 +6968,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6176,7 +7047,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6257,7 +7128,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6338,7 +7209,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6407,7 +7278,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6496,7 +7367,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6602,7 +7473,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6672,7 +7543,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6753,7 +7624,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6837,7 +7708,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
@@ -6957,7 +7828,7 @@
                   "    url: pm.environment.get(\"base_url\") + \"/api/register\",",
                   "    method: \"POST\",",
                   "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword }) }",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ name: \"Fresh User\", email: tokEmail, password: tokPassword, confirmPassword: tokPassword }) }",
                   "}, function (err, res) {",
                   "    pm.sendRequest({",
                   "        url: pm.environment.get(\"base_url\") + \"/api/login\",",

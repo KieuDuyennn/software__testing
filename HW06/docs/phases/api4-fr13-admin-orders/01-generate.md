@@ -7,7 +7,7 @@
 | Pool | C |
 | Requirement | FR-13, with FR-12 |
 | Endpoint under test | `GET /api/admin/orders` |
-| Postman collection | `collections/API4_FR13_AdminOrders.postman_collection.json` |
+| Postman collection | `postman/collections/API4_FR13_AdminOrders.postman_collection.json` |
 | Case specification | `scripts/cases/api4_fr13_admin_orders.py` |
 | Coverage tally | `reports/coverage_api4-fr13-admin-orders.md` |
 | Target set by the brief | >= 35 test cases |

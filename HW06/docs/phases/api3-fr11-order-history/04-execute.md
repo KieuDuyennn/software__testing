@@ -12,12 +12,12 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Metric | Value |
 |---|---:|
-| Generated at | `2026-08-23T17:26:38.706Z` |
+| Generated at | `2026-08-24T08:36:50.683Z` |
 | Cases in collection | 94 |
-| Cases fully passing | 84 |
-| Cases with at least one failed assertion | 10 |
+| Cases fully passing | 94 |
+| Cases with at least one failed assertion | 0 |
 | Newman assertions | 418 |
-| Failed assertions | 11 |
+| Failed assertions | 0 |
 | Request transport failures | 0 |
 | HTML report | `reports/API3_FR11_OrderHistory.html` |
 | JSON report | `reports/API3_FR11_OrderHistory.json` |
@@ -26,11 +26,7 @@ The runner starts a freshly seeded backend with `LOADTEST=1`, executes Newman, w
 
 | Bug | Failing cases |
 |---|---|
-| BUG-05 | `A3-SEC-001`, `A3-SEC-002`, `A3-SEC-003`, `A3-SEC-004` |
-| BUG-06 | `A3-SEC-008`, `A3-SEC-009` |
-| BUG-14 | `A3-DP-009` |
-| BUG-15 | `A3-HR-001`, `A3-ST-008` |
-| BUG-16 | `A3-ST-020` |
+| - | No failed cases |
 
 ## Evidence integrity
 

@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "f6059cf6-a6ea-58f6-a231-5f29e5278d7e",
-    "name": "API4 - FR-13 Admin Dashboard - DATA-DRIVEN (data/api4_fr13_admin_orders.csv)",
-    "description": "HW06 / Pool C / FR-13, executed data-driven.\n\nOne `GET /api/admin/orders`, replayed once per row of `data/api4_fr13_admin_orders.csv`. Each row is a role in the SEC-03 matrix - admin, ordinary user, anonymous and forged token - together with the status that role must receive.\n\nRun: `npm run ddt:api4`",
+    "_postman_id": "ed2537e2-e378-5ebd-8a01-677350d114fb",
+    "name": "API1 - FR-01 Registration - DATA-DRIVEN (postman/data/api1_fr01_register.csv)",
+    "description": "HW06 / Pool A / FR-01, executed data-driven.\n\nOne `POST /api/register`, replayed once per row of `postman/data/api1_fr01_register.csv`. The row supplies name, email, password and the status the requirement demands; the collection supplies no test data at all.\n\nRun: `npm run ddt:api1`",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -10,7 +10,7 @@
       "name": "05 - Data-driven (CSV)",
       "item": [
         {
-          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "name": "DDT | POST /api/register <- CSV row",
           "event": [
             {
               "listen": "prerequest",
@@ -20,7 +20,7 @@
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -29,42 +29,19 @@
                   "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
                   "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
                   "",
-                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
-                  "// tokens rather than hand-written ones.",
-                  "pm.sendRequest({",
-                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
-                  "    method: \"POST\",",
-                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
-                  "}, function (err, res) {",
-                  "    if (res && res.json() && res.json().token) {",
-                  "        pm.variables.set(\"adminTok\", res.json().token);",
-                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
-                  "    }",
-                  "    pm.sendRequest({",
-                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
-                  "        method: \"POST\",",
-                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
-                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
-                  "    }, function (err, res) {",
-                  "        if (res && res.json() && res.json().token) {",
-                  "            pm.variables.set(\"tok\", res.json().token);",
-                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
-                  "        }",
-                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
-                  "        pm.request.headers.remove(\"Authorization\");",
-                  "        if (tv === \"admin_token\") {",
-                  "            pm.request.headers.upsert({ key: \"Authorization\",",
-                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
-                  "        } else if (tv === \"user_token\") {",
-                  "            pm.request.headers.upsert({ key: \"Authorization\",",
-                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
-                  "        } else if (tv === \"bad_token\") {",
-                  "            pm.request.headers.upsert({ key: \"Authorization\",",
-                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
-                  "        }",
-                  "    });",
-                  "});"
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
                 ]
               }
             },
@@ -85,16 +62,13 @@
                   "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
                   "});",
                   "",
-                  "if (pm.response.code === 200) {",
-                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
                   "        const b = pm.response.json();",
-                  "        pm.expect(b).to.satisfy(function (v) {",
-                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
-                  "        });",
-                  "    });",
-                  "} else {",
-                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
-                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
                   "    });",
                   "}"
                 ]
@@ -102,20 +76,33 @@
             }
           ],
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "url": {
-              "raw": "{{base_url}}/api/admin/orders",
+              "raw": "{{base_url}}/api/register",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "admin",
-                "orders"
+                "register"
               ]
             },
-            "description": "The calling role comes from the CSV's token_var column."
+            "description": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": []
         }

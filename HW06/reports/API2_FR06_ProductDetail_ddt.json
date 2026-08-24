@@ -1,11 +1,11 @@
 {
   "collection": {
     "_": {
-      "postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003"
+      "postman_id": "3d36781e-c228-54cd-a433-a7f59a002af5"
     },
     "item": [
       {
-        "id": "29a4fc3f-9aa3-4e2f-b799-a72b1c5d3c70",
+        "id": "fefeb1c4-2c2e-4e7f-956c-c3a77839e546",
         "name": "05 - Data-driven (CSV)",
         "description": {
           "content": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself.",
@@ -13,7 +13,7 @@
         },
         "item": [
           {
-            "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+            "id": "a4ccb165-3d95-407c-bceb-933293504153",
             "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
             "request": {
               "description": {
@@ -39,13 +39,13 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                  "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                   "type": "text/javascript",
                   "exec": [
                     "const d = pm.iterationData;",
                     "if (!d.get(\"tc_id\")) {",
                     "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                    "                \"newman run <collection> -d data/<file>.csv\");",
+                    "                \"newman run <collection> -d postman/data/<file>.csv\");",
                     "    if (pm.execution && pm.execution.skipRequest) {",
                     "        pm.execution.skipRequest();",
                     "    }",
@@ -56,13 +56,13 @@
                     "",
                     "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                   ],
-                  "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                  "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
                 }
               },
               {
                 "listen": "test",
                 "script": {
-                  "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                  "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                   "type": "text/javascript",
                   "exec": [
                     "const d = pm.iterationData;",
@@ -93,7 +93,7 @@
                     "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                     "});"
                   ],
-                  "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                  "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
                 }
               }
             ]
@@ -106,7 +106,7 @@
       {
         "listen": "prerequest",
         "script": {
-          "id": "214f9248-1854-4c63-a646-263c564d9b68",
+          "id": "467fb500-df93-4e5a-a2c1-f95fb38ba947",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -135,13 +135,13 @@
             "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
             ");"
           ],
-          "_lastExecutionId": "e6489768-c17b-4d88-a9a1-4c327d65b5d3"
+          "_lastExecutionId": "85148efb-168e-4a24-b475-6c22fbcd96f7"
         }
       },
       {
         "listen": "test",
         "script": {
-          "id": "107b2b39-e38b-42fd-88ea-13fb74ce54e7",
+          "id": "5054ccd1-e747-42d6-b267-6149f81ece4c",
           "type": "text/javascript",
           "exec": [
             "// ---------------------------------------------------------------------------",
@@ -165,17 +165,17 @@
             "    pm.expect(pm.response.responseTime).to.be.below(2000);",
             "});"
           ],
-          "_lastExecutionId": "aa211504-56bc-41b9-9e60-9dd63a0e8d51"
+          "_lastExecutionId": "58aed693-d42f-4028-8b5a-098df16660b5"
         }
       }
     ],
     "variable": [],
     "info": {
-      "_postman_id": "7a6c4d93-bf98-53f6-aca0-6e805288f003",
-      "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (data/api2_fr06_product_detail.csv)",
+      "_postman_id": "3d36781e-c228-54cd-a433-a7f59a002af5",
+      "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (postman/data/api2_fr06_product_detail.csv)",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
       "description": {
-        "content": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
+        "content": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `postman/data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
         "type": "text/plain"
       }
     }
@@ -245,13 +245,13 @@
       },
       {
         "type": "any",
-        "value": "run-1787558131137",
+        "value": "run-1787560953195",
         "key": "run_tag"
       }
     ]
   },
   "globals": {
-    "id": "1f9e80de-722d-46d6-a843-2e4d487b0383",
+    "id": "3b4dd858-fa06-4d61-b7f4-b06137fb5a21",
     "values": []
   },
   "run": {
@@ -303,10 +303,10 @@
       }
     },
     "timings": {
-      "responseAverage": 6.875,
+      "responseAverage": 8.5,
       "responseMin": 2,
-      "responseMax": 33,
-      "responseSd": 9.905017667828766,
+      "responseMax": 34,
+      "responseSd": 10.012492197250394,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -315,8 +315,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1787558131119,
-      "completed": 1787558131932
+      "started": 1787560953179,
+      "completed": 1787560954100
     },
     "executions": [
       {
@@ -329,11 +329,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "c7c12988-3a00-48be-8a7b-39f6d6c11cbb",
-          "httpRequestId": "44d9a782-3763-40dc-9f7e-86335b7f28dd"
+          "ref": "6837bd74-dd9a-4968-a3d8-f06ec25c6ce6",
+          "httpRequestId": "6ed43d43-01a1-42a3-87ec-965ac4e7a9ff"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -359,13 +359,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -376,13 +376,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -413,7 +413,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -459,7 +459,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "7528fca0-3d57-4688-bb81-9c97a4051089",
+              "value": "f28eb83c-269d-4b05-a039-bc8cba8018d5",
               "system": true
             },
             {
@@ -481,7 +481,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "29b17cf8-d969-431a-97fd-63b6217b6557",
+          "id": "5fe5717f-9c43-4980-a968-50ebd01d98ac",
           "status": "OK",
           "code": 200,
           "header": [
@@ -507,7 +507,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -707,10 +707,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 33,
+          "responseTime": 34,
           "responseSize": 183
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -740,16 +740,16 @@
       },
       {
         "cursor": {
-          "ref": "bf3a7cd1-097e-4df9-beb4-1a5275e307d0",
+          "ref": "e0cd81f1-c9c9-483d-af08-9fe41092702a",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 1,
           "cr": true,
-          "httpRequestId": "be23e9bd-124f-45cb-a775-66e8993f4c74"
+          "httpRequestId": "0328c680-8333-41e3-a99d-6c32b5fa1fce"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -775,13 +775,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -792,13 +792,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -829,7 +829,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -875,7 +875,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "807e1e65-9c17-42f0-947b-762499d4835d",
+              "value": "c86199c3-3bb7-4d1d-a853-3d89f4b840df",
               "system": true
             },
             {
@@ -897,7 +897,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "70fb2e85-133c-4bff-8870-164906963699",
+          "id": "7f5caabb-b139-4692-8972-c205a4d1b6f8",
           "status": "OK",
           "code": 200,
           "header": [
@@ -923,7 +923,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -1150,10 +1150,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 5,
+          "responseTime": 6,
           "responseSize": 210
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1183,16 +1183,16 @@
       },
       {
         "cursor": {
-          "ref": "9569dd5e-1dfa-438d-a03e-4f51c88e1fc7",
+          "ref": "920f96ff-0685-4094-a1ac-aa4672e42f31",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 2,
           "cr": true,
-          "httpRequestId": "9ff53dcb-8da6-47a2-bdd6-777148f4d2ba"
+          "httpRequestId": "c3ff4cce-a147-4ae1-a453-6664dc58b184"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -1218,13 +1218,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -1235,13 +1235,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -1272,7 +1272,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -1318,7 +1318,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "f43fabff-03ad-480f-bd09-e0bfccea5a69",
+              "value": "d22fb33f-26e6-499c-bd64-4ba693a0b0a1",
               "system": true
             },
             {
@@ -1340,7 +1340,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "24ce2af0-6ba4-4c5f-96d3-c471b1c54106",
+          "id": "0fd56825-4d28-4bb7-99b7-f43a6e4dc3c7",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1366,7 +1366,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -1585,7 +1585,7 @@
           "responseTime": 3,
           "responseSize": 199
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1615,16 +1615,16 @@
       },
       {
         "cursor": {
-          "ref": "68373a66-18cc-4c69-94bc-38ad93cdea77",
+          "ref": "f79ae95a-9212-4321-86a0-5c3caa889c53",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 3,
           "cr": true,
-          "httpRequestId": "0e977e37-6d20-44a7-a858-1d9c7c55fb7c"
+          "httpRequestId": "b5fcc6cb-5255-4198-afb7-2d82ca3f7ba7"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -1650,13 +1650,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -1667,13 +1667,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -1704,7 +1704,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -1750,7 +1750,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "ed3b5bf1-6880-4ed1-900b-800e7a3ce24f",
+              "value": "6c5c230a-304c-4f7d-9492-eead434694f4",
               "system": true
             },
             {
@@ -1772,7 +1772,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "a99d0e85-f06f-42b3-8af6-6841454ed5c4",
+          "id": "adfa71ff-54ce-41de-93c3-008dcf91ed13",
           "status": "Not Found",
           "code": 404,
           "header": [
@@ -1798,7 +1798,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -1844,10 +1844,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 3,
+          "responseTime": 11,
           "responseSize": 29
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -1873,16 +1873,16 @@
       },
       {
         "cursor": {
-          "ref": "00b84305-01df-481a-b551-6c7cd06d13c7",
+          "ref": "5e42d084-3283-4f0c-aa0a-56a64a21d3d5",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 4,
           "cr": true,
-          "httpRequestId": "0184bf4e-9840-4695-92c2-78403ab4094e"
+          "httpRequestId": "9172dbab-e6ee-4375-8f13-00d08ddf5e39"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -1908,13 +1908,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -1925,13 +1925,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -1962,7 +1962,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -2008,7 +2008,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "d5521c11-ae72-443d-a512-d73634358c87",
+              "value": "af527e35-1f6b-4edb-9703-9985ff7eb2d2",
               "system": true
             },
             {
@@ -2030,7 +2030,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "b58e16b5-a31c-4b01-8bf0-b2d461551c59",
+          "id": "9efdaad8-418a-42a3-8bb6-a17bd42d002f",
           "status": "Not Found",
           "code": 404,
           "header": [
@@ -2056,7 +2056,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -2105,7 +2105,7 @@
           "responseTime": 3,
           "responseSize": 29
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -2131,16 +2131,16 @@
       },
       {
         "cursor": {
-          "ref": "d312d054-18b1-4860-996a-1a133c460a94",
+          "ref": "eac39c81-8684-4cbf-80ae-25b8c9257a04",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 5,
           "cr": true,
-          "httpRequestId": "c8718ceb-ba2b-48b7-845c-4f070aedf5f0"
+          "httpRequestId": "3b0bf62b-5b93-4212-8507-6f99912edfdf"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -2166,13 +2166,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -2183,13 +2183,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -2220,7 +2220,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -2266,7 +2266,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "9c0f837b-dd3c-4a17-b9ab-2fe6e115b249",
+              "value": "2a21abb2-bb84-437a-8f5b-8900488dbe7b",
               "system": true
             },
             {
@@ -2288,7 +2288,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "e0ae96ed-4073-4596-bf74-97131263cffc",
+          "id": "d7bde2fc-5bf8-4463-a75e-1e027cf5c43a",
           "status": "Bad Request",
           "code": 400,
           "header": [
@@ -2314,7 +2314,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -2383,7 +2383,7 @@
           "responseTime": 3,
           "responseSize": 49
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",
@@ -2409,16 +2409,16 @@
       },
       {
         "cursor": {
-          "ref": "0af1d024-c658-41b6-aa54-29c7d4644f3e",
+          "ref": "f6ac4766-18cc-4b81-987b-2a601a8f3d48",
           "length": 1,
           "cycles": 8,
           "position": 0,
           "iteration": 6,
           "cr": true,
-          "httpRequestId": "018121b7-999f-4fb7-945a-7b02a987a7d6"
+          "httpRequestId": "27251e64-aeb9-410c-965d-bb0c727f7b27"
         },
         "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
           "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "request": {
             "description": {
@@ -2444,13 +2444,13 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -2461,13 +2461,13 @@
                   "",
                   "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
               }
             },
             {
               "listen": "test",
               "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
                 "type": "text/javascript",
                 "exec": [
                   "const d = pm.iterationData;",
@@ -2498,7 +2498,7 @@
                   "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
                   "});"
                 ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
               }
             }
           ]
@@ -2544,7 +2544,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "804689ce-ef28-43d9-9d89-091cca039e64",
+              "value": "dbeae1b4-07f8-482d-997d-a51e42758ca9",
               "system": true
             },
             {
@@ -2566,7 +2566,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "a183b4b9-aecb-4738-9ee1-fe3d90dcfcaa",
+          "id": "99a3a5cb-0fb7-4f44-a6c0-4c112c2e9786",
           "status": "Bad Request",
           "code": 400,
           "header": [
@@ -2592,285 +2592,7 @@
             },
             {
               "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
-            }
-          ],
-          "stream": {
-            "type": "Buffer",
-            "data": [
-              123,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              34,
-              80,
-              114,
-              111,
-              100,
-              117,
-              99,
-              116,
-              32,
-              105,
-              100,
-              32,
-              109,
-              117,
-              115,
-              116,
-              32,
-              98,
-              101,
-              32,
-              97,
-              32,
-              112,
-              111,
-              115,
-              105,
-              116,
-              105,
-              118,
-              101,
-              32,
-              105,
-              110,
-              116,
-              101,
-              103,
-              101,
-              114,
-              34,
-              125
-            ]
-          },
-          "cookie": [],
-          "responseTime": 3,
-          "responseSize": 49
-        },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
-        "assertions": [
-          {
-            "assertion": "Request carried the X-Student-Id header",
-            "skipped": false
-          },
-          {
-            "assertion": "Response is not rate-limited (HTTP 429)",
-            "skipped": false
-          },
-          {
-            "assertion": "Response arrived under 2000 ms",
-            "skipped": false
-          },
-          {
-            "assertion": "DDT-07 [FR-06] non-numeric -> HTTP 400",
-            "skipped": false
-          },
-          {
-            "assertion": "DDT-07 | response leaks no stack trace",
-            "skipped": false
-          }
-        ]
-      },
-      {
-        "cursor": {
-          "ref": "d427ff92-f6c9-4e5a-9712-bd6558500a0a",
-          "length": 1,
-          "cycles": 8,
-          "position": 0,
-          "iteration": 7,
-          "cr": true,
-          "httpRequestId": "d57b1e68-cc1d-4eff-b61c-a7b8465b6656"
-        },
-        "item": {
-          "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
-          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
-          "request": {
-            "description": {
-              "content": "The :id partition under test comes from the CSV.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "products",
-                "{{ddt_product_id}}"
-              ],
-              "host": [
-                "{{base_url}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "method": "GET"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "11b22df9-4186-4ed9-b1a8-c66181ba717f",
-                "type": "text/javascript",
-                "exec": [
-                  "const d = pm.iterationData;",
-                  "if (!d.get(\"tc_id\")) {",
-                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
-                  "    if (pm.execution && pm.execution.skipRequest) {",
-                  "        pm.execution.skipRequest();",
-                  "    }",
-                  "    return;",
-                  "}",
-                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
-                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
-                  "",
-                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
-                ],
-                "_lastExecutionId": "c1d6ba65-8b9c-4514-8fdb-54bd54626e02"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "b52011b6-584c-4413-ab82-b9f6f5ddbbdc",
-                "type": "text/javascript",
-                "exec": [
-                  "const d = pm.iterationData;",
-                  "if (!d.get(\"tc_id\")) { return; }",
-                  "",
-                  "const tc = d.get(\"tc_id\");",
-                  "const expected = Number(d.get(\"expected_status\"));",
-                  "const rule = d.get(\"requirement\");",
-                  "",
-                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
-                  "        \" -> HTTP \" + expected, function () {",
-                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
-                  "});",
-                  "",
-                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
-                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
-                  "        const b = pm.response.json();",
-                  "        pm.expect(b).to.have.property(\"id\");",
-                  "        pm.expect(b).to.have.property(\"name\");",
-                  "        pm.expect(b).to.have.property(\"price\");",
-                  "    });",
-                  "}",
-                  "",
-                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
-                  "        function () {",
-                  "    const body = pm.response.text() || \"\";",
-                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
-                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
-                  "});"
-                ],
-                "_lastExecutionId": "dbd446d9-d6e5-467f-b9a7-eacaee10bcfe"
-              }
-            }
-          ]
-        },
-        "request": {
-          "description": {
-            "content": "The :id partition under test comes from the CSV.",
-            "type": "text/plain"
-          },
-          "url": {
-            "protocol": "http",
-            "port": "3000",
-            "path": [
-              "api",
-              "products",
-              "1%20OR%201=1"
-            ],
-            "host": [
-              "localhost"
-            ],
-            "query": [],
-            "variable": []
-          },
-          "header": [
-            {
-              "key": "X-Student-Id",
-              "value": "23127184"
-            },
-            {
-              "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
-              "system": true
-            },
-            {
-              "key": "Accept",
-              "value": "*/*",
-              "system": true
-            },
-            {
-              "key": "Cache-Control",
-              "value": "no-cache",
-              "system": true
-            },
-            {
-              "key": "Postman-Token",
-              "value": "dde5023d-2f86-45e4-813e-63da31ca3f4a",
-              "system": true
-            },
-            {
-              "key": "Host",
-              "value": "localhost:3000",
-              "system": true
-            },
-            {
-              "key": "Accept-Encoding",
-              "value": "gzip, deflate, br",
-              "system": true
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive",
-              "system": true
-            }
-          ],
-          "method": "GET"
-        },
-        "response": {
-          "id": "d9b3fb25-7cb2-43d1-8aa2-165480b9e120",
-          "status": "Bad Request",
-          "code": 400,
-          "header": [
-            {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "49"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"31-KF7UoS3WNG37AR/2JHN9lQAtCLk\""
-            },
-            {
-              "key": "Date",
-              "value": "Mon, 24 Aug 2026 07:55:31 GMT"
+              "value": "Mon, 24 Aug 2026 08:42:33 GMT"
             },
             {
               "key": "Connection",
@@ -2939,7 +2661,285 @@
           "responseTime": 2,
           "responseSize": 49
         },
-        "id": "b22bdb38-a2df-4e08-b48e-dca5e9c7cf54",
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-07 [FR-06] non-numeric -> HTTP 400",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-07 | response leaks no stack trace",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "99c6a281-573d-41df-a319-db74f6cb7b43",
+          "length": 1,
+          "cycles": 8,
+          "position": 0,
+          "iteration": 7,
+          "cr": true,
+          "httpRequestId": "31521ed9-c119-44f9-895c-939277f286a4"
+        },
+        "item": {
+          "id": "a4ccb165-3d95-407c-bceb-933293504153",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
+          "request": {
+            "description": {
+              "content": "The :id partition under test comes from the CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{ddt_product_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "a3e83260-2932-453d-be5c-825ecdd2f0d7",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
+                ],
+                "_lastExecutionId": "83f24243-1e83-4f88-af12-7c5b70e2e5ca"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "99447d29-e423-43cb-806c-2a8ff2f8b3da",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
+                  "    });",
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
+                ],
+                "_lastExecutionId": "3be1540b-f793-4da9-8358-8817ffcef776"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The :id partition under test comes from the CSV.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "1%20OR%201=1"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "6813e09a-9ef6-4220-ac94-37eb38b4cd9e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "a3fd7000-4cf6-4c20-a319-35fb1050df05",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-KF7UoS3WNG37AR/2JHN9lQAtCLk\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              80,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              32,
+              105,
+              100,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              97,
+              32,
+              112,
+              111,
+              115,
+              105,
+              116,
+              105,
+              118,
+              101,
+              32,
+              105,
+              110,
+              116,
+              101,
+              103,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 49
+        },
+        "id": "a4ccb165-3d95-407c-bceb-933293504153",
         "assertions": [
           {
             "assertion": "Request carried the X-Student-Id header",

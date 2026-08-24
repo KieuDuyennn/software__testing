@@ -4,8 +4,7 @@ MSSV: **23127184**
 
 ## 1. Bộ file nộp chính
 
-Không chọn từng file thủ công. Sau khi hoàn tất các mục còn thiếu ở phần 3,
-chạy:
+Không chọn từng file thủ công. Chạy:
 
 ```powershell
 .\scripts\New-Submission.ps1 -Grade 100
@@ -22,7 +21,7 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 |---|---|---|
 | Báo cáo chính | `23127184_HW06_REPORT.md`, `output/pdf/` | Bản Markdown và PDF để chấm |
 | Test case | `testcases/` | Excel tổng hợp và JSON nguồn |
-| Postman | `collections/`, `config/`, `data/` | Collection, environment và data-driven files |
+| Postman | `postman/collections/`, `postman/config/`, `postman/data/` | Collection, environment và data-driven files |
 | Kết quả chạy | `reports/` | Newman HTML/JSON và summary |
 | Minh chứng | `evidence/` | Ảnh thật, console log và Git commit log |
 | Tài liệu chi tiết | `docs/` | Phase, bug, CI/CD, audit, critique và generator |
@@ -50,7 +49,8 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 - [x] Excel đã được đồng bộ từ nguồn 386 case, gồm audit, 20 case tự thêm và
   kết quả full run; vẫn nên mở một lần bằng Excel trước khi nộp để kiểm tra font.
 
-Chi tiết cách chụp minh chứng nằm tại `evidence/REQUIRED_USER_EVIDENCE.md`.
+Danh mục ảnh đã có và trường thông tin nhìn thấy được trong từng ảnh nằm tại
+`evidence/EVIDENCE_INDEX.md`.
 
 ## 4. Kiểm tra nhanh
 
@@ -76,8 +76,8 @@ Phần chạy data-driven đã hoàn tất bằng Newman (27 iteration, 128 asse
 không có assertion nào fail — xem `reports/*_ddt.html`). Còn đúng một ảnh cần
 tự chụp để chứng minh đã dùng **Collection Runner với data file**:
 
-1. Mở Postman, import `collections/API1_FR01_Register_ddt.postman_collection.json`.
-2. Chọn **Run collection** → mục **Data**, chọn file `data/api1_fr01_register.csv`.
+1. Mở Postman, import `postman/collections/API1_FR01_Register_ddt.postman_collection.json`.
+2. Chọn **Run collection** → mục **Data**, chọn file `postman/data/api1_fr01_register.csv`.
 3. Kiểm tra Postman báo `10 iterations` và bấm **Preview** để thấy 10 dòng dữ liệu.
 4. Bảo đảm SUT đang chạy (`npm run sut:start`), rồi bấm **Run**.
 5. Chụp màn hình kết quả (thấy rõ tên file CSV và số iteration) và lưu vào

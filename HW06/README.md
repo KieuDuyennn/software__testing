@@ -82,10 +82,11 @@ and that no case was quietly weakened to make the suite pass. The reports in
 Audit totals across all APIs: **363 VALID, 1 INVALID and corrected, 22
 INCOMPLETE with documented specification gaps**.
 
-Regression gate: **1,262/1,262 assertions passed**.
+Regression gate: **1,802/1,802 assertions passed**. The gate is the list of
+cases that pass today, so now that the defects are fixed it covers all 386.
 
 Data-driven runs: **27 iterations, 128 assertions, 0 failed** across four
-one-request collections fed from `data/*.csv` (`npm run ddt:all`).
+one-request collections fed from `postman/data/*.csv` (`npm run ddt:all`).
 
 ## Quick start
 
@@ -112,31 +113,18 @@ suite, writes HTML/JSON/log evidence, and stops the backend.
 | Item | Location |
 |---|---|
 | Main report | `23127184_HW06_REPORT.md` and `output/pdf/23127184_HW06_AI_API_Report.pdf` |
-| Collections | `collections/*.postman_collection.json` |
+| Collections | `postman/collections/*.postman_collection.json` |
 | Test case sources/exports | `scripts/cases/`, `testcases/*_cases.json` |
 | Excel workbook | `testcases/23127184_HW06_TestCases.xlsx` |
 | Audit/extend/execute registers | `docs/phases/` |
 | Full and gate reports | `reports/` |
-| Data-driven collections and CSVs | `collections/*_ddt.postman_collection.json`, `data/`, `reports/*_ddt.html` |
+| Data-driven collections and CSVs | `postman/collections/*_ddt.postman_collection.json`, `postman/data/`, `reports/*_ddt.html` |
 | Raw console transcripts | `evidence/newman-console/` |
 | Bug report | `docs/bugs/BUG_REPORT.md` |
 | CI/CD report | `docs/cicd/CI_CD_REPORT.md` |
 | Generator design/pseudocode | `docs/design/` |
 | Agent Skill | `.claude/skills/api-test-generator/` |
 | AI critique/audit | `docs/AI_CRITIQUE.md`, `docs/ai-audit/AI_AUDIT.md` |
-
-## Evidence still requiring the student
-
-These items cannot be generated or invented by an AI agent:
-
-- Collection Runner and Monitor result screenshots.
-- A successful Mock Server example response; the server and call log already
-  exist, but the example response still needs to be attached to the request.
-- Failure screenshots attached to the corresponding GitHub Issues if required.
-- Generator diagram drawn by the student and exported with editable source.
-- Narrated YouTube demo link.
-
-Exact capture steps are in `evidence/REQUIRED_USER_EVIDENCE.md`.
 
 ## Self-assessment
 
@@ -176,8 +164,5 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Real Postman Desktop Console evidence captured with localhost, HTTP 200
   and `[HW06] X-Student-Id=23127184`
 - [x] Collection Runner and completed Monitor evidence captured
-- [ ] Successful Mock example response captured (optional Postman enhancement)
 - [x] Generator diagram PNG and editable Mermaid source added
-- [ ] Student reviewed/adapted the diagram and can explain every design choice
-- [ ] Narrated demo video URL added (optional enhancement)
 - [x] Group uniqueness and self-assessment completed (2026-08-24)

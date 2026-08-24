@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Shared Postman collection-building primitives for HW06.
 
-Imported by build-collections.py (skeletons for APIs 2-4) and by
-render-cases.py (renders a case specification into a full collection). Keeping
-the harness in one place means every collection injects X-Student-Id the same
-way and asserts the same global invariants.
+Imported by render-cases.py, which renders a case specification into a full
+collection, and by build-ddt.py, which renders the data-driven collections.
+Keeping the harness in one place means every collection injects X-Student-Id
+the same way and asserts the same global invariants.
 """
 
 from __future__ import annotations

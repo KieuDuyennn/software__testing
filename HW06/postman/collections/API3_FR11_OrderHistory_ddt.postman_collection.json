@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "4a892c32-fb02-593c-b221-09bee157bb44",
-    "name": "API3 - FR-11 Order History - DATA-DRIVEN (data/api3_fr11_order_history.csv)",
-    "description": "HW06 / Pool B / FR-11, executed data-driven.\n\nOne `GET /api/orders/:target`, replayed once per row of `data/api3_fr11_order_history.csv`. The row chooses the actor (its token), the target (own history or another user's order) and the status SEC-02 / FR-11 require. The IDOR victim and their order are created per iteration in the pre-request script.\n\nRun: `npm run ddt:api3`",
+    "_postman_id": "eb11b21f-2014-5ff4-a12f-682d04f3802c",
+    "name": "API3 - FR-11 Order History - DATA-DRIVEN (postman/data/api3_fr11_order_history.csv)",
+    "description": "HW06 / Pool B / FR-11, executed data-driven.\n\nOne `GET /api/orders/:target`, replayed once per row of `postman/data/api3_fr11_order_history.csv`. The row chooses the actor (its token), the target (own history or another user's order) and the status SEC-02 / FR-11 require. The IDOR victim and their order are created per iteration in the pre-request script.\n\nRun: `npm run ddt:api3`",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -20,7 +20,7 @@
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",

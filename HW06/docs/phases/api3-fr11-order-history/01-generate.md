@@ -7,7 +7,7 @@
 | Pool | B |
 | Requirement | FR-11, with FR-10 |
 | Endpoints under test | `GET /api/orders/my-orders`, `GET /api/orders/:id`, `PUT /api/orders/:id/cancel` |
-| Postman collection | `collections/API3_FR11_OrderHistory.postman_collection.json` |
+| Postman collection | `postman/collections/API3_FR11_OrderHistory.postman_collection.json` |
 | Case specification | `scripts/cases/api3_fr11_order_history.py` |
 | Coverage tally | `reports/coverage_api3-fr11-order-history.md` |
 | Target set by the brief | >= 35 test cases |

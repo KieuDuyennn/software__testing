@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "6d0bf0ad-060b-5b9a-bc49-6105b7b99812",
-    "name": "API1 - FR-01 Registration - DATA-DRIVEN (data/api1_fr01_register.csv)",
-    "description": "HW06 / Pool A / FR-01, executed data-driven.\n\nOne `POST /api/register`, replayed once per row of `data/api1_fr01_register.csv`. The row supplies name, email, password and the status the requirement demands; the collection supplies no test data at all.\n\nRun: `npm run ddt:api1`",
+    "_postman_id": "3d36781e-c228-54cd-a433-a7f59a002af5",
+    "name": "API2 - FR-06 Product Detail - DATA-DRIVEN (postman/data/api2_fr06_product_detail.csv)",
+    "description": "HW06 / Pool A / FR-06, executed data-driven.\n\nOne `GET /api/products/:id`, replayed once per row of `postman/data/api2_fr06_product_detail.csv`. The rows walk the :id partitions - valid, absent, boundary 0, negative, non-numeric and a SEC-05 injection payload.\n\nRun: `npm run ddt:api2`",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -10,7 +10,7 @@
       "name": "05 - Data-driven (CSV)",
       "item": [
         {
-          "name": "DDT | POST /api/register <- CSV row",
+          "name": "DDT | GET /api/products/{{ddt_product_id}} <- CSV row",
           "event": [
             {
               "listen": "prerequest",
@@ -20,7 +20,7 @@
                   "const d = pm.iterationData;",
                   "if (!d.get(\"tc_id\")) {",
                   "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
-                  "                \"newman run <collection> -d data/<file>.csv\");",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
                   "    if (pm.execution && pm.execution.skipRequest) {",
                   "        pm.execution.skipRequest();",
                   "    }",
@@ -29,19 +29,7 @@
                   "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
                   "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
                   "",
-                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
-                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
-                  "// accounts the first run created. Insert the harness's per-request `uniq`",
-                  "// into the local part, leaving malformed addresses malformed.",
-                  "const uniq = pm.variables.get(\"uniq\");",
-                  "let email = d.get(\"email\") || \"\";",
-                  "if (email.indexOf(\"@\") > 0) {",
-                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
-                  "}",
-                  "",
-                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
-                  "pm.variables.set(\"ddt_email\", email);",
-                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                  "pm.variables.set(\"ddt_product_id\", d.get(\"product_id\"));"
                 ]
               }
             },
@@ -62,47 +50,40 @@
                   "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
                   "});",
                   "",
-                  "// A row that the requirement says must be accepted has to come back in the",
-                  "// shape the specification promises, not merely with a 200.",
-                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
-                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "if (d.get(\"expect_body\") === \"product\" && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | body is a product per api_specification.md\", function () {",
                   "        const b = pm.response.json();",
-                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
-                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "        pm.expect(b).to.have.property(\"id\");",
+                  "        pm.expect(b).to.have.property(\"name\");",
+                  "        pm.expect(b).to.have.property(\"price\");",
                   "    });",
-                  "}"
+                  "}",
+                  "",
+                  "pm.test(pm.iterationData.get(\"tc_id\") + \" | response leaks no stack trace\",",
+                  "        function () {",
+                  "    const body = pm.response.text() || \"\";",
+                  "    pm.expect(body).to.not.match(/at [\\w./\\\\]+:\\d+:\\d+/);",
+                  "    pm.expect(body.toLowerCase()).to.not.include(\"sqlite_error\");",
+                  "});"
                 ]
               }
             }
           ],
           "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
+            "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{base_url}}/api/register",
+              "raw": "{{base_url}}/api/products/{{ddt_product_id}}",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "register"
+                "products",
+                "{{ddt_product_id}}"
               ]
             },
-            "description": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "The :id partition under test comes from the CSV."
           },
           "response": []
         }

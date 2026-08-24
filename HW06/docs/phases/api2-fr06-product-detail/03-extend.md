@@ -9,8 +9,8 @@
 | A2-HR-001 | Domain | A percent-encoded product id returns the same resource | The AI tested whitespace encoding but not a valid id represented through URL encoding. | 200 with product 1 | PASS | - |
 | A2-HR-002 | Security | A query-string id cannot override the product path id | The generated suite did not test precedence when the same logical identifier appears in path and query. | 200 with product 1, not product 2 | PASS | - |
 | A2-HR-003 | Schema | An explicit Accept: application/json request returns JSON | The AI asserted the response media type but did not exercise explicit content negotiation. | 200 with application/json | PASS | - |
-| A2-HR-004 | Security | A double-encoded SQL payload is neutralised | The AI covered plain SQL payloads but missed a second decoding layer used to bypass filters. | clean 4xx, never a query expansion or server error | FAIL - status code: expected 200 to be within 400..499 | BUG-03 |
-| A2-HR-005 | Domain | A full-width Unicode digit is not confused with an ASCII id | The AI's malformed-id set was ASCII-only and omitted Unicode confusable characters. | 400 or 404, never product 1 and never a 5xx | FAIL - status code: expected 200 to be within 400..499 | BUG-03 |
+| A2-HR-004 | Security | A double-encoded SQL payload is neutralised | The AI covered plain SQL payloads but missed a second decoding layer used to bypass filters. | clean 4xx, never a query expansion or server error | PASS | - |
+| A2-HR-005 | Domain | A full-width Unicode digit is not confused with an ASCII id | The AI's malformed-id set was ASCII-only and omitted Unicode confusable characters. | 400 or 404, never product 1 and never a 5xx | PASS | - |
 
 ## Extension quality check
 

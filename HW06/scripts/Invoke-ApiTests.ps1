@@ -19,7 +19,7 @@
 
 .PARAMETER Mode
     full (default) runs every folder. gate runs only the folders listed in
-    config/ci-suite.json - the same set the CI pipeline gates on.
+    postman/config/ci-suite.json - the same set the CI pipeline gates on.
 
 .PARAMETER KeepServer
     Leave the backend running after the suite finishes.

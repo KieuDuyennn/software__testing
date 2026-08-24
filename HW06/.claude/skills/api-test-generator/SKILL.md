@@ -33,7 +33,7 @@ here, change it there.
 |---|---|
 | API specification | `refs/spec/api_specification.md` |
 | FR / SEC requirements | `refs/spec/eshop_requirements_README.md` |
-| Existing harness | `collections/*.postman_collection.json` |
+| Existing harness | `postman/collections/*.postman_collection.json` |
 | Coverage checklist | `references/coverage-checklist.md` |
 
 ## Procedure

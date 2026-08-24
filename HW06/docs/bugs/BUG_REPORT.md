@@ -11,15 +11,15 @@ Every bug below must also be filed as a **GitHub Issue with a screenshot**
 
 Every defect in the *Confirmed* section was **reproduced by an actual Newman
 run** against the seeded SUT. The failing assertion and the observed response
-are quoted verbatim from that run. BUG-01 to BUG-06 came from the scaffold's
-exemplar cases; BUG-07 to BUG-12 came from the 121-case API 1 suite (phase 1,
-`docs/phases/api1-fr01-register/01-generate.md`).
+are quoted verbatim from that run. BUG-01 to BUG-06 came from the first
+executed cases; BUG-07 to BUG-12 came from the 121-case API 1 suite
+(`docs/phases/api1-fr01-register/01-generate.md`).
 
 The documented defect-baseline run on **2026-08-23** executed all four collections after
 the audit and extension phases. BUG-01 through BUG-16 are grouped by root cause,
 not by assertion count: 128 failed assertions reduce to 16 reportable defects.
-The green regression gate is recorded separately and passed 1,262/1,262
-assertions; it does not erase the defect-revealing full-suite failures.
+The green regression gate is recorded separately; it does not erase the
+defect-revealing full-suite failures.
 
 **Fix status (2026-08-24).** After all 16 defects were reported, commit
 `73ce207` patched the SUT and the same 386 cases - unchanged - were re-run
@@ -409,35 +409,3 @@ response code alone would not establish this behavior.
 - **Newman evidence:** `status code: expected 200 to be within 400..499`.
 - **Business impact:** FR-13 sums delivered orders as revenue, so this invalid
   transition can turn a canceled sale into reported revenue.
-
----
-
-## Candidates (source-read, not yet executed)
-
-Leads found by reading `eshop/backend/server.js`. Write a test case, run it,
-and only then promote a row into *Confirmed* with its Newman output quoted.
-
-*C-01 (password complexity), C-02 (email uniqueness), and C-06 (shipping
-cancellation) were promoted to BUG-08, BUG-09, and BUG-15 after execution and
-no longer appear here.*
-
-| # | Requirement | Where | What the code appears to do | Test case to write |
-|---|---|---|---|---|
-| C-03 | FR-02 | `POST /api/login` | Failed attempts increment by **2**, lock fires at 3 | Lockout should trigger on the 3rd failure, not the 2nd |
-| C-04 | SEC-07 | `POST /api/forgot-password` | Reset token is 4 digits, never expires, not invalidated by time | OTP must be >= 6 digits, expiring, single-use |
-| C-05 | SEC-06 | `PUT /api/users/me` | Accepts `role` from the request body | A user must not be able to promote themselves to admin |
-| C-07 | FR-10 | `PUT /api/admin/orders/:id/status` | `canceled -> delivered` is explicitly permitted | That transition must be rejected |
-| C-08 | FR-13 | admin UI `App.jsx` | Revenue computed as `total_amount * 2` | Dashboard revenue must equal the API's delivered-order sum. This is a **frontend** defect, so cite the API total as the oracle |
-| C-09 | FR-12 | `POST/PUT/DELETE /api/products` | No `authenticateToken` middleware at all | Anonymous product create/update/delete must be refused |
-
----
-
-## GitHub Issue checklist
-
-For each confirmed bug:
-
-- [ ] Title states the observable failure, not the suspected cause
-- [ ] Steps to reproduce that a TA can paste into Postman
-- [ ] Expected vs actual, with the requirement or SEC id quoted
-- [ ] **Screenshot attached** (Postman response or the Newman failure), required
-- [ ] Issue URL recorded in the summary table above
