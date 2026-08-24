@@ -21,6 +21,14 @@ not by assertion count: 128 failed assertions reduce to 16 reportable defects.
 The green regression gate is recorded separately and passed 1,262/1,262
 assertions; it does not erase the defect-revealing full-suite failures.
 
+**Fix status (2026-08-24).** After all 16 defects were reported, commit
+`73ce207` patched the SUT and the same 386 cases - unchanged - were re-run
+against it: 1,802/1,802 assertions, 0 failures. The HTML/JSON reports in
+`reports/` are that post-fix run. The pre-fix evidence each bug below quotes is
+preserved in `evidence/newman-console/suite_full_20260824-002523.log` and in the
+Issue screenshots, so a bug that now reproduces as *passing* has been fixed, not
+withdrawn.
+
 ---
 
 ## Summary

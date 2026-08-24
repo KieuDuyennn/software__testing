@@ -20,13 +20,13 @@ The **Used** status requires working configuration and matching evidence.
 | 11 | **Dynamic variables** | ✅ Used | `{{$guid}}` creates unique test email addresses |
 | 12 | **`pm.sendRequest`** | ✅ Used | Pre-request scripts create required fixtures |
 | 13 | **Chained requests / token capture** | ✅ Used | Login captures JWT values for later requests |
-| 14 | **Collection Runner** | ☐ | Run each collection in the Runner; screenshot the result |
+| 14 | **Collection Runner** | ✅ Used | API2 local run completed with 433 assertions; evidence in `evidence/postman-cloud/runner.png` |
 | 15 | **Data-driven runs (CSV)** | ✅ Used | Four dedicated collections replay one request per CSV row via `pm.iterationData`; `npm run ddt:all` executed 27 iterations and 128 assertions, all passing (`reports/*_ddt.html`, `evidence/newman-console/suite_ddt_20260824-145525.log`) |
 | 16 | **Newman CLI** | ✅ Working | `npm run test:api1..4`, `scripts/run-suite.js` |
 | 17 | **newman-reporter-htmlextra** | ✅ Working | HTML reports in `reports/` |
 | 18 | **`--folder` selective runs** | ✅ Working | The CI green gate, driven by `config/ci-suite.json` |
 | 19 | **CI integration** | ✅ Working | `.github/workflows/hw06-api-tests.yml` |
-| 20 | **Monitor** | ☐ | Cloud only; schedule a monitor on one collection and screenshot a run |
+| 20 | **Monitor** | ✅ Used | Daily API2 monitor created and run; cloud cannot reach localhost, so the authentic completed run is Unhealthy (`evidence/postman-cloud/monitor.png`) |
 | 21 | **Mock server** | ◐ Running | Public API2 mock and authentic call log in `evidence/postman-cloud/mock-server.png`; successful example response pending |
 | 22 | **Collection documentation** | ◐ | Each collection and folder carries a description; export the docs view when finished |
 | 23 | **Collection variables** | ☐ | Optional; current values are stored in the environment |
@@ -36,17 +36,18 @@ Legend: ✅ done · ◐ partially done · ☐ not yet
 
 ---
 
-## Remaining cloud evidence
+## Cloud evidence status
 
 1. Sign in to Postman and create the workspace `HW06 - API Testing - 23127184`.
 2. Import all four collections from `collections/` and the three environments
    from `config/`.
-3. Run each collection in the **Collection Runner**; screenshot the summary.
+3. **Completed:** API2 was run in the Collection Runner and the summary captured.
 4. Open **View → Show Postman Console**, run one collection, and screenshot the
    `[HW06] X-Student-Id=…` lines. *This is the anti-AI-cheat evidence required
    by Section 11. Do not skip it.*
-5. Create a **monitor** on one collection (a daily schedule is enough) and let
-   one run complete; screenshot it.
+5. **Completed:** a daily API2 monitor was created and manually triggered. Its
+   Unhealthy result is expected because Postman Cloud cannot route to localhost;
+   the screenshot preserves this limitation rather than presenting fabricated success.
 6. Create a **mock server** from one collection, copy its URL into
    `config/eshop-mock.postman_environment.json`, and run one request against it
    to show the spec-conformant response.

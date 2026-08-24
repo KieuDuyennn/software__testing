@@ -14,7 +14,8 @@
     Three-digit self-assessed grade for the filename, e.g. 095.
 
 .PARAMETER VideoUrl
-    YouTube link to the Agent Skill demo. Required unless -PreflightOnly.
+    Optional YouTube link to the Agent Skill demo. The brief encourages this
+    video but does not make it a mandatory submission artefact.
 
 .EXAMPLE
     .\scripts\New-Submission.ps1 -PreflightOnly
@@ -113,14 +114,6 @@ if ($readmeText -match 'Pending authentic evidence|_Finalize after evidence_') {
 if ($reportText -match 'Group uniqueness:\*\*\s*pending') {
     $problems += 'PLACEHOLDER  main report still needs dated group uniqueness confirmation'
 }
-if (($readmeText -match 'VIDEO_ID') -or
-    ($readmeText -notmatch 'https://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]{6,}')) {
-    $problems += 'PLACEHOLDER  README.md still needs the real YouTube demo URL'
-}
-if ($reportText -notmatch 'https://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[A-Za-z0-9_-]{6,}') {
-    $problems += 'PLACEHOLDER  main report still needs the real YouTube demo URL'
-}
-
 # --- AI critique word count (200-300, mandatory) ---------------------------
 $critiquePath = Join-Path $root 'docs/AI_CRITIQUE.md'
 if (Test-Path -LiteralPath $critiquePath) {
@@ -150,12 +143,8 @@ if ($problems.Count -gt 0) {
 
 Write-Host "`nPreflight passed: every machine-checkable artefact is present." -ForegroundColor Green
 if ($PreflightOnly) {
-    Write-Host "Remaining human gates: the diagram really is self-drawn, the critique is yours, the video link works."
+    Write-Host "Remaining human gates: the diagram really is self-drawn and the critique is yours."
     exit 0
-}
-
-if ([string]::IsNullOrWhiteSpace($VideoUrl)) {
-    throw "VideoUrl is required to package. Do not submit with a pending link."
 }
 
 # --- Stage -----------------------------------------------------------------
