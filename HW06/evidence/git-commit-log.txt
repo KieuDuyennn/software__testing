@@ -2,9 +2,15 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-29 23:57:06 +07:00
+Generated  : 2026-08-30 00:10:13 +07:00
 Scope      : commits touching HW06/ or the HW06 Actions workflow
 ==============================================================================
+
+75cb679  2026-08-30 00:09:56 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): capture the red CI run's assertion table
+
+ba75d58  2026-08-29 23:57:07 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
 
 5930a4b  2026-08-29 23:55:19 +0700  Lê Phạm Kiều Duyên
     fix(hw06): name the request under test on every evidence card
