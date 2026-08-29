@@ -41,6 +41,10 @@ ISSUE_CASES = {
     62: ("A1-DP-047", "password-no-digit"),
     63: ("A1-DP-048", "password-no-special"),
     64: ("A1-DP-033", "duplicate-email"),
+    # These two were filed with HW04 screenshots on a branch that was never
+    # pushed, so their images 404. Re-evidence them from the HW06 transcript.
+    26: ("A3-ST-008", "cancel-shipping-order"),
+    33: ("A3-DP-009", "deleted-account-token"),
 }
 
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
@@ -53,34 +57,52 @@ def read_log() -> list[str]:
     return [ANSI.sub("", line).rstrip() for line in text.splitlines()]
 
 
+ASSERTION = re.compile(r"^(?:[√✓×✗]|\d+\.)\s")
+
+
 def collect_runs(lines: list[str]) -> dict[str, dict]:
-    """Walk the run transcript and record what each case actually did."""
+    """Walk the run transcript and record what each case actually did.
+
+    A case block lists every HTTP call the block made, and several cases build
+    their state with `pm.sendRequest` fixtures first. The request under test is
+    therefore the *last* call before the assertions start, not the first.
+    """
     runs: dict[str, dict] = {}
     current: dict | None = None
     for line in lines:
         stripped = line.strip()
-        if not stripped:
+        if not stripped or stripped.startswith('inside "'):
             continue
         head = CASE_HEAD.search(stripped)
-        if head and stripped.startswith(("#", "→", "%", "?")) is False and " | " in stripped:
+        if head and " | " in stripped and not REQUEST.match(stripped):
             # A case header looks like "<glyph> A1-DP-002 | Missing name field is rejected"
-            case_id, title = head.group(1), head.group(2)
-            current = {"case": case_id, "title": title, "failures": []}
-            runs.setdefault(case_id, current)
-            current = runs[case_id]
+            current = {"case": head.group(1), "title": head.group(2), "calls": []}
+            runs[head.group(1)] = current
             continue
         if current is None:
             continue
         req = REQUEST.match(stripped)
-        if req and "request" not in current:
-            current["method"] = req.group(1)
-            current["url"] = req.group(2)
-            current["status"] = f"HTTP {req.group(3)} {req.group(4).strip()}"
-            current["request"] = f"{req.group(1)} {req.group(2)}"
+        if req:
+            if current.get("sealed"):
+                continue
+            current["calls"].append(
+                {
+                    "request": f"{req.group(1)} {req.group(2)}",
+                    "status": f"HTTP {req.group(3)} {req.group(4).strip()}",
+                }
+            )
             continue
-        fail = re.match(r"^\d+\.\s+(.*)$", stripped)
-        if fail and "request" in current:
-            current["failures"].append(fail.group(1).strip())
+        if ASSERTION.match(stripped) and current["calls"]:
+            # The assertions have begun, so no later line belongs to this case.
+            current["sealed"] = True
+
+    for case, run in runs.items():
+        if not run["calls"]:
+            continue
+        under_test = run["calls"][-1]
+        run["request"] = under_test["request"]
+        run["status"] = under_test["status"]
+        run["fixtures"] = [call["request"] for call in run["calls"][:-1]]
     return runs
 
 
@@ -126,27 +148,54 @@ SUBTITLE = (0.780, 0.843, 0.902)
 WIDTH = 1120.0
 MARGIN = 60.0
 PAD = 34.0
-LABEL_W = 178.0
+LABEL_W = 196.0
 ROW_H = 40.0
+
+
+def wrap(value: str, width: float, size: float = 10.5) -> list[str]:
+    """Break a field value on spaces so it stays inside the card."""
+    lines: list[str] = []
+    line = ""
+    for word in value.split(" "):
+        candidate = f"{line} {word}".strip()
+        if line and fitz.get_text_length(candidate, fontname="helv", fontsize=size) > width:
+            lines.append(line)
+            line = word
+        else:
+            line = candidate
+    if line:
+        lines.append(line)
+    return lines
 
 
 def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> Path:
     """Draw the evidence card directly; every string comes from the transcript."""
     fields = [
         ("Case", f"{run['case']} | {run['title']}"),
-        ("Request", run["request"]),
+        ("Request under test", run["request"]),
         ("Identity header", f"X-Student-Id: {STUDENT_ID}"),
-        ("Expected", "a 4xx validation response"),
+        ("Expected", "the response the specification requires"),
         ("Actual", run["status"]),
     ]
+    if run["fixtures"]:
+        # The card has no room for absolute URLs; the host is already on the
+        # request-under-test row above.
+        paths = [call.replace("http://localhost:3000", "") for call in run["fixtures"]]
+        fields.insert(
+            2,
+            ("Fixture chain", f"{len(paths)} setup calls: " + ", ".join(paths)),
+        )
     fail_lines: list[str] = []
     for assertion, detail in details:
         fail_lines.append(f"FAIL  {assertion}")
         if detail:
             fail_lines.append(f"      {detail}")
 
+    value_w = WIDTH - MARGIN * 2 - PAD * 2 - LABEL_W
+    wrapped = [(label, wrap(value, value_w)) for label, value in fields]
+
     header_h = 92.0
-    rows_h = ROW_H * len(fields) + 20
+    rows_h = sum(ROW_H + 14 * (len(v) - 1) for _, v in wrapped) + 20
     fail_h = 20 + 17 * len(fail_lines) + 12
     footer_h = 44.0
     height = MARGIN * 2 + header_h + rows_h + 18 + fail_h + footer_h
@@ -172,17 +221,20 @@ def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> 
     )
 
     y = band.y1 + 30
-    for label, value in fields:
+    for label, value_lines in wrapped:
         page.insert_text((card.x0 + PAD, y), label, fontname="hebo", fontsize=10.5, color=NAVY)
-        page.insert_text(
-            (card.x0 + PAD + LABEL_W, y), value, fontname="helv", fontsize=10.5, color=INK
-        )
+        for offset, chunk in enumerate(value_lines):
+            page.insert_text(
+                (card.x0 + PAD + LABEL_W, y + offset * 14),
+                chunk, fontname="helv", fontsize=10.5, color=INK,
+            )
+        bottom = y + 14 * (len(value_lines) - 1) + 13
         page.draw_line(
-            fitz.Point(card.x0 + PAD, y + 13),
-            fitz.Point(card.x1 - PAD, y + 13),
+            fitz.Point(card.x0 + PAD, bottom),
+            fitz.Point(card.x1 - PAD, bottom),
             color=RULE, width=0.8,
         )
-        y += ROW_H
+        y += ROW_H + 14 * (len(value_lines) - 1)
 
     box = fitz.Rect(card.x0 + PAD, y - 8, card.x1 - PAD, y - 8 + fail_h)
     page.draw_rect(box, color=None, fill=FAIL_BG)
