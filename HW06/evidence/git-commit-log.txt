@@ -2,9 +2,15 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-29 23:47:57 +07:00
+Generated  : 2026-08-29 23:57:06 +07:00
 Scope      : commits touching HW06/ or the HW06 Actions workflow
 ==============================================================================
+
+5930a4b  2026-08-29 23:55:19 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): name the request under test on every evidence card
+
+54e384b  2026-08-29 23:48:11 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): widen the commit-log scope and fix its encoding
 
 3932bfb  2026-08-29 23:47:00 +0700  Lê Phạm Kiều Duyên
     docs(hw06): render issue evidence and correct the CI references
