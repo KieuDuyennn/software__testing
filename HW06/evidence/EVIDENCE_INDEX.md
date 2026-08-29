@@ -13,6 +13,7 @@ No placeholder or simulated application UI is included.
 |---|---|---|
 | GitHub Actions green run | `screenshots/github-actions-green-summary.png` | Repository, branch `hw6`, commit `ff360cd`, run #15, Success, job `All 386 API test cases`, and the summary table reading 1,802 passed / 0 failed |
 | GitHub Actions red run | `screenshots/github-actions-red-summary.png` | Repository, branch `hw6`, commit `27b76ae`, run #14, Failure, job `All 386 API test cases` |
+| GitHub Actions red run, assertion table | `screenshots/github-actions-red-one-case.png` | The same run's job summary: `API2_FR06_ProductDetail` 432 passed / **1 failed** / 433, APIs 1, 3 and 4 at 0 failed, total 1,801 / 1 / 1,802 |
 | GitHub Issue #7 | `screenshots/github-issue-7-malformed-email-newman.png` | **Pre-fix SUT.** Raw Newman fields for `A1-DP-019`: request, `X-Student-Id: 23127184`, expected 4xx, actual 200 and failed assertion. Fixed in commit `73ce207`; the case passes in the current reports |
 | GitHub Issue #14 | `screenshots/github-issue-14-admin-role-newman.png` | **Pre-fix SUT.** Raw Newman fields for `A4-SEC-001`: request, student header, expected 401-403, actual 200 and failed assertion. Fixed in commit `73ce207` |
 | GitHub Issue #38 | `screenshots/github-issue-38-terminal-transition-newman.png` | **Pre-fix SUT.** Raw Newman fields for `A4-ST-016`: request, student header, expected 4xx, actual 200 and failed assertion. Fixed in commit `73ce207` |

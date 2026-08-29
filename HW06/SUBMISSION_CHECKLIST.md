@@ -51,10 +51,10 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 - [ ] **BẮT BUỘC.** Chuyển repository sang public. Đề mục 14 yêu cầu
   "public GitHub repository link"; repo đang private nên toàn bộ link repo,
   GitHub Actions và GitHub Issues trong bài nộp sẽ 404 với người chấm.
-- [ ] Chụp lại `evidence/screenshots/github-actions-red-one-case.png`: mở
-  <https://github.com/KieuDuyennn/software__testing/actions/runs/32700593817>,
-  cuộn tới bảng "All 386 API test cases summary" và chụp phần thấy rõ API2 có
-  1 failed assertion, ba API còn lại 0.
+- [x] Đã chụp `evidence/screenshots/github-actions-red-one-case.png` từ run
+  <https://github.com/KieuDuyennn/software__testing/actions/runs/32700593817>:
+  bảng job summary thấy rõ API2 có 1 failed assertion, ba API còn lại 0,
+  tổng 1.801/1/1.802.
 - [ ] (Tùy chọn) Chèn link video YouTube demo vào README và báo cáo chính.
 - [x] Xác nhận bộ ba API không trùng với thành viên nhóm ngày 2026-08-24.
 - [x] Điền điểm tự đánh giá 100/100 trong README.
