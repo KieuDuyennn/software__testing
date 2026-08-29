@@ -2,9 +2,54 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-24 00:39:10 +07:00
-Scope      : commits touching HW06/
+Generated  : 2026-08-29 23:47:57 +07:00
+Scope      : commits touching HW06/ or the HW06 Actions workflow
 ==============================================================================
+
+3932bfb  2026-08-29 23:47:00 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): render issue evidence and correct the CI references
+
+47677c2  2026-08-24 15:43:55 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): tidy the tree and drop the working notes
+
+2a3f61f  2026-08-24 15:06:28 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): reconcile the summary numbers with the two SUT states
+
+75bd626  2026-08-24 15:05:55 +0700  Lê Phạm Kiều Duyên
+    test(hw06): add CSV-driven execution for all four APIs
+
+d3d96b9  2026-08-24 14:21:38 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): finalize CI evidence and audit reports
+
+ff360cd  2026-08-24 14:15:28 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore complete full-suite pass
+
+27b76ae  2026-08-24 14:13:51 +0700  Lê Phạm Kiều Duyên
+    test(hw06): run full suite with one controlled failure
+
+925696f  2026-08-24 14:09:14 +0700  Lê Phạm Kiều Duyên
+    test(hw06): pass the complete 386-case suite
+
+9d2c076  2026-08-24 14:09:06 +0700  Lê Phạm Kiều Duyên
+    test(hw06): stabilize fixtures and show one failure
+
+8f2b817  2026-08-24 14:06:37 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore all 386 API cases passing
+
+73ce207  2026-08-24 14:06:26 +0700  Lê Phạm Kiều Duyên
+    test(hw06): demonstrate one full-suite failure
+
+2519cb7  2026-08-24 01:03:49 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore all-passing regression gate
+
+4cba101  2026-08-24 01:02:22 +0700  Lê Phạm Kiều Duyên
+    test(hw06): demonstrate one failing CI case
+
+8ce2bd4  2026-08-24 01:00:03 +0700  Lê Phạm Kiều Duyên
+    evidence(hw06): attach verified Newman issue evidence
+
+95b6dc3  2026-08-24 00:39:16 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh submission commit log
 
 071ac34  2026-08-24 00:39:06 +0700  Lê Phạm Kiều Duyên
     docs(hw06): polish reports and record integrity review
