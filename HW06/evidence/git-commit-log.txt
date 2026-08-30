@@ -2,9 +2,27 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-30 12:07:46 +07:00
+Generated  : 2026-08-30 12:34:13 +07:00
 Scope      : commits touching HW06/ or the HW06 Actions workflow
 ==============================================================================
+
+6144b58  2026-08-30 12:34:08 +0700  Lê Phạm Kiều Duyên
+    build(hw06): drop the data-driven screenshot and the per-API JSON from the upload
+
+f5bed07  2026-08-30 12:31:34 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): drop the evidence index and the report lines that cited it
+
+5ae4be8  2026-08-30 12:22:40 +0700  Lê Phạm Kiều Duyên
+    style(hw06): drop the log filename from the evidence card header
+
+6f7adaa  2026-08-30 12:19:45 +0700  Lê Phạm Kiều Duyên
+    style(hw06): clean up the Newman evidence cards
+
+748dd8e  2026-08-30 12:09:31 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): keep the evidence provenance note in the evidence index only
+
+8fd82e1  2026-08-30 12:08:07 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
 
 c9ced2d  2026-08-30 11:54:45 +0700  Lê Phạm Kiều Duyên
     chore(hw06): refresh the submission commit log
