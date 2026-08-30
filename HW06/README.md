@@ -143,7 +143,7 @@ Self-assessment rationale: all three graded APIs include generation, a
 case-by-case VALID / INVALID / INCOMPLETE audit, five student-designed
 extensions, real execution results, and traceable bug evidence. The generator
 deliverable includes design decisions, pseudocode, reusable implementation,
-editable Mermaid/SVG sources, and a report-ready PNG. **100/100 is the
+a self-drawn pipeline diagram, and a recorded demo run. **100/100 is the
 student's self-assessment, not a guarantee of the instructor's awarded grade.**
 
 Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
@@ -167,6 +167,6 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Real Postman Desktop Console evidence captured with localhost, HTTP 200
   and `[HW06] X-Student-Id=23127184`
 - [x] Collection Runner and completed Monitor evidence captured
-- [x] Generator diagram PNG and editable Mermaid source added
+- [x] Generator diagram redrawn by the student in draw.io
 - [x] Group uniqueness and self-assessment completed (2026-08-24)
 - [x] Agent Skill demo video recorded and published on YouTube

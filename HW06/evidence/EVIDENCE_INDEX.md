@@ -69,10 +69,15 @@ Cloud URLs:
 
 - A successful Mock Server example response (the server and authentic call log
   exist, but the current call correctly reports that no example is attached).
-- Student authorship review of the editable generator diagram. The optional
-  narrated demo video is still absent. The dated group uniqueness confirmation is recorded in `README.md` and
-  the main report. The Mermaid source and PNG export exist at
-  `docs/design/diagram/`.
+- A Collection Runner screenshot taken with a CSV data file attached. The
+  data-driven runs themselves are complete under Newman (27 iterations, 128
+  assertions, none failed), so only the Postman-side screenshot is outstanding.
+
+Resolved since this list was first written: the generator diagram was redrawn
+by the student in draw.io on 2026-08-30 and both the PNG and the extracted
+`.drawio` source are in `docs/design/diagram/`; the demo video is published at
+<https://youtu.be/zgGwFg2e8UE>; the dated group uniqueness confirmation is
+recorded in `README.md` and the main report.
 
 Postman Desktop 12.24.6 and Desktop Agent 0.4.90 were installed on 2026-08-23.
 The localhost SUT request was executed in Postman Desktop and captured without
