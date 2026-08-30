@@ -162,6 +162,15 @@ foreach ($dir in @('.claude', 'docs', 'evidence', 'postman',
         Copy-Item -LiteralPath $src -Destination (Join-Path $staging $dir) -Recurse -Force
     }
 }
+# Newman's JSON reporter embeds every response body, so the four per-API
+# exports come to roughly 115 MB - API4 alone is 50 MB twice. Section 14 asks
+# for the Newman report in HTML, and nothing in the repository reads these
+# files, so they stay in the public repository and out of the upload. The small
+# summary_*.json files are kept: run-suite.js and print-ci-summary.js read them.
+Get-ChildItem -LiteralPath (Join-Path $staging 'reports') -Filter '*.json' -File |
+    Where-Object { $_.Name -notlike 'summary_*' } |
+    Remove-Item -Force
+
 # SUBMISSION_CHECKLIST.md is a working document and is deliberately not shipped.
 Copy-Item -LiteralPath (Join-Path $root 'README.md'),
                        (Join-Path $root '23127184_HW06_REPORT.md'),
