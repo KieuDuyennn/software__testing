@@ -85,15 +85,17 @@ Kết quả đúng là preflight không báo thiếu file, file ZIP mở đượ
 - [ ] Bảo đảm ảnh là ảnh thật, rõ MSSV/tài khoản/trạng thái khi rubric yêu cầu.
 - [ ] Không nộp `node_modules`, `tmp`, database SQLite hay log chạy thử dư.
 
-## 6. Việc còn lại của sinh viên cho phần data-driven
+## 6. Data-driven: dùng bằng chứng Newman
 
-Phần chạy data-driven đã hoàn tất bằng Newman (27 iteration, 128 assertion,
-không có assertion nào fail, xem `reports/*_ddt.html`). Còn đúng một ảnh cần
-tự chụp để chứng minh đã dùng **Collection Runner với data file**:
+Không nộp ảnh Collection Runner cho phần data-driven. Bằng chứng là lần chạy
+Newman thật với data file:
 
-1. Mở Postman, import `postman/collections/API1_FR01_Register_ddt.postman_collection.json`.
-2. Chọn **Run collection** → mục **Data**, chọn file `postman/data/api1_fr01_register.csv`.
-3. Kiểm tra Postman báo `10 iterations` và bấm **Preview** để thấy 10 dòng dữ liệu.
-4. Bảo đảm SUT đang chạy (`npm run sut:start`), rồi bấm **Run**.
-5. Chụp màn hình kết quả (thấy rõ tên file CSV và số iteration) và lưu vào
-   `evidence/postman-cloud/runner-data-driven.png`.
+```
+newman run postman/collections/API1_FR01_Register_ddt.postman_collection.json
+       -d postman/data/api1_fr01_register.csv ...
+```
+
+Bốn collection, bốn file CSV trong `postman/data/`, tổng 27 iteration và 128
+assertion, không có assertion nào fail. Kết quả ở `reports/*_ddt.html` và
+`evidence/newman-console/suite_ddt_20260824-154226.log`, mô tả chi tiết ở
+`docs/postman/POSTMAN_FEATURES.md` mục 15.
