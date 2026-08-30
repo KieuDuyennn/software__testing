@@ -22,7 +22,7 @@ For **every** parameter, not just the interesting ones:
 
 - [ ] Every state in the machine is reached by at least one case
 - [ ] Every **legal** transition is exercised and accepted
-- [ ] Every **illegal** transition is exercised and rejected — this is where the
+- [ ] Every **illegal** transition is exercised and rejected - this is where the
       defects live
 - [ ] Terminal states reject every further transition
 - [ ] Each case documents how it reaches its starting state
@@ -42,7 +42,7 @@ For **every** parameter, not just the interesting ones:
 ## Schema validation
 
 - [ ] One case per documented status code
-- [ ] `additionalProperties: false` — catches fields the spec never promised
+- [ ] `additionalProperties: false` - catches fields the spec never promised
 - [ ] Every field's JSON **type** asserted, not just its presence
 - [ ] Enum fields constrained to their legal values
 - [ ] Schema assertions repeated across **every** id partition, not one id

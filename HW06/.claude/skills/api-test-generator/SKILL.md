@@ -19,7 +19,7 @@ here, change it there.
    `refs/spec/eshop_requirements_README.md`. A case whose expectation was read
    off the running system passes by construction and cannot find a defect. This
    is the single most common way AI-generated API tests turn out worthless.
-2. **Every case names the rule it enforces** — an FR id, a SEC id, or "spec
+2. **Every case names the rule it enforces** - an FR id, a SEC id, or "spec
    conformance". A case that cannot name one has no oracle; drop it.
 3. **Every generated request carries `X-Student-Id`.** Injected by the
    collection-level pre-request script. Required by Section 11 of the brief.
@@ -38,10 +38,10 @@ here, change it there.
 
 ## Procedure
 
-Run the stages in order. Do not collapse them into one prompt — the assignment
+Run the stages in order. Do not collapse them into one prompt - the assignment
 explicitly forbids that, and each stage's output is the next one's input.
 
-### Stage 0 — Parse the contract
+### Stage 0 - Parse the contract
 
 Read the spec entry for the target endpoint and restate it: method, path, every
 parameter with its type and whether it is required, the response shape per
@@ -51,7 +51,7 @@ constrains this endpoint.
 Stop and check the restatement against the spec before continuing. Everything
 downstream inherits an error made here.
 
-### Stage 1 — Domain partitions
+### Stage 1 - Domain partitions
 
 For each parameter, build an equivalence-class table: valid classes, invalid
 classes, and the boundary values between them. Constraints come from the
@@ -59,17 +59,17 @@ classes, and the boundary values between them. Constraints come from the
 
 Then one case per class and one per boundary.
 
-### Stage 2 — State transitions
+### Stage 2 - State transitions
 
 Extract the state machine from the requirements (FR-10 for orders). Build the
-full state × event matrix and generate a case for every cell — the illegal
+full state × event matrix and generate a case for every cell - the illegal
 transitions especially. Each case needs a setup path describing how to reach
 its starting state.
 
-### Stage 3 — Security
+### Stage 3 - Security
 
 Walk SEC-01 through SEC-07. For each, either generate cases or record why it
-does not apply to this endpoint — the not-applicable list is part of the
+does not apply to this endpoint - the not-applicable list is part of the
 evidence.
 
 Attack patterns worth covering: missing / expired / forged token (SEC-02);
@@ -81,26 +81,26 @@ low-entropy or reusable OTP (SEC-07).
 undetectable with a single user. Set up user A, user B and an admin, and cross
 the boundaries deliberately.
 
-### Stage 4 — Schema validation
+### Stage 4 - Schema validation
 
 One case per documented status code, asserting the response with
-`pm.response.to.have.jsonSchema` and `additionalProperties: false` — strict
+`pm.response.to.have.jsonSchema` and `additionalProperties: false` - strict
 mode is what catches fields the SUT leaks that the spec never promised.
 
 Run the schema assertions across **every** id partition, not one representative
 id. Type drift can be data-dependent.
 
-### Stage 5 — Validate
+### Stage 5 - Validate
 
 Reject any case that: has no rule id; took its expectation from an observed
 response; duplicates an existing case; or needs a precondition it never sets up.
 
-### Stage 6 — Human review
+### Stage 6 - Human review
 
 Emit the surviving cases as a review queue with a VALID / INVALID / INCOMPLETE
 label field and a mandatory reason field. Hand it to the student. Stop.
 
-### Stage 7 — Emit
+### Stage 7 - Emit
 
 Only for cases the human labelled VALID: append to the Postman collection under
 the folder for their dimension, and to the Excel test-case table.
@@ -112,11 +112,11 @@ Emit each case as a row:
 | TC ID | Dimension | Rule | Precondition | Request | Expected | Why this can fail |
 |---|---|---|---|---|---|---|
 
-The last column is the one that matters — if you cannot say what defect the case
+The last column is the one that matters - if you cannot say what defect the case
 would catch, the case is decoration.
 
 ## References
 
-- `references/coverage-checklist.md` — the per-dimension checklist
-- `references/sec-rules.md` — SEC-01..SEC-07 with attack patterns
-- `../../../docs/design/generator_pseudocode.py` — the staged design
+- `references/coverage-checklist.md` - the per-dimension checklist
+- `references/sec-rules.md` - SEC-01..SEC-07 with attack patterns
+- `../../../docs/design/generator_pseudocode.py` - the staged design

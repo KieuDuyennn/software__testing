@@ -91,7 +91,7 @@ Kết quả đúng là preflight không báo thiếu file, file ZIP mở đượ
 ## 6. Việc còn lại của sinh viên cho phần data-driven
 
 Phần chạy data-driven đã hoàn tất bằng Newman (27 iteration, 128 assertion,
-không có assertion nào fail — xem `reports/*_ddt.html`). Còn đúng một ảnh cần
+không có assertion nào fail, xem `reports/*_ddt.html`). Còn đúng một ảnh cần
 tự chụp để chứng minh đã dùng **Collection Runner với data file**:
 
 1. Mở Postman, import `postman/collections/API1_FR01_Register_ddt.postman_collection.json`.
