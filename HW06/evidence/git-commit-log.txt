@@ -2,9 +2,15 @@
 Student ID : 23127184
 Repository : https://github.com/KieuDuyennn/software__testing.git
 Branch     : hw6
-Generated  : 2026-08-30 11:18:18 +07:00
+Generated  : 2026-08-30 11:30:57 +07:00
 Scope      : commits touching HW06/ or the HW06 Actions workflow
 ==============================================================================
+
+743e6a1  2026-08-30 11:30:53 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): replace the generator diagram with the student's own drawing
+
+2d87fd5  2026-08-30 11:18:27 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
 
 e5febc8  2026-08-30 11:18:13 +0700  Lê Phạm Kiều Duyên
     docs(hw06): publish the Agent Skill demo video and refresh the gate run
