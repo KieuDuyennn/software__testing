@@ -18,6 +18,10 @@ __pycache__/
 /output/submission-ready/
 /output/*.zip
 
+# Local screen recordings of the Agent Skill demo. The submitted artefact is
+# the YouTube link in README.md, not an 18 MB binary in the repository.
+/output/demo/
+
 # Backend process logs (runtime noise). The Newman console transcripts in
 # evidence/newman-console/suite_*.log ARE evidence and stay tracked.
 evidence/newman-console/sut-stdout.log
