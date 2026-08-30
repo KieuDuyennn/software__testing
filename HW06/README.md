@@ -10,6 +10,8 @@ Base URL: `http://localhost:3000`
 
 Repository: <https://github.com/KieuDuyennn/software__testing/tree/hw6/HW06>
 
+Agent Skill demo video: <https://youtu.be/zgGwFg2e8UE>
+
 ## Submission quick path
 
 Use `SUBMISSION_CHECKLIST.md` as the single handoff checklist. Do not select
@@ -124,6 +126,7 @@ suite, writes HTML/JSON/log evidence, and stops the backend.
 | CI/CD report | `docs/cicd/CI_CD_REPORT.md` |
 | Generator design/pseudocode | `docs/design/` |
 | Agent Skill | `.claude/skills/api-test-generator/` |
+| Agent Skill demo video | <https://youtu.be/zgGwFg2e8UE> |
 | AI critique/audit | `docs/AI_CRITIQUE.md`, `docs/ai-audit/AI_AUDIT.md` |
 
 ## Self-assessment
@@ -166,3 +169,4 @@ Submission filename: `23127184_HW06_AI_API_<SelfAssessedGrade>.zip`
 - [x] Collection Runner and completed Monitor evidence captured
 - [x] Generator diagram PNG and editable Mermaid source added
 - [x] Group uniqueness and self-assessment completed (2026-08-24)
+- [x] Agent Skill demo video recorded and published on YouTube

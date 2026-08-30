@@ -48,14 +48,18 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
   `docs/design/diagram/README.md`, export đè lên `generator-design.png`, rồi xoá
   đoạn tự khai "draft" ở mục 12 báo cáo chính. Đề mục 11 liệt kê sơ đồ là một
   trong ba thứ TA kiểm tra là không do AI sinh ra.
-- [ ] **BẮT BUỘC.** Chuyển repository sang public. Đề mục 14 yêu cầu
-  "public GitHub repository link"; repo đang private nên toàn bộ link repo,
-  GitHub Actions và GitHub Issues trong bài nộp sẽ 404 với người chấm.
+- [x] Repository đã ở trạng thái public (kiểm tra ngày 2026-08-30 bằng
+  `gh repo view KieuDuyennn/software__testing --json visibility`, kết quả
+  `PUBLIC`), nên link repo, GitHub Actions và GitHub Issues trong bài nộp đều
+  mở được với người chấm.
 - [x] Đã chụp `evidence/screenshots/github-actions-red-one-case.png` từ run
   <https://github.com/KieuDuyennn/software__testing/actions/runs/32700593817>:
   bảng job summary thấy rõ API2 có 1 failed assertion, ba API còn lại 0,
   tổng 1.801/1/1.802.
-- [ ] (Tùy chọn) Chèn link video YouTube demo vào README và báo cáo chính.
+- [x] Đã quay video demo Agent Skill sinh test cho `POST /api/register`, tải
+  lên YouTube tại <https://youtu.be/zgGwFg2e8UE> và chèn link vào README cùng
+  mục 12 báo cáo chính. Bản ghi màn hình gốc không lưu trong repo; `output/demo/`
+  đã được đưa vào `.gitignore` để không đẩy file 18 MB lên Git.
 - [x] Xác nhận bộ ba API không trùng với thành viên nhóm ngày 2026-08-24.
 - [x] Điền điểm tự đánh giá 100/100 trong README.
 - [x] Excel đã được đồng bộ từ nguồn 386 case, gồm audit, 20 case tự thêm và
@@ -78,7 +82,7 @@ Kết quả đúng là preflight không báo thiếu file, file ZIP mở đượ
 
 - [ ] Tên ZIP đúng mẫu `23127184_HW06_AI_API_<000-100>.zip`.
 - [ ] Mở ZIP và đọc thử README, hai PDF, Excel và một Newman HTML report.
-- [ ] Thử các link GitHub Actions, GitHub Issues, repository và YouTube.
+- [ ] Thử lại các link GitHub Actions, GitHub Issues, repository và YouTube.
 - [ ] Bảo đảm ảnh là ảnh thật, rõ MSSV/tài khoản/trạng thái khi rubric yêu cầu.
 - [ ] Không nộp `node_modules`, `tmp`, database SQLite hay log chạy thử dư.
 
