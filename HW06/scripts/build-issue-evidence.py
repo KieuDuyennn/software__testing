@@ -218,7 +218,7 @@ def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> 
     )
     page.insert_text(
         (card.x0 + PAD, card.y0 + 70),
-        f"HW06  |  Student ID {STUDENT_ID}  |  Pre-fix full suite run  |  {LOG.name}",
+        f"HW06  |  Student ID {STUDENT_ID}  |  Pre-fix full suite run",
         fontname="helv", fontsize=10.5, color=SUBTITLE,
     )
 
