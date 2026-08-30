@@ -197,7 +197,9 @@ def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> 
     header_h = 92.0
     rows_h = sum(ROW_H + 14 * (len(v) - 1) for _, v in wrapped) + 20
     fail_h = 20 + 17 * len(fail_lines) + 12
-    footer_h = 44.0
+    # The source transcript is named in the header line instead of a footer
+    # block, so the card only needs breathing room under the failure box.
+    footer_h = 16.0
     height = MARGIN * 2 + header_h + rows_h + 18 + fail_h + footer_h
 
     doc = fitz.open()
@@ -216,7 +218,7 @@ def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> 
     )
     page.insert_text(
         (card.x0 + PAD, card.y0 + 70),
-        f"HW06  |  Student ID {STUDENT_ID}  |  Pre-fix full suite execution",
+        f"HW06  |  Student ID {STUDENT_ID}  |  Pre-fix full suite run  |  {LOG.name}",
         fontname="helv", fontsize=10.5, color=SUBTITLE,
     )
 
@@ -247,17 +249,6 @@ def render(issue: int, slug: str, run: dict, details: list[tuple[str, str]]) -> 
             (box.x0 + 20, ty), line, fontname="cour", fontsize=10, color=FAIL_INK
         )
         ty += 17
-
-    page.insert_text(
-        (card.x0 + PAD, box.y1 + 26),
-        f"Verbatim fields rendered from evidence/newman-console/{LOG.name}",
-        fontname="helv", fontsize=8, color=MUTED,
-    )
-    page.insert_text(
-        (card.x0 + PAD, box.y1 + 38),
-        "(the run that produced the reported defects). The raw transcript is retained in the repository.",
-        fontname="helv", fontsize=8, color=MUTED,
-    )
 
     out = OUT / f"github-issue-{issue}-{slug}-newman.png"
     page.get_pixmap(matrix=fitz.Matrix(1.6, 1.6)).save(out)
