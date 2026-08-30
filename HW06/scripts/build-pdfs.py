@@ -187,8 +187,13 @@ def table_flowable(rows: list[list[str]], page_width: float, st):
     return table
 
 
-def image_flowable(path: Path, max_width: float, max_height: float = 120 * mm):
+def image_flowable(path: Path, max_width: float, max_height: float | None = None):
     img = Image(str(path))
+    if max_height is None:
+        # The generator diagram is a tall portrait export. Capping it at the
+        # landscape default would squeeze it into an unreadable strip, so a
+        # portrait image gets the full text height of the page instead.
+        max_height = 240 * mm if img.imageHeight > img.imageWidth else 120 * mm
     scale = min(max_width / img.imageWidth, max_height / img.imageHeight, 1.0)
     img.drawWidth = img.imageWidth * scale
     img.drawHeight = img.imageHeight * scale

@@ -88,11 +88,10 @@ A structural failure returns to static validation with a reason.
 
 ## 7. Diagram and implementation
 
-The editable sources and report image are stored in `docs/design/diagram/`:
-
-- `generator-design.mmd`
-- `generator-design.svg`
-- `generator-design.png`
+The diagram is `docs/design/diagram/generator-design.png`, drawn by the student
+in draw.io from this design brief and the pseudocode. Section 11 of the brief
+requires that diagram to be self-drawn, so the earlier machine-generated
+Mermaid and SVG drafts were removed rather than shipped beside it.
 
 The pseudocode is `docs/design/generator_pseudocode.py`. The reusable
 implementation is under `.claude/skills/api-test-generator/`.

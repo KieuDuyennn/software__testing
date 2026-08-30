@@ -39,15 +39,17 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
   `localhost`; ảnh ghi rõ 129 requests, 238 failed tests và 11 errors.
 - [x] Đã chụp Mock Server đang chạy và request log tại
   `evidence/postman-cloud/mock-server.png`.
-- [x] Đã có ảnh generator và file Mermaid chỉnh sửa được trong
-  `docs/design/diagram/` (bản nháp, chờ sinh viên vẽ lại).
+- [x] Sơ đồ generator trong `docs/design/diagram/generator-design.png` là bản
+  sinh viên tự vẽ lại bằng draw.io.
 - [x] Đã render 15 ảnh minh chứng Newman cho các Issue #47-#55, #59-#64 bằng
   `scripts/build-issue-evidence.py`, lấy trường verbatim từ transcript tiền-fix.
-- [ ] **BẮT BUỘC.** Sinh viên mở `docs/design/diagram/generator-design.mmd` (hoặc
-  `.svg`) trong draw.io, tự bố cục lại theo checklist ở
-  `docs/design/diagram/README.md`, export đè lên `generator-design.png`, rồi xoá
-  đoạn tự khai "draft" ở mục 12 báo cáo chính. Đề mục 11 liệt kê sơ đồ là một
-  trong ba thứ TA kiểm tra là không do AI sinh ra.
+- [x] Sinh viên đã tự bố cục lại sơ đồ trong draw.io và export đè lên
+  `docs/design/diagram/generator-design.png` (ngày 2026-08-30). Ảnh có MSSV
+  23127184 ở box input và ở khối renderer. Hai file nháp do máy sinh
+  (`generator-design.mmd`, `generator-design.svg`) đã xoá khỏi repo, và đoạn tự
+  khai "draft" ở mục 12 báo cáo chính đã được thay bằng phần giải thích các
+  quyết định thiết kế. Đề mục 11 liệt kê sơ đồ là một trong ba thứ TA kiểm tra
+  là không do AI sinh ra.
 - [x] Repository đã ở trạng thái public (kiểm tra ngày 2026-08-30 bằng
   `gh repo view KieuDuyennn/software__testing --json visibility`, kết quả
   `PUBLIC`), nên link repo, GitHub Actions và GitHub Issues trong bài nộp đều
