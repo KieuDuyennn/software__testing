@@ -67,9 +67,6 @@ Script sẽ kiểm tra, tạo thư mục để xem lại tại `output/submissio
 - [x] Excel đã được đồng bộ từ nguồn 386 case, gồm audit, 20 case tự thêm và
   kết quả full run; vẫn nên mở một lần bằng Excel trước khi nộp để kiểm tra font.
 
-Danh mục ảnh đã có và trường thông tin nhìn thấy được trong từng ảnh nằm tại
-`evidence/EVIDENCE_INDEX.md`.
-
 ## 4. Kiểm tra nhanh
 
 ```powershell
