@@ -1,0 +1,177 @@
+{
+  "info": {
+    "_postman_id": "ed2537e2-e378-5ebd-8a01-677350d114fb",
+    "name": "API1 - FR-01 Registration - DATA-DRIVEN (postman/data/api1_fr01_register.csv)",
+    "description": "HW06 / Pool A / FR-01, executed data-driven.\n\nOne `POST /api/register`, replayed once per row of `postman/data/api1_fr01_register.csv`. The row supplies name, email, password and the status the requirement demands; the collection supplies no test data at all.\n\nRun: `npm run ddt:api1`",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "05 - Data-driven (CSV)",
+      "item": [
+        {
+          "name": "DDT | POST /api/register <- CSV row",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Emails in the CSV are fixed so the file stays readable and diffable, but",
+                  "// FR-01 requires uniqueness - a second run would otherwise collide with the",
+                  "// accounts the first run created. Insert the harness's per-request `uniq`",
+                  "// into the local part, leaving malformed addresses malformed.",
+                  "const uniq = pm.variables.get(\"uniq\");",
+                  "let email = d.get(\"email\") || \"\";",
+                  "if (email.indexOf(\"@\") > 0) {",
+                  "    email = email.replace(\"@\", \"+\" + uniq + \"@\");",
+                  "}",
+                  "",
+                  "pm.variables.set(\"ddt_name\", d.get(\"name\") || \"\");",
+                  "pm.variables.set(\"ddt_email\", email);",
+                  "pm.variables.set(\"ddt_password\", d.get(\"password\") || \"\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "// A row that the requirement says must be accepted has to come back in the",
+                  "// shape the specification promises, not merely with a 200.",
+                  "if (Number(d.get(\"expected_status\")) === 200 && pm.response.code === 200) {",
+                  "    pm.test(tc + \" | success body matches the FR-01 shape\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.have.property(\"message\", \"User registered successfully\");",
+                  "        pm.expect(b.id, \"id\").to.be.a(\"number\");",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            },
+            "description": "Every field is bound to an iteration-data variable. Add a row to the CSV to add a test case.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{ddt_name}}\",\n  \"email\": \"{{ddt_email}}\",\n  \"password\": \"{{ddt_password}}\",\n  \"confirmPassword\": \"{{ddt_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// HW06 mandatory harness: every request must carry X-Student-Id.",
+          "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+          "// brief) - screenshot the Postman console showing it.",
+          "// ---------------------------------------------------------------------------",
+          "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+          "",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "",
+          "// A fresh token per request, so cases that must create a new account can do so",
+          "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+          "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+          "pm.variables.set(\"uniq\", uniq);",
+          "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
+          "",
+          "// Tag each run so Newman output and SUT state can be correlated.",
+          "if (!pm.environment.get(\"run_tag\")) {",
+          "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+          "}",
+          "",
+          "console.log(",
+          "    \"[HW06] X-Student-Id=\" + studentId +",
+          "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+          "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+          ");"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// ---------------------------------------------------------------------------",
+          "// Assertions that apply to every request in the collection.",
+          "// ---------------------------------------------------------------------------",
+          "pm.test(\"Request carried the X-Student-Id header\", function () {",
+          "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+          "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+          "        pm.environment.get(\"student_id\") || \"23127184\"",
+          "    );",
+          "});",
+          "",
+          "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+          "    pm.expect(",
+          "        pm.response.code,",
+          "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+          "    ).to.not.eql(429);",
+          "});",
+          "",
+          "pm.test(\"Response arrived under 2000 ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": []
+}

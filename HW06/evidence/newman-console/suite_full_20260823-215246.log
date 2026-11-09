@@ -1,0 +1,1871 @@
+﻿
+=== API1_FR01_Register (full) ===
+newman
+
+API1 - FR-01 Account Registration (POST /api/register)
+
+□ 01 - Domain partitions / name
+└ A1-DP-001 | Registration succeeds with a valid name
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 67ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-002 | Missing name field is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 13ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  1. Rejected with a 4xx (name is mandatory)
+  √  Error response names the problem
+
+└ A1-DP-003 | Null name is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 12ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  2. Rejected with a 4xx (name must not be null)
+  √  Error response names the problem
+
+└ A1-DP-004 | Empty name is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 14ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  3. Rejected with a 4xx (name must not be empty)
+  √  Error response names the problem
+
+└ A1-DP-005 | Whitespace-only name is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 17ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  4. Rejected with a 4xx (name must not be blank)
+  √  Error response names the problem
+
+└ A1-DP-006 | Single-character name is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 13ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-007 | Name with Vietnamese diacritics is accepted and preserved
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-008 | 255-character name is handled without error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-009 | Oversized name does not crash the server
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-DP-010 | Numeric name is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  5. Rejected with a 4xx (name must be a string)
+  √  Error response names the problem
+
+└ A1-DP-011 | Object as name is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  6. Rejected with a 4xx (name must be a string)
+  √  Error response names the problem
+
+└ A1-DP-012 | Name with leading and trailing spaces is trimmed or rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-013 | Name containing emoji is handled without corruption
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / email
+└ A1-DP-014 | Registration succeeds with a well-formed email
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 21ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-015 | Missing email field is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  7. Rejected with a 4xx (email is mandatory)
+  √  Error response names the problem
+
+└ A1-DP-016 | Null email is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  8. Rejected with a 4xx (email must not be null)
+  √  Error response names the problem
+
+└ A1-DP-017 | Empty email is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  9. Rejected with a 4xx (email must not be empty)
+  √  Error response names the problem
+
+└ A1-DP-018 | Whitespace-only email is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 13ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 10. Rejected with a 4xx (email must not be blank)
+  √  Error response names the problem
+
+└ A1-DP-019 | Email without '@' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 11. Rejected with a 4xx (email needs an @)
+  √  Error response names the problem
+
+└ A1-DP-020 | Email with nothing after '@' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 12ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 12. Rejected with a 4xx (email needs a domain)
+  √  Error response names the problem
+
+└ A1-DP-021 | Email with nothing before '@' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 13. Rejected with a 4xx (email needs a local part)
+  √  Error response names the problem
+
+└ A1-DP-022 | Email without a TLD is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 14. Rejected with a 4xx (email needs a TLD)
+  √  Error response names the problem
+
+└ A1-DP-023 | Email with a duplicated '@' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 15. Rejected with a 4xx (email has two @ signs)
+  √  Error response names the problem
+
+└ A1-DP-024 | Email starting with a dot is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 16. Rejected with a 4xx (local part must not start with a dot)
+  √  Error response names the problem
+
+└ A1-DP-025 | Email with a dot immediately before '@' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 17. Rejected with a 4xx (local part must not end with a dot)
+  √  Error response names the problem
+
+└ A1-DP-026 | Email with consecutive dots is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 18. Rejected with a 4xx (consecutive dots are not allowed)
+  √  Error response names the problem
+
+└ A1-DP-027 | Email containing a space is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 19. Rejected with a 4xx (email must not contain spaces)
+  √  Error response names the problem
+
+└ A1-DP-028 | Email with parentheses in the local part is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 20. Rejected with a 4xx (illegal characters in local part)
+  √  Error response names the problem
+
+└ A1-DP-029 | Email with a '+' tag is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-030 | Email on a subdomain is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-031 | Email on a hyphenated domain is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-032 | Email in uppercase is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-033 | Registering an email that already exists is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] A1-DP-033 fixture claimed dupmt5xfdg47jfm4@dom
+  │ ain.com -> 200'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 21. Rejected with a 4xx (email must be unique)
+  √  Error response names the problem
+
+└ A1-DP-034 | Uniqueness is enforced case-insensitively
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  ┌
+  │ '[HW06] A1-DP-034 fixture claimed dupmt5xfdj616pagd@do
+  │ main.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 22. Rejected with a 4xx (uniqueness must ignore case)
+  √  Error response names the problem
+
+└ A1-DP-035 | Over-long email local part is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 23. Rejected with a 4xx (local part exceeds 64 characters)
+  √  Error response names the problem
+
+└ A1-DP-036 | Numeric email is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 24. Rejected with a 4xx (email must be a string)
+  √  Error response names the problem
+
+└ A1-DP-037 | Email with a trailing space is trimmed or rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / password
+└ A1-DP-038 | Registration succeeds with a compliant password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-039 | Missing password field is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 25. Rejected with a 4xx (password is mandatory)
+  √  Error response names the problem
+
+└ A1-DP-040 | Null password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 26. Rejected with a 4xx (password must not be null)
+  √  Error response names the problem
+
+└ A1-DP-041 | Empty password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 27. Rejected with a 4xx (password must not be empty)
+  √  Error response names the problem
+
+└ A1-DP-042 | Seven-character password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 28. Rejected with a 4xx (shorter than the 8-character minimum)
+  √  Error response names the problem
+
+└ A1-DP-043 | Eight-character compliant password is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-044 | Nine-character compliant password is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-045 | Password without an uppercase letter is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 29. Rejected with a 4xx (no uppercase letter)
+  √  Error response names the problem
+
+└ A1-DP-046 | Password without a lowercase letter is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 30. Rejected with a 4xx (no lowercase letter)
+  √  Error response names the problem
+
+└ A1-DP-047 | Password without a digit is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 31. Rejected with a 4xx (no digit)
+  √  Error response names the problem
+
+└ A1-DP-048 | Password without a special character is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 32. Rejected with a 4xx (no special character)
+  √  Error response names the problem
+
+└ A1-DP-049 | Password whose only special character is '#' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 33. Rejected with a 4xx ('#' is not in the permitted special-character set)
+  √  Error response names the problem
+
+└ A1-DP-050 | Password using '@' (at sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-051 | Password using '$' (dollar sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-052 | Password using '!' (exclamation mark) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-053 | Password using '%' (percent sign) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-054 | Password using '*' (asterisk) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-055 | Password using '?' (question mark) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-056 | Password using '&' (ampersand) is accepted
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-057 | All-numeric password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 34. Rejected with a 4xx (digits only)
+  √  Error response names the problem
+
+└ A1-DP-058 | All-alphabetic password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 35. Rejected with a 4xx (letters only)
+  √  Error response names the problem
+
+└ A1-DP-059 | Whitespace-only password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 36. Rejected with a 4xx (whitespace is not a password)
+  √  Error response names the problem
+
+└ A1-DP-060 | A weak but non-compliant password like 'password' is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 37. Rejected with a 4xx (weak password)
+  √  Error response names the problem
+
+└ A1-DP-061 | Password containing a space is handled consistently
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-062 | Very long password does not crash the server
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+└ A1-DP-063 | Numeric password is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 38. Rejected with a 4xx (password must be a string)
+  √  Error response names the problem
+
+└ A1-DP-064 | Password containing non-ASCII characters is handled without corruption
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+
+□ 01 - Domain partitions / confirm password
+└ A1-DP-065 | Registration succeeds when the password confirmation matches
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-066 | Mismatched password confirmation is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 39. Rejected with a 4xx (password confirmation does not match)
+  √  Error response names the problem
+
+└ A1-DP-067 | Missing password confirmation is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 40. Rejected with a 4xx (confirmation field is mandatory)
+  √  Error response names the problem
+
+□ 01 - Domain partitions / request envelope
+└ A1-DP-068 | Empty request body is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 41. Rejected with a 4xx (no fields supplied)
+  √  Error response names the problem
+
+└ A1-DP-069 | Request with no body is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 42. Rejected with a 4xx (no body supplied)
+  √  Error response names the problem
+
+└ A1-DP-070 | Malformed JSON is rejected with a 400, not a 500
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 1.64kB, 20ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 400
+  √  No database internals leak to the client
+
+└ A1-DP-071 | Non-JSON Content-Type is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [500 Internal Server Error, 2kB, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 43. Status is one of [400, 415]
+ 44. Server does not fail with a 5xx
+
+└ A1-DP-072 | Array request body is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 45. Rejected with a 4xx (body must be an object)
+  √  Error response names the problem
+
+└ A1-DP-073 | Unknown extra fields are ignored, not stored
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+└ A1-DP-074 | All-null request body is rejected
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 46. Rejected with a 4xx (no usable field supplied)
+  √  Error response names the problem
+
+└ A1-DP-075 | Oversized payload is refused without a server error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 13ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+□ 01 - Domain partitions / http method
+└ A1-DP-076 | GET /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/r
+  │ egister | run_tag=run-1787496769873'
+  └
+  GET http://localhost:3000/api/register [404 Not Found, 455B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-077 | PUT /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PUT {{base_url}}/api/r
+  │ egister | run_tag=run-1787496769873'
+  └
+  PUT http://localhost:3000/api/register [404 Not Found, 455B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-078 | DELETE /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | DELETE {{base_url}}/ap
+  │ i/register | run_tag=run-1787496769873'
+  └
+  DELETE http://localhost:3000/api/register [404 Not Found, 458B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+└ A1-DP-079 | PATCH /api/register is not routed
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | PATCH {{base_url}}/api
+  │ /register | run_tag=run-1787496769873'
+  └
+  PATCH http://localhost:3000/api/register [404 Not Found, 457B, 2ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is one of [404, 405]
+
+□ 02 - State transitions
+└ A1-ST-001 | A newly registered account can immediately log in
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfgv91n8zeu@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 658B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Login succeeds for the new account
+
+└ A1-ST-002 | A duplicate registration does not replace the existing account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfgyq1cwy5a@doma
+  │ in.com'
+  └
+[200 OK, 317B, 11ms]
+  ┌
+  │ '[HW06] A1-ST-002 duplicate attempt sent'
+  └
+  POST http://localhost:3000/api/login [200 OK, 658B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  The original credentials still authenticate
+
+└ A1-ST-003 | The registered account's profile is retrievable after login
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 11ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfh1rfk3dw@domai
+  │ n.com'
+  └
+[200 OK, 657B, 11ms]
+  GET http://localhost:3000/api/users/me [200 OK, 472B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Profile is returned
+  √  Profile belongs to the account just registered
+
+└ A1-ST-004 | A newly registered account starts with role 'user'
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfh4t1zzes@domai
+  │ n.com'
+  └
+[200 OK, 657B, 9ms]
+  GET http://localhost:3000/api/users/me [200 OK, 472B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Initial role is 'user'
+
+└ A1-ST-005 | A newly registered account is not locked and has zero failed attempts
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 9ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfh7v1h3aqu@doma
+  │ in.com'
+  └
+[200 OK, 658B, 10ms]
+  GET http://localhost:3000/api/users/me [200 OK, 473B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No failed attempts recorded
+  √  Account is not locked
+
+└ A1-ST-006 | Password reset can be initiated for a newly registered account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ forgot-password | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhd28o4ik@domai
+  │ n.com'
+  └
+  POST http://localhost:3000/api/forgot-password [200 OK, 350B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Reset can be initiated
+  √  A reset token is returned
+
+└ A1-ST-007 | Consecutive registrations receive distinct, increasing ids
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhg31i7ugi@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  New id is distinct from and greater than the previous one
+
+└ A1-ST-008 | A registration rejected for an invalid email leaves no usable account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] A1-ST-008 invalid registration attempted'
+  └
+  POST http://localhost:3000/api/login [200 OK, 650B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 47. No account exists for the rejected registration
+
+└ A1-ST-009 | A newly registered account starts with an empty cart
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/c
+  │ art | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhmx13xnqe@doma
+  │ in.com'
+  └
+[200 OK, 658B, 10ms]
+  GET http://localhost:3000/api/cart [200 OK, 267B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Cart is returned
+  √  Cart is empty for a brand-new account
+
+└ A1-ST-010 | A newly registered account has no orders
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/my-orders | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhpw1gx3k8@doma
+  │ in.com'
+  └
+[200 OK, 658B, 17ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Order history is returned
+  √  Order history is empty for a brand-new account
+
+□ 03 - Security (SEC-01..SEC-07)
+└ A1-SEC-001 | The login response must not disclose the stored password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhtq179t2k@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 658B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 48. Response carries no password field
+ 49. Submitted plaintext is not echoed back
+
+└ A1-SEC-002 | The registration response must not echo the password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Password is absent from the response body
+  √  No password key in the response
+
+└ A1-SEC-003 | The profile endpoint must not expose the password
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/login [200 OK, 317B, 8ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfhzp196ilv@doma
+  │ in.com'
+  └
+[200 OK, 658B, 12ms]
+  GET http://localhost:3000/api/users/me [200 OK, 473B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 50. Profile carries no password field
+
+└ A1-SEC-004 | The stored password must not equal the submitted plaintext
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfi35124cz4@doma
+  │ in.com'
+  └
+  POST http://localhost:3000/api/login [200 OK, 658B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 51. Any returned password material is not the plaintext
+
+└ A1-SEC-005 | A script payload in the name is stored as inert data
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/u
+  │ sers/me | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  POST http://localhost:3000/api/login [200 OK, 674B, 5ms]
+  GET http://localhost:3000/api/users/me [200 OK, 489B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Response is JSON data, not HTML
+  √  Payload is preserved as data, not interpreted
+
+└ A1-SEC-006 | An onerror payload in the name is stored without a server error
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  Response is JSON, not rendered HTML
+
+└ A1-SEC-007 | A DROP TABLE payload in the email must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-008 | An OR 1=1 payload in the name must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-009 | A UNION SELECT payload must not return extra data
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+  √  No credential material leaks into the response
+
+└ A1-SEC-010 | A comment-sequence payload in the password must be neutralised
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-011 | The users table survives the injection attempts intact
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register   POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+[200 OK, 318B, 9ms]
+  POST http://localhost:3000/api/login [200 OK, 640B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Seeded admin account survived the injection attempts
+
+└ A1-SEC-012 | A client-supplied role must not create an admin account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 9ms]
+  ┌
+  │ '[HW06] A1-SEC-012 registered with role=admin injected
+  │ '
+  └
+  POST http://localhost:3000/api/login [200 OK, 664B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injected role did not take effect
+
+└ A1-SEC-013 | An account registered with an injected role cannot reach admin APIs
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/users | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 6ms]
+  POST http://localhost:3000/api/login [200 OK, 666B, 3ms]
+  GET http://localhost:3000/api/admin/users [200 OK, 120.3kB, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 52. Escalated account is refused by the admin API
+
+└ A1-SEC-014 | A client-supplied id must not override the generated one
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server generated its own id
+
+└ A1-SEC-015 | Injected lockout fields must not affect the new account
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ login | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  ┌
+  │ '[HW06] A1-SEC-015 registered with lock fields injecte
+  │ d'
+  └
+  POST http://localhost:3000/api/login [200 OK, 659B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Injected lockout fields were ignored
+
+└ A1-SEC-016 | A client-supplied reset token must not be usable
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ reset-password | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  ┌
+  │ '[HW06] A1-SEC-016 registered with reset_token injecte
+  │ d'
+  └
+  POST http://localhost:3000/api/reset-password [400 Bad Request, 310B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Rejected with a 4xx (client-supplied reset token must not be honoured)
+  √  Error response names the problem
+
+└ A1-SEC-017 | A __proto__ payload does not crash or escalate
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Server does not fail with a 5xx
+  √  No database internals leak to the client
+
+└ A1-SEC-018 | Registration must not return an authentication token
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No token is issued by registration
+
+└ A1-SEC-019 | A failed registration must not leak database internals
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  No database internals leak to the client
+  √  Server does not fail with a 5xx
+
+└ A1-SEC-020 | Registration works without any Authorization header
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+  √  Body matches the documented success shape
+
+□ 04 - Schema validation
+└ A1-SCH-001 | The success response contains exactly {message, id}
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Success body matches the specified schema exactly
+
+└ A1-SCH-002 | The success message is exactly the documented string
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Message matches the specification verbatim
+
+└ A1-SCH-003 | The returned id is a JSON integer, not a string
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  id is an integer number
+
+└ A1-SCH-004 | The returned id is a positive identifier
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  id is positive
+
+└ A1-SCH-005 | The response is served as application/json
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Content-Type is application/json
+
+└ A1-SCH-006 | A successful registration returns HTTP 200 as documented
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Status is 200
+
+└ A1-SCH-007 | A validation error returns a structured error body
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 53. Validation failure returns a 4xx
+ 54. Error body is structured JSON with an error field
+
+└ A1-SCH-008 | The response exposes no credential or role fields
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Response contains no "password" field
+  √  Response contains no "role" field
+  √  Response contains no "token" field
+  √  Response contains no "reset_token" field
+
+└ A1-SCH-009 | The success body carries no undocumented fields
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 8ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Exactly the two documented keys are present
+
+└ A1-SCH-010 | A duplicate-email rejection returns a structured error body
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 14ms]
+  ┌
+  │ '[HW06] A1-SCH-010 fixture claimed dupschmt5xfk5v1ha2c
+  │ @domain.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 55. Duplicate registration is refused
+ 56. Error body is structured
+
+└ A1-SCH-011 | Two registrations never return the same id
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 7ms]
+  ┌
+  │ '[HW06] state fixture registered stmt5xfk8w5brx3@domai
+  │ n.com'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  Returned id is distinct from the previous registration
+
+└ A1-SCH-012 | Errors are JSON, never an HTML stack-trace page
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787496769873'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 1.64kB, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+ 57. Error response is not an HTML page
+ 58. No stack trace is rendered
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │             154 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │             242 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │             144 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             577 │              58 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 12.5s                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 138.44kB (approx)                      │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 8ms [min: 2ms, max: 67ms, s.d.: 5ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                                                                                     [39m
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 01.  AssertionError  Rejected with a 4xx (name is mandatory)                                                                                    
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-002 | Missing name field is rejected"                                        
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 02.  AssertionError  Rejected with a 4xx (name must not be null)                                                                                
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-003 | Null name is rejected"                                                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 03.  AssertionError  Rejected with a 4xx (name must not be empty)                                                                               
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-004 | Empty name is rejected"                                                
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 04.  AssertionError  Rejected with a 4xx (name must not be blank)                                                                               
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-005 | Whitespace-only name is rejected"                                      
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 05.  AssertionError  Rejected with a 4xx (name must be a string)                                                                                
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-010 | Numeric name is rejected"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 06.  AssertionError  Rejected with a 4xx (name must be a string)                                                                                
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / name / A1-DP-011 | Object as name is rejected"                                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 07.  AssertionError  Rejected with a 4xx (email is mandatory)                                                                                   
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-015 | Missing email field is rejected"                                      
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 08.  AssertionError  Rejected with a 4xx (email must not be null)                                                                               
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-016 | Null email is rejected"                                               
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 09.  AssertionError  Rejected with a 4xx (email must not be empty)                                                                              
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-017 | Empty email is rejected"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 10.  AssertionError  Rejected with a 4xx (email must not be blank)                                                                              
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-018 | Whitespace-only email is rejected"                                    
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 11.  AssertionError  Rejected with a 4xx (email needs an @)                                                                                     
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-019 | Email without '@' is rejected"                                        
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 12.  AssertionError  Rejected with a 4xx (email needs a domain)                                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-020 | Email with nothing after '@' is rejected"                             
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 13.  AssertionError  Rejected with a 4xx (email needs a local part)                                                                             
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-021 | Email with nothing before '@' is rejected"                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 14.  AssertionError  Rejected with a 4xx (email needs a TLD)                                                                                    
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-022 | Email without a TLD is rejected"                                      
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 15.  AssertionError  Rejected with a 4xx (email has two @ signs)                                                                                
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-023 | Email with a duplicated '@' is rejected"                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 16.  AssertionError  Rejected with a 4xx (local part must not start with a dot)                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-024 | Email starting with a dot is rejected"                                
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 17.  AssertionError  Rejected with a 4xx (local part must not end with a dot)                                                                   
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-025 | Email with a dot immediately before '@' is rejected"                  
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 18.  AssertionError  Rejected with a 4xx (consecutive dots are not allowed)                                                                     
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-026 | Email with consecutive dots is rejected"                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 19.  AssertionError  Rejected with a 4xx (email must not contain spaces)                                                                        
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-027 | Email containing a space is rejected"                                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 20.  AssertionError  Rejected with a 4xx (illegal characters in local part)                                                                     
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-028 | Email with parentheses in the local part is rejected"                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 21.  AssertionError  Rejected with a 4xx (email must be unique)                                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-033 | Registering an email that already exists is rejected"                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 22.  AssertionError  Rejected with a 4xx (uniqueness must ignore case)                                                                          
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-034 | Uniqueness is enforced case-insensitively"                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 23.  AssertionError  Rejected with a 4xx (local part exceeds 64 characters)                                                                     
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-035 | Over-long email local part is rejected"                               
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 24.  AssertionError  Rejected with a 4xx (email must be a string)                                                                               
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / email / A1-DP-036 | Numeric email is rejected"                                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 25.  AssertionError  Rejected with a 4xx (password is mandatory)                                                                                
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-039 | Missing password field is rejected"                                
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 26.  AssertionError  Rejected with a 4xx (password must not be null)                                                                            
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-040 | Null password is rejected"                                         
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 27.  AssertionError  Rejected with a 4xx (password must not be empty)                                                                           
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-041 | Empty password is rejected"                                        
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 28.  AssertionError  Rejected with a 4xx (shorter than the 8-character minimum)                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-042 | Seven-character password is rejected"                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 29.  AssertionError  Rejected with a 4xx (no uppercase letter)                                                                                  
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-045 | Password without an uppercase letter is rejected"                  
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 30.  AssertionError  Rejected with a 4xx (no lowercase letter)                                                                                  
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-046 | Password without a lowercase letter is rejected"                   
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 31.  AssertionError  Rejected with a 4xx (no digit)                                                                                             
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-047 | Password without a digit is rejected"                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 32.  AssertionError  Rejected with a 4xx (no special character)                                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-048 | Password without a special character is rejected"                  
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 33.  AssertionError  Rejected with a 4xx ('#' is not in the permitted special-character set)                                                    
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-049 | Password whose only special character is '#' is rejected"          
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 34.  AssertionError  Rejected with a 4xx (digits only)                                                                                          
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-057 | All-numeric password is rejected"                                  
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 35.  AssertionError  Rejected with a 4xx (letters only)                                                                                         
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-058 | All-alphabetic password is rejected"                               
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 36.  AssertionError  Rejected with a 4xx (whitespace is not a password)                                                                         
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-059 | Whitespace-only password is rejected"                              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 37.  AssertionError  Rejected with a 4xx (weak password)                                                                                        
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-060 | A weak but non-compliant password like 'password' is rejected"     
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 38.  AssertionError  Rejected with a 4xx (password must be a string)                                                                            
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / password / A1-DP-063 | Numeric password is rejected"                                      
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 39.  AssertionError  Rejected with a 4xx (password confirmation does not match)                                                                 
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / confirm password / A1-DP-066 | Mismatched password confirmation is rejected"              
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 40.  AssertionError  Rejected with a 4xx (confirmation field is mandatory)                                                                      
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / confirm password / A1-DP-067 | Missing password confirmation is rejected"                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 41.  AssertionError  Rejected with a 4xx (no fields supplied)                                                                                   
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-068 | Empty request body is rejected"                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 42.  AssertionError  Rejected with a 4xx (no body supplied)                                                                                     
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-069 | Request with no body is rejected"                          
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 43.  AssertionError  Status is one of [400, 415]                                                                                                
+                      expected 500 to be one of [ 400, 415 ]                                                                                     
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-071 | Non-JSON Content-Type is rejected"                         
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 44.  AssertionError  Server does not fail with a 5xx                                                                                            
+                      status code: expected 500 to be below 500                                                                                  
+                      at assertion:1 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-071 | Non-JSON Content-Type is rejected"                         
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 45.  AssertionError  Rejected with a 4xx (body must be an object)                                                                               
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-072 | Array request body is rejected"                            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 46.  AssertionError  Rejected with a 4xx (no usable field supplied)                                                                             
+                      status code: expected 200 to be within 400..499                                                                            
+                      at assertion:0 in test-script                                                                                              
+                      inside "01 - Domain partitions / request envelope / A1-DP-074 | All-null request body is rejected"                         
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 47.  AssertionError  No account exists for the rejected registration                                                                            
+                      expected 200 to be one of [ 400, 401, 404 ]                                                                                
+                      at assertion:0 in test-script                                                                                              
+                      inside "02 - State transitions / A1-ST-008 | A registration rejected for an invalid email leaves no usable account"        
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 48.  AssertionError  Response carries no password field                                                                                         
+                      user object: expected { id: 90, name: 'State Fixture', …(8) } to not have property 'password'                              
+                      at assertion:0 in test-script                                                                                              
+                      inside "03 - Security (SEC-01..SEC-07) / A1-SEC-001 | The login response must not disclose the stored password"            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 49.  AssertionError  Submitted plaintext is not echoed back                                                                                     
+                      expected 'Password123!' to not deeply equal 'Password123!'                                                                 
+                      at assertion:1 in test-script                                                                                              
+                      inside "03 - Security (SEC-01..SEC-07) / A1-SEC-001 | The login response must not disclose the stored password"            
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 50.  AssertionError  Profile carries no password field                                                                                          
+                      expected { id: 92, name: 'State Fixture', …(8) } to not have property 'password'                                           
+                      at assertion:0 in test-script                                                                                              
+                      inside "03 - Security (SEC-01..SEC-07) / A1-SEC-003 | The profile endpoint must not expose the password"                   
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 51.  AssertionError  Any returned password material is not the plaintext                                                                        
+                      expected 'Password123!' to not deeply equal 'Password123!'                                                                 
+                      at assertion:0 in test-script                                                                                              
+                      inside "03 - Security (SEC-01..SEC-07) / A1-SEC-004 | The stored password must not equal the submitted plaintext"          
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 52.  AssertionError  Escalated account is refused by the admin API                                                                              
+                      expected 200 to be one of [ 401, 403 ]                                                                                     
+                      at assertion:0 in test-script                                                                                              
+                      inside "03 - Security (SEC-01..SEC-07) / A1-SEC-013 | An account registered with an injected role cannot reach admin APIs" 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 53.  AssertionError  Validation failure returns a 4xx                                                                                           
+                      expected 200 to be within 400..499                                                                                         
+                      at assertion:0 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-007 | A validation error returns a structured error body"                          
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 54.  AssertionError  Error body is structured JSON with an error field                                                                          
+                      expected { …(2) } to have property 'error'                                                                                 
+                      at assertion:1 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-007 | A validation error returns a structured error body"                          
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 55.  AssertionError  Duplicate registration is refused                                                                                          
+                      expected 200 to be within 400..499                                                                                         
+                      at assertion:0 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-010 | A duplicate-email rejection returns a structured error body"                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 56.  AssertionError  Error body is structured                                                                                                   
+                      expected { …(2) } to have property 'error'                                                                                 
+                      at assertion:1 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-010 | A duplicate-email rejection returns a structured error body"                 
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 57.  AssertionError  Error response is not an HTML page                                                                                         
+                      expected 'text/html; charset=utf-8' to not include 'text/html'                                                             
+                      at assertion:0 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-012 | Errors are JSON, never an HTML stack-trace page"                             
+[90m     [39m[90m                [39m[90m                                                                                                                            [39m
+ 58.  AssertionError  No stack trace is rendered                                                                                                 
+                      expected '<!doctype html>\n<html lang="en">\n<h…' to not include '<pre>'                                                   
+                      at assertion:1 in test-script                                                                                              
+                      inside "04 - Schema validation / A1-SCH-012 | Errors are JSON, never an HTML stack-trace page"                             
+
+===== HW06 suite summary (mode=full, env=local) =====
+  API1_FR01_Register            519/577  passed  58 FAILED
+  TOTAL                        519/577 assertions passed
+
+58 assertion(s) failed. In full mode these are the SUT's defects - triage them in docs/bugs/BUG_REPORT.md. Process exits 0 by design.

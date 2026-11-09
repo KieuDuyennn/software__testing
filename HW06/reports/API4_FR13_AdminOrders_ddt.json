@@ -1,0 +1,6259 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "bbb93d3e-4c34-5f91-9cbc-1bcb29cb085f"
+    },
+    "item": [
+      {
+        "id": "b505a388-7ee8-43cd-be4f-34c397ed31e1",
+        "name": "05 - Data-driven (CSV)",
+        "description": {
+          "content": "One request, replayed once per CSV row. Inputs and expected results come from pm.iterationData, never from the request body itself.",
+          "type": "text/plain"
+        },
+        "item": [
+          {
+            "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+            "name": "DDT | GET /api/admin/orders <- CSV row",
+            "request": {
+              "description": {
+                "content": "The calling role comes from the CSV's token_var column.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "admin",
+                  "orders"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) {",
+                    "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                    "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                    "    if (pm.execution && pm.execution.skipRequest) {",
+                    "        pm.execution.skipRequest();",
+                    "    }",
+                    "    return;",
+                    "}",
+                    "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                    "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                    "",
+                    "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                    "// tokens rather than hand-written ones.",
+                    "pm.sendRequest({",
+                    "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                    "    method: \"POST\",",
+                    "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                    "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                    "}, function (err, res) {",
+                    "    if (res && res.json() && res.json().token) {",
+                    "        pm.variables.set(\"adminTok\", res.json().token);",
+                    "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                    "    }",
+                    "    pm.sendRequest({",
+                    "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                    "        method: \"POST\",",
+                    "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                    "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                    "    }, function (err, res) {",
+                    "        if (res && res.json() && res.json().token) {",
+                    "            pm.variables.set(\"tok\", res.json().token);",
+                    "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                    "        }",
+                    "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                    "        pm.request.headers.remove(\"Authorization\");",
+                    "        if (tv === \"admin_token\") {",
+                    "            pm.request.headers.upsert({ key: \"Authorization\",",
+                    "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                    "        } else if (tv === \"user_token\") {",
+                    "            pm.request.headers.upsert({ key: \"Authorization\",",
+                    "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                    "        } else if (tv === \"bad_token\") {",
+                    "            pm.request.headers.upsert({ key: \"Authorization\",",
+                    "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                    "        }",
+                    "    });",
+                    "});"
+                  ],
+                  "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const d = pm.iterationData;",
+                    "if (!d.get(\"tc_id\")) { return; }",
+                    "",
+                    "const tc = d.get(\"tc_id\");",
+                    "const expected = Number(d.get(\"expected_status\"));",
+                    "const rule = d.get(\"requirement\");",
+                    "",
+                    "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                    "        \" -> HTTP \" + expected, function () {",
+                    "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                    "});",
+                    "",
+                    "if (pm.response.code === 200) {",
+                    "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                    "        const b = pm.response.json();",
+                    "        pm.expect(b).to.satisfy(function (v) {",
+                    "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                    "        });",
+                    "    });",
+                    "} else {",
+                    "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                    "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                    "    });",
+                    "}"
+                  ],
+                  "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "edea4d3f-eef5-4c65-87a0-7dbc53fab0ed",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// HW06 mandatory harness: every request must carry X-Student-Id.",
+            "// The console line below is the anti-AI-cheat evidence (Section 11 of the",
+            "// brief) - screenshot the Postman console showing it.",
+            "// ---------------------------------------------------------------------------",
+            "const studentId = pm.environment.get(\"student_id\") || \"23127184\";",
+            "",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "",
+            "// A fresh token per request, so cases that must create a new account can do so",
+            "// without colliding with earlier runs. Use {{uniq}} inside request bodies.",
+            "const uniq = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);",
+            "pm.variables.set(\"uniq\", uniq);",
+            "pm.variables.set(\"uniqUpper\", uniq.toUpperCase());",
+            "",
+            "// Tag each run so Newman output and SUT state can be correlated.",
+            "if (!pm.environment.get(\"run_tag\")) {",
+            "    pm.environment.set(\"run_tag\", \"run-\" + Date.now());",
+            "}",
+            "",
+            "console.log(",
+            "    \"[HW06] X-Student-Id=\" + studentId +",
+            "    \" | \" + pm.request.method + \" \" + pm.request.url.toString() +",
+            "    \" | run_tag=\" + pm.environment.get(\"run_tag\")",
+            ");"
+          ],
+          "_lastExecutionId": "e8d38329-d5c8-42ec-83c1-45b6e59dfdf3"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "b936e717-fc77-43b7-8b16-a9a0a66334bf",
+          "type": "text/javascript",
+          "exec": [
+            "// ---------------------------------------------------------------------------",
+            "// Assertions that apply to every request in the collection.",
+            "// ---------------------------------------------------------------------------",
+            "pm.test(\"Request carried the X-Student-Id header\", function () {",
+            "    const sent = pm.request.headers.get(\"X-Student-Id\");",
+            "    pm.expect(sent, \"X-Student-Id header\").to.eql(",
+            "        pm.environment.get(\"student_id\") || \"23127184\"",
+            "    );",
+            "});",
+            "",
+            "pm.test(\"Response is not rate-limited (HTTP 429)\", function () {",
+            "    pm.expect(",
+            "        pm.response.code,",
+            "        \"Backend rate limiter tripped - start the SUT with LOADTEST=1\"",
+            "    ).to.not.eql(429);",
+            "});",
+            "",
+            "pm.test(\"Response arrived under 2000 ms\", function () {",
+            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "_lastExecutionId": "caa266f0-d9e9-44f2-bd74-e34d57ff216b"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "bbb93d3e-4c34-5f91-9cbc-1bcb29cb085f",
+      "name": "API4 - FR-13 Admin Dashboard - DATA-DRIVEN (postman/data/api4_fr13_admin_orders.csv)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "HW06 / Pool C / FR-13, executed data-driven.\n\nOne `GET /api/admin/orders`, replayed once per row of `postman/data/api4_fr13_admin_orders.csv`. Each row is a role in the SEC-03 matrix - admin, ordinary user, anonymous and forged token - together with the status that role must receive.\n\nRun: `npm run ddt:api4`",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "HW06 scaffold"
+    },
+    "id": "991ac1c0-147f-462b-96ea-110602b1737c",
+    "name": "EShop - Local (23127184)",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "23127184",
+        "key": "student_id"
+      },
+      {
+        "type": "any",
+        "value": "admin@eshop.com",
+        "key": "admin_email"
+      },
+      {
+        "type": "any",
+        "value": "Admin123!",
+        "key": "admin_password"
+      },
+      {
+        "type": "any",
+        "value": "test@eshop.com",
+        "key": "user_email"
+      },
+      {
+        "type": "any",
+        "value": "Test1234!",
+        "key": "user_password"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "admin_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "user_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "victim_order_id"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "own_order_id"
+      },
+      {
+        "type": "any",
+        "value": "run-1787560960068",
+        "key": "run_tag"
+      }
+    ]
+  },
+  "globals": {
+    "id": "d5812378-c40a-4f91-8743-e070b122069b",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 16,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 20,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 7.583333333333333,
+      "responseMin": 3,
+      "responseMax": 39,
+      "responseSd": 9.612997566951849,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787560960045,
+      "completed": 1787560960645
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 4,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "864cf7f7-ad96-4e68-b4bf-0a0755e4c011",
+          "httpRequestId": "763082d2-e3fd-48ca-a230-a1bf2603e52f"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3NTYwOTYwfQ.PtkJjCJy2ZMa8cBgZcJhoIhbRHH6WGwVNnSH2bJz1lo"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "a6cee9d6-cae2-477e-8988-18599ee2266a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "62912c15-a603-4b37-92ed-133eb89b4001",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "831"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33f-9dOwD0EVDESyPIjW34akZg/QZo8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              57,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              56,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              55,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              54,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 9,
+          "responseSize": 831
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 [FR-13] admin-role -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | admin dashboard returns the order collection",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 4,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "864cf7f7-ad96-4e68-b4bf-0a0755e4c011",
+          "httpRequestId": "763082d2-e3fd-48ca-a230-a1bf2603e52f"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3NTYwOTYwfQ.PtkJjCJy2ZMa8cBgZcJhoIhbRHH6WGwVNnSH2bJz1lo"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "a6cee9d6-cae2-477e-8988-18599ee2266a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "62912c15-a603-4b37-92ed-133eb89b4001",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "831"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33f-9dOwD0EVDESyPIjW34akZg/QZo8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              57,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              56,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              55,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              54,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 9,
+          "responseSize": 831
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 [FR-13] admin-role -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | admin dashboard returns the order collection",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 4,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "864cf7f7-ad96-4e68-b4bf-0a0755e4c011",
+          "httpRequestId": "763082d2-e3fd-48ca-a230-a1bf2603e52f"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3NTYwOTYwfQ.PtkJjCJy2ZMa8cBgZcJhoIhbRHH6WGwVNnSH2bJz1lo"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "a6cee9d6-cae2-477e-8988-18599ee2266a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "62912c15-a603-4b37-92ed-133eb89b4001",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "831"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"33f-9dOwD0EVDESyPIjW34akZg/QZo8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              57,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              56,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              55,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              55,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              54,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              97,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              50,
+              53,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              112,
+              101,
+              110,
+              100,
+              105,
+              110,
+              103,
+              34,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              32,
+              76,
+              101,
+              32,
+              76,
+              111,
+              105,
+              44,
+              32,
+              81,
+              49,
+              44,
+              32,
+              84,
+              80,
+              46,
+              72,
+              67,
+              77,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              56,
+              45,
+              50,
+              52,
+              32,
+              48,
+              56,
+              58,
+              52,
+              50,
+              58,
+              51,
+              54,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              114,
+              101,
+              115,
+              104,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 9,
+          "responseSize": 831
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 [FR-13] admin-role -> HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-01 | admin dashboard returns the order collection",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "b9e3f33a-6ae4-46d2-81a4-d6e3cf3c649d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "8c33ed57-9540-4b50-9a71-85361222bc0a"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc1NjA5NjB9.UisoHFyGY9GYRa8IUxBjmoxuXLdJIYol6yKjBXfIk88"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f58495a0-5612-473e-ad52-936514232d6e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "6db8de04-c179-4d66-bdfd-95ac6aa2450b",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "31"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1f-e/H0W8PvXPk5yx09PD60DMkU+UA\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              65,
+              100,
+              109,
+              105,
+              110,
+              32,
+              114,
+              111,
+              108,
+              101,
+              32,
+              114,
+              101,
+              113,
+              117,
+              105,
+              114,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 31
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 [SEC-03] user-role -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "b9e3f33a-6ae4-46d2-81a4-d6e3cf3c649d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "8c33ed57-9540-4b50-9a71-85361222bc0a"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc1NjA5NjB9.UisoHFyGY9GYRa8IUxBjmoxuXLdJIYol6yKjBXfIk88"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f58495a0-5612-473e-ad52-936514232d6e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "6db8de04-c179-4d66-bdfd-95ac6aa2450b",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "31"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1f-e/H0W8PvXPk5yx09PD60DMkU+UA\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              65,
+              100,
+              109,
+              105,
+              110,
+              32,
+              114,
+              111,
+              108,
+              101,
+              32,
+              114,
+              101,
+              113,
+              117,
+              105,
+              114,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 31
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 [SEC-03] user-role -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "b9e3f33a-6ae4-46d2-81a4-d6e3cf3c649d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "8c33ed57-9540-4b50-9a71-85361222bc0a"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODc1NjA5NjB9.UisoHFyGY9GYRa8IUxBjmoxuXLdJIYol6yKjBXfIk88"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f58495a0-5612-473e-ad52-936514232d6e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "6db8de04-c179-4d66-bdfd-95ac6aa2450b",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "31"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1f-e/H0W8PvXPk5yx09PD60DMkU+UA\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              65,
+              100,
+              109,
+              105,
+              110,
+              32,
+              114,
+              111,
+              108,
+              101,
+              32,
+              114,
+              101,
+              113,
+              117,
+              105,
+              114,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 31
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 [SEC-03] user-role -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-02 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "14f049c1-01b3-4890-aa0e-82422443059d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "3ac16b40-9c9c-42f6-9346-06ad5e6741d9"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b8b5f39b-5ec8-4d98-9df1-bf61cf501b5c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "cf602f97-d2a9-4f6d-b4ec-e36b8feaf208",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-XPDV80vbMk4yY1/PADG4jYM4rSI\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              117,
+              116,
+              104,
+              111,
+              114,
+              105,
+              122,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 24
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 [SEC-02] no-token -> HTTP 401",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "14f049c1-01b3-4890-aa0e-82422443059d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "3ac16b40-9c9c-42f6-9346-06ad5e6741d9"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b8b5f39b-5ec8-4d98-9df1-bf61cf501b5c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "cf602f97-d2a9-4f6d-b4ec-e36b8feaf208",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-XPDV80vbMk4yY1/PADG4jYM4rSI\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              117,
+              116,
+              104,
+              111,
+              114,
+              105,
+              122,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 24
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 [SEC-02] no-token -> HTTP 401",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "14f049c1-01b3-4890-aa0e-82422443059d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "3ac16b40-9c9c-42f6-9346-06ad5e6741d9"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b8b5f39b-5ec8-4d98-9df1-bf61cf501b5c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "cf602f97-d2a9-4f6d-b4ec-e36b8feaf208",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-XPDV80vbMk4yY1/PADG4jYM4rSI\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              117,
+              116,
+              104,
+              111,
+              114,
+              105,
+              122,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 24
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 [SEC-02] no-token -> HTTP 401",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-03 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a86b4f55-d37d-4506-898f-e7f7e020e0be",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "a7b73313-c75e-4322-b5d7-6928a1bfa602"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e069bc91-8270-4f39-96e0-bdbe246244ac",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "3983f919-8642-452a-a0e5-38e3288b7109",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "21"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"15-TLNzmZqKxaTuFdX/dVWWPBu44/c\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              70,
+              111,
+              114,
+              98,
+              105,
+              100,
+              100,
+              101,
+              110,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 21
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 [SEC-02] malformed-token -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a86b4f55-d37d-4506-898f-e7f7e020e0be",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "a7b73313-c75e-4322-b5d7-6928a1bfa602"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e069bc91-8270-4f39-96e0-bdbe246244ac",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "3983f919-8642-452a-a0e5-38e3288b7109",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "21"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"15-TLNzmZqKxaTuFdX/dVWWPBu44/c\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              70,
+              111,
+              114,
+              98,
+              105,
+              100,
+              100,
+              101,
+              110,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 21
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 [SEC-02] malformed-token -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a86b4f55-d37d-4506-898f-e7f7e020e0be",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "a7b73313-c75e-4322-b5d7-6928a1bfa602"
+        },
+        "item": {
+          "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+          "name": "DDT | GET /api/admin/orders <- CSV row",
+          "request": {
+            "description": {
+              "content": "The calling role comes from the CSV's token_var column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "57442ace-8e4c-4da6-86e2-6ec0c3e71f78",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) {",
+                  "    console.log(\"[HW06][DDT] No data file supplied - skipping. Run with: \" +",
+                  "                \"newman run <collection> -d postman/data/<file>.csv\");",
+                  "    if (pm.execution && pm.execution.skipRequest) {",
+                  "        pm.execution.skipRequest();",
+                  "    }",
+                  "    return;",
+                  "}",
+                  "console.log(\"[HW06][DDT] iteration \" + d.get(\"tc_id\") + \" | \" +",
+                  "            d.get(\"partition\") + \" | expect HTTP \" + d.get(\"expected_status\"));",
+                  "",
+                  "// Two real logins per iteration, so the role matrix is exercised with genuine",
+                  "// tokens rather than hand-written ones.",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "    method: \"POST\",",
+                  "    header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "    body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"admin_email\"), password: pm.environment.get(\"admin_password\") }) }",
+                  "}, function (err, res) {",
+                  "    if (res && res.json() && res.json().token) {",
+                  "        pm.variables.set(\"adminTok\", res.json().token);",
+                  "        pm.variables.set(\"adminTok_uid\", res.json().user.id);",
+                  "    }",
+                  "    pm.sendRequest({",
+                  "        url: pm.environment.get(\"base_url\") + \"/api/login\",",
+                  "        method: \"POST\",",
+                  "        header: { \"Content-Type\": \"application/json\", \"X-Student-Id\": pm.environment.get(\"student_id\") },",
+                  "        body: { mode: \"raw\", raw: JSON.stringify({ email: pm.environment.get(\"user_email\"), password: pm.environment.get(\"user_password\") }) }",
+                  "    }, function (err, res) {",
+                  "        if (res && res.json() && res.json().token) {",
+                  "            pm.variables.set(\"tok\", res.json().token);",
+                  "            pm.variables.set(\"tok_uid\", res.json().user.id);",
+                  "        }",
+                  "        const tv = (d.get(\"token_var\") || \"\").trim();",
+                  "        pm.request.headers.remove(\"Authorization\");",
+                  "        if (tv === \"admin_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"adminTok\") });",
+                  "        } else if (tv === \"user_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + pm.variables.get(\"tok\") });",
+                  "        } else if (tv === \"bad_token\") {",
+                  "            pm.request.headers.upsert({ key: \"Authorization\",",
+                  "                value: \"Bearer \" + \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184\" });",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "_lastExecutionId": "dcc7a459-970f-4e07-9c5c-d954dd5f258a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e9602521-598b-43f0-9226-de35676ffabe",
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.iterationData;",
+                  "if (!d.get(\"tc_id\")) { return; }",
+                  "",
+                  "const tc = d.get(\"tc_id\");",
+                  "const expected = Number(d.get(\"expected_status\"));",
+                  "const rule = d.get(\"requirement\");",
+                  "",
+                  "pm.test(tc + \" [\" + rule + \"] \" + d.get(\"partition\") +",
+                  "        \" -> HTTP \" + expected, function () {",
+                  "    pm.expect(pm.response.code, \"status code for \" + tc).to.eql(expected);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test(tc + \" | admin dashboard returns the order collection\", function () {",
+                  "        const b = pm.response.json();",
+                  "        pm.expect(b).to.satisfy(function (v) {",
+                  "            return Array.isArray(v) || (v && typeof v === \"object\");",
+                  "        });",
+                  "    });",
+                  "} else {",
+                  "    pm.test(tc + \" | refusal discloses no order data\", function () {",
+                  "        pm.expect(pm.response.text() || \"\").to.not.include(\"total_amount\");",
+                  "    });",
+                  "}"
+                ],
+                "_lastExecutionId": "bf6fc79c-4ff2-47b3-9f92-9b9263a2d5ac"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "The calling role comes from the CSV's token_var column.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "admin",
+              "orders"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127184"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.hw06-invalid-signature-23127184"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e069bc91-8270-4f39-96e0-bdbe246244ac",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "3983f919-8642-452a-a0e5-38e3288b7109",
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "21"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"15-TLNzmZqKxaTuFdX/dVWWPBu44/c\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 24 Aug 2026 08:42:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              70,
+              111,
+              114,
+              98,
+              105,
+              100,
+              100,
+              101,
+              110,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 21
+        },
+        "id": "48aca4e3-6221-4a14-9f1d-a7067c1e74ed",
+        "assertions": [
+          {
+            "assertion": "Request carried the X-Student-Id header",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is not rate-limited (HTTP 429)",
+            "skipped": false
+          },
+          {
+            "assertion": "Response arrived under 2000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 [SEC-02] malformed-token -> HTTP 403",
+            "skipped": false
+          },
+          {
+            "assertion": "DDT-04 | refusal discloses no order data",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 3519
+    },
+    "failures": [],
+    "error": null
+  }
+}

@@ -1,0 +1,178 @@
+﻿HW06 - API Testing | Git commit log
+Student ID : 23127184
+Repository : https://github.com/KieuDuyennn/software__testing.git
+Branch     : hw6
+Generated  : 2026-08-30 12:34:13 +07:00
+Scope      : commits touching HW06/ or the HW06 Actions workflow
+==============================================================================
+
+6144b58  2026-08-30 12:34:08 +0700  Lê Phạm Kiều Duyên
+    build(hw06): drop the data-driven screenshot and the per-API JSON from the upload
+
+f5bed07  2026-08-30 12:31:34 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): drop the evidence index and the report lines that cited it
+
+5ae4be8  2026-08-30 12:22:40 +0700  Lê Phạm Kiều Duyên
+    style(hw06): drop the log filename from the evidence card header
+
+6f7adaa  2026-08-30 12:19:45 +0700  Lê Phạm Kiều Duyên
+    style(hw06): clean up the Newman evidence cards
+
+748dd8e  2026-08-30 12:09:31 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): keep the evidence provenance note in the evidence index only
+
+8fd82e1  2026-08-30 12:08:07 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+c9ced2d  2026-08-30 11:54:45 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+b91b633  2026-08-30 11:54:33 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): sweep the repo for stale notes and AI-cheat signals
+
+33ad30e  2026-08-30 11:31:03 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+c4c5ae5  2026-08-30 11:30:53 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): replace the generator diagram with the student's own drawing
+
+6d03b92  2026-08-30 11:18:27 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+e19869e  2026-08-30 11:18:13 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): publish the Agent Skill demo video and refresh the gate run
+
+09d23fb  2026-08-30 00:10:13 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+75cb679  2026-08-30 00:09:56 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): capture the red CI run's assertion table
+
+ba75d58  2026-08-29 23:57:07 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh the submission commit log
+
+5930a4b  2026-08-29 23:55:19 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): name the request under test on every evidence card
+
+54e384b  2026-08-29 23:48:11 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): widen the commit-log scope and fix its encoding
+
+3932bfb  2026-08-29 23:47:00 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): render issue evidence and correct the CI references
+
+47677c2  2026-08-24 15:43:55 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): tidy the tree and drop the working notes
+
+2a3f61f  2026-08-24 15:06:28 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): reconcile the summary numbers with the two SUT states
+
+75bd626  2026-08-24 15:05:55 +0700  Lê Phạm Kiều Duyên
+    test(hw06): add CSV-driven execution for all four APIs
+
+d3d96b9  2026-08-24 14:21:38 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): finalize CI evidence and audit reports
+
+ff360cd  2026-08-24 14:15:28 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore complete full-suite pass
+
+27b76ae  2026-08-24 14:13:51 +0700  Lê Phạm Kiều Duyên
+    test(hw06): run full suite with one controlled failure
+
+925696f  2026-08-24 14:09:14 +0700  Lê Phạm Kiều Duyên
+    test(hw06): pass the complete 386-case suite
+
+9d2c076  2026-08-24 14:09:06 +0700  Lê Phạm Kiều Duyên
+    test(hw06): stabilize fixtures and show one failure
+
+8f2b817  2026-08-24 14:06:37 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore all 386 API cases passing
+
+73ce207  2026-08-24 14:06:26 +0700  Lê Phạm Kiều Duyên
+    test(hw06): demonstrate one full-suite failure
+
+2519cb7  2026-08-24 01:03:49 +0700  Lê Phạm Kiều Duyên
+    test(hw06): restore all-passing regression gate
+
+4cba101  2026-08-24 01:02:22 +0700  Lê Phạm Kiều Duyên
+    test(hw06): demonstrate one failing CI case
+
+8ce2bd4  2026-08-24 01:00:03 +0700  Lê Phạm Kiều Duyên
+    evidence(hw06): attach verified Newman issue evidence
+
+95b6dc3  2026-08-24 00:39:16 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh submission commit log
+
+071ac34  2026-08-24 00:39:06 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): polish reports and record integrity review
+
+e93d9d6  2026-08-24 00:30:17 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh submission commit log
+
+5226c45  2026-08-24 00:30:07 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): align pool mapping and refresh evidence
+
+a59eea6  2026-08-24 00:14:04 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): finalize self assessment and uniqueness
+
+d818a20  2026-08-24 00:08:41 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): add generator diagram evidence
+
+61edce5  2026-08-23 23:53:24 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh evidence commit log
+
+0395924  2026-08-23 23:53:19 +0700  Lê Phạm Kiều Duyên
+    evidence(hw06): add real Postman localhost execution
+
+8f8e0c4  2026-08-23 23:24:07 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): refresh submission commit log
+
+00c1072  2026-08-23 23:23:58 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): streamline submission handoff
+
+fe36b7e  2026-08-23 23:18:08 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh history after trailer cleanup
+
+8d77c6d  2026-08-23 23:14:53 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): add authentic browser evidence
+
+44ca68b  2026-08-23 22:57:11 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh final commit history
+
+0d7fb95  2026-08-23 22:57:10 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): record authentic green and red CI runs
+
+0319378  2026-08-23 22:55:38 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): stabilize Linux regression gate
+
+280577e  2026-08-23 22:51:28 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh phase commit history
+
+f7173d2  2026-08-23 22:51:21 +0700  Lê Phạm Kiều Duyên
+    docs(hw06): finalize reports bugs and evidence guide
+
+b3840be  2026-08-23 22:51:11 +0700  Lê Phạm Kiều Duyên
+    test(hw06): record full and regression-gate executions
+
+29d7038  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): audit and extend API 4 test cases
+
+32d5a5f  2026-08-23 22:51:01 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): audit and extend API 3 test cases
+
+388a59b  2026-08-23 22:51:00 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): audit and extend API 2 test cases
+
+ae2b26f  2026-08-23 22:50:53 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): audit and extend API 1 test cases
+
+e6b27de  2026-08-23 22:01:40 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): refresh generated commit log
+
+2c3caf4  2026-08-23 22:01:32 +0700  Lê Phạm Kiều Duyên
+    feat(hw06): generate 121 test cases for API 1 (FR-01 register)
+
+702ecfa  2026-08-23 21:41:00 +0700  Lê Phạm Kiều Duyên
+    fix(hw06): count HW06 commits from the repository root
+
+1287f9d  2026-08-23 21:40:30 +0700  Lê Phạm Kiều Duyên
+    chore(hw06): scaffold AI-assisted API testing workspace

@@ -1,0 +1,585 @@
+
+> hw06-api-testing@1.0.0 ddt:all
+> npm run ddt:api1 && npm run ddt:api2 && npm run ddt:api3 && npm run ddt:api4
+
+
+> hw06-api-testing@1.0.0 ddt:api1
+> newman run postman/collections/API1_FR01_Register_ddt.postman_collection.json -e postman/config/eshop-local.postman_environment.json -d postman/data/api1_fr01_register.csv -r cli,htmlextra,json --reporter-htmlextra-export reports/API1_FR01_Register_ddt.html --reporter-json-export reports/API1_FR01_Register_ddt.json
+
+(node:10384) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+API1 - FR-01 Registration - DATA-DRIVEN (postman/data/api1_fr01_register.csv)
+
+Iteration 1/10
+
+□ 05 - Data-driven (CSV)
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-01 | valid-all | expect HTT
+  │ P 200'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 111ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-01 [FR-01] valid-all -> HTTP 200
+  √  DDT-01 | success body matches the FR-01 shape
+
+Iteration 2/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-02 | email-missing-at | exp
+  │ ect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 311B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-02 [FR-01] email-missing-at -> HTTP 400
+
+Iteration 3/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-03 | email-missing-domain |
+  │  expect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 311B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-03 [FR-01] email-missing-domain -> HTTP 400
+
+Iteration 4/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-04 | email-empty | expect H
+  │ TTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 311B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-04 [FR-01] email-empty -> HTTP 400
+
+Iteration 5/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-05 | password-too-short | e
+  │ xpect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 327B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-05 [FR-01] password-too-short -> HTTP 400
+
+Iteration 6/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-06 | password-no-uppercase 
+  │ | expect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 327B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-06 [FR-01] password-no-uppercase -> HTTP 400
+
+Iteration 7/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-07 | password-no-digit | ex
+  │ pect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 327B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-07 [FR-01] password-no-digit -> HTTP 400
+
+Iteration 8/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-08 | password-no-special | 
+  │ expect HTTP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 327B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-08 [FR-01] password-no-special -> HTTP 400
+
+Iteration 9/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-09 | password-boundary-8 | 
+  │ expect HTTP 200'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 65ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-09 [FR-01] password-boundary-8 -> HTTP 200
+  √  DDT-09 | success body matches the FR-01 shape
+
+Iteration 10/10
+
+└ DDT | POST /api/register <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | POST {{base_url}}/api/
+  │ register | run_tag=run-1787560950004'
+  │ '[HW06][DDT] iteration DDT-10 | name-empty | expect HT
+  │ TP 400'
+  └
+  POST http://localhost:3000/api/register [400 Bad Request, 312B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-10 [FR-01] name-empty -> HTTP 400
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                20 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                20 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                42 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 1137ms                                     │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 443B (approx)                             │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 20ms [min: 3ms, max: 111ms, s.d.: 35ms] │
+└────────────────────────────────────────────────────────────────┘
+
+> hw06-api-testing@1.0.0 ddt:api2
+> newman run postman/collections/API2_FR06_ProductDetail_ddt.postman_collection.json -e postman/config/eshop-local.postman_environment.json -d postman/data/api2_fr06_product_detail.csv -r cli,htmlextra,json --reporter-htmlextra-export reports/API2_FR06_ProductDetail_ddt.html --reporter-json-export reports/API2_FR06_ProductDetail_ddt.json
+
+(node:19096) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+API2 - FR-06 Product Detail - DATA-DRIVEN (postman/data/api2_fr06_product_detail.csv)
+
+Iteration 1/8
+
+□ 05 - Data-driven (CSV)
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-01 | valid-odd-id | expect 
+  │ HTTP 200'
+  └
+  GET http://localhost:3000/api/products/1 [200 OK, 451B, 34ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-01 [FR-06] valid-odd-id -> HTTP 200
+  √  DDT-01 | body is a product per api_specification.md
+  √  DDT-01 | response leaks no stack trace
+
+Iteration 2/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-02 | valid-even-id | expect
+  │  HTTP 200'
+  └
+  GET http://localhost:3000/api/products/2 [200 OK, 478B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-02 [FR-06] valid-even-id -> HTTP 200
+  √  DDT-02 | body is a product per api_specification.md
+  √  DDT-02 | response leaks no stack trace
+
+Iteration 3/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-03 | valid-last-seeded | ex
+  │ pect HTTP 200'
+  └
+  GET http://localhost:3000/api/products/5 [200 OK, 467B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-03 [FR-06] valid-last-seeded -> HTTP 200
+  √  DDT-03 | body is a product per api_specification.md
+  √  DDT-03 | response leaks no stack trace
+
+Iteration 4/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-04 | non-existent | expect 
+  │ HTTP 404'
+  └
+  GET http://localhost:3000/api/products/999999 [404 Not Found, 303B, 11ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-04 [FR-06] non-existent -> HTTP 404
+  √  DDT-04 | response leaks no stack trace
+
+Iteration 5/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-05 | boundary-zero | expect
+  │  HTTP 404'
+  └
+  GET http://localhost:3000/api/products/0 [404 Not Found, 303B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-05 [FR-06] boundary-zero -> HTTP 404
+  √  DDT-05 | response leaks no stack trace
+
+Iteration 6/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-06 | negative | expect HTTP
+  │  400'
+  └
+  GET http://localhost:3000/api/products/-1 [400 Bad Request, 325B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-06 [FR-06] negative -> HTTP 400
+  √  DDT-06 | response leaks no stack trace
+
+Iteration 7/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-07 | non-numeric | expect H
+  │ TTP 400'
+  └
+  GET http://localhost:3000/api/products/abc [400 Bad Request, 325B, 2ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-07 [FR-06] non-numeric -> HTTP 400
+  √  DDT-07 | response leaks no stack trace
+
+Iteration 8/8
+
+└ DDT | GET /api/products/{{ddt_product_id}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/p
+  │ roducts/{{ddt_product_id}} | run_tag=run-1787560953195
+  │ '
+  │ '[HW06][DDT] iteration DDT-08 | sql-injection | expect
+  │  HTTP 400'
+  └
+  GET http://localhost:3000/api/products/1 OR 1=1 [400 Bad Request, 325B, 6ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-08 [SEC-05] sql-injection -> HTTP 400
+  √  DDT-08 | response leaks no stack trace
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                8 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │                8 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │               16 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │               16 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │               43 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 921ms                                    │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 797B (approx)                           │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 8ms [min: 2ms, max: 34ms, s.d.: 10ms] │
+└──────────────────────────────────────────────────────────────┘
+
+> hw06-api-testing@1.0.0 ddt:api3
+> newman run postman/collections/API3_FR11_OrderHistory_ddt.postman_collection.json -e postman/config/eshop-local.postman_environment.json -d postman/data/api3_fr11_order_history.csv -r cli,htmlextra,json --reporter-htmlextra-export reports/API3_FR11_OrderHistory_ddt.html --reporter-json-export reports/API3_FR11_OrderHistory_ddt.json
+
+(node:3700) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+API3 - FR-11 Order History - DATA-DRIVEN (postman/data/api3_fr11_order_history.csv)
+
+Iteration 1/5
+
+□ 05 - Data-driven (CSV)
+└ DDT | GET /api/orders/{{ddt_target}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/{{ddt_target}} | run_tag=run-1787560956245'
+  │ '[HW06][DDT] iteration DDT-01 | own-history | expect H
+  │ TTP 200'
+  └
+  POST http://localhost:3000/api/login [200 OK, 593B, 36ms]
+  POST http://localhost:3000/api/register [200 OK, 316B, 61ms]
+  POST http://localhost:3000/api/login [200 OK, 610B, 53ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 12ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-01 [FR-11] own-history -> HTTP 200
+  √  DDT-01 | history is an array of the caller's own orders
+
+Iteration 2/5
+
+└ DDT | GET /api/orders/{{ddt_target}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/{{ddt_target}} | run_tag=run-1787560956245'
+  │ '[HW06][DDT] iteration DDT-02 | no-token | expect HTTP
+  │  401'
+  └
+  POST http://localhost:3000/api/login [200 OK, 593B, 4ms]
+  POST http://localhost:3000/api/register [200 OK, 316B, 67ms]
+  POST http://localhost:3000/api/login [200 OK, 610B, 55ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 10ms]
+  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 10ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-02 [SEC-02] no-token -> HTTP 401
+
+Iteration 3/5
+
+└ DDT | GET /api/orders/{{ddt_target}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/{{ddt_target}} | run_tag=run-1787560956245'
+  │ '[HW06][DDT] iteration DDT-03 | malformed-token | expe
+  │ ct HTTP 403'
+  └
+  POST http://localhost:3000/api/login [200 OK, 593B, 8ms]
+  POST http://localhost:3000/api/register [200 OK, 316B, 74ms]
+  POST http://localhost:3000/api/login [200 OK, 610B, 115ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 4ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-03 [SEC-02] malformed-token -> HTTP 403
+
+Iteration 4/5
+
+└ DDT | GET /api/orders/{{ddt_target}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/{{ddt_target}} | run_tag=run-1787560956245'
+  │ '[HW06][DDT] iteration DDT-04 | cross-user-read | expe
+  │ ct HTTP 403'
+  └
+  POST http://localhost:3000/api/login [200 OK, 593B, 6ms]
+  POST http://localhost:3000/api/register [200 OK, 316B, 76ms]
+  POST http://localhost:3000/api/login [200 OK, 610B, 85ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 10ms]
+  GET http://localhost:3000/api/orders/4 [403 Forbidden, 295B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-04 [FR-11] cross-user-read -> HTTP 403
+  √  DDT-04 | the victim's order is not disclosed
+
+Iteration 5/5
+
+└ DDT | GET /api/orders/{{ddt_target}} <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/o
+  │ rders/{{ddt_target}} | run_tag=run-1787560956245'
+  │ '[HW06][DDT] iteration DDT-05 | anonymous-order-read |
+  │  expect HTTP 401'
+  └
+  POST http://localhost:3000/api/login [200 OK, 593B, 8ms]
+  POST http://localhost:3000/api/register [200 OK, 316B, 76ms]
+  POST http://localhost:3000/api/login [200 OK, 610B, 59ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 8ms]
+  GET http://localhost:3000/api/orders/5 [401 Unauthorized, 301B, 7ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-05 [SEC-02] anonymous-order-read -> HTTP 401
+  √  DDT-05 | the victim's order is not disclosed
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 5 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                25 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                23 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 1547ms                                     │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 3.89kB (approx)                           │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 34ms [min: 4ms, max: 115ms, s.d.: 33ms] │
+└────────────────────────────────────────────────────────────────┘
+
+> hw06-api-testing@1.0.0 ddt:api4
+> newman run postman/collections/API4_FR13_AdminOrders_ddt.postman_collection.json -e postman/config/eshop-local.postman_environment.json -d postman/data/api4_fr13_admin_orders.csv -r cli,htmlextra,json --reporter-htmlextra-export reports/API4_FR13_AdminOrders_ddt.html --reporter-json-export reports/API4_FR13_AdminOrders_ddt.json
+
+(node:19628) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+API4 - FR-13 Admin Dashboard - DATA-DRIVEN (postman/data/api4_fr13_admin_orders.csv)
+
+Iteration 1/4
+
+□ 05 - Data-driven (CSV)
+└ DDT | GET /api/admin/orders <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787560960068'
+  │ '[HW06][DDT] iteration DDT-01 | admin-role | expect HT
+  │ TP 200'
+  └
+  POST http://localhost:3000/api/login [200 OK, 598B, 39ms]
+  POST http://localhost:3000/api/login [200 OK, 593B, 4ms]
+  GET http://localhost:3000/api/admin/orders [200 OK, 1.1kB, 9ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-01 [FR-13] admin-role -> HTTP 200
+  √  DDT-01 | admin dashboard returns the order collection
+
+Iteration 2/4
+
+└ DDT | GET /api/admin/orders <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787560960068'
+  │ '[HW06][DDT] iteration DDT-02 | user-role | expect HTT
+  │ P 403'
+  └
+  POST http://localhost:3000/api/login [200 OK, 598B, 5ms]
+  POST http://localhost:3000/api/login [200 OK, 593B, 4ms]
+  GET http://localhost:3000/api/admin/orders [403 Forbidden, 305B, 5ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-02 [SEC-03] user-role -> HTTP 403
+  √  DDT-02 | refusal discloses no order data
+
+Iteration 3/4
+
+└ DDT | GET /api/admin/orders <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787560960068'
+  │ '[HW06][DDT] iteration DDT-03 | no-token | expect HTTP
+  │  401'
+  └
+  POST http://localhost:3000/api/login [200 OK, 598B, 6ms]
+  POST http://localhost:3000/api/login [200 OK, 593B, 3ms]
+  GET http://localhost:3000/api/admin/orders [401 Unauthorized, 301B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-03 [SEC-02] no-token -> HTTP 401
+  √  DDT-03 | refusal discloses no order data
+
+Iteration 4/4
+
+└ DDT | GET /api/admin/orders <- CSV row
+  ┌
+  │ '[HW06] X-Student-Id=23127184 | GET {{base_url}}/api/a
+  │ dmin/orders | run_tag=run-1787560960068'
+  │ '[HW06][DDT] iteration DDT-04 | malformed-token | expe
+  │ ct HTTP 403'
+  └
+  POST http://localhost:3000/api/login [200 OK, 598B, 4ms]
+  POST http://localhost:3000/api/login [200 OK, 593B, 6ms]
+  GET http://localhost:3000/api/admin/orders [403 Forbidden, 295B, 3ms]
+  √  Request carried the X-Student-Id header
+  √  Response is not rate-limited (HTTP 429)
+  √  Response arrived under 2000 ms
+  √  DDT-04 [SEC-02] malformed-token -> HTTP 403
+  √  DDT-04 | refusal discloses no order data
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               4 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              12 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │               8 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               8 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              20 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 600ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 3.52kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 7ms [min: 3ms, max: 39ms, s.d.: 9ms] │
+└─────────────────────────────────────────────────────────────┘

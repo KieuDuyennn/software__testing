@@ -1,0 +1,70 @@
+name: HW06 API Tests (Newman)
+
+# Section 6 of the brief: the API test cases run in a CI/CD pipeline.
+#
+# The final pipeline runs every case in all four submitted collections. Any
+# failed assertion fails the job. This makes the green sample literal: all 386
+# API test cases, not a selected regression subset, pass.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "HW06/**"
+      - ".github/workflows/hw06-api-tests.yml"
+  pull_request:
+    paths:
+      - "HW06/**"
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: HW06
+
+jobs:
+  full-suite:
+    name: All 386 API test cases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install test harness
+        run: npm ci || npm install
+
+      - name: Install SUT dependencies
+        run: npm --prefix eshop/backend install
+
+      - name: Start EShop backend
+        run: |
+          LOADTEST=1 node eshop/backend/server.js > sut.log 2>&1 &
+          echo "SUT_PID=$!" >> "$GITHUB_ENV"
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:3000/api/products > /dev/null; then exit 0; fi
+            sleep 0.5
+          done
+          echo "Backend never became ready:"; cat sut.log; exit 1
+
+      - name: Run full suite
+        run: node scripts/run-suite.js --mode full --env ci
+
+      - name: Publish full-suite summary
+        if: always()
+        run: node scripts/print-ci-summary.js --mode full >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Stop EShop backend
+        if: always()
+        run: kill "$SUT_PID" || true
+
+      - name: Upload full reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-all-api-reports
+          path: |
+            HW06/reports/*.html
+            HW06/reports/*.json
+            HW06/sut.log

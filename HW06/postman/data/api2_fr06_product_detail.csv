@@ -1,0 +1,9 @@
+tc_id,partition,product_id,expected_status,expect_body,requirement
+DDT-01,valid-odd-id,1,200,product,FR-06
+DDT-02,valid-even-id,2,200,product,FR-06
+DDT-03,valid-last-seeded,5,200,product,FR-06
+DDT-04,non-existent,999999,404,error,FR-06
+DDT-05,boundary-zero,0,404,error,FR-06
+DDT-06,negative,-1,400,error,FR-06
+DDT-07,non-numeric,abc,400,error,FR-06
+DDT-08,sql-injection,1 OR 1=1,400,error,SEC-05
